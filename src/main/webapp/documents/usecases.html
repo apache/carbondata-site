@@ -1,0 +1,93 @@
+
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document.md</title><style></style></head><body id="preview">
+<p>&lt;!–<br>
+Licensed to the Apache Software Foundation (ASF) under one<br>
+or more contributor license agreements.  See the NOTICE file<br>
+distributed with this work for additional information<br>
+regarding copyright ownership.  The ASF licenses this file<br>
+to you under the Apache License, Version 2.0 (the<br>
+“License”); you may not use this file except in compliance<br>
+with the License.  You may obtain a copy of the License at</p>
+<pre><code>  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+&quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+</code></pre>
+<p>–&gt;</p>
+<h1><a id="CarbonData_Use_Cases_19"></a>CarbonData Use Cases</h1>
+<p>This tutorial will discuss about the problems that CarbonData <a href="http://address.It">address.It</a> shall take you through the identified top use cases of Carbon.</p>
+<h2><a id="Introduction_22"></a>Introduction</h2>
+<p>For big data interactive analysis scenarios, many customers expect sub-second response to query TB-PB level data on general hardware clusters with just a few nodes.</p>
+<p>In the current big data ecosystem, there are few columnar storage formats such as ORC and Parquet that are designed for SQL on Big Data. Apache Hive’s ORC format is<br>
+a columnar storage format with basic indexing capability. However, ORC cannot meet the sub-second query response expectation on TB level data, because ORC format<br>
+performs only stride level dictionary encoding and all analytical operations such as filtering and aggregation is done on the actual data. Apache Parquet is columnar<br>
+storage can improve performance in comparison to ORC, because of more efficient storage organization. Though Parquet can provide query response on TB level data in a<br>
+few seconds, it is still far from the sub-second expectation of interactive analysis users. Cloudera Kudu can effectively solve some query performance issues, but kudu<br>
+is not hadoop native, can’t seamlessly integrate historic HDFS data into new kudu system.</p>
+<p>However, CarbonData uses specially engineered optimizations targeted to improve performance of analytical queries which can include filters, aggregation and distinct counts,<br>
+the required data to be stored in an indexed, well organized, read-optimized format, CarbonData’s query performance can achieve sub-second response.</p>
+<h2><a id="Motivation_Single_Format_to_provide_low_latency_response_for_all_use_cases_35"></a>Motivation: Single Format to provide low latency response for all use cases</h2>
+<p>The main motivation behind CarbonData is to provide a single storage format for all the usecases of querying big data on Hadoop. Thus CarbonData is able to cover all use-cases<br>
+into a single storage format.</p>
+<p><img src="../docs/images/format/carbon_data_motivation.png?raw=true" alt="Motivation"></p>
+<h2><a id="Use_Cases_41"></a>Use Cases</h2>
+<ul>
+<li>
+<h3><a id="Sequential_Access_42"></a>Sequential Access</h3>
+<ul>
+<li>Supports queries that select only a few columns with a group by clause but do not contain any filters.<br>
+This results in full scan over the complete store for the selected columns.</li>
+</ul>
+<p><img src="../docs/images/format/carbon_data_full_scan.png?raw=true" alt="Sequential_Scan"></p>
+<p><strong>Scenario</strong></p>
+<ul>
+<li>ETL jobs</li>
+<li>Log Analysis</li>
+</ul>
+</li>
+<li>
+<h3><a id="Random_Access_53"></a>Random Access</h3>
+<ul>
+<li>Supports Point Query. These are queries used from operational applications and usually select all or most of the columns but do involve a large number of<br>
+filters which reduce the result to a small size. Such queries generally do not involve any aggregation or group by clause.
+<ul>
+<li>Row-key query(like HBase)</li>
+<li>Narrow Scan</li>
+<li>Requires second/sub-second level low latency</li>
+</ul>
+</li>
+</ul>
+<p><img src="../docs/images/format/carbon_data_random_scan.png?raw=true" alt="random_access"></p>
+<p><strong>Scenario</strong></p>
+<ul>
+<li>Operational Query</li>
+<li>User Profiling</li>
+</ul>
+</li>
+<li>
+<h3><a id="Olap_Style_Query_67"></a>Olap Style Query</h3>
+<ul>
+<li>Supports Interactive data analysis for any dimensions. These are queries which are typically fired from Interactive Analysis tools.<br>
+Such queries often select a few columns but involve filters and group by on a column or a grouping expression.<br>
+It also supports queries that :
+<ul>
+<li>involves aggregation/join</li>
+<li>Roll-up,Drill-down,Slicing and Dicing</li>
+<li>Low-latency ad-hoc query</li>
+</ul>
+</li>
+</ul>
+<p><img src="../docs/images/format/carbon_data_olap_scan.png?raw=true" alt="Olap_style_query"></p>
+<p><strong>Scenario</strong></p>
+<ul>
+<li>Dash-board reporting</li>
+<li>Fraud &amp; Ad-hoc Analysis</li>
+</ul>
+</li>
+</ul>
+
+</body></html>
