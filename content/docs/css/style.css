@@ -1,0 +1,388 @@
+
+@import url("../fonts/fonts_styles.css");
+
+@import url("font-awesome.min.css");
+
+*{margin: 0; padding: 0;}
+
+body{background:#f9f9f9; color:#000 ; font-family:'Open Sans', arial, helvatica,  sans-serif; font-size:14px; line-height:22px;}
+
+a{-webkit-transition: all .1s ease-in-out;
+   -moz-transition: all .1s ease-in-out;
+   -o-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
+	text-decoration:none;
+	outline:none
+}
+
+a{ color:#00a0d2;  text-decoration: none;}
+a:hover, a:focus{ color:#ff943d; text-decoration:none}
+
+img{ max-width:100%; height:auto}
+
+
+.getmore-btn, .knowmore-btn, .join-community{display: block; background: #ff943d; border-radius: 4px; padding: 12px 40px; text-decoration: none;
+  text-align: center; font-size: 18px; color: #fff; width: 220px; clear: both; margin-bottom: 30px; text-transform: uppercase; font-weight: 600;}
+
+.getmore-btn:hover, .knowmore-btn:hover, .join-community:hover
+.getmore-btn:hover, .knowmore-btn:focus, .join-community:focus
+ {display: block; background: #d57222; color: #fff;  text-decoration: none; }
+
+
+.desktop-view{ display:block}
+.mobile-view{ display:none}
+
+/*a.logo { width: 210px; display: inline-block;  margin: 10px 0;}*/
+a.logo { width: 170px; display: inline-block;  margin: 5px 0;}
+.cd-navbar-wrapper.navbar {margin-bottom:0px;border-bottom: 4px solid #dd6300;}
+/*.cd_navcontnt { margin-top: 20px;}*/
+.cd_navcontnt{ margin-top: 5px}
+.cd_navcontnt li a { padding: 10px 20px;text-transform: uppercase; font-size: 14px; font-weight: 500; color: #222 !important;}
+/*.cd_navcontnt li a:hover { color: #dd6300 !important; text-decoration: none;}
+.cd_navcontnt li a.active { color: #dd6300 !important; text-decoration: underline;}*/
+.cd_navcontnt li a:hover, .cd_navcontnt li a.active { color: #fff !important; text-decoration:none; background: #dd6300 !important;}
+.cd_navcontnt li a i.fa.fa-home{font-size: 18px;}
+.cd_navcontnt li a.apache_link { width: 26px; height: auto; display: inline-block !important;margin: 0 10px; padding: 10px 0 !important; 
+  background: url(../images/CDapacheGray_icon.png) no-repeat center center !important; text-indent: -9999px; background-size: contain !important;}
+
+.cd_navcontnt li a.apache_link:hover {background: url(../images/CDapache_icon.png) no-repeat center center !important; background-size:contain !important;}
+
+
+.cd-homebanner{ width: 100%; min-height:320px; background: url(../images/CDbannerSliderbg.jpg) no-repeat top center; background-size: cover;}
+.cd-homebanner .slide-title {font-size: 40px; color: #fffefe; line-height: 50px; display: inline-block; text-align: left;  width: 85%;
+    max-width: 520px; margin-top: 100px; margin-left: 15%;}
+.cd-homebanner .slide-title strong{ color: #ff943d; font-weight: 600;  }
+.cd-homebanner .slide-img { text-align: center; overflow: hidden; height: 340px;}
+.cd-homebanner .slide-img img {height: 106%; max-width: inherit; margin-top: -1%;   }
+
+.cd-headingBar{ background: #f2f2f2; padding: 30px; margin:0}
+.cd-headingBar .title {font-size: 30px; color: #111; line-height:36px; display: block; text-align: left; margin: 0;}
+.cd-headingBar .title .cube-icon{width:30px;height: 30px; margin:0 20px 0 0; padding:0;  display:inline-block; text-align:center;}
+.cd-headingBar .join-community-btn {display: block; background: #ff943d; border-radius: 4px; padding: 12px 40px;text-align: center; font-size: 18px; color: #fff; float: right; clear: both;
+     text-transform: uppercase; font-weight: 600;}
+.cd-headingBar .join-community-btn:hover {display: block; background: #d57222}
+
+
+
+/*.cd-aboutwrapper{background: #282828; display: block;}*/
+.cd-aboutwrapper .container-fluid {padding: 0;}
+/*.cd-aboutblock { padding: 40px 10px; display: block; clear: both;}*/
+/*.cd-aboutblock .title{font-size: 32px; color: #fff; line-height:36px;display:block; text-align:center; margin: 0 0 20px}
+.cd-aboutblock .title .cube-icon{width:30px;height: 30px; margin:0 8px 0 0; padding:0;  display:inline-block; text-align:center;}
+.cd-aboutblock .title .title-underline{ height: 2px; width:100px; background: #fff; margin:10px auto 0; padding: 0; display:block;}
+.cd-aboutblock .para-txt { font-size: 16px; color: #fff; line-height: 30px; display: block; text-align: center; font-family:OpenSansLight;}
+.cd-aboutblock .cd-indexing-blog {border: 1px solid rgba(255,255,255,.2);  text-align: center;  padding: 20px; display: block;margin: 30px 0 20px}
+*/.cd-aboutblock .knowmore-btn {display: block; background: #ff943d; border-radius: 1px; padding: 12px 50px;text-align: center; font-size: 18px; color: #fff; 
+  float: right; clear: both; margin-bottom: 30px; text-transform: uppercase; font-weight: 600;}
+.cd-aboutblock .knowmore-btn:hover {display: block; background: #d57222}
+
+.cd-aboutwrapper {
+    background: #fff;
+    display: block;
+        border-bottom: 1px solid #ccc;
+}
+
+.cd-aboutblock {
+    padding: 20px 10px;
+    display: block;
+    clear: both;
+}
+
+.cd-aboutblock .title {
+    font-size: 24px;
+    color: #444;
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    margin: 0 0 16px;
+}
+
+.cd-aboutblock .title .title-underline {
+    height: 2px;
+    width: 100px;
+    background: #ff943d;
+    margin: 6px auto 0;
+    padding: 0;
+    display: block;
+}
+
+.cd-aboutblock .para-txt {
+    font-size: 16px;
+    color: #111;
+    line-height: 22px;
+    display: block;
+    text-align: center;
+    font-family: OpenSansLight;
+}
+
+
+.cd-aboutblock .cd-indexing-blog {
+    border: 1px solid rgba(0,0,0,.1);
+    text-align: center;
+    padding: 10px 0;
+    display: block;
+    margin: 10px 0;
+}
+
+/*.cd-releaseblock { background: #363636; border-left: 1px solid #555; min-height: 596px; margin: 0 -15px 0 0; padding: 40px 20px 20px;}
+.cd-releaseblock .title{font-size: 28px; color: #fff; line-height:36px;display:block; text-align:left; margin: 0 0 20px}
+.cd-releaseblock .title .title-underline{ height: 2px; width:50px; background: #fff; margin:10px 0; padding: 0; display:block;}
+.cd-releaseblock .release-links { font-size: 14px; color: #fff; line-height: 30px; display: block; text-align:left; text-decoration: none}
+.cd-releaseblock .release-links:hover { text-decoration: underline; color:#00a0d2;}
+.cd-releaseblock .release-date { font-size: 12px; color: #ff943d; line-height:20px; display: block; text-align:right;}
+.cd-releaseblock .latestR {display: block; margin-bottom: 20px; border-bottom: 1px dashed #666; padding-bottom: 20px;}
+.cd-releaseblock .nextr{display: block;   padding: 15px;} 
+.cd-releaseblock .linkblock { display: block; max-height: 180px; overflow: auto; padding-right: 10px;}
+*/
+
+.cd-releaseblock {
+    background: #eee;
+    margin: 15px 0;
+    border-radius: 0;
+    border: 1px solid #ccc;
+}
+.cd-releaseblock .title {
+    font-size: 24px;
+    color: #444;
+    line-height: 32px;
+    display: block;
+    text-align: left;
+    margin: 0px 0 10px;
+}
+.cd-releaseblock .title .title-underline{ height: 2px; width:50px; background: #444; margin:6px 0; padding: 0; display:block;}
+.cd-releaseblock .release-links { font-size: 14px; color: #444; line-height: 20px; display: block; text-align:left; text-decoration: none}
+.cd-releaseblock .release-info { font-size: 14px; color: #444; line-height: 18px; display: block; text-align:left; text-decoration: none}
+.cd-releaseblock .release-links:hover { text-decoration: underline; color:#00a0d2;}
+.cd-releaseblock .release-date {
+    font-size: 12px;
+    color: #f86f00;
+    line-height: 16px;
+    display: block;
+    text-align: right;
+    margin-bottom: 4px;
+}
+
+.cd-releaseblock .latestR {
+    display: block;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #aaa;
+    padding: 10px 15px;
+    background: #f6f6f6;
+}
+.cd-releaseblock .nextR{display: block;   padding: 2px 15px 15px;} 
+.cd-releaseblock .linkblock { display: block; max-height: 180px; overflow: auto; padding-right: 10px;}
+
+.cd-flowblock{ padding: 15px 0}
+.cd-columnblock {display: block; margin:5px 0; padding: 10px;}
+.cd-columnblock:hover { box-shadow: 0 2px 4px #bbb; background: #fdfdfd;}
+
+.cd-columnblock .title {
+    font-size: 18px;
+    color: #444;
+    line-height: 20px;
+    display: block;
+    text-align: center;
+    margin: 6px 4px 10px;
+    height: 30px;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.cd-columnblock .title-info {
+    font-size: 14px;
+    color: #000;
+    line-height: 18px;
+    display: block;
+    text-align: center;
+    font-family: OpenSansLight;
+    height: 60px;
+    overflow: hidden;
+    margin: 0;
+}
+.cd-columnblock .iconbox{ display: block; text-align: center;}
+.cd-columnblock .iconbox .icon { display: inline-block;width:80px; height:80px; border: 4px solid #ff943d; border-radius: 50%;}
+.cd-columnblock .iconbox .icon.one{ background: url(../images/cd-uniquedata-icon.png) no-repeat center center; background-size: 56px; }
+.cd-columnblock:hover .iconbox .icon.one{ background: #ff943d url(../images/cd-uniquedata-icon-hover.png) no-repeat center center; 
+  transform:scale(1.1);  background-size: 56px;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  }
+
+.cd-columnblock:hover .iconbox{transform:scale(1.1); 
+   -webkit-transition: all .2s ease-in-out;
+   -moz-transition: all .2s ease-in-out;
+   -o-transition: all .2s ease-in-out;
+   transition: all .2s ease-in-out;
+}
+
+.cd-releasedownload{ background: #555; padding: 30px; margin:0}
+.cd-releasedownload .title {font-size: 30px; color: #fff; line-height:50px; display: block; text-align: left; margin: 0;}
+.cd-releasedownload .title .cube-icon{width:30px;height: 30px; margin:0 20px 0 0; padding:0;  display:inline-block; text-align:center;}
+
+.cd-releasedownload .title .release-date {font-size:16px; color: #bbb; line-height: 16px; display: inline-block;}
+.cd-releasedownload .release-note {
+    font-size: 16px;
+    color: #ff943d;
+    line-height: 16px;
+    display: inline-block;
+    margin-left: 60px;
+    text-transform: capitalize;
+}
+.cd-releasedownload .release-note:hover { text-decoration: underline;}
+
+.cd-releasedownload .download-btn {display: block; background: #ff943d; border-radius:1px; padding: 12px 50px;
+  text-align: center; font-size: 18px; color: #fff; float: right; clear: both; text-transform: uppercase; font-weight: 600; margin-top: 15px}
+.cd-releasedownload .download-btn:hover {display: block; background: #d57222}
+
+
+.cd-systemblock { padding: 20px 0; background: #EEE; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;}
+.cd-thecolumnblock {display: block; margin:5px 0; min-height: 220px; padding: 15px; background: #fff; box-shadow: 0 1px 1px #bbb;}
+.cd-thecolumnblock:hover { box-shadow: 0 2px 4px #bbb; background: #fff;}
+.cd-thecolumnblock .title {font-size: 20px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 50px;  text-transform: capitalize; font-weight: 600;}
+.cd-thecolumnblock .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px 0; padding: 0; display:block;}
+.cd-thecolumnblock .title-info { font-size: 14px; color: #000; line-height: 20px;    display: block; text-align: left;
+     overflow: hidden; margin: 0;}
+
+
+.cd-apacheblock{ padding: 20px 0; 
+  background: rgba(255,255,255,1);
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(250,245,250,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(50%, rgba(246,246,246,1)), color-stop(100%, rgba(250,245,250,1)));
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(250,245,250,1) 100%);
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(250,245,250,1) 100%);
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(250,245,250,1) 100%);
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(250,245,250,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#faf5fa', GradientType=0 );
+
+}
+.cd-apachepic {display: table-cell; margin: 5px 0; height: 220px;padding: 15px; background: #fff; box-shadow: 0 1px 1px #bbb; vertical-align: middle;}
+.cd-apachetxtblock .title {font-size: 20px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 50px;  text-transform: capitalize; font-weight: 600;}
+.cd-apachetxtblock .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px 0; padding: 0; display:block;}
+.cd-apachetxtblock .title-info { font-size: 14px; color: #000; line-height: 20px;    display: block; text-align: left;
+      overflow: hidden; margin: 0;}
+.cd-apachetxtblock .title-info .linktxt { color: #d05d00}
+
+
+
+.cd-featureblock{ background: url(../images/CDbannerSliderbg.jpg) no-repeat center center; position: relative; min-height: 300px;    background-size: cover;}
+.cd-featureblock .bg-opacity{ background: rgba(0,30,56,.6); position: absolute; top: 0; left: 0; width: 100%; height: 100% }  
+.cd-featureblock .title {
+    font-size: 20px;
+    color: #fff;
+    line-height: 24px;
+    display: block;
+    text-align: left;
+    margin: 15px 15px;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.cd-featureblock .ecosystemblock{margin: 15px; border: 1px solid rgba(255,255,255,.3); padding: 5px} 
+.cd-featureblock .performenceblock{margin: 15px; border: 1px solid rgba(255,255,255,.3); padding: 5px} 
+
+
+footer{ background: #111; padding:0; }
+footer .topcontant{ display: block; padding: 20px 0; }
+footer .bottomcontant{ display: block; padding: 10px 0; border-top: 1px solid #3d3d3d}
+footer .topcontant .footext{ font-size: 13px; color: #f2f2f2; line-height: 20px; display: block; text-align: left;padding: 0;  margin: 0 0 20px;}
+footer ul.footer-nav{ float: right;}
+footer ul.footer-nav li {text-align: left; display: inline-block; list-style-type: none; margin: 0; border-left: 1px solid #f2f2f2; line-height: 12px;}
+footer ul.footer-nav li:first-child {border-left:none}
+footer ul.footer-nav li a {text-align: center; margin: 0; padding: 0 13px; text-decoration: none; color: #d4d4d4;font-size: 13px; line-height: 13px;}
+footer ul.footer-nav li a:hover{ text-decoration: underline}
+
+footer .copyright-txt{ margin:0; padding:0; color: #aaa; font-size: 12px; display: inline-block;}
+footer .term-links{  display: inline-block;  margin:0; padding: 0 10px; text-decoration: none; color: #aaa;}
+footer .term-links:hover{ text-decoration: underline}
+footer .social-icon{ float: right;}
+footer .social-icon .icons{ display: inline-block;  margin:0; padding: 0 10px; text-decoration: none; color: #aaa; opacity: .5}
+footer .social-icon .icons:hover{ opacity: 1;  text-decoration: none;}
+
+
+
+/* ------------------- Documentation Style here*/
+.cd-dashboarblock{padding: 20px 0; background: #f4f4f4; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;}
+.cd-dashboarblock .dashboardlinkbox{ max-width:800px; margin:0 auto}
+.cd-dashboarblock .dashboardlinkbox .heading{text-align:center; margin:0 0 20px}
+.cd-dashboarblock .dashboardlinkbox .docs-searchbox{width:100%;    margin: 0 0 20px;}
+.cd-dashboarblock .dashboardlinkbox .docs-searchbox .docs-search {
+    width: 100%;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 8px 20px;
+    box-shadow:0  1px 2px  #ccc;
+}
+
+.cd-dashboarblock .dashboardlinkbox .docs-searchbox .docs-search:focus {border:1px solid #ff943d;     outline: 0;
+}
+
+.cd-docsblock {
+    display: block;
+    margin: 5px 0 20px;
+    min-height: 200px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0px 1px 1px #bbb;
+}
+.cd-docsblock:hover { box-shadow: 0px 2px 4px #888; background: #fff;}
+
+.cd-docsblock .title {      font-size: 16px;
+    color: #444;
+    line-height: 22px;
+    display: block;
+    text-align: center;
+    margin: 5px 5px 10px;
+    height: 50px;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.cd-docsblock .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px 0; padding: 0; display:block;}
+.cd-docsblock .title-info {     font-size: 14px;
+    color: #000;
+    line-height: 20px;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    border-top: 2px solid #ff943d;
+    padding: 20px 0;}
+
+
+.sidebar {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding:0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+}
+
+.maindashboard {
+    padding: 15px;
+}
+ 
+header{
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 50px
+ }
+
+ .fixed-padding{ position: relative; padding-top:50px; }
+
+.sidebar .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 6px 10px;
+    color: #222;
+    background: #eee;
+}
+/* ------------------- End Documentation Style here*/
+
+  
