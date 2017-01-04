@@ -11,7 +11,10 @@
 	
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">      
-    <link href="css/full-slider.css" rel="stylesheet">    	
+    <link href="css/full-slider.css" rel="stylesheet"> 
+    <link href="css/print.css" rel="stylesheet">      
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,7 +39,8 @@
         </div>
         <div class="navbar-collapse collapse cd_navcontnt" id="navbar">         
           <ul class="nav navbar-nav navbar-right navlist-custom">
-              <li><a href="index.html" class="active"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
+              <li><a href="index.html" class="active hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
+              <li><a href="index.html" class="active hidden-lg hidden-md hidden-sm">Home</a></li>
             <!--  <li><a href="https://github.com/apache/incubator-carbondata">  </a>-->
                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a>
@@ -44,28 +48,71 @@
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"  target="_blank">Apache CarbonData 0.2.0</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"  target="_blank">Apache CarbonData 0.1.1</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"  target="_blank">Apache CarbonData 0.1.0</a></li>
+                    <li><a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"  target="_blank">Release Archive</a></li>
                     </ul>
                 </li>
 
                </li>
               <!--<li><a href="pageinprogress.html">OverView </a></li>-->
-              <li><a href="dashboard.html">Documentation </a></li>
-              <!-- <li class="dropdown">
+             <!-- <li><a href="dashboard.html">Documentation </a></li>-->
+             <li class="dropdown">
                   <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="dashboard.html">Latest Release</a></li>
-                    <li><a href="#"  target="blank">Older Release</a></li>
+                    <li><a href="quickstartDoc.html">Quick Start</a></li>
+                    <li><a href="overDoc.html">Overview</a></li>
+                    <li><a href="installingcarbondataDoc.html">Installing CarbonData</a></li>
+                    <li><a href="configuringcarbondataDoc.html">Configuring CarbonData</a></li>
+                    <li><a href="usingcarbondataDoc.html">Using CarbonData</a></li>
+                    <li><a href="usefultipsDoc.html">Useful Tips</a></li>
+                    <li><a href="usecasesDoc.html">Use Cases</a></li>
+                    <li><a href="troubleshootingDoc.html">Troubleshooting</a></li>
+                    <li><a href="faqDoc.html">FAQ</a></li>                    
+                   <!-- <li><a href="pageinprogress.html">Documentation Archive</a></li>                     -->
                     </ul>
-              </li>-->           
+              </li>           
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
+                  <!--<ul class="dropdown-menu">
                     <li><a href="contributingDoc.html"  target="_blank">Contributing to CarbonData</a></li>
                     <li><a href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com/"  target="_blank">CarbonData Mailing List</a></li>
+                    </ul>-->
+                  <ul class="dropdown-menu">
+                    <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
+                    <li><a href="contributingDoc.html#Mailing_List" class="list-group-item"
+                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Mailing_List').scrollIntoView();return false">Mailing Lists</a>
+                    </li>
+                    <li><a href="contributingDoc.html#Apache_Jira" class="list-group-item"
+                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Apache_Jira').scrollIntoView();return false">Issue Tracker</a>
+                    </li>
+                    <li><a href="contributingDoc.html#Committers" class="list-group-item"
+                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Committers').scrollIntoView();return false">Project Committers</a>
+                    </li>                                        
+                  </ul>
+
+                </li>
+              <!--<li><a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm">Apache</a></li>
+              <li><a href="http://www.apache.org/" class="apache_link hidden-xs" target="blank">apache</a>
+              -->
+              <li class="dropdown">
+                  <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                   <ul class="dropdown-menu">
+                      <li><a href="http://www.apache.org/"  target="_blank">Apache Homepage</a></li>
+                      <li><a href="http://www.apache.org/licenses/"  target="_blank">License</a></li>
+                      <li><a href="http://www.apache.org/foundation/sponsorship.html"  target="_blank">Sponsorship</a></li>
+                      <li><a href="http://www.apache.org/foundation/thanks.html"  target="_blank">Thanks</a></li>                      
                     </ul>
                 </li>
 
-              <li><a href="http://www.apache.org/" class="apache_link" target="blank">apache</a>
+                <li class="dropdown">
+                  <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                   <ul class="dropdown-menu">
+                      <li><a href="http://www.apache.org/"  target="_blank">Apache Homepage</a></li>
+                      <li><a href="http://www.apache.org/licenses/"  target="_blank">License</a></li>
+                      <li><a href="http://www.apache.org/foundation/sponsorship.html"  target="_blank">Sponsorship</a></li>
+                      <li><a href="http://www.apache.org/foundation/thanks.html"  target="_blank">Thanks</a></li>                      
+                    </ul>
+                </li>
+
            </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -87,53 +134,40 @@
         <!-- Wrapper for Slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
                 <div class="carousel-caption">
                     <div class="container-fluid">
                       <div class="col-md-6 col-sm-6">
                          <div class="slide-title">
-                          The New <strong>BigData</strong> File Format for <strong>Faster Data</strong> Analysis
+                          The new <strong>BigData</strong> file format for <strong>Faster Data</strong> analysis 
                          </div>
-                        <!-- <a href="#" class="getmore-btn">Get More</a>-->
-                     </div>
+                        </div>
                      <div class="col-md-6 col-sm-6">
                          <div class="slide-img"><img src="images/cd-slider-1.png" alt=""/> </div>
                      </div>
-
-
                     </div>
                 </div>
             </div>
             <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="carousel-caption">
+                  <div class="carousel-caption">
                      <div class="container-fluid">
-
-                      <div class="col-md-6 col-sm-6">
+                        <div class="col-md-6 col-sm-6">
                          <div class="slide-title">
-                            
-                          Analytical <strong>Queries </strong> on Petabyte of <strong>Data</strong>
-                                      </div>
-                        <!-- <a href="#" class="getmore-btn">Get More</a>-->
+                          Analytical <strong>Queries </strong> on <strong>Petabytes</strong> of <strong>Data </strong>
+                        </div>
                      </div>
                      <div class="col-md-6 col-sm-6">
                          <div class="slide-img"><img src="images/cd-slider-2.png" alt=""/> </div>
                      </div>
- 
                     </div>
                 </div>
             </div>
             <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
                 <div class="carousel-caption">
                      <div class="container-fluid">
-
                       <div class="col-md-6 col-sm-6">
-                         <div class="slide-title">
-                         
-                          <strong>10x Faster </strong>  than any available  <strong>Open Source</strong> file format
+                         <div class="slide-title">                         
+                          <strong>10x Faster </strong>  than current <strong>Open Source</strong> file format 
                          </div>
-                        <!-- <a href="#" class="getmore-btn">Get More</a>-->
                      </div>
                      <div class="col-md-6 col-sm-6">
                          <div class="slide-img"><img src="images/cd-slider-3.png" alt=""/> </div>
@@ -162,48 +196,51 @@
     <div class="cd-aboutwrapper">
       <div class="container-fluid">
           <div class="row">
-         <div class="col-md-9 col-sm-9">   
+         <div class="col-md-8 col-sm-7">   
                <div class="cd-aboutblock">                       
-                       <div class="row">
-                        
-                          <div class="col-md-6 col-sm-12">
-                          <div class="cd-indexing-blog">
-                        <img src="images/CDfullyIndexing.png" alt=""/>
-                       </div>
-                        </div>
-                         <div class="col-md-6 col-sm-12">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
                             <h4 class="title">  What is CarbonData
                           <span class="title-underline"></span> 
                          </h4>
-                            <p class="para-txt">CarbonData is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data
-                         </p><a href="dashboard.html" class="knowmore-btn"> Learn more</a> 
-                          </div>
-
-                          
-                       
-
-                       </div>
-                       
-                       
-                       
+                            <p class="para-txt">
+                              <!--CarbonData is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data.-->
+                              Apache CarbonData (incubating) is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data.
+                         </p>                         
+                         <!--<h2 class="cd-indexing-heading">CarbonData flow</h2>-->
+                         <div class="cd-indexing-blog">                          
+                          <img src="images/CDfullyIndexing.png" alt=""/>
+                        </div>
+                            <a href="userguideDoc.html" class="knowmore-btn"> learn more</a> 
+                     
+                      </div>
+                    </div>                       
                </div>
 
          </div>  <!-- carbonData -->
-         <div class="col-md-3 col-sm-3">
-            <div class="cd-releaseblock">
+         <div class="col-md-4 col-sm-5">
+          <div class="right-block">          
+               <div class="cd-releaseblock">
                  <div class="latestR">
-                    <h4 class="title">Latest release
+                    <h4 class="title">Latest Release
                         <span class="title-underline"></span> 
                     </h4>
                     <div class="linkblock">
+                     <div class="block-row">
                       <a  href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating" target="blank">Apache CarbonData 0.2.0-incubating</a>
                          <span class="release-date">Nov 2016</span>
+                         <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" class="whatsnew" target="blank">what's new</a>
+                      </div>   
+                     <div class="block-row">
                       <a   href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating" target="blank">Apache CarbonData 0.1.1-incubating</a>
                          <span class="release-date">Sep 2016</span>
+                         <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.1.1-incubating+released" class="whatsnew" target="blank">what's new</a>
+                         </div>
+                     <div class="block-row">
                       <a  href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating" target="blank">Apache CarbonData 0.1.0-incubating</a>
                          <span class="release-date">Aug 2016</span>
-
-                      
+                         <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.1.0-incubating+released" class="whatsnew" target="blank">what's new</a>
+                      </div>                      
                     </div>
                  </div>
                  <div class="nextR">
@@ -220,16 +257,140 @@
                   </div>
             </div>
             
+            <div class="cd-quickbtns">
+              <h4 class="title">Quick Links
+                        <span class="title-underline"></span> 
+              </h4>
+              <a href="quickstartDoc.html" class="quickstart-btn"><i class="fa rocket-icon icon-margin-r"></i> Quick Start
+              </a>
+              <a href="https://github.com/apache/incubator-carbondata" class="quickstart-btn" target="_blank"><i class="fa fa-github icon-margin-r" aria-hidden="true"></i> CarbonData Github
+              </a>
+            </div>
+          </div>
          </div><!-- latest release -->
     </div>
   </div>
   </section> <!-- End About carbonData part -->
 
+  <section>
+    <div class="cd-joinblock">
+      <div class="container-fluid">
+          <div class="col-md-12 col-sm-12">   
+                    <div class="row">
+                              <div class="col-md-12 col-sm-12">
+                                <span class="title">  
+                                  <!--
+                                  Get the latest news and development details of the fastest growing community of CarbonData                                  -->
+                                  Subscribe for the latest news and development details of the rapidly growing CarbonData community
+                                 </span>
+                                 <a href="mailto:dev-subscribe@carbondata.incubator.apache.org" class="subscribe-btn"><i class="fa fa-envelope icon-margin-r" aria-hidden="true"></i> subscribe</a>
+                                 <!--
+                                    <p class="para-txt">Get the latest news and development details of the fastest growing community of CarbonData
+                                 </p>*-->         
+
+                                 
+                                
+                            </div>                       
+                    </div>
+                 </div> 
+            </div>
+        </div>    
+  </section>
+
+  <section><!-- Flow systemblock part -->
+    <div class="cd-systemblock">
+      <div class="container-fluid">
+
+        <div class="col-md-8 col-sm-7">
+             <div class="cd-thecolumnblock joinblog"> 
+                 <h4 class="title">Join CarbonData Community
+                  <span class="title-underline"></span> 
+                </h4>
+                 <p class="title-info">
+                  <!--Apache CarbonData is built by a team of developers from Huawei, eBay, Talend, Intel, and VM Ware.
+Since its inception in August 2016, CarbonData has more than 50 contributors and the numbers are growing fast.       -->
+Apache CarbonData is an open source project of The Apache Software Foundation (ASF). We are an open and friendly community. We welcome everyone to join the community and contribute to CarbonData. There are several ways to interact with the community and to contribute to CarbonData including asking questions, filing bug reports, proposing new features, joining discussions on the mailing lists, contributing code or documentation, improving the website, or testing our release.
+
+</p>
+                    <p class="title-info">It is very easy to join CarbonData community:
+                     </p>
+                     <ul class="listlink">
+                   <li> Subscribe for the mailing list by sending an email to
+                    <a href="mailto:dev-subscribe@carbondata.incubator.apache.org" target="_blank">dev-subscribe@carbondata.incubator.apache.org</a>
+                  </li>
+                  <li>  After you subscribe, you can discuss your ideas, queries, and issues by sending an email to 
+                    <a href="mailto:dev@carbondata.incubator.apache.org" target="_blank">dev@carbondata.incubator.apache.org</a>
+                     or visit <a href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com" target="_blank">http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com</a>                     
+                  </li>
+                  <li>  To start contributing to CarbonData and be a contributor, see <a href="contributingDoc.html">Contributing to Apache CarbonData</a>.
+                  </li>
+                 </ul>
+
+                  <p class="social-icons">
+                  <a href="#"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                  <a href="https://twitter.com/search?q=%23CarbonData" target="_blank"> <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                  <a href="#"> <i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                 </p>
+                </div>
+          </div>
+          <div class="col-md-4 col-sm-5">
+            <div class="right-block"> 
+             <div class="cd-thecolumnblock getstartlog"> 
+                 <h4 class="title">Getting Started 
+                  <span class="title-underline"></span> 
+                 </h4>
+                 <p class="title-info">Getting started with CarbonData is easy. All you need to do is:</p>
+                 <ol class="orderlist">
+                  <li>                      
+                  <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" target="_blank">Download </a>the latest release.
+
+                  </li>
+                  <li>Follow the  <a href="quickstartDoc.html">Quick Start</a>. 
+                  </li>
+                 </ol>
+                  <p class="title-info">
+                    For detailed reference on CarbonData, read the <a href="userguideDoc.html" >User Guide</a>.
+                  </p>
+             </div>
+
+             <div class="cd-thecolumnblock latestblog"> 
+                 <h4 class="title">Latest Blog 
+                              <span class="title-underline"></span> 
+                 </h4>
+                 <ul class="orderlist">
+                 
+                  <li>
+                    <a href="cd-blog-caseStudyCarbonData.html"  target="_blank">Case Study of CarbonData</a>  23 Dec 2016
+                  </li>
+                  <li>
+                    <a href="cd-blog-usingCarbonData.html"  target="_blank">Using CarbonData</a>  17 Dec 2016
+                  </li>
+                  
+                   <li><a href="cd-blog-InteractiveAnalysis.html"  target="_blank">Interactive Analysis with CarbonData</a> 28 Nov 2016
+                  </li>
+
+                  
+                 </ul>
+                 <p class="title-info">
+                     Check out for <a href="blogs.html"  target="_blank" >more blog</a>  posts.
+                  </p>
+                  
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </section><!-- End systemblock part -->
+
    <section><!-- Flow carbonData part -->
     <div class="cd-flowblock">
       <div class="container-fluid">
-          <div class="col-md-4 col-sm-4">
-             <a href="pageinprogress.html">
+           <h4 class="title">  Why CarbonData
+                         <span class="title-underline"></span> 
+           </h4>
+
+          <div class="col-md-4 col-sm-6">
+            <a href="overDoc.html#Unique_Data_Organization" target="target-iframe" onclick="frames['target-iframe'].document.getElementById('docs/latest/overview.html#Unique_Data_Organization').scrollIntoView();return false">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon uniquedata"></i>
@@ -240,8 +401,8 @@
            </a>
           </div>
 
-          <div class="col-md-4 col-sm-4">
-            <a href="pageinprogress.html">
+          <div class="col-md-4 col-sm-6">
+            <a href="overDoc.html#docs/latest/overview.html#Multi_Level_Indexing" target="target-iframe" onclick="frames['target-iframe'].document.getElementById('Multi_Level_Indexing').scrollIntoView();return false">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon multilevelindexing"></i>
@@ -252,8 +413,8 @@
            </a>
           </div>
 
-          <div class="col-md-4 col-sm-4">
-            <a href="pageinprogress.html">
+          <div class="col-md-4 col-sm-6">
+            <a href="overDoc.html#docs/latest/overview.html#Deep_Spark_Integgration" target="target-iframe" onclick="frames['target-iframe'].document.getElementById('Deep_Spark_Integgration').scrollIntoView();return false">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon deepsparkintegration"></i>
@@ -264,8 +425,8 @@
            </a>
           </div>
 
-          <div class="col-md-4 col-sm-4">
-            <a href="pageinprogress.html">
+          <div class="col-md-4 col-sm-6">
+            <a href="overDoc.html#docs/latest/overview.html#Advanced_Push_Down_Optimizations" target="target-iframe" onclick="frames['target-iframe'].document.getElementById('Advanced_Push_Down_Optimizations').scrollIntoView();return false">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon advancedpushdownoptimization"></i>
@@ -276,8 +437,8 @@
            </a>
           </div>
 
-          <div class="col-md-4 col-sm-4">
-            <a href="pageinprogress.html">
+          <div class="col-md-4 col-sm-6">
+            <a href="overDoc.html#docs/latest/overview.html#Dictionary_Encoding" target="target-iframe" onclick="frames['target-iframe'].document.getElementById('Dictionary_Encoding').scrollIntoView();return false">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon dictionaryencoding"></i>
@@ -289,13 +450,13 @@
           </div>
 
 
-          <div class="col-md-4 col-sm-4">
-            <a href="pageinprogress.html">
+          <div class="col-md-4 col-sm-6">
+           <a href="overDoc.html#docs/latest/overview.html#Update_Delete_Support" target="target-iframe" onclick="frames['target- iframe'].document.getElementById('Update_Delete_Support').scrollIntoView();return false">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon updatedeletesupport"></i>
                  </div>
-                 <h4 class="title">Update Delete Support</h4>
+                 <h4 class="title">Update & Delete Support</h4>
                  <p class="title-info">Support update and delete over BigData.</p>
              </div>
            </a>
@@ -305,99 +466,45 @@
     </div>
    </section><!-- End Flow carbonData part -->
 
-   <section><!-- CarbonData release download part -->
+ <!--  <section>
        <div class="cd-releasedownload">
          <div class="container-fluid">
-           <div class="col-md-9 col-sm-9">
+           <div class="col-md-9 col-sm-8">
                  <h4 class="title"><i class="cube-icon"><img src="images/CDcube_icon.png" alt=""/></i> 
                     CarbonData 0.2.0 released 
                     <span class="release-date">Nov 2016 </span>
                  </h4>  
                  <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" class="release-note" target="_blank"> relase note</a>
            </div>
-           <div class="col-md-3 col-sm-3">
-            <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" class="download-btn" target="_blank">Download</a> 
+           <div class="col-md-3 col-sm-4">
+            <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" class="download-btn" target="_blank"><i class="fa fa-download fa-lg icon-margin-r"></i> Download</a> 
            </div>
          </div>
        </div>
-   </section><!-- End CarbonData release download part --> 
+   </section> -->
 
-   <section><!-- Flow systemblock part -->
-    <div class="cd-systemblock">
-      <div class="container-fluid">
-          <div class="col-md-4 col-sm-4">
-             <div class="cd-thecolumnblock"> 
-                 <h4 class="title">Getting Started 
-                  <span class="title-underline"></span> 
-                 </h4>
-                 <p class="title-info">Getting started with CarbonData is easy. All you need to do is 
-                  <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" target="_blank"  >Download </a> the l
-                  atest release.<br> Read the <a href="quickstartDoc.html">Quick Start</a> 
-                  <br>
-                   For detailed reference, read the <a href="dashboard.html" > Documentation</a>
-             </div>
-          </div>
-
-          <div class="col-md-4 col-sm-4">
-             <div class="cd-thecolumnblock"> 
-                 <h4 class="title">Community
-                  <span class="title-underline"></span> 
-                 </h4>
-                 <p class="title-info">There are many ways to reach the community :<br>
-                 - You can ask any question or start a discusion through dev mailing website forum
-                 <a href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com">CarbonData mailing list </a>
-                 <br>
-                 - You can track issue related to carbondata at <a href="https://issues.apache.org/jira/browse/CARBONDATA-538?jql=fixVersion%20%3D%201.0.0-incubating%20AND%20project%20%3D%20CARBONDATA">Issues.apache</a>
-                 <br>
-                 - Meet the contributors at <a href="https://github.com/apache/incubator-carbondata/graphs/contributors">Contributors</a>
-
-                 </p>
-             </div>
-          </div>
-
-          <div class="col-md-4 col-sm-4">
-             <div class="cd-thecolumnblock"> 
-                 <h4 class="title">Contribution
-                  <span class="title-underline"></span> 
-                </h4>
-                 <p class="title-info"> 
-                  Apache CarbonData is built by a team of developers from Huawei, Talend, eBay, Intel and VMWare. 
-                  Since its inception in August 2016, it has more than 50 contributors.
-                   If you'd like to contribute to CarbonData, <a href="contributingDoc.html">learn how to contribute</a></p>
-             </div>
-          </div>
-
-      </div>
-    </div>
-   </section><!-- End systemblock part -->
+   
 
    <section><!-- Apacheblock part -->
     <div class="cd-apacheblock">
       <div class="container-fluid">
-          <div class="col-md-4 col-sm-4">
+          <div class="col-md-3 col-sm-4">
                <div class="cd-apachepic"> 
-                  <img src="images/CDapacheopensource.jpg" alt=""/>
+                  <img src="images/CDincubator.png" alt=""/>
                </div>
           </div>
 
-          <div class="col-md-8 col-sm-8">
+          <div class="col-md-9 col-sm-8">
              <div class="cd-apachetxtblock"> 
                  <h4 class="title">Apache & OpenSource
                   <span class="title-underline"></span> 
                 </h4>
                  <p class="title-info"> 
-                 
-
-                  CarbonData is your project ! CarbonData is an 
-                    <a href="http://www.apache.org/" class="linktxt" target="blank"> Apache Software Foundation</a> project, available under the Apache v2 license. It's a complete open community, always listening proposals and comments. <br><br>
-
-                    <a   href="https://github.com/apache/incubator-carbondata"  target="_blank" class="linktxt">Sources</a>, 
-                    <a   href="mailto:dev-subscribe@carbondata.incubator.apache.org"  class="linktxt">  mailing lists</a>, 
-                    <a   href="https://issues.apache.org/jira/browse/CARBONDATA-538?jql=fixVersion%20%3D%201.0.0-incubating%20AND%20project%20%3D%20CARBONDATA"  target="_blank" class="linktxt"> issue tracker </a>: it's fully open, you can access directly. We also love contributions: don't hesitate to contribute.<br><br>
-                    <a   href="http://community.apache.org"  target="blank" class="linktxt">Be Involved In The Community </a>
-                    <!--|
-                    <a  href="pageinprogress.html" class="linktxt"> How To Contribute </a>-->
+                 Apache CarbonData is an effort undergoing incubation at<a href="http://www.apache.org/" class="linktxt" target="blank"> The Apache Software Foundation (ASF)</a> sponsored by the Apache Incubator PMC. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
                  </p>
+                 <p class="title-info"> Apache CarbonData (incubating) is available under 
+                  <a href="http://www.apache.org/licenses/LICENSE-2.0" class="linktxt" target="blank">Apache License, version 2.0.</a> 
+                </p>
              </div>
           </div>
 
@@ -451,7 +558,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custon.js"></script>
-
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
