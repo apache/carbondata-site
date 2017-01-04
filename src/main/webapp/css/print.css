@@ -2,4 +2,8 @@
    body { color: #000;  background: #fff; }
    header{ display: none;}
    .sidebar{ display: none;}
+   .fixed-padding{ display: none}
+   .doc-header .logo-print{ display:inline-block;}
+   .scroll-top{ display: none}
+
 }

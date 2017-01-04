@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CarbonData</title>
 
@@ -36,61 +37,44 @@
         </div>
         <div class="navbar-collapse collapse cd_navcontnt" id="navbar">         
            <ul class="nav navbar-nav navbar-right navlist-custom">
-              <li><a href="index.html" class="active hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
-              <li><a href="index.html" class="active hidden-lg hidden-md hidden-sm">Home</a></li>
-            <!--  <li><a href="https://github.com/apache/incubator-carbondata">  </a>-->
-               <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a>
+              <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
+              <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Download <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"  target="_blank">Apache CarbonData 0.2.0</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"  target="_blank">Apache CarbonData 0.1.1</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"  target="_blank">Apache CarbonData 0.1.0</a></li>
-                    <li><a href="pageinprogress.html">Release Archive</a></li>
+                    <li><a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"  target="_blank">Release Archive</a></li>
                     </ul>
                 </li>
 
-               </li>
-              <!--<li><a href="pageinprogress.html">OverView </a></li>-->
-             <!-- <li><a href="dashboard.html">Documentation </a></li>-->
-             <li class="dropdown">
-                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="quickstartDoc.html">Quick Start</a></li>
                     <li><a href="overDoc.html">Overview</a></li>
-                    <li><a href="installingcarbondataDoc.html">Installing CarbonData</a></li>
+                    <li><a href="installingcarbondataDoc.html">Installation Guide</a></li>
                     <li><a href="configuringcarbondataDoc.html">Configuring CarbonData</a></li>
                     <li><a href="usingcarbondataDoc.html">Using CarbonData</a></li>
                     <li><a href="usefultipsDoc.html">Useful Tips</a></li>
-                    <li><a href="usecasesDoc.html">Use Cases</a></li>
+                    <li><a href="usecasesDoc.html">CarbonData Use Cases</a></li>
                     <li><a href="troubleshootingDoc.html">Troubleshooting</a></li>
-                    <li><a href="faqDoc.html">FAQ</a></li>                    
-                    <li><a href="pageinprogress.html">Documentation Archive</a></li>                     
-                    </ul>
-              </li>           
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
-                  <!--<ul class="dropdown-menu">
-                    <li><a href="contributingDoc.html"  target="_blank">Contributing to CarbonData</a></li>
-                    <li><a href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com/"  target="_blank">CarbonData Mailing List</a></li>
-                    </ul>-->
-                  <ul class="dropdown-menu">
-                    <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
-                    <li><a href="contributingDoc.html#Mailing_List" class="list-group-item"
-                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Mailing_List').scrollIntoView();return false">Mailing Lists</a>
-                    </li>
-                    <li><a href="contributingDoc.html#Apache_Jira" class="list-group-item"
-                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Apache_Jira').scrollIntoView();return false">Issue Tracker</a>
-                    </li>
-                    <li><a href="contributingDoc.html#Committers" class="list-group-item"
-                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Committers').scrollIntoView();return false">Project Committers</a>
-                    </li>                                        
+                    <li><a href="faqDoc.html">FAQs</a></li> 
                   </ul>
 
-                </li>
-              <!--<li><a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm">Apache</a></li>
-              <li><a href="http://www.apache.org/" class="apache_link hidden-xs" target="blank">apache</a>
-              -->
+              </li>   
               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>                  
+                  <ul class="dropdown-menu">
+                    <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
+                    <li><a href="contributingDoc.html#Mailing_List">Mailing Lists</a></li>
+                    <li><a href="contributingDoc.html#Apache_Jira">Issue Tracker</a></li>
+                    <li><a href="contributingDoc.html#Committers">Project Committers</a></li>
+                    <li><a href="jenkins.html">Jenkins for Apache CarbonData</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
                   <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
                    <ul class="dropdown-menu">
                       <li><a href="http://www.apache.org/"  target="_blank">Apache Homepage</a></li>
@@ -109,7 +93,6 @@
                       <li><a href="http://www.apache.org/foundation/thanks.html"  target="_blank">Thanks</a></li>                      
                     </ul>
                 </li>
-
            </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -122,47 +105,95 @@
         <div class="container-fluid"> 
             <div class="col-md-12 col-sm-12">
                 <div class="blog-content">
-                     <h4 class="title-heading">Interactive Analysis with CarbonData
+                     <h1 class="title-heading">Interactive Analysis with CarbonData
                         <span class="title-underline"></span> 
-                     </h4>
+                     </h1>
 
-                     <h2>Challenges faced in Big Data world</h2>
-                     <p>In the current Big data world, the major challenges that we are facing include</p>
-                     <ul>
-                        <li> The queries are executed on TBs and PBs of data which involve large number of columns in the tables</li>
-                        <li> Queries include filters on multiple columns</li>
-                        <li> There are scenarios that involve aggregate expressions.</li>
-                        <li> Slow response time on queries with filters and aggregations</li>
-                    </ul>
-                    <p>For interactive analysis to be successful, we require responses faster than seconds. We tried using Apache Impala and Kylin to meet our enterprise needs, but we ended up with queries taking a lot of time. Apache Spark SQL also did not fit well into our domain because of being structural in nature, while bulk of our data was Nosql in nature. The nature of our enterprise required us to provide results to queries which generated out of result of previously generated queries.(adhoc in nature)
-                    </p>
+                     <h3>Challenges faced in Big Data world</h3>
+<p>
+  In the current Big data world, the major challenges that we are facing include
+  <ul>
+    <li>
+      The queries are executed on TBs and PBs of data which involve large number of columns in the tables
+    </li>
+    <li>
+      Queries include filters on multiple columns
+    </li>
+    <li>
+      There are scenarios that involve aggregate expressions.
+    </li>
+    <li>
+      Slow response time on queries with filters and aggregations
+    </li>
+  </ul>
+For interactive analysis to be successful, we require responses faster than seconds. We tried using Apache Impala, Apache
+Kudu and Apache HBase to meet our enterprise needs, but we ended up with queries taking a lot of time. Apache Spark SQL
+also did not fit well into our domain because of being structural in nature, while bulk of our data was Nosql in nature.
+The nature of our enterprise required us to provide results to queries which were generated out of results of previously
+generated queries(adhoc in nature).
+</p>
+<h3>How we were trying to meet our requirements</h3>
+<p>
+Initially we deployed three different engines to run different types of queries with efficiency. <br />
+We deployed
+<ul>
+<li>Hive for batch queries,</li>
+<li>Impala and Spark SQL for Interactive Queries and</li>
+<li>Hbase for Operational Queries.</li>
+</ul>
+The biggest challenge before us was each of these engines required us to store data for them individually. This led to
+inflated cost of storing duplicate data along with the cost involved for separate processing of data in each of these
+engines. Storing data was not the only challenge for each of the engine, the conversion required in order to make data
+suitable for each engine itself was a process with cost and time. This cost also escalated due to hardware requirements
+for providing support to each of these engine and running them in parallel was a costly affair needing several nodes etc.
+</p>
+<p>
+Another challenging aspect for us was seamless integration of Hive, Impala, Spark and Hbase into our system. Integrating
+multiple engines without hampering each other was a difficult feat and often even trivial configuration changes lead to
+failure of one or the other engine.
+</p>
+<h3>How Apache CarbonData helped us</h3>
+<p>
+Apache CarbonData is an application that is suitable for all three types of queries – sequential, interactive and Random
+access queries. It enabled us to ingest large volume of structured and unstructured data for analysis based on adhoc queries.
+Apache CarbonData addressed the issue for us by providing a data storage format which provided equal efficiency to all use
+cases and eliminated the need for data duplicity for each engine. Apache CarbonData also resolved the issue of performance
+by providing us sub-second responses to all query scenarios.
+</p>
+<p>
+The ability of Apache CarbonData to integrate seamlessly in our system freed us from hassle of integrating multiple engines
+seamlessly. And its complete ecosystem with Apache Hadoop and Apache Spark helped us meet our enterprise needs effectively.
+</p>
+<h3>Features of Apache CarbonData that satisfied our requirements</h3>
+<p>
+With use of Apache CarbonData the difference in the query performance was very prominent. The query performance of our system
+was enhanced several times because of the following Apache CarbonData features:
+<ul>
+  <li>Data are stored along MDK (multi-dimensional keys). Data is stored as index in columnar format.</li>
+  <li>Multiple columns form a column group which saves implicit joins and also saves stitching cost for reconstructing row.</li>
+  <li>Table level Global dictionary facilitates speedup aggregation, reduce run-time memory footprint, and enable deferred decoding.</li>
+</ul>
+</p>
+<h3>Support from Apache CarbonData</h3>
+<p>
+During the entire phase of integration of  Apache CarbonData into our system, we were very aptly and timely supported by the Community of
+Apache CarbonData. The timely responses to our queries and setup issues helped us integrate the Apache CarbonData very quicky into our system.
+</p>
+<p>
+The Apache CarbonData Project has a very active developer community and the application is evolving at a very fast pace. The support for following features in the
+future versions has lead us to select Apache CarbonData.
+<ul>
+  <li>IUD,</li>
+    <li>streaming ingestion and </li>
+      <li>integration with all kinds of tools along with Apache Projects. </li>
+</ul>
 
-                    <h2>How we were trying to meet our requirements</h2>
-                     <p>Initially we deployed three different engines to run different types of queries with efficiency. We deployed </p>
-                     <ul>
-                        <li> Hive for batch queries,</li>
-                        <li> Impala and Spark SQL for Interactive Queries and</li>
-                        <li> HBase for Operational Queries.</li>
-                    </ul>
-                    <p>The biggest challenge before us was each of these engines required us to store data for them individually. This led to inflated cost of storing duplicate data along with the cost involved for separate processing of data in each of these engines. Storing data was not the only challenge for each of the engine, the conversion required in order to make data suitable for each engine itself was a process with cost and time. This cost also escalated due to hardware requirements for providing support to each of these engine and running them in parallel was a costly affair needing several nodes etc.    
-                    </p>
-                     <h2>How CarbonData helped us</h2>
-                     <p>CarbonData is an application that is suitable for all 3 types of queries – sequential, interactive and Random access queries. It enabled us to ingest large volume of structured and unstructured data for analysis based on adhoc queries.
-CarbonData addressed the issue for us by providing a data storage format which provides equal efficiency to all use cases and eliminates the need for data duplicity for each engine. CarbonData also resolved the issue of performance by proving us sub-second responses to all query scenarios. </p>
-                   
-                   <h2>Features of CarbonData that satisfied our requirements</h2>
-                     <p>Using CarbonData the difference in the query performance was very prominent. The query performance of our system was enhanced several times because of the following CarbonData features:</p>
-                     <ul>
-                        <li> Data are stored along MDK (multi-dimensional keys). Data is stored as index in columnar format.</li>
-                        <li> Multiple columns form a column group which saves implicit joins and also saves stitching cost for reconstructing row.</li>
-                        <li>Table level Global dictionary facilitates speedup aggregation, reduce run-time memory footprint, and enable deferred decoding.</li>
-                    </ul>
-
-                    <h2>Conclusion</h2>
-                    <p> In the interactive OLAP query analysis where quick response is very essential, CarbonData has proved to be very essential and very effective.   
-                    </p>
-
-
+Also the constant development on the Apache CarbonData is helping us meet our needs for a unified storage system in a more proficent manner each day.
+</p>
+<h3>Conclusion</h3>
+<p>
+In the interactive OLAP query analysis where quick response is very essential, Apache CarbonData has proved to be very essential and very effective.
+</p>
 
                   </div>
                 </div>
@@ -191,8 +222,9 @@ CarbonData addressed the issue for us by providing a data storage format which p
     <div class="bottomcontant">
        <div class="container-fluid">
           <div class="col-md-8 col-sm-8">
-            <p class="copyright-txt">Copyright © 2016. All rights reserved  &nbsp;&nbsp;|&nbsp;&nbsp;
-              <a href="#" class="term-links">Apache Software Foundation  </a>&nbsp;&nbsp;| &nbsp;&nbsp; <a href="#" class="term-links"> Privacy Policy </a>
+             <p class="copyright-txt">Copyright © 2016. All rights reserved  &nbsp;&nbsp;|&nbsp;&nbsp;
+              <a href="http://www.apache.org/" class="term-links">Apache Software Foundation  </a>&nbsp;&nbsp;| &nbsp;&nbsp;
+               <a href="http://www.apache.org/foundation/policies/privacy.html" class="term-links" target="blank"> Privacy Policy </a>
             </p>
 
           </div>

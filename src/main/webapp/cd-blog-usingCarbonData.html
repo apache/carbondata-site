@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CarbonData</title>
 
@@ -36,61 +37,44 @@
         </div>
         <div class="navbar-collapse collapse cd_navcontnt" id="navbar">         
            <ul class="nav navbar-nav navbar-right navlist-custom">
-              <li><a href="index.html" class="active hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
-              <li><a href="index.html" class="active hidden-lg hidden-md hidden-sm">Home</a></li>
-            <!--  <li><a href="https://github.com/apache/incubator-carbondata">  </a>-->
-               <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a>
+              <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
+              <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Download <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"  target="_blank">Apache CarbonData 0.2.0</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"  target="_blank">Apache CarbonData 0.1.1</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"  target="_blank">Apache CarbonData 0.1.0</a></li>
-                    <li><a href="pageinprogress.html">Release Archive</a></li>
+                    <li><a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"  target="_blank">Release Archive</a></li>
                     </ul>
                 </li>
 
-               </li>
-              <!--<li><a href="pageinprogress.html">OverView </a></li>-->
-             <!-- <li><a href="dashboard.html">Documentation </a></li>-->
-             <li class="dropdown">
-                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="quickstartDoc.html">Quick Start</a></li>
                     <li><a href="overDoc.html">Overview</a></li>
-                    <li><a href="installingcarbondataDoc.html">Installing CarbonData</a></li>
+                    <li><a href="installingcarbondataDoc.html">Installation Guide</a></li>
                     <li><a href="configuringcarbondataDoc.html">Configuring CarbonData</a></li>
                     <li><a href="usingcarbondataDoc.html">Using CarbonData</a></li>
                     <li><a href="usefultipsDoc.html">Useful Tips</a></li>
-                    <li><a href="usecasesDoc.html">Use Cases</a></li>
+                    <li><a href="usecasesDoc.html">CarbonData Use Cases</a></li>
                     <li><a href="troubleshootingDoc.html">Troubleshooting</a></li>
-                    <li><a href="faqDoc.html">FAQ</a></li>                    
-                    <li><a href="pageinprogress.html">Documentation Archive</a></li>                     
-                    </ul>
-              </li>           
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
-                  <!--<ul class="dropdown-menu">
-                    <li><a href="contributingDoc.html"  target="_blank">Contributing to CarbonData</a></li>
-                    <li><a href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com/"  target="_blank">CarbonData Mailing List</a></li>
-                    </ul>-->
-                  <ul class="dropdown-menu">
-                    <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
-                    <li><a href="contributingDoc.html#Mailing_List" class="list-group-item"
-                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Mailing_List').scrollIntoView();return false">Mailing Lists</a>
-                    </li>
-                    <li><a href="contributingDoc.html#Apache_Jira" class="list-group-item"
-                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Apache_Jira').scrollIntoView();return false">Issue Tracker</a>
-                    </li>
-                    <li><a href="contributingDoc.html#Committers" class="list-group-item"
-                           target="target-iframe-contribute"  onclick="frames['target-iframe-contribute'].document.getElementById('Committers').scrollIntoView();return false">Project Committers</a>
-                    </li>                                        
+                    <li><a href="faqDoc.html">FAQs</a></li> 
                   </ul>
 
-                </li>
-              <!--<li><a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm">Apache</a></li>
-              <li><a href="http://www.apache.org/" class="apache_link hidden-xs" target="blank">apache</a>
-              -->
+              </li>   
               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>                  
+                  <ul class="dropdown-menu">
+                    <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
+                    <li><a href="contributingDoc.html#Mailing_List">Mailing Lists</a></li>
+                    <li><a href="contributingDoc.html#Apache_Jira">Issue Tracker</a></li>
+                    <li><a href="contributingDoc.html#Committers">Project Committers</a></li>
+                    <li><a href="jenkins.html">Jenkins for Apache CarbonData</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
                   <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
                    <ul class="dropdown-menu">
                       <li><a href="http://www.apache.org/"  target="_blank">Apache Homepage</a></li>
@@ -109,7 +93,6 @@
                       <li><a href="http://www.apache.org/foundation/thanks.html"  target="_blank">Thanks</a></li>                      
                     </ul>
                 </li>
-
            </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -122,43 +105,84 @@
         <div class="container-fluid"> 
             <div class="col-md-12 col-sm-12">
                 <div class="blog-content">
-                     <h4 class="title-heading">Using CarbonData
+                     <h1 class="title-heading">Using CarbonData
                         <span class="title-underline"></span> 
-                     </h4>
+                     </h1>
 
-                     <p>As an organisation, we were looking for a big data platform to execute the Analytics queries. This is when we were attending one of the Spark meetups and we came to know about CarbonData. So we got interested on exploring CarbonData.</p>
-                     <p>First step was to to install and use the Carbon Data application. Installing, building and using Carbon Data is simple, even for those who are new to the Big Data Technology. We started with the Quick Start installation given in the Carbon Data online documentation. The directions given in the quick start were pretty intuitive. Within no time we were able to do the entire setup and started executing some basic queries. The directions involved the following steps:-</p>
-
-                     <ol>   
-                        <li>Download and install Spark1.5.0 to Spark 1.6.2</li>
-                        <li>Download and install Apache Thrift 0.9.3</li>
-                        <li>Download Apache CarbonData code using the following command<br>
-                          $ git clone <a href="https://github.com/apache/incubator-carbondata.git">click here</a> 
-                        </li>
-                        <li> 4. Build the downloaded CarbonData code using the following command<br>
-                            $ mvn -DskipTests -Pspark-1.6 -Dspark.version=1.6.2 clean package</li>
-                    </ol>
-                    <p>Creating the table was the first step. So, we used the Create table query to create a table with a mix of dimensions and measures.<br>
-Next, we used a CSV file to load the data from. We used the Load query next.<br>
+                     <p>
+    As an organisation, we were looking for a big data platform to execute the Analytics queries.
+    While attending one of the Spark meetups we came across Apache CarbonData.Our interest in a platform
+    capable of analytical query processing led us to get ourselves introduced to Apache CarbonData,so we
+    began exploring Apache CarbonData.
+  </p>
+  <p>
+First step was to to install and use the Apache CarbonData application. Installing, building and using Apache
+CarbonData is simple, even for those who are new to the Big Data Technology. We started with the Quick Start
+installation guide provided in the Apache CarbonData online documentation. The directions given in the quick start were
+pretty intuitive. Within no time we were able to do the entire setup and started executing some basic queries.
+The directions involved the following steps:-
+<ol>
+<li>
+Download and install Spark1.5.0 to Spark 1.6.2
+</li>
+<li>
+Download and install Apache Thrift 0.9.3
+</li>
+<li>
+Download Apache CarbonData code using the following command<br />
+<pre>
+  <code>$ git clone https://github.com/apache/incubator-carbondata.git</code>
+</pre>
+</li>
+<li>
+Build the downloaded Apache CarbonData code using the following command<br />
+<pre>
+  <code>$ mvn -DskipTests -Pspark-1.6 -Dspark.version=1.6.2 clean package</code>
+</pre>
+</li>
+</ol>
+  </p>
+  <p>
+Creating the table was the first step. So, we used the Create table query to create a table with a mix of dimensions and measures.
+Next, we used a CSV file to load the data from. We used the Load query next.
 After the successful loading of data, we executed some basic select queries.
-                    </p>
-
-                    
-                     <p>With the quick installation so easy and intuitive, we wanted to explore more. We thought of using the CarbonData in a scenario similar to the real world. The next step was to do the CarbonData setup on the Standalone Spark cluster. After following the online documentation and with the help from their community, we were able to complete the setup.</p>
-                     <p>As we are already familiar with Parquet and Hive, we tried to compare query performance between CarbonData and Parquet. We tested the performance on 2 systems with the following setup:-</p>
-                     <ul>
-                        <li> 500 GB data</li>
-                        <li> 300 columns</li>
-                        <li> Select query on 150 columns</li>
-                        <li> Cluster setup – 5 nodes, each node having 4 core and  8 GB </li>
-                    </ul>
-                    <p>We loaded different sizes of data in the table – 10 GB, 100 GB, 500GB, 5 TB, 300 columns. For each data, the query performance was much better with CarbonData. With the increase in the data size, the difference in the query performance was even more visible.   
-                    </p>
-                     
-                     <p>Ease of loading the data was easily noticeable. The data can be loaded in the Carbon tables from a variety of sources. Carbon Data supports loading data from different files, from Parquet and Hive table, using Dataframes, and from JSON.</p>
-                  
-                    <p> Another noticeable feature was the support for the varied data types. Along with the all basic data types, CarbonData supports some complex ones as well, for e.g. Array, struct complex nested types.  
-                    </p>
+  </p>
+  <p>
+    With the quick installation so easy and intuitive, we wanted to explore more. We thought of using the Apache CarbonData in a
+    scenario similar to the real world. The next step was to do the Apache CarbonData setup on the Standalone Spark cluster.
+    After following the online documentation and with the help from their community, we were able to complete the setup.
+  </p>
+  <p>
+    The Apache CarbonData Community is very active and were very quick and timely in clarifying and resolving our doubts during the entire phase.
+  </p>
+  <p>
+  As we are already familiar with Parquet and Hive, we tried to compare query performance between Apache CarbonData and Parquet. We tested the
+  performance on two systems with the following configurations :-
+  <ul>
+    <li>
+      500 GB data
+    </li>
+    <li>
+      300 columns
+    </li>
+    <li>
+      Select query on 150 columns
+    </li>
+    <li>
+      Cluster setup – 5 nodes, each node having 4 core and  8 GB
+    </li>
+  </ul>
+  We loaded different sizes of data in the table – 10 GB, 100 GB, 500GB, 5 TB, 300 columns. For each data, the query performance was much better
+  with Apache CarbonData. With the increase in the data size, the difference in the query performance was even more visible.
+  </p>
+  <p>
+  Ease of loading the data was easily noticeable. The data can be loaded in the Carbon tables from a variety of sources. Apache CarbonData supports
+  loading data from different files, from Parquet and Hive table, using Dataframes, and from JSON.
+  </p>
+  <p>
+  Another noticeable feature was the support for the varied data types. Along with the all basic data types, Apache CarbonData supports some complex
+  ones as well, for e.g. Array, struct complex nested types.
+  </p>
 
 
 
@@ -190,7 +214,8 @@ After the successful loading of data, we executed some basic select queries.
        <div class="container-fluid">
           <div class="col-md-8 col-sm-8">
             <p class="copyright-txt">Copyright © 2016. All rights reserved  &nbsp;&nbsp;|&nbsp;&nbsp;
-              <a href="#" class="term-links">Apache Software Foundation  </a>&nbsp;&nbsp;| &nbsp;&nbsp; <a href="#" class="term-links"> Privacy Policy </a>
+              <a href="http://www.apache.org/" class="term-links">Apache Software Foundation  </a>&nbsp;&nbsp;| &nbsp;&nbsp;
+               <a href="http://www.apache.org/foundation/policies/privacy.html" class="term-links" target="blank"> Privacy Policy </a>
             </p>
 
           </div>
