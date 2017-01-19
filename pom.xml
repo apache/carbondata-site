@@ -19,63 +19,142 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>17</version>
-    </parent>
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>17</version>
+  </parent>
 
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>site</artifactId>
-    <name>Apache CarbonData :: Website</name>
-    <packaging>war</packaging>
+  <artifactId>site</artifactId>
+  <name>Apache CarbonData :: Website</name>
+  <packaging>war</packaging>
 
-    <properties>
-        <jetty-port>8080</jetty-port>
-        <maven.wagon.version>1.0-beta-6</maven.wagon.version>
-    </properties>
+  <properties>
+    <jetty-port>8080</jetty-port>
+    <maven.wagon.version>1.0-beta-6</maven.wagon.version>
+  </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.4.v20120524</version>
-                <configuration>
-                    <!-- When editing the conf files, you can comment this line to run
-                        mvn jetty:run
-                       to have a live web site
-                    -->
-                    <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-resources-plugin</artifactId>
-               <version>3.0.2</version>
-               <executions><execution>
-                  <id>publish-site</id>
-                  <phase>install</phase>
-                  <goals>
-                     <goal>copy-resources</goal>
-                  </goals>
-                  <configuration>
-                     <outputDirectory>${basedir}/content</outputDirectory>
-                     <resources>
-                        <resource>
- 			  <directory>${basedir}/target/site-17</directory>
-                          <filtering>false</filtering>
-                        </resource>
-                     </resources>
-                  </configuration>
-               </execution></executions>
-            </plugin>
-        </plugins>
-    </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.ruleoftech</groupId>
+        <artifactId>markdown-page-generator-plugin</artifactId>
+        <version>0.10</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
+  <build>
+    <plugins>
+      <!--HTML Generation -->
+      <plugin>
+        <groupId>com.ruleoftech</groupId>
+        <artifactId>markdown-page-generator-plugin</artifactId>
+        <version>0.10</version>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <inputDirectory>/home/knoldus/Desktop/incubator-carbondata-site/src/site/markdown</inputDirectory>
+          <outputDirectory>/home/knoldus/Desktop/incubator-carbondata-site/src/main/webapp/docs/latest1</outputDirectory>
+          <inputEncoding>UTF-8</inputEncoding>
+          <outputEncoding>ISO-8859-15</outputEncoding>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>8.1.4.v20120524</version>
+        <configuration>
+          <!-- When editing the conf files, you can comment this line to run
+              mvn jetty:run
+             to have a live web site
+          -->
+          <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
+        </configuration>
+      </plugin>
+      <!--PDF Generation Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pdf-plugin</artifactId>
+        <version>1.3</version>
+        <executions>
+          <execution>
+            <id>pdf</id>
+            <phase>site</phase>
+            <goals>
+              <goal>pdf</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
+              <includeReports>false</includeReports>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-module-markdown</artifactId>
+            <version>1.6</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <id>publish-site</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/content</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/target/site-17</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>publish-pdf</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/content/pdf</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/target/pdf</directory>
+                  <filtering>false</filtering>
+                  <includes>
+                    <include>**/*.pdf</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
 

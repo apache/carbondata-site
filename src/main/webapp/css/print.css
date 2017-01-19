@@ -4,6 +4,7 @@
    .sidebar{ display: none;}
    .fixed-padding{ display: none}
    .doc-header .logo-print{ display:inline-block;}
-   .scroll-top{ display: none}
+   .scroll-top, .print-icon{ display: none}
+   .printable{display: block;}
 
 }

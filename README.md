@@ -16,10 +16,14 @@ git checkout asf-site
 
 ## Publish
 
-To publish the local website to the production location (http://carbondata.incubator.apache.org), you have to use:
+To publish the local website to the production location (http://carbondata.incubator.apache.org), you have to execute the following script:
 
 ```
-mvn install
+./carbonscript.sh
 ```
 
-It will update the content folder.
+This script will :
+
+* Generate the PDF Documentation.
+* Generate the HTML pages from MD files.
+* Update the content folder.
