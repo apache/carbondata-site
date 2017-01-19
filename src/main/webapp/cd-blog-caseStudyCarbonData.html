@@ -40,7 +40,7 @@
               <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
               <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
               <li class="dropdown">
-                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Download <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"  target="_blank">Apache CarbonData 0.2.0</a></li>
                     <li><a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"  target="_blank">Apache CarbonData 0.1.1</a></li>
@@ -48,30 +48,16 @@
                     <li><a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"  target="_blank">Release Archive</a></li>
                     </ul>
                 </li>
-
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="quickstartDoc.html">Quick Start</a></li>
-                    <li><a href="overDoc.html">Overview</a></li>
-                    <li><a href="installingcarbondataDoc.html">Installation Guide</a></li>
-                    <li><a href="configuringcarbondataDoc.html">Configuring CarbonData</a></li>
-                    <li><a href="usingcarbondataDoc.html">Using CarbonData</a></li>
-                    <li><a href="usefultipsDoc.html">Useful Tips</a></li>
-                    <li><a href="usecasesDoc.html">CarbonData Use Cases</a></li>
-                    <li><a href="troubleshootingDoc.html">Troubleshooting</a></li>
-                    <li><a href="faqDoc.html">FAQs</a></li> 
-                  </ul>
-
-              </li>   
-              <li class="dropdown">
+                <li><a href="docs/latest/mainpage.html" class="">Documentation</a></li>
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>                  
                   <ul class="dropdown-menu">
                     <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
                     <li><a href="contributingDoc.html#Mailing_List">Mailing Lists</a></li>
                     <li><a href="contributingDoc.html#Apache_Jira">Issue Tracker</a></li>
                     <li><a href="contributingDoc.html#Committers">Project Committers</a></li>
-                    <li><a href="jenkins.html">Jenkins for Apache CarbonData</a></li>
+                    <li><a href="jenkins.html">Jenkins  for Apache CarbonData</a></li>
+                    <li><a href="meetup.html">CarbonData Meetups </a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
@@ -83,7 +69,6 @@
                       <li><a href="http://www.apache.org/foundation/thanks.html"  target="_blank">Thanks</a></li>                      
                     </ul>
                 </li>
-
                 <li class="dropdown">
                   <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
                    <ul class="dropdown-menu">
@@ -121,20 +106,25 @@
                      <ol>
                         <li><strong>Operational Queries (Random Access)</strong>:  In an E-Commerce application we want to display all the orders placed by a particular user (see Figure 1).
 
-                         <!-- <img src="" alt="" />-->
+                         <p>
+                          <img src="images/format/Orders.png" alt="" />
+                         </p>
 
                          <br />
                         In this case there may be million of rows but we are mainly focused on data for our current logged in user, so we are interested in a specific set of rows that meet the criteria (user_id == <current_user>) . These kinds of queries are Operational Queries which involved certain rows based on a particular filter.  In big data world HBASE is one of the technologies that is being used for these kind of queries.
                          </li>
                         <li><strong>Batch Queries (Sequential Access)</strong>: In the same E-Commerce Application we want to generate a report which contains the number of orders per user, the amount of money spent by that user, number of returns, number of coupons used and monthly orders (see Figure 2). For this use case we have to access all the rows and then aggregate or reduce the data to generate a report.
-                           <!-- <img src="" alt="" />-->
-
+                          <p>
+                          <img src="images/format/monthlyOrders.png" alt="" />
+                          </p>
                            <br />
                            Most of the Business Intelligence (BI) tools execute these queries. Earlier we used to use the Data Warehouse technology  which was specifically developed for these needs in relational world. So in Batch Queries we are focused on the data from all or majority of rows, the number of columns involved might only be few. Apache Hive is quite popular for these kinds of queries.      
 
                         </li>
                         <li> <strong> Interactive Analysis Queries (OLAP Queries) </strong>: Taking an example of same application we have a need to provide analysis regarding Users, Items, Sales, Warehouse Inventory for the Items, Sizes Available, Vendor Information and so on (see Figure 3). In this use case we need to query multiple tables, filter multiple columns as well as have aggregate functions or nested queries. Such queries are often generated by Interactive Analysis tools like Tableau, PentaHo. Even for graph databases which provide excellent fast retrieval of OLTP queries we have to use a Big Data tool for OLAP. There are a lot of tools available in the market for these kinds of queries like Apache Impala and Apache Kylin.
-                          <!-- <img src="" alt="" />-->
+                         <p>
+                           <img src="images/format/SalesReport.png" alt="" />                         
+                         </p>
                         </li>
                     </ol>                      
                     
@@ -179,8 +169,12 @@
 
                     <h2>CarbonData Performance </h2>
                     <p>Following figures show comparison of other tools with Carbon Data:-
-                          <!-- <img src="" alt="" />-->
-                              <!-- <img src="" alt="" />-->
+                      <p>
+                        <img src="images/format/Performance.png" alt="" />                         
+                      </p>
+                        <p>
+                          <img src="images/format/PerformanceObserve.png" alt="" /> 
+                        </p>
                                    </p>
 
                     <h2>Current Users of CarbonData </h2>

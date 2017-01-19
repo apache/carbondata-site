@@ -7,13 +7,11 @@
     <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CarbonData</title>
-
-    <!-- Bootstrap -->
-	
+    <!-- Bootstrap -->	
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">      
     <link href="css/full-slider.css" rel="stylesheet"> 
-    <link href="css/print.css" rel="stylesh/home/kamlesh/Documents/work/HTML/CD_update/CarbonDate_html (2)/js/navigation.jseet">
+    <link href="css/print.css" rel="stylesheet">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -24,6 +22,11 @@
     <![endif]-->
   </head>
   <body>
+
+  <!-- <div class="feedback-btn">
+      <a href="feedback.html" class="link">feedback</a>
+    </div>
+  -->
     <header>
      <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper" >
       <div class="container">
@@ -51,23 +54,8 @@
                     <li><a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"  target="_blank">Release Archive</a></li>
                     </ul>
                 </li>
-
+                <li><a href="docs/latest/mainpage.html" class="">Documentation</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="quickstartDoc.html">Quick Start</a></li>
-                    <li><a href="overDoc.html">Overview</a></li>
-                    <li><a href="installingcarbondataDoc.html">Installation Guide</a></li>
-                    <li><a href="configuringcarbondataDoc.html">Configuring CarbonData</a></li>
-                    <li><a href="usingcarbondataDoc.html">Using CarbonData</a></li>
-                    <li><a href="usefultipsDoc.html">Useful Tips</a></li>
-                    <li><a href="usecasesDoc.html">CarbonData Use Cases</a></li>
-                    <li><a href="troubleshootingDoc.html">Troubleshooting</a></li>
-                    <li><a href="faqDoc.html">FAQs</a></li> 
-                  </ul>
-
-              </li>   
-              <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>                  
                   <ul class="dropdown-menu">
                     <li><a href="contributingDoc.html">Contributing to CarbonData</a></li>
@@ -75,6 +63,7 @@
                     <li><a href="contributingDoc.html#Apache_Jira">Issue Tracker</a></li>
                     <li><a href="contributingDoc.html#Committers">Project Committers</a></li>
                     <li><a href="jenkins.html">Jenkins  for Apache CarbonData</a></li>
+                    <li><a href="meetup.html">CarbonData Meetups </a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
@@ -86,7 +75,6 @@
                       <li><a href="http://www.apache.org/foundation/thanks.html"  target="_blank">Thanks</a></li>                      
                     </ul>
                 </li>
-
                 <li class="dropdown">
                   <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
                    <ul class="dropdown-menu">
@@ -188,14 +176,13 @@
                           <span class="title-underline"></span> 
                          </h4>
                             <p class="para-txt">
-                              <!--CarbonData is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data.-->
-                              Apache CarbonData (incubating) is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data.
+                             Apache CarbonData (incubating) is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data.
                          </p>                         
                          <!--<h2 class="cd-indexing-heading">CarbonData flow</h2>-->
                          <div class="cd-indexing-blog">                          
                           <img src="images/CDfullyIndexing.png" alt=""/>
                         </div>
-                            <a href="userguideDoc.html" class="knowmore-btn"> learn more</a> 
+                            <a href="docs/latest/mainpage.html?page=userguide" id="learnmore" class="knowmore-btn"> learn more</a> 
                      
                       </div>
                     </div>                       
@@ -235,8 +222,6 @@
                       <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" target="blank">
                       CarbonData Release notes 0.2.0</a>
                       <span class="release-date">Nov 2016</span>
-                        
-                      <!--  <span class="release-date">Upcoming</span>-->
                      </div>
                   </div>
             </div>
@@ -245,10 +230,11 @@
               <h4 class="title">Quick Links
                         <span class="title-underline"></span> 
               </h4>
-              <a href="quickstartDoc.html" class="quickstart-btn"><i class="fa rocket-icon icon-margin-r"></i> Quick Start
+              <a href="docs/latest/mainpage.html" class="quickstart-btn"><i class="fa rocket-icon icon-margin-r"></i> Quick Start
               </a>
               <a href="https://github.com/apache/incubator-carbondata" class="quickstart-btn" target="_blank"><i class="fa fa-github icon-margin-r" aria-hidden="true"></i> CarbonData Github
               </a>
+              <a href="pdf/maven-pdf-plugin.pdf" class="quickstart-btn" target="_blank"><i class="fa fa-file-pdf-o icon-margin-r" aria-hidden="true"></i></i> Download Documentation </a>
             </div>
           </div>
          </div><!-- latest release -->
@@ -263,15 +249,10 @@
                     <div class="row">
                               <div class="col-md-12 col-sm-12">
                                 <span class="title">  
-                                  <!--
-                                  Get the latest news and development details of the fastest growing community of CarbonData                                  -->
                                   Subscribe for the latest news and development details of the rapidly growing CarbonData community
                                  </span>
                                  <a href="mailto:dev-subscribe@carbondata.incubator.apache.org" class="subscribe-btn"><i class="fa fa-envelope icon-margin-r" aria-hidden="true"></i> subscribe</a>
-                                 <!--
-                                    <p class="para-txt">Get the latest news and development details of the fastest growing community of CarbonData
-                                 </p>*-->         
-
+                                 
                                  
                                 
                             </div>                       
@@ -291,8 +272,7 @@
                   <span class="title-underline"></span> 
                 </h4>
                  <p class="title-info">
-                  <!--Apache CarbonData is built by a team of developers from Huawei, eBay, Talend, Intel, and VM Ware.
-Since its inception in August 2016, CarbonData has more than 50 contributors and the numbers are growing fast.       -->
+                 
 Apache CarbonData is an open source project of The Apache Software Foundation (ASF). We are an open and friendly community. We welcome everyone to join the community and contribute to CarbonData. There are several ways to interact with the community and to contribute to CarbonData including asking questions, filing bug reports, proposing new features, joining discussions on the mailing lists, contributing code or documentation, improving the website, or testing our release.
 
 </p>
@@ -329,11 +309,11 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
                   <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" target="_blank">Download </a>the latest release.
 
                   </li>
-                  <li>Follow the  <a href="quickstartDoc.html">Quick Start</a>. 
+                  <li>Follow the  <a href="docs/latest/mainpage.html">Quick Start</a>. 
                   </li>
                  </ol>
                   <p class="title-info">
-                    For detailed reference on CarbonData, read the <a href="userguideDoc.html" >User Guide</a>.
+                    For detailed reference on CarbonData, read the <a href="docs/latest/mainpage.html?page=userguide">User Guide</a>.
                   </p>
              </div>
 
@@ -374,7 +354,7 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
            </h4>
 
           <div class="col-md-4 col-sm-6">
-            <a href="overDoc.html#Features_40">
+            <a href="docs/latest/mainpage.html?page=uniqueData" id="ref_butn">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon uniquedata"></i>
@@ -386,7 +366,7 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
           </div>
 
           <div class="col-md-4 col-sm-6">
-            <a href="overDoc.html#Multi_Level_Indexing">
+            <a href="docs/latest/mainpage.html?page=uniqueData" id="ref_butn">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon multilevelindexing"></i>
@@ -398,7 +378,7 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
           </div>
 
           <div class="col-md-4 col-sm-6">
-            <a href="overDoc.html#Deep_Spark_Integgration">
+            <a href="docs/latest/mainpage.html?page=uniqueData">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon deepsparkintegration"></i>
@@ -410,7 +390,7 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
           </div>
 
           <div class="col-md-4 col-sm-6">
-            <a href="overDoc.html#Advanced_Push_Down_Optimizations">
+            <a href="docs/latest/mainpage.html?page=uniqueData">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon advancedpushdownoptimization"></i>
@@ -422,7 +402,7 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
           </div>
 
           <div class="col-md-4 col-sm-6">
-            <a href="overDoc.html#Dictionary_Encoding">
+            <a href="docs/latest/mainpage.html?page=uniqueData">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon dictionaryencoding"></i>
@@ -435,7 +415,7 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
 
 
           <div class="col-md-4 col-sm-6">
-           <a href="overDoc.html#Update_Delete_Support">
+           <a href="docs/latest/mainpage.html?page=uniqueData">
              <div class="cd-columnblock"> 
                  <div class="iconbox">
                       <i class="icon updatedeletesupport"></i>
@@ -449,26 +429,6 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
       </div>
     </div>
    </section><!-- End Flow carbonData part -->
-
- <!--  <section>
-       <div class="cd-releasedownload">
-         <div class="container-fluid">
-           <div class="col-md-9 col-sm-8">
-                 <h4 class="title"><i class="cube-icon"><img src="images/CDcube_icon.png" alt=""/></i> 
-                    CarbonData 0.2.0 released 
-                    <span class="release-date">Nov 2016 </span>
-                 </h4>  
-                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" class="release-note" target="_blank"> relase note</a>
-           </div>
-           <div class="col-md-3 col-sm-4">
-            <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Apache+CarbonData+0.2.0-incubating+Released" class="download-btn" target="_blank"><i class="fa fa-download fa-lg icon-margin-r"></i> Download</a> 
-           </div>
-         </div>
-       </div>
-   </section> -->
-
-   
-
    <section><!-- Apacheblock part -->
     <div class="cd-apacheblock">
       <div class="container-fluid">
@@ -541,12 +501,13 @@ Apache CarbonData is an open source project of The Apache Software Foundation (A
     <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-     <script src="js/navigation.js" type="text/javascript"></script>
-    <script src="js/custon.js"></script>
+    <script src="js/mdNavigation.js" type="text/javascript"></script>
+    <script src="js/custom.js"></script>
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
     </script>
+    
   </body>
   </html>
