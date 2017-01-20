@@ -20,48 +20,21 @@
 # Quick Start
 This tutorial provides a quick introduction to using CarbonData.
 
-## Getting started with Apache CarbonData
-
-* [Installation](#installation)
-* [Prerequisites](#prerequisites)
-* [Interactive Analysis with Spark Shell Version 2.1](#interactive-analysis-with-spark-shell)
-  - Basics
-  - Executing Queries
-      * Creating a Table
-      * Loading Data to a Table
-      * Query Data from a Table
-* Interactive Analysis with Spark Shell Version 1.6
-   - Basics
-   - Executing Queries
-     * Creating a Table
-     * Loading Data to a Table
-     * Query Data from a Table
-* [Building CarbonData](#building-carbondata)
-
-
-##  Installation
-* Download a released package of [Spark 1.6.2 or 2.1.0](http://spark.apache.org/downloads.html).
-* Download and install [Apache Thrift 0.9.3](http://thrift-tutorial.readthedocs.io/en/latest/installation.html), make sure Thrift is added to system path.
-* Download [Apache CarbonData code](https://github.com/apache/incubator-carbondata) and build it. Please visit [Building CarbonData And IDE Configuration](https://cwiki.apache.org/confluence/display/CARBONDATA/Building+CarbonData+And+IDE+Configuration) for more information.
-
 ##  Prerequisites
-
+* [Installation and building CarbonData](https://github.com/apache/incubator-carbondata/blob/master/build).
 * Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData.
 
 ```
-$ cd carbondata
-$ cat > sample.csv << EOF
-  id,name,city,age
-  1,david,shenzhen,31
-  2,eason,shenzhen,27
-  3,jarry,wuhan,35
-  EOF
+cd carbondata
+cat > sample.csv << EOF
+id,name,city,age
+1,david,shenzhen,31
+2,eason,shenzhen,27
+3,jarry,wuhan,35
+EOF
 ```
 
-
-## Interactive Analysis with Spark Shell
-
-## Version 2.1
+## Interactive Analysis with Spark Shell Version 2.1
 
 Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit [Apache Spark Documentation](http://spark.apache.org/docs/latest/) for more details on Spark shell.
 
@@ -70,7 +43,7 @@ Apache Spark Shell provides a simple way to learn the API, as well as a powerful
 Start Spark shell by running the following command in the Spark directory:
 
 ```
-./bin/spark-shell --jars <carbondata jar path>
+./bin/spark-shell --jars <carbondata assembly jar path>
 ```
 
 In this shell, SparkSession is readily available as 'spark' and Spark context is readily available as 'sc'.
@@ -87,9 +60,10 @@ import org.apache.spark.sql.CarbonSession._
 * Create a CarbonSession :
 
 ```
-val carbon = SparkSession.builder()
-             .config(sc.getConf)
-             .getOrCreateCarbonSession()
+val carbon = SparkSession
+            .builder()
+            .config(sc.getConf)
+            .getOrCreateCarbonSession()
 ```
 
 #### Executing Queries
@@ -97,39 +71,35 @@ val carbon = SparkSession.builder()
 ##### Creating a Table
 
 ```
-scala>carbon.sql("create table if not exists test_table
-                (id string, name string, city string, age Int)
-                STORED BY 'carbondata'")
+scala>carbon.sql("CREATE TABLE IF NOT EXISTS test_table
+     (id string, name string, city string, age Int)
+     STORED BY 'carbondata'")
 ```
 
 ##### Loading Data to a Table
 
 ```
-scala>carbon.sql(s"load data inpath
-'${new java.io.File("../carbondata/sample.csv").getCanonicalPath}'
-into table test_table")
+scala>carbon.sql("LOAD DATA INPATH 'sample.csv file path' INTO TABLE test_table")
 ```
+NOTE:Please provide the real file path of sample.csv for the above script.
 
 ###### Query Data from a Table
 
 ```
-scala>spark.sql("select * from test_table").show
+scala>carbon.sql("SELECT * FROM test_table").show()
 
-scala>spark.sql("select city, avg(age),
-sum(age) from test_table group by city").show
+scala>carbon.sql("SELECT city, avg(age), sum(age)
+      FROM test_table GROUP BY city").show()
 ```
 
-
-## Interactive Analysis with Spark Shell
-## Version 1.6
-
+## Interactive Analysis with Spark Shell Version 1.6
 
 #### Basics
 
 Start Spark shell by running the following command in the Spark directory:
 
 ```
-./bin/spark-shell --jars <carbondata jar path>
+./bin/spark-shell --jars <carbondata assembly jar path>
 ```
 
 NOTE: In this shell, SparkContext is readily available as sc.
@@ -153,34 +123,28 @@ NOTE: By default store location is pointed to "../carbon.store", user can provid
 ##### Creating a Table
 
 ```
-scala>cc.sql("create table if not exists test_table
-(id string, name string, city string, age Int) STORED BY 'carbondata'")
+scala>cc.sql("CREATE TABLE IF NOT EXISTS test_table
+     (id string, name string, city string, age Int)
+     STORED BY 'carbondata'")
 ```
 To see the table created :
 
 ```
-scala>cc.sql("show tables").show
+scala>cc.sql("SHOW TABLES").show()
 ```
 
 ##### Loading Data to a Table
 
 ```
-scala>cc.sql(s"load data inpath
-'${new java.io.File("../carbondata/sample.csv").getCanonicalPath}'
-into table test_table")
+scala>cc.sql("LOAD DATA INPATH 'sample.csv file path'
+      INTO TABLE test_table")
 ```
+NOTE:Please provide the real file path of sample.csv for the above script.
 
 ##### Query Data from a Table
 
 ```
-scala>cc.sql("select * from test_table").show
-scala>cc.sql("select city, avg(age), sum(age)
-from test_table group by city").show
+scala>cc.sql("SELECT * FROM test_table").show()
+scala>cc.sql("SELECT city, avg(age), sum(age)
+      FROM test_table GROUP BY city").show()
 ```
-
-## Building CarbonData
-
-To get started, get CarbonData from the [downloads](http://carbondata.incubator.apache.org/) section on the [http://carbondata.incubator.apache.org.](http://carbondata.incubator.apache.org.)
-CarbonData uses Hadoop’s client libraries for HDFS and YARN and Spark's libraries. Downloads are pre-packaged for a handful of popular Spark versions.
-
-If you’d like to build CarbonData from source, visit [Building CarbonData And IDE Configuration](https://cwiki.apache.org/confluence/display/CARBONDATA/Building+CarbonData+And+IDE+Configuration).

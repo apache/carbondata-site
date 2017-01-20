@@ -448,8 +448,8 @@ cd-updatedeletesupport-icon.png
 .cd-thecolumnblock .title-info { font-size: 13px; color: #555; line-height: 18px;    display: block; text-align: left;
      overflow: hidden; margin: 0 0 8px; /*font-family: OpenSansLight*/}
 .cd-thecolumnblock.joinblog{margin-top: 15px; background: #fff; padding:20px; margin: 15px -10px 0; box-shadow: 0 1px 1px #bbb;}
-.cd-thecolumnblock.getstartlog{background: #fff; box-shadow: 0 1px 1px #bbb; padding: 15px; margin:5px 0 15px;}
-.cd-thecolumnblock.latestblog {border: 1px dashed #999; padding: 15px; background: #fcfcfc;}     
+.cd-thecolumnblock.getstartlog { background: #fff; box-shadow: 0 1px 1px #bbb;padding: 15px; margin: 15px 0px 15px -10px;}
+.cd-thecolumnblock.latestblog {padding: 15px; background: #fcfcfc; margin: 15px -10px 15px 0px; box-shadow: 0 1px 1px #bbb;}
 .cd-thecolumnblock.getstartlog .title .title-underline, .cd-thecolumnblock.latestblog .title .title-underline {background: #444;}
 
 
@@ -534,10 +534,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .quickstart-btn i.rocket-icon {
     background: url(../images/cd-rocket-icon.png) no-repeat center center;
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 28px;
     background-size: cover;
-    margin-top: 2px;
+    margin-top: -13px !important;
 }
 
 /*.quickstart-btn i.fa {font-size: 36px; position: absolute; left: 8px; top: 50%; margin-top: -19px;}*/
@@ -880,6 +880,28 @@ box-shadow: 0 3px 2px #aaa }
     font-size: 16px;
     line-height: 22px;
 }
+
+.doc-toc{position: fixed; top:90px;  left: 0; font-size: 20px;
+   cursor: pointer;  padding: 2px; -webkit-border-radius:3px ;-moz-border-radius:3px ;border-radius:3px;
+   box-shadow: 0px 1px 4px #888;}
+
+.doc-toc .toc-icon {
+   background: url(../images/cd-doc-toc_icon.png) no-repeat center center;
+   background-size: contain;
+   width: 30px;
+   height: 36px;
+   display: inline-block;
+}
+.doc-toc .toc-icon:hover{ background:url(../images/cd-doc-toc_icon-hover.png) no-repeat center center;
+   -webkit-transition: all .2s ease-in-out;
+   -moz-transition: all .2s ease-in-out;
+   -o-transition: all .2s ease-in-out;
+   transition: all .2s ease-in-out;
+   background-size: contain;
+   width: 30px;
+   height: 36px;
+}
+
 /* ------------------- End Documentation Style here*/
 
 
@@ -939,7 +961,10 @@ box-shadow: 0 3px 2px #aaa }
     width:100%;
 }
 
-.cd-thecolumnblock.joinblog { margin:20px -15px 0;}
+.cd-thecolumnblock.joinblog { margin:20px 0px 0;}
+.cd-thecolumnblock.latestblog {margin:15px 0 15px 0px;}
+.cd-thecolumnblock.getstartlog {margin: 15px 0px 15px 0;}
+
 }
 
 
