@@ -534,10 +534,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .quickstart-btn i.rocket-icon {
     background: url(../images/cd-rocket-icon.png) no-repeat center center;
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 28px;
     background-size: cover;
-    margin-top: 2px;
+    margin-top: -13px !important;
 }
 
 /*.quickstart-btn i.fa {font-size: 36px; position: absolute; left: 8px; top: 50%; margin-top: -19px;}*/
