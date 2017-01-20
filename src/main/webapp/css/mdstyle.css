@@ -70,3 +70,13 @@ border-bottom: 1px dashed #e1e1e1;}
 #viewpage table {color: #444;}
 #viewpage td{word-break: break-all;}
 #viewpage th { white-space: nowrap;}
+
+
+#viewpage h2 { position: relative; }
+#viewpage h2:before{ display: block; content: " "; margin-top: -2px; height:40px; visibility: hidden; }
+
+#viewpage code {
+    color: #dd6300;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+}
