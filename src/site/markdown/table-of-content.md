@@ -23,10 +23,9 @@
 * [User Guide](user-guide-toc.md)
     * [Overview](overview-of-carbondata.md)
        * Introduction
-       * CarbonData File Structure
        * Features
-       * Data Types
-       * Interfaces
+       * [Data Types](supported-data-types-in-carbondata.md)
+       * [CarbonData File Structure](file-structure-of-carbondata.md)
     * [Installation Guide](installation-guide.md)
        * Installing and Configuring CarbonData on Standalone Spark Cluster
        * Installing and Configuring CarbonData on “Spark on YARN” Cluster

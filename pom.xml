@@ -66,8 +66,8 @@
           </execution>
         </executions>
         <configuration>
-          <inputDirectory>/home/knoldus/Desktop/incubator-carbondata-site/src/site/markdown</inputDirectory>
-          <outputDirectory>/home/knoldus/Desktop/incubator-carbondata-site/src/main/webapp/docs/latest1</outputDirectory>
+          <inputDirectory>./src/site/markdown</inputDirectory>
+          <outputDirectory>./src/main/webapp/docs/latest_htmls</outputDirectory>
           <inputEncoding>UTF-8</inputEncoding>
           <outputEncoding>ISO-8859-15</outputEncoding>
         </configuration>

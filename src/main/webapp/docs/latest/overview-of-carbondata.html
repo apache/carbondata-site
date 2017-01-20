@@ -15,13 +15,11 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><h1>Overview</h1><p>This tutorial provides a detailed overview about :</p>
+-->
+<h1>Overview</h1><p>This tutorial provides a detailed overview about :</p>
 <ul>
   <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#carbondata-file-structure">CarbonData File Structure</a></li>
   <li><a href="#features">Features</a></li>
-  <li><a href="#data-types">Data Types</a></li>
-  <li><a href="#interfaces">Interfaces</a></li>
 </ul>
 
 <div id="introduction"></div>
@@ -31,13 +29,7 @@
   <li>Fast query on fast data.</li>
   <li>Space efficiency.</li>
   <li>General format available on Hadoop-ecosystem.</li>
-  <div id="carbondata-file-structure"></div>
-</ul><h2>CarbonData File Structure</h2><p>CarbonData files contain groups of data called blocklets, along with all required information like schema, offsets and indices etc, in a file footer, co-located in HDFS.</p><p>The file footer can be read once to build the indices in memory, which can be utilized for optimizing the scans and processing for all subsequent queries.</p><p>Each blocklet in the file is further divided into chunks of data called data chunks. Each data chunk is organized either in columnar format or row format, and stores the data of either a single column or a set of columns. All blocklets in a file contain the same number and type of data chunks.</p><p><img src="../../../webapp/docs/latest/images/carbon_data_file_structure_new.png?raw=true" alt="CarbonData File Structure" /></p><p>Each data chunk contains multiple groups of data called as pages. There are three types of pages.</p>
-<ul>
-  <li>Data Page: Contains the encoded data of a column/group of columns.</li>
-  <li>Row ID Page (optional): Contains the row ID mappings used when the data page is stored as an inverted index.</li>
-  <li>RLE Page (optional): Contains additional metadata used when the data page is RLE coded.</li>
-</ul><p><img src="../../../webapp/docs/latest/images/carbon_data_format_new.png?raw=true" alt="CarbonData File Format" /></p>
+</ul>
 
 <div id="features"></div>
 <h2>Features</h2><p>CarbonData file format is a columnar store in HDFS. It has many features that a modern columnar format has, such as splittable, compression schema, complex data type etc and CarbonData has following unique features:</p>
@@ -55,82 +47,4 @@
   <li><p>Operable encoded data: It supports efficient compression and global encoding schemes and can query on compressed/encoded data. The data can be converted just before returning the results to the users, which is "late materialized".</p></li>
   <li><p>Column group: Allows multiple columns to form a column group that would be stored as row format. This reduces the row reconstruction cost at query time.</p></li>
   <li><p>Support for various use cases with one single Data format: Examples are interactive OLAP-style query, Sequential Access (big scan) and Random Access (narrow scan).</p></li>
-</ul>
-<div id="data-types"></div>
-
-<h2>Data Types</h2><h4>CarbonData supports the following data types:</h4>
-<ul>
-  <li>Numeric Types</li>
-  <li>SMALLINT</li>
-  <li>INT/INTEGER</li>
-  <li>BIGINT</li>
-  <li>DOUBLE</li>
-  <li>DECIMAL</li>
-  <li><p>Date/Time Types</p></li>
-  <li>TIMESTAMP</li>
-  <li><p>String Types</p></li>
-  <li>STRING</li>
-  <li><p>Complex Types</p>
-  <ul>
-    <li>arrays: ARRAY<code>&lt;data_type&gt;</code></li>
-    <li>structs: STRUCT<code>&lt;col_name : data_type COMMENT col_comment, ...&gt;</code></li>
-  </ul></li>
-</ul>
-<div id="interfaces"></div>
-<h2>Interfaces</h2><h4>API</h4><p>CarbonData can be used in following scenarios:</p>
-<ul>
-  <li>For MapReduce application user</li>
-</ul><p>This User API is provided by carbon-hadoop. In this scenario, user can process CarbonData files in his MapReduce application by choosing CarbonInput/OutputFormat, and is responsible for using it correctly. Currently only CarbonInputFormat is provided and OutputFormat will be provided soon.</p>
-<ul>
-  <li>For Spark user</li>
-</ul><p>This User API is provided by Spark itself. There are two levels of APIs</p>
-<ul>
-  <li><p><strong>CarbonData File</strong></p><p>Similar to parquet, json, or other data source in Spark, CarbonData can be used with data source API. For example (please refer to DataFrameAPIExample for more detail):</p></li>
-</ul><p>```  // User can create a DataFrame from any data source  // or transformation.  val df = ...</p>
-<pre><code>  // Write data
-  // User can write a DataFrame to a CarbonData file
-  df.write
-  .format(&quot;carbondata&quot;)
-  .option(&quot;tableName&quot;, &quot;carbontable&quot;)
-  .mode(SaveMode.Overwrite)
-  .save()
-
-
-  // read CarbonData by data source API
-  df = carbonContext.read
-  .format(&quot;carbondata&quot;)
-  .option(&quot;tableName&quot;, &quot;carbontable&quot;)
-  .load(&quot;/path&quot;)
-
-  // User can then use DataFrame for analysis
-  df.count
-  SVMWithSGD.train(df, numIterations)
-
-  // User can also register the DataFrame with a table name, 
-  // and use SQL for analysis
-  df.registerTempTable(&quot;t1&quot;)  // register temporary table 
-                              // in SparkSQL catalog
-  df.registerHiveTable(&quot;t2&quot;)  // Or, use a implicit funtion 
-                              // to register to Hive metastore
-  sqlContext.sql(&quot;select count(*) from t1&quot;).show
-</code></pre><p>```</p>
-<ul>
-  <li><p><strong>Managed CarbonData Table</strong></p><p>CarbonData has in built support for high level concept like Table, Database, and supports full data lifecycle management, instead of dealing with just files user can use CarbonData specific DDL to manipulate data in Table and Database level. Please refer <a href="https://github.com/HuaweiBigData/carbondata/wiki/Language-Manual:-DDL">DDL</a> and <a href="https://github.com/HuaweiBigData/carbondata/wiki/Language-Manual:-DML">DML</a>.</p></li>
-</ul><p><code>
-      // Use SQL to manage table and query data
-      create database db1;
-      use database db1;
-      show databases;
-      create table tbl1 using org.apache.carbondata.spark;
-      load data into table tlb1 path &#39;some_files&#39;;
-      select count(*) from tbl1;
-</code></p>
-<ul>
-  <li><p>For developer who want to integrate CarbonData into processing engines like spark, hive or flink, use API provided by carbon-hadoop and carbon-processing:</p>
-  <ul>
-    <li><strong>Query</strong> : Integrate carbon-hadoop with engine specific API, like spark data source API.</li>
-  </ul>
-  <ul>
-    <li><strong>Data life cycle management</strong> : CarbonData provides utility functions in carbon-processing to manage data life cycle, like data loading, compact, retention, schema evolution. Developer can implement DDLs of their choice and leverage these utility function to do data life cycle management.</li>
-  </ul></li>
 </ul>
