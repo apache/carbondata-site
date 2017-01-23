@@ -153,8 +153,7 @@ NOTE: By default store location is pointed to "../carbon.store", user can provid
 ##### Creating a Table
 
 ```
-scala>cc.sql("create table if not exists test_table
-(id string, name string, city string, age Int) STORED BY 'carbondata'")
+scala>cc.sql("create table if not exists test_table(id string, name string, city string, age Int) STORED BY 'carbondata'")
 ```
 To see the table created :
 
@@ -180,7 +179,7 @@ from test_table group by city").show
 
 ## Building CarbonData
 
-To get started, get CarbonData from the [downloads](http://carbondata.incubator.apache.org/) section on the [http://carbondata.incubator.apache.org.](http://carbondata.incubator.apache.org.)
+To get started, get CarbonData from the downloads section on the [http://carbondata.incubator.apache.org.](http://carbondata.incubator.apache.org.)
 CarbonData uses Hadoop’s client libraries for HDFS and YARN and Spark's libraries. Downloads are pre-packaged for a handful of popular Spark versions.
 
 If you’d like to build CarbonData from source, visit [Building CarbonData And IDE Configuration](https://cwiki.apache.org/confluence/display/CARBONDATA/Building+CarbonData+And+IDE+Configuration).
