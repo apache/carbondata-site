@@ -123,7 +123,7 @@ You can use the following options to load data:
     column2:dictionaryFilePath2')
     ```
 
-    NOTE: ALL_DICTIONARY_PATH and COLUMNDICT can't be used together.
+    NOTE: ALL_DICTIONARY_PATH and COLUMNDICT can not be used together.
     
 - **DATEFORMAT:** Date format for specified column.
 
