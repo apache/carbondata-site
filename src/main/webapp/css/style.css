@@ -448,8 +448,8 @@ cd-updatedeletesupport-icon.png
 .cd-thecolumnblock .title-info { font-size: 13px; color: #555; line-height: 18px;    display: block; text-align: left;
      overflow: hidden; margin: 0 0 8px; /*font-family: OpenSansLight*/}
 .cd-thecolumnblock.joinblog{margin-top: 15px; background: #fff; padding:20px; margin: 15px -10px 0; box-shadow: 0 1px 1px #bbb;}
-.cd-thecolumnblock.getstartlog{background: #fff; box-shadow: 0 1px 1px #bbb; padding: 15px; margin:5px 0 15px;}
-.cd-thecolumnblock.latestblog {border: 1px dashed #999; padding: 15px; background: #fcfcfc;}     
+.cd-thecolumnblock.getstartlog { background: #fff; box-shadow: 0 1px 1px #bbb;padding: 15px; margin: 15px 0px 15px -10px;}
+.cd-thecolumnblock.latestblog {padding: 15px; background: #fcfcfc; margin: 15px -10px 15px 0px; box-shadow: 0 1px 1px #bbb;}
 .cd-thecolumnblock.getstartlog .title .title-underline, .cd-thecolumnblock.latestblog .title .title-underline {background: #444;}
 
 
@@ -939,7 +939,10 @@ box-shadow: 0 3px 2px #aaa }
     width:100%;
 }
 
-.cd-thecolumnblock.joinblog { margin:20px -15px 0;}
+.cd-thecolumnblock.joinblog { margin:20px 0px 0;}
+.cd-thecolumnblock.latestblog {margin:15px 0 15px 0px;}
+.cd-thecolumnblock.getstartlog {margin: 15px 0px 15px 0;}
+
 }
 
 

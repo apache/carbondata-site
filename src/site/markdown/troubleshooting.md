@@ -21,9 +21,7 @@
 This tutorial is designed to provide troubleshooting for end users and developers
 who are building, deploying, and using CarbonData.
 
-- **Title**
-
-  Failed to load thrift libraries
+## Failed to load thrift libraries
 
   **Symptom**
 
@@ -61,9 +59,7 @@ who are building, deploying, and using CarbonData.
 
     Note : Remember to add only the path to the directory, not the full path for that file, all the libraries inside that path will be automatically indexed.
 
-- **Title**
-
-  Failed to launch the Spark Shell
+## Failed to launch the Spark Shell
 
   **Symptom**
 
@@ -91,9 +87,7 @@ who are building, deploying, and using CarbonData.
 
     Note :  Refrain from using "mvn clean package" without specifying the profile.
 
-- **Title**
-
-  Failed to execute load query on cluster.
+## Failed to execute load query on cluster.
 
   **Symptom**
 
@@ -116,9 +110,7 @@ who are building, deploying, and using CarbonData.
 
   2. For the changes to take effect, restart the Spark cluster.
 
-- **Title**
-
-  Failed to execute insert query on cluster.
+## Failed to execute insert query on cluster.
 
   **Symptom**
 
@@ -141,9 +133,7 @@ who are building, deploying, and using CarbonData.
 
   2. For the changes to take effect, restart the Spark cluster.
 
-- **Title**
-
-  Failed to connect to hiveuser with thrift
+## Failed to connect to hiveuser with thrift
 
   **Symptom**
 
@@ -161,9 +151,7 @@ who are building, deploying, and using CarbonData.
 
   Ensure that the Hiveuser in mysql must allow its access to the external processes.
 
-- **Title**
-
-  Failure to read the metastore db during table creation.
+## Failure to read the metastore db during table creation.
 
   **Symptom**
 
@@ -181,9 +169,7 @@ who are building, deploying, and using CarbonData.
 
   Remove the metastore db from the carbon.metastore in the Spark Directory.
 
-- **Title**
-
-  Failed to load data on the cluster
+## Failed to load data on the cluster
 
   **Symptom**
 
@@ -214,9 +200,7 @@ who are building, deploying, and using CarbonData.
 
 
 
-- **Title**
-
-  Failed to insert data on the cluster
+## Failed to insert data on the cluster
 
   **Symptom**
 
@@ -245,9 +229,7 @@ who are building, deploying, and using CarbonData.
 
    2. For the changes to take effect, restart the Spark cluster.
 
-- **Title**
-
-  Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.
+## Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.
 
   **Symptom**
 
@@ -265,9 +247,7 @@ who are building, deploying, and using CarbonData.
 
   Worker must wait for the query execution to complete and the table to release the lock for another query execution to succeed..
 
-- **Title**
-
-  Failed to create a table with a single numeric column.
+## Failed to create a table with a single numeric column.
 
   **Symptom**
 
