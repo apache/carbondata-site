@@ -21,7 +21,6 @@
     <item name="DDL" ref='ddl-operation-on-carbondata.md'/>
     <item name="DML" ref='dml-operation-on-carbondata.md '/>
     <item name="Useful Tips" ref='useful-tips-on-carbondata.md'/>
-    <item name="Use Cases" ref='use-cases-of-carbondata.md'/>
     <item name="Troubleshooting" ref='troubleshooting.md'/>
     <item name="FAQs" ref='faq.md'/>
 
