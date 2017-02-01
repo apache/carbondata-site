@@ -21,7 +21,7 @@
   <li><a href="#deleting-data">Deleting Data</a></li>
   <li><a href="#compacting-data">Compacting Data</a></li>
   <li><a href="#updating-data">Updating Data</a></li>
-</ul><h2>Loading Data</h2>
+</ul><h2 id="loading-data">Loading Data</h2>
 <ul>
   <li><strong>Scenario</strong></li>
 </ul><p>After creating a table, you can load data to the table using the <a href="dml-operation-on-carbondata.html">LOAD DATA</a> command. The loaded data is available for querying.  When data load is triggered, the data is encoded in CarbonData format and copied into HDFS CarbonData store path (specified in carbon.properties file)  in compressed, multi dimensional columnar format for quick analysis queries. The same command can be used to load new data or to  update the existing data. Only one data load can be triggered for one table. The high cardinality columns of the dictionary encoding are  automatically recognized and these columns will not be used for dictionary encoding.</p>
@@ -51,7 +51,8 @@
   <li>START_TIME OF LOAD</li>
   <li>END_TIME OF LOAD</li>
   <li>LOAD STATUS</li>
-</ul><p>The latest load will be displayed first in the output.</p><p>Refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a> for load commands.</p><h2>Deleting Data</h2>
+</ul><p>The latest load will be displayed first in the output.</p><p>Refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a> for load commands.</p>
+<h2 id="deleting-data">Deleting Data</h2>
 <ul>
   <li><strong>Scenario</strong></li>
 </ul><p>If you have loaded wrong data into the table, or too many bad records are present and you want to modify and reload the data, you can delete required data loads.  The load can be deleted using the Segment Sequence Id or if the table contains date field then the data can be deleted using the date field.  If there are some specific records that need to be deleted based on some filter condition(s) we can delete by records.</p>
@@ -106,7 +107,8 @@
   </ul></li>
 </ul><p>Example :</p><p><code>
 CLEAN FILES FOR TABLE table1
-</code></p><p>This DML will physically delete the segment which are "Marked for delete" immediately.</p><h2>Compacting Data</h2>
+</code></p><p>This DML will physically delete the segment which are "Marked for delete" immediately.</p>
+<h2 id="compacting-data">Compacting Data</h2>
 <ul>
   <li><strong>Scenario</strong></li>
 </ul><p>Frequent data ingestion results in several fragmented CarbonData files in the store directory. Since data is sorted only within each load, the indices perform only within each  load. This means that there will be one index for each load and as number of data load increases, the number of indices also increases. As each index works only on one load,  the performance of indices is reduced. CarbonData provides provision for compacting the loads. Compaction process combines several segments into one large segment by merge sorting the data from across the segments. </p>
@@ -168,7 +170,8 @@ CLEAN FILES FOR TABLE table1
       <td>0-100 </td>
     </tr>
   </tbody>
-</table><p>For compaction commands refer to <a href="ddl-operation-on-carbondata.html">DDL operations on CarbonData</a></p><h2>Updating Data</h2>
+</table><p>For compaction commands refer to <a href="ddl-operation-on-carbondata.html">DDL operations on CarbonData</a></p>
+<h2 id="updating-data">Updating Data</h2>
 <ul>
   <li><p><strong>Scenario</strong></p><p>Sometimes after the data has been ingested into the System, it is required to be updated. Also there may be situations where some specific columns need to be updated on the basis of column expression and optional filter conditions.</p></li>
   <li><p><strong>Procedure</strong></p><p>To update we need to specify the column expression with an optional filter condition(s).</p><p>For update commands refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a>.</p></li>

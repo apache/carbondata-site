@@ -18,13 +18,13 @@
 --><h1>DML Operations on CarbonData</h1><p>This tutorial guides you through the data manipulation language support provided by CarbonData.</p><h2>Overview</h2><p>The following DML operations are supported in CarbonData :</p>
 <ul>
   <li><a href="#load-data">LOAD DATA</a></li>
-  <li><a href="#insert-data-into-a-carbondata-table">INSERT DATA INTO A CARBONDATA TABLE</a></li>
+  <li><a href="#insert-data">INSERT DATA INTO A CARBONDATA TABLE</a></li>
   <li><a href="#show-segments">SHOW SEGMENTS</a></li>
-  <li><a href="#delete-segment-by-id">DELETE SEGMENT BY ID</a></li>
-  <li><a href="#delete-segment-by-date">DELETE SEGMENT BY DATE</a></li>
-  <li><a href="#update-carbondata-table">UPDATE CARBONDATA TABLE</a></li>
-  <li><a href="#delete-records-from-carbondata-table">DELETE RECORDS FROM CARBONDATA TABLE</a></li>
-</ul><h2>LOAD DATA</h2><p>This command loads the user data in raw format to the CarbonData specific data format store, this allows CarbonData to provide good performance while querying the data. Please visit <a href="data-management.html">Data Management</a> for more details on LOAD.</p><h3>Syntax</h3><p><code>
+  <li><a href="#delete-id">DELETE SEGMENT BY ID</a></li>
+  <li><a href="#delete-date">DELETE SEGMENT BY DATE</a></li>
+  <li><a href="#update-carbondata">UPDATE CARBONDATA TABLE</a></li>
+  <li><a href="#delete-table">DELETE RECORDS FROM CARBONDATA TABLE</a></li>
+</ul><h2 id="load-data">LOAD DATA</h2><p>This command loads the user data in raw format to the CarbonData specific data format store, this allows CarbonData to provide good performance while querying the data. Please visit <a href="data-management.html">Data Management</a> for more details on LOAD.</p><h3>Syntax</h3><p><code>
 LOAD DATA [LOCAL] INPATH &#39;folder_path&#39; 
 INTO TABLE [db_name.]table_name 
 OPTIONS(property_name=property_value, ...)
@@ -122,7 +122,7 @@ options(&#39;DELIMITER&#39;=&#39;,&#39;, &#39;QUOTECHAR&#39;=&#39;&quot;&#39;,&#
 &#39;COMPLEX_DELIMITER_LEVEL_2&#39;=&#39;:&#39;,
 &#39;ALL_DICTIONARY_PATH&#39;=&#39;/opt/alldictionary/data.dictionary&#39;
 )
-</code></p><h2>INSERT DATA INTO A CARBONDATA TABLE</h2><p>This command inserts data into a CarbonData table. It is defined as a combination of two queries Insert and Select query respectively. It inserts records from a source table into a target CarbonData table. The source table can be a Hive table, Parquet table or a CarbonData table itself. It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p><p><strong>NOTE</strong> : The client node where the INSERT command is executing, must be part of the cluster.</p><h3>Syntax</h3><p><code>
+</code></p><h2 id="insert-data">INSERT DATA INTO A CARBONDATA TABLE</h2><p>This command inserts data into a CarbonData table. It is defined as a combination of two queries Insert and Select query respectively. It inserts records from a source table into a target CarbonData table. The source table can be a Hive table, Parquet table or a CarbonData table itself. It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p><p><strong>NOTE</strong> : The client node where the INSERT command is executing, must be part of the cluster.</p><h3>Syntax</h3><p><code>
 INSERT INTO TABLE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
 [ WHERE { &lt;filter_condition&gt; } ];
 </code></p><p>You can also omit the <code>table</code> keyword and write your query as:</p><p><code>
@@ -166,7 +166,8 @@ where item2=&#39;xyz&#39;;
 INSERT INTO table1 SELECT * FROM table2 
 where exists (select * from table3 
 where table2.item1 = table3.item1);
-</code></p><p><strong>The Status Success/Failure shall be captured in the driver log.</strong></p><h2>SHOW SEGMENTS</h2><p>This command is used to get the segments of CarbonData table.</p><p><code>
+</code></p><p><strong>The Status Success/Failure shall be captured in the driver log.</strong></p>
+<h2 id="show-segments">SHOW SEGMENTS</h2><p>This command is used to get the segments of CarbonData table.</p><p><code>
 SHOW SEGMENTS FOR TABLE [db_name.]table_name 
 LIMIT number_of_segments;
 </code></p><h3>Parameter Description</h3>
@@ -197,7 +198,7 @@ LIMIT number_of_segments;
   </tbody>
 </table><h3>Example:</h3><p><code>
 SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4;
-</code></p><h2>DELETE SEGMENT BY ID</h2><p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it. Using this segment ID, you can remove the segment.</p><p>The following command will get the segmentID.</p><p><code>
+</code></p><h2 id="delete-id">DELETE SEGMENT BY ID</h2><p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it. Using this segment ID, you can remove the segment.</p><p>The following command will get the segmentID.</p><p><code>
 SHOW SEGMENTS FOR Table dbname.tablename LIMIT number_of_segments
 </code></p><p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p><p><code>
 DELETE SEGMENT segment_sequence_id1, segments_sequence_id2, .... 
@@ -231,7 +232,7 @@ FROM TABLE tableName
 </table><h3>Example:</h3><p><code>
 DELETE SEGMENT 0 FROM TABLE CarbonDatabase.CarbonTable;
 DELETE SEGMENT 0.1,5,8 FROM TABLE CarbonDatabase.CarbonTable;
-</code>  NOTE: Here 0.1 is compacted segment sequence id. </p><h2>DELETE SEGMENT BY DATE</h2><p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command. The segment created before the particular date will be removed from the specific stores.</p><p><code>
+</code>  NOTE: Here 0.1 is compacted segment sequence id. </p><h2 id="delete-date">DELETE SEGMENT BY DATE</h2><p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command. The segment created before the particular date will be removed from the specific stores.</p><p><code>
 DELETE FROM TABLE [schema_name.]table_name 
 WHERE[DATE_FIELD]BEFORE [DATE_VALUE]
 </code></p><h3>Parameter Description</h3>
@@ -263,7 +264,7 @@ WHERE[DATE_FIELD]BEFORE [DATE_VALUE]
 </table><h3>Example:</h3><p><code>
  DELETE SEGMENTS FROM TABLE CarbonDatabase.CarbonTable 
  WHERE STARTTIME BEFORE &#39;2017-06-01 12:05:06&#39;;  
-</code></p><h2>Update CarbonData Table</h2><p>This command will allow to update the carbon table based on the column expression and optional filter conditions.</p><h3>Syntax</h3><p><code>
+</code></p><h2 id="update-carbondata">Update CarbonData Table</h2><p>This command will allow to update the carbon table based on the column expression and optional filter conditions.</p><h3>Syntax</h3><p><code>
  UPDATE &lt;table_name&gt;
  SET (column_name1, column_name2, ... column_name n) =
  (column1_expression , column2_expression . .. column n_expression )
@@ -330,7 +331,7 @@ WHERE d.column1 = &#39;india&#39;;
 UPDATE carbonTable1 d SET (c2, c5 ) = (c2 + 1, &quot;xyx&quot;)
 WHERE d.column1 = &#39;india&#39;
 and EXISTS( SELECT * FROM table3 o WHERE o.column2 &gt; 1);
-</code></p><p><strong>The Status Success/Failure shall be captured in the driver log and the client.</strong></p><h2>Delete Records from CarbonData Table</h2><p>This command allows us to delete records from CarbonData table.</p><h3>Syntax</h3><p><code>
+</code></p><p><strong>The Status Success/Failure shall be captured in the driver log and the client.</strong></p><h2 id="delete-table">Delete Records from CarbonData Table</h2><p>This command allows us to delete records from CarbonData table.</p><h3>Syntax</h3><p><code>
 DELETE FROM table_name [WHERE expression];
 </code></p><h3>Parameter Description</h3>
 <table class="table table-striped table-bordered">
