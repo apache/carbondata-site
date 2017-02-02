@@ -319,11 +319,12 @@
     /carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar
     hdfs://hacluster/user/hive/warehouse/carbon.store
 </code></p><h3>Connecting to CarbonData Thrift Server Using Beeline</h3>
-<p>``` cd
-    <SPARK_HOME> ./bin/beeline jdbc:hive2://
-        <thrftserver_host>:port
+<p>
+<pre><code>
+    cd SPARK_HOME
+    ./bin/beeline jdbc:hive2://thriftserver_host:port
 
+    Example:
+    ./bin/beeline jdbc:hive2://10.10.10.10:10000
+</code></pre>
 </p>
-<pre><code> Example
- ./bin/beeline jdbc:hive2://10.10.10.10:10000
-</code></pre><p>```</p>

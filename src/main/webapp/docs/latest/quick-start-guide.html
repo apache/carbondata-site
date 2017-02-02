@@ -58,11 +58,12 @@
     val cc = new CarbonContext(sc)
 </code></p><p>NOTE: By default store location is pointed to "../carbon.store", user can provide own store location to CarbonContext like new CarbonContext(sc, storeLocation).</p><h4>Executing Queries</h4><h5>Creating a Table</h5><p><code>
     scala&gt;cc.sql(&quot;CREATE TABLE IF NOT EXISTS test_table (id string, name string, city string, age Int) STORED BY &#39;carbondata&#39;&quot;)
-</code> To see the table created :</p><p><code>
+</code>
+    </p>To see the table created :<p><code>
     scala&gt;cc.sql(&quot;SHOW TABLES&quot;).show()
 </code></p><h5>Loading Data to a Table</h5><p><code>
     scala&gt;cc.sql(&quot;LOAD DATA INPATH &#39;sample.csv file path&#39; INTO TABLE test_table&quot;)
-</code> NOTE:Please provide the real file path of sample.csv for the above script.</p><h5>Query Data from a Table</h5><p><code>
+</code> <p>NOTE:Please provide the real file path of sample.csv for the above script.</p><h5>Query Data from a Table</h5><p><code>
     scala&gt;cc.sql(&quot;SELECT * FROM test_table&quot;).show()
     scala&gt;cc.sql(&quot;SELECT city, avg(age), sum(age) FROM test_table GROUP BY city&quot;).show()
 </code></p>

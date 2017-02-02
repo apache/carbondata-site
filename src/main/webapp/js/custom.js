@@ -59,9 +59,6 @@ $(document).ready(function(){
       pagelink ="data-management.html"
       break;
 
-/*    default:
-       $("#viewpage").load("user-guide-toc.html");*/
-
       } 
     $("#viewpage").load(pagelink);  
 
