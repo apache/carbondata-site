@@ -27,13 +27,14 @@ The following DDL operations are supported in CarbonData :
 * [SHOW TABLE](#show-table)
 * [DROP TABLE](#drop-table)
 * [COMPACTION](#compaction)
+* [BUCKETING](#bucketing)
 
 ## CREATE TABLE
   This command can be used to create a CarbonData table by specifying the list of fields along with the table properties.
   
 ```
    CREATE TABLE [IF NOT EXISTS] [db_name.]table_name 
-                    [(col_name data_type , ...)]               
+                    [(col_name data_type, ...)]
    STORED BY 'carbondata'
    [TBLPROPERTIES (property_name=property_value, ...)]
    // All Carbon's additional table options will go into properties
@@ -70,14 +71,14 @@ The following DDL operations are supported in CarbonData :
        Column groups with more than one column are stored in row format, instead of columnar format. By default, each column is a separate column group.
      
 ```
-TBLPROPERTIES ("COLUMN_GROUPS"="(column1,column3),
+TBLPROPERTIES ("COLUMN_GROUPS"="(column1, column3),
 (Column4,Column5,Column6)") 
 ```
    
    - **Table Block Size Configuration**
    
      The block size of table files can be defined using the property TABLE_BLOCKSIZE. It accepts only integer values. The default value is 1024 MB and supports a range of 1 MB to 2048 MB.
-     If you do not specify this value in the DDL command , default value is used. 
+     If you do not specify this value in the DDL command, default value is used.
      
 ```
        TBLPROPERTIES ("TABLE_BLOCKSIZE"="512 MB")
@@ -91,7 +92,7 @@ TBLPROPERTIES ("COLUMN_GROUPS"="(column1,column3),
       By default inverted index is enabled. The user can disable the inverted index creation for some columns.
      
 ```
-       TBLPROPERTIES ("NO_INVERTED_INDEX"="column1,column3")
+       TBLPROPERTIES ("NO_INVERTED_INDEX"="column1, column3")
 ```
 
   No inverted index shall be generated for the columns specified in NO_INVERTED_INDEX. This property is applicable on columns with high-cardinality and is an optional parameter.
@@ -189,5 +190,60 @@ ALTER TABLE table_name COMPACT 'MINOR';
 ALTER TABLE table_name COMPACT 'MAJOR';
 ```
 
+
+## BUCKETING
+
+Bucketing feature can be used to distribute/organize the table/partition data into multiple files such
+that similar records are present in the same file. While creating a table, a user needs to specify the
+columns to be used for bucketing and the number of buckets. For the selction of bucket the Hash value
+of columns is used.
+
+```
+   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                    [(col_name data_type, ...)]
+   STORED BY 'carbondata'
+   TBLPROPERTIES(“BUCKETNUMBER”=”noOfBuckets”,
+   “BUCKETCOLUMNS”=’’columnname”, “TABLENAME”=”tablename”)
+
+```
   
-  
+## Parameter Description
+
+| Parameter 	| Description 	| Optional 	|
+|---------------	|------------------------------------------------------------------------------------------------------------------------------	|----------	|
+| BUCKETNUMBER 	| Specifies the number of Buckets to be created. 	| No 	|
+| BUCKETCOLUMNS 	| Specify the columns to be considered for Bucketing  	| No 	|
+| TABLENAME 	| The name of the table in Database. Table Name should consist of alphanumeric characters and underscore(_) special character. 	| Yes 	|
+
+## Usage Guidelines
+
+- The feature is supported for Spark 1.6.2 onwards, but the performance optimization is evident from Spark 2.1 onwards.
+
+- Bucketing can not be performed for columns of Complex Data Types.
+
+- Columns in the BUCKETCOLUMN parameter must be either a dimension or a measure but combination of both is not supported.
+
+
+## Example :
+
+ ```
+ CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                                productNumber Int,
+                                productName String,
+                                storeCity String,
+                                storeProvince String,
+                                productCategory String,
+                                productBatch String,
+                                saleQuantity Int,
+                                revenue Int)
+   STORED BY 'carbondata'
+   TBLPROPERTIES ('COLUMN_GROUPS'='(productName,productCategory)',
+                  'DICTIONARY_EXCLUDE'='productName',
+                  'DICTIONARY_INCLUDE'='productNumber',
+                  'NO_INVERTED_INDEX'='productBatch',
+                  'BUCKETNUMBER'='4',
+                  'BUCKETCOLUMNS'='productNumber,saleQuantity',
+                  'TABLENAME'='productSalesTable')
+
+  ```
+
