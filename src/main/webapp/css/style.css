@@ -880,6 +880,28 @@ box-shadow: 0 3px 2px #aaa }
     font-size: 16px;
     line-height: 22px;
 }
+
+.doc-toc{position: fixed; top:90px;  left: 0; font-size: 20px;
+   cursor: pointer;  padding: 2px; -webkit-border-radius:3px ;-moz-border-radius:3px ;border-radius:3px;
+   box-shadow: 0px 1px 4px #888;}
+
+.doc-toc .toc-icon {
+   background: url(../images/cd-doc-toc_icon.png) no-repeat center center;
+   background-size: contain;
+   width: 30px;
+   height: 36px;
+   display: inline-block;
+}
+.doc-toc .toc-icon:hover{ background:url(../images/cd-doc-toc_icon-hover.png) no-repeat center center;
+   -webkit-transition: all .2s ease-in-out;
+   -moz-transition: all .2s ease-in-out;
+   -o-transition: all .2s ease-in-out;
+   transition: all .2s ease-in-out;
+   background-size: contain;
+   width: 30px;
+   height: 36px;
+}
+
 /* ------------------- End Documentation Style here*/
 
 
