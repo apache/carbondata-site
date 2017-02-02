@@ -45,15 +45,26 @@ $(document).ready(function(){
 
     case "quickStart":
       pagelink ="quick-start-guide.html"
-           break;
+      break;
 
-    default:
-       $("#viewpage").load("user-guide-toc.html");
+    case "dml":
+      pagelink ="dml-operation-on-carbondata.html"
+      break;
+
+    case "ddl":
+      pagelink ="ddl-operation-on-carbondata.html"
+      break;
+
+    case "dm":
+      pagelink ="data-management.html"
+      break;
+
+/*    default:
+       $("#viewpage").load("user-guide-toc.html");*/
 
       } 
     $("#viewpage").load(pagelink);  
-    // $("#leftmenu").load("docs/latest/table_of_contents.html");
-  
+
  });
  
 
