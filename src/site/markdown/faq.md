@@ -40,8 +40,10 @@
     
 * **Did anyone try to run CarbonData on windows? Is it supported on Windows?**
     
-    We may provide support for windows in future. You are welcome to contribute if you want to add the support :) 
+    We may provide support for windows in future. You are welcome to contribute if you want to add the support :)
+
+* **Can we execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.**
    
-    
+    Concurrency is not supported in current release of CarbonData.
     
 

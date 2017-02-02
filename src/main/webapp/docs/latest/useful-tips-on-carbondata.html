@@ -17,9 +17,9 @@
     under the License.
 --><h1>Useful Tips</h1><p>This tutorial guides you to create CarbonData Tables and optimize performance. The following sections will elaborate on the above topics :</p>
 <ul>
-  <li><a href="#suggestions-to-create-carbondata-table">Suggestions to create CarbonData Table</a></li>
-  <li><a href="#configurations-for-optimizing-carbondata-performance">Configurations For Optimizing CarbonData Performance</a></li>
-</ul><h2>Suggestions to Create CarbonData Table</h2><p>Recently CarbonData was used to analyze performance of Telecommunication field. The results of the analysis for table creation with dimensions ranging from 10 thousand to 10 billion rows and 100 to 300 columns have been summarized below. </p><p>The following table describes some of the columns from the table used.</p><p><strong>Table Column Description</strong></p>
+  <li><a href="#carbondata-table">Suggestions to create CarbonData Table</a></li>
+  <li><a href="#carbondata-performance">Configurations For Optimizing CarbonData Performance</a></li>
+</ul><h2 id="carbondata-table">Suggestions to Create CarbonData Table</h2><p>Recently CarbonData was used to analyze performance of Telecommunication field. The results of the analysis for table creation with dimensions ranging from 10 thousand to 10 billion rows and 100 to 300 columns have been summarized below. </p><p>The following table describes some of the columns from the table used.</p><p><strong>Table Column Description</strong></p>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -143,7 +143,8 @@
 </code></p>
 <ul>
   <li><strong>Avoid adding high cardinality columns to dictionary</strong></li>
-</ul><p>If the system has low memory configuration, then it is suggested to exclude high cardinality columns from the dictionary to enhance load performance. Creation of dictionary for high cardinality columns at time of load will degrade load performance due to excessive memory usage. </p><p>By default CarbonData determines the cardinality at the first data load and allows for dictionary creation only if the cardinality is less than 1 million.</p><h2>Configurations for Optimizing CarbonData Performance</h2><p>Recently we did some performance POC on CarbonData for Finance and telecommunication Field. It involved detailed queries and aggregation scenarios. After the completion of POC, some of the configurations impacting the performance have been identified and tabulated below :</p>
+</ul><p>If the system has low memory configuration, then it is suggested to exclude high cardinality columns from the dictionary to enhance load performance. Creation of dictionary for high cardinality columns at time of load will degrade load performance due to excessive memory usage. </p><p>By default CarbonData determines the cardinality at the first data load and allows for dictionary creation only if the cardinality is less than 1 million.</p>
+<h2 id="carbondata-performance">Configurations for Optimizing CarbonData Performance</h2><p>Recently we did some performance POC on CarbonData for Finance and telecommunication Field. It involved detailed queries and aggregation scenarios. After the completion of POC, some of the configurations impacting the performance have been identified and tabulated below :</p>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>

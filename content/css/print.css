@@ -1,5 +1,0 @@
-@media print {
-   body { color: #000;  background: #fff; }
-   header{ display: none;}
-   .sidebar{ display: none;}
-}

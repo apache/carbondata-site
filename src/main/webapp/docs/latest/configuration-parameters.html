@@ -21,7 +21,7 @@
   <li><a href="#performance-configuration">Performance Configuration</a></li>
   <li><a href="#miscellaneous-configuration">Miscellaneous Configuration</a></li>
   <li><a href="#spark-configuration">Spark Configuration</a></li>
-</ul><h2>System Configuration</h2><p>This section provides the details of all the configurations required for the CarbonData System.</p><p><b><p align="center">System Configuration in carbon.properties</p></b></p>
+</ul><h2 id="system-configuration">System Configuration</h2><p>This section provides the details of all the configurations required for the CarbonData System.</p><p><b><p align="center">System Configuration in carbon.properties</p></b></p>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -39,7 +39,7 @@
     <tr>
       <td>carbon.ddl.base.hdfs.url </td>
       <td>hdfs://hacluster/opt/data </td>
-      <td>This property is used to configure the HDFS relative path from the HDFS base path, configured in fs.defaultFS. The path configured in carbon.ddl.base.hdfs.url will be appended to the HDFS path configured in fs.defaultFS. If this path is configured, then user need not pass the complete path while dataload. For example: If absolute path of the csv file is hdfs://10.18.101.155:54310/data/cnbc/2016/xyz.csv, the path "hdfs://10.18.101.155:54310" will come from property fs.defaultFS and user can configure the /data/cnbc/ as carbon.ddl.base.hdfs.url. Now while dataload user can specify the csv path as /2016/xyz.csv. </td>
+      <td>This property is used to configure the HDFS relative path, the path configured in carbon.ddl.base.hdfs.url will be appended to the HDFS path configured in fs.defaultFS. If this path is configured, then user need not pass the complete path while dataload. For example: If absolute path of the csv file is hdfs://10.18.101.155:54310/data/cnbc/2016/xyz.csv, the path "hdfs://10.18.101.155:54310" will come from property fs.defaultFS and user can configure the /data/cnbc/ as carbon.ddl.base.hdfs.url. Now while dataload user can specify the csv path as /2016/xyz.csv. </td>
     </tr>
     <tr>
       <td>carbon.badRecords.location </td>
@@ -49,15 +49,15 @@
     <tr>
       <td>carbon.kettle.home </td>
       <td>$SPARK_HOME/carbonlib/carbonplugins </td>
-      <td>Path used by CarbonData internally to create graph for loading the data. </td>
+      <td>Configuration for loading the data with kettle. </td>
     </tr>
     <tr>
       <td>carbon.data.file.version </td>
       <td>2 </td>
-      <td>If this parameter value is set to 1, then CarbonData will support the data load which is in old format. If the value is set to 2, then CarbonData will support the data load of new format only. NOTE: The file format created before DataSight Spark V100R002C30 is considered as old format. </td>
+      <td>If this parameter value is set to 1, then CarbonData will support the data load which is in old format(0.x version). If the value is set to 2(1.x onwards version), then CarbonData will support the data load of new format only. </td>
     </tr>
   </tbody>
-</table><h2>Performance Configuration</h2><p>This section provides the details of all the configurations required for CarbonData Performance Optimization.</p><p><b><p align="center">Performance Configuration in carbon.properties</p></b></p>
+</table><h2 id="performance-configuration">Performance Configuration</h2><p>This section provides the details of all the configurations required for CarbonData Performance Optimization.</p><p><b><p align="center">Performance Configuration in carbon.properties</p></b></p>
 <ul>
   <li><strong>Data Loading Configuration</strong></li>
 </ul>
@@ -222,7 +222,7 @@
       <td> </td>
     </tr>
   </tbody>
-</table><h2>Miscellaneous Configuration</h2><p><b><p align="center">Extra Configuration in carbon.properties</p></b></p>
+</table><h2 id="miscellaneous-configuration">Miscellaneous Configuration</h2><p><b><p align="center">Extra Configuration in carbon.properties</p></b></p>
 <ul>
   <li><strong>Time format for CarbonData</strong></li>
 </ul>
@@ -384,7 +384,7 @@
     <tr>
       <td>high.cardinality.threshold </td>
       <td>1000000 </td>
-      <td>Threshold to identify whether high cardinality column.Configuration value formula: Value of cardinality &gt; configured value of high.cardinality. The minimum value is 10000. </td>
+      <td>Threshold to identify whether high cardinality column.if columns of cardinality > the configured value, then the columns are excluded from dictionary encoding. </td>
     </tr>
     <tr>
       <td>high.cardinality.row.count.percentage </td>
@@ -402,7 +402,7 @@
       <td>The property used to set the data granularity level DAY, HOUR, MINUTE, or SECOND. </td>
     </tr>
   </tbody>
-</table><h2>Spark Configuration</h2><p><b><p align="center">Spark Configuration Reference in spark-defaults.conf</p></b></p>
+</table><h2 id="spark-configuration">Spark Configuration</h2><p><b><p align="center">Spark Configuration Reference in spark-defaults.conf</p></b></p>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -415,12 +415,12 @@
     <tr>
       <td>spark.driver.memory </td>
       <td>1g </td>
-      <td>Amount of memory to use for the driver process, i.e. where SparkContext is initialized. NOTE: In client mode, this config must not be set through the SparkConf directly in your application, because the driver JVM has already started at that point. Instead, please set this through the --driver-memory command line option or in your default properties file. </td>
+      <td>Amount of memory to be used by the driver process. </td>
     </tr>
     <tr>
       <td>spark.executor.memory </td>
       <td>1g </td>
-      <td>Amount of memory to use per executor process. </td>
+      <td>Amount of memory to be used per executor process. </td>
     </tr>
     <tr>
       <td>spark.sql.bigdata.register.analyseRule </td>
