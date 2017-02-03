@@ -28,7 +28,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-// load initialy these pages for documentation view.
+// conditional loading of documentation page from landing page
 $(document).ready(function(){
    var pagelink;
    var pageLoad = getParameterByName("page", window.location.href);
@@ -43,13 +43,25 @@ $(document).ready(function(){
      pagelink ="overview-of-carbondata.html"
      break;
 
-    default:
-       $("#viewpage").load("quick-start-guide.html");
+    case "quickStart":
+      pagelink ="quick-start-guide.html"
+      break;
+
+    case "dml":
+      pagelink ="dml-operation-on-carbondata.html"
+      break;
+
+    case "ddl":
+      pagelink ="ddl-operation-on-carbondata.html"
+      break;
+
+    case "dm":
+      pagelink ="data-management.html"
+      break;
 
       } 
     $("#viewpage").load(pagelink);  
-    // $("#leftmenu").load("docs/latest/table_of_contents.html");
-  
+
  });
  
 
