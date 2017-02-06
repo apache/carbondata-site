@@ -128,7 +128,7 @@
               <resources>
                 <resource>
                   <directory>${basedir}/target/site-17</directory>
-                  <filtering>true</filtering>
+                  <filtering>false</filtering>
                 </resource>
               </resources>
             </configuration>
