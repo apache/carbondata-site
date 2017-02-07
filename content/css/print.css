@@ -6,5 +6,5 @@
    .doc-header .logo-print{ display:inline-block;}
    .scroll-top, .print-icon{ display: none}
    .printable{display: block;}
-
+   .doc-toc{ display: none}
 }
