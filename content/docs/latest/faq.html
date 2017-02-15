@@ -15,13 +15,188 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><h1>FAQs</h1>
+-->
+<h1 id="faqs">FAQs</h1>
 <ul>
-  <li><p><strong>Auto Compaction not Working</strong></p><p>The Property carbon.enable.auto.load.merge in carbon.properties need to be set to true.</p></li>
-  <li><p><strong>Getting Abstract method error</strong></p><p>You need to specify the spark version while using Maven to build project.</p></li>
-  <li><p><strong>Getting NotImplementedException for subquery using IN and EXISTS</strong></p><p>Subquery with in and exists not supported in CarbonData.</p></li>
-  <li><p><strong>Getting Exceptions on creating a view</strong></p><p>View not supported in CarbonData.</p></li>
-  <li><p><strong>How to verify if ColumnGroups have been created as desired.</strong></p><p>Try using desc table query.</p></li>
-  <li><p><strong>Did anyone try to run CarbonData on windows? Is it supported on Windows?</strong></p><p>We may provide support for windows in future. You are welcome to contribute if you want to add the support :)</p></li>
-  <li><p><strong>Can we execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.</strong></p><p>Concurrency is not supported in current release of CarbonData.</p></li>
+    <li>
+        <p><a href="#can-we-preserve-segments-from-compaction">Can we preserve Segments from
+            Compaction?</a></p>
+    </li>
+    <li>
+        <p><a href="#can-we-disable-horizontal-compaction">Can we disable horizontal compaction?</a></p>
+    </li>
+    <li>
+        <p><a href="#what-is-horizontal-compaction">What is horizontal compaction?</a></p>
+    </li>
+    <li>
+        <p><a href="#how-to-enable-compaction-while-data-loading">How to enable Compaction while data
+            loading?</a></p>
+    </li>
+    <li>
+        <p><a href="#where-are-bad-records-stored-in-carbondata">Where are Bad Records Stored in
+            CarbonData?</a></p>
+    </li>
+    <li>
+        <p><a href="#what-are-bad-records">What are Bad Records?</a></p>
+    </li>
+    <li>
+        <p><a href="#can-we-use-carbondata-on-standalone-spark-cluster">Can we use CarbonData on
+            Standalone Spark Cluster?</a></p>
+    </li>
+    <li>
+        <p><a href="#what-versions-of-apache-spark-are-compatible-with-carbondata">What versions of
+            Apache Spark are Compatible with CarbonData?</a></p>
+    </li>
+    <li>
+        <p><a href="#can-we-load-data-from-excel">Can we Load Data from excel?</a></p>
+    </li>
+    <li>
+        <p><a href="#how-to-enable-single-pass-data-loading">How to enable Single Pass Data Loading?</a>
+        </p>
+    </li>
+    <li>
+        <p><a href="#what-is-single-pass-data-loading">What is Single Pass Data Loading?</a></p>
+    </li>
+    <li>
+        <p><a href="#how-to-specify-the-data-loading-format-for-carbondata">How to specify the data
+            loading format for CarbonData ?</a></p>
+    </li>
+    <li>
+        <p><a href="#how-to-resolve-store-location-can-not-be-found">How to resolve store location can’t
+            be found?</a></p>
+    </li>
+    <li>
+        <p><a href="">What is carbon.lock.type?</a></p>
+    </li>
+    <li>
+        <p><a href="#how-to-enable-auto-compaction">How to enable Auto Compaction?</a></p>
+    </li>
+    <li>
+        <p><a href="#how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</a></p>
+    </li>
+    <li>
+        <p><a href="#getting-exception-on-creating-a-view">Getting Exception on Creating a View</a></p>
+    </li>
+    <li>
+        <p><a href="#is-carbondata-supported-for-windows">Is CarbonData supported for Windows?</a></p>
+    </li>
+
 </ul>
+
+<h2 id="can-we-preserve-segments-from-compaction">Can we preserve Segments from Compaction?</h2>
+<p>If you want to preserve number of segments from being compacted then you can set the property
+    <strong>carbon.numberof.preserve.segments</strong> equal to the <strong>value of number of
+        segments to be preserved</strong>.</p>
+<p>Note : <em>No segments are preserved by Default.</em></p>
+
+<h2 id="can-we-disable-horizontal-compaction">Can we disable horizontal compaction?</h2>
+<p>Yes, to disable horizontal compaction, set <strong>carbon.horizontal.compaction.enable</strong>
+    to <code>FALSE</code> in carbon.properties file.</p>
+
+<h2 id="what-is-horizontal-compaction">What is horizontal compaction?</h2>
+<p>Compaction performed after Update and Delete operations is referred as Horizontal Compaction.
+    After every DELETE and UPDATE operation, horizontal compaction may occur in case the delta
+    (DELETE/ UPDATE) files becomes more than specified threshold.</p>
+<p>By default the parameter <strong>carbon.horizontal.compaction.enable</strong> enabling the
+    horizontal compaction is set to <code>TRUE</code>.</p>
+
+<h2 id="how-to-enable-compaction-while-data-loading">How to enable Compaction while data
+    loading?</h2>
+<p>To enable compaction while data loading, set <strong>carbon.enable.auto.load.merge</strong> to
+    <code>TRUE</code> in carbon.properties file.</p>
+
+<h2 id="where-are-bad-records-stored-in-carbondata">Where are Bad Records Stored in CarbonData?</h2>
+<p>The bad records are stored at the location set in carbon.badRecords.location in carbon.properties
+    file.<br>
+    By default <strong>carbon.badRecords.location</strong> specifies the following location <code>/opt/Carbon/Spark/badrecords</code>.
+</p>
+
+<h2 id="what-are-bad-records">What are Bad Records?</h2>
+<p>Records that fail to get loaded into the CarbonData due to data type incompatibility are
+    classified as Bad Records.</p>
+
+<h2 id="can-we-use-carbondata-on-standalone-spark-cluster">Can we use CarbonData on Standalone Spark
+    Cluster?</h2>
+<p>Yes, CarbonData can be used on a Standalone spark cluster. But using a standalone cluster has
+    following limitations:</p>
+<ul>
+    <li>single node cluster cannot be scaled up</li>
+    <li>the maximum memory and the CPU computation power has a fixed limit</li>
+    <li>the number of processors are limited in a single node cluster</li>
+</ul>
+<p>To harness the actual speed of execution of CarbonData on petabytes of data, it is suggested to
+    use a Multinode Cluster.</p>
+
+<h2 id="what-versions-of-apache-spark-are-compatible-with-carbondata">What versions of Apache Spark
+    are Compatible with CarbonData?</h2>
+<p>Currently <strong>Spark 1.6.2</strong> and <strong>Spark 2.1</strong> is compatible with
+    CarbonData.</p>
+
+<h2 id="can-we-load-data-from-excel">Can we Load Data from excel?</h2>
+<p>Yes, the data can be loaded from excel provided the data is in CSV format.</p>
+
+<h2 id="how-to-enable-single-pass-data-loading">How to enable Single Pass Data Loading?</h2>
+<p>You need to set <strong>SINGLE_PASS</strong> to <code>True</code> and append it to
+    <code>OPTIONS</code> Section in the query as demonstrated in the Load Query below :</p>
+<pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
+OPTIONS('DELIMITER'=',', 'QUOTECHAR'='&quot;','FILEHEADER'='empno,empname,designation','USE_KETTLE'='FALSE')
+</code></pre>
+<p>Refer to <a
+        href="https://github.com/PallaviSingh1992/incubator-carbondata/blob/6b4dd5f3dea8c93839a94c2d2c80ab7a799cf209/docs/dml-operation-on-carbondata.md">DML-operations-in-CarbonData</a>
+    for more details and example.</p>
+
+<h2 id="what-is-single-pass-data-loading">What is Single Pass Data Loading?</h2>
+<p>Single Pass Loading enables single job to finish data loading with dictionary generation on the
+    fly. It enhances performance in the scenarios where the subsequent data loading after initial
+    load involves fewer incremental updates on the dictionary.<br>
+    This option specifies whether to use single pass for loading data or not. By default this option
+    is set to <code>FALSE</code>.</p>
+
+<h2 id="how-to-specify-the-data-loading-format-for-carbondata">How to specify the data loading
+    format for CarbonData?</h2>
+<p>Edit carbon.properties file. Modify the value of parameter
+    <strong>carbon.data.file.version</strong>.<br>
+    Setting the parameter <strong>carbon.data.file.version</strong> to <code>1</code> will support
+    data loading in <code>old format(0.x version)</code> and setting <strong>carbon.data.file.version</strong>
+    to <code>2</code> will support data loading in <code>new format(1.x onwards)</code> only.<br>
+    By default the data loading is supported using the new format.</p>
+
+<h2 id="how-to-resolve-store-location-can-not-be-found">How to resolve store location can not be
+    found?</h2>
+<p>Try creating <code>carbonsession</code> with <code>storepath</code> specified in the following
+    manner :</p>
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&lt;store_path&gt;)
+</code></pre>
+<p>Example:</p>
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&quot;hdfs://localhost:9000/carbon/store &quot;)
+</code></pre>
+
+<h2 id="what-is-carbon-lockt-ype">What is carbon.lock.type?</h2>
+<p>This property configuration specifies the type of lock to be acquired during concurrent
+    operations on table. This property can be set with the following values :</p>
+<ul>
+    <li><strong>LOCALLOCK</strong> : This Lock is created on local file system as file. This lock is
+        useful when only one spark driver (thrift server) runs on a machine and no other CarbonData
+        spark application is launched concurrently.
+    </li>
+    <li><strong>HDFSLOCK</strong> : This Lock is created on HDFS file system as file. This lock is
+        useful when multiple CarbonData spark applications are launched and no ZooKeeper is running
+        on cluster and the HDFS supports, file based locking.
+    </li>
+</ul>
+
+<h2 id="how-to-enable-auto-compaction">How to enable Auto Compaction?</h2>
+<p>To enable compaction set <strong>carbon.enable.auto.load.merge</strong> to <code>TRUE</code> in
+    the carbon.properties file.</p>
+
+<h2 id="how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</h2>
+<p>You need to specify the <code>spark version</code> while using Maven to build project.</p>
+
+<h2 id="getting-exception-on-creating-a-view">Getting Exception on Creating a View</h2>
+<p>View not supported in CarbonData.</p>
+
+<h2 id="is-carbondata-supported-for-windows">Is CarbonData supported for Windows?</h2>
+<p>We may provide support for windows in future. You are welcome to contribute if you want to add
+    the support :)</p>
+
+</body></html>

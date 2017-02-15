@@ -63,5 +63,12 @@ $(document).ready(function(){
     $("#viewpage").load(pagelink);  
 
  });
- 
+
+   /*Search box*/
+
+   $(function() {
+      $( "#search-icon" ).click(function() {
+          $( "#search-box" ).toggle();
+      });
+  });
 

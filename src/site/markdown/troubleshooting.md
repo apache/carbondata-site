@@ -21,6 +21,19 @@
 This tutorial is designed to provide troubleshooting for end users and developers
 who are building, deploying, and using CarbonData.
 
+* [Failed to load thrift libraries](#failed-to-load-thrift-libraries)
+* [Failed to launch the Spark Shell](#failed-to-launch-the-spark-shell)
+* [Query Failure with Generic Error on the Beeline](#query-failure-with-generic-error-on-the-beeline)
+* [Failed to execute load query on cluster](#failed-to-execute-load-query-on-cluster)
+* [Failed to execute insert query on cluster](#failed-to-execute-insert-query-on-cluster)
+* [Failed to connect to hiveuser with thrift](#failed-to-connect-to-hiveuser-with-thrift)
+* [Failure to read the metastore db during table creation](#failure-to-read-the-metastore-db-during-table-creation)
+* [Failed to load data on the cluster](#failed-to-load-data-on-the-cluster)
+* [Failed to insert data on the cluster](#failed-to-insert-data-on-the-cluster)
+* [Failed to execute Concurrent Operations](#failed-to-execute-concurrent-operations)
+* [Failed to create a table with a single numeric column](#failed-to-create-a-table-with-a-single-numeric-column)
+* [Data Failure because of Bad Records](#data-failure-because-of-bad-records)
+
 ## Failed to load thrift libraries
 
   **Symptom**
@@ -86,6 +99,41 @@ who are building, deploying, and using CarbonData.
     ```
 
     Note :  Refrain from using "mvn clean package" without specifying the profile.
+    
+## Query Failure with Generic Error on the Beeline
+
+   **Symptom**
+
+   Query fails on the executor side and generic error message is printed on the beeline console
+
+   ![Query Failure Beeline](../../../src/site/markdown/images/query_failure_beeline.png?raw=true)
+
+   **Possible Causes**
+
+   - In Query flow, Table B-Tree will be loaded into memory on the driver side and filter condition is validated against the min-max of each block to identify false positive,
+   Once the blocks are selected, based on number of available executors, blocks will be distributed to each executor node as shown in below driver logs snapshot
+
+   ![Query Failure Logs](../../../src/site/markdown/images/query_failure_logs.png?raw=true)
+
+   - When the error occurs in driver side while b-tree loading or block distribution, detail error message will be printed on the beeline console and error trace will be printed on the driver logs.
+
+   - When the error occurs in the executor side, generic error message will be printed as shown in issue description.
+
+   ![Query Failure Job Details](../../../src/site/markdown/images/query_failure_job_details.png?raw=true)
+
+   - Details of the failed stages can be seen in the Spark Application UI by clicking on the failed stages on the failed job as shown in previous snapshot
+
+   ![Query Failure Spark UI](../../../src/site/markdown/images/query_failure_spark_ui.png?raw=true)
+
+   **Procedure**
+
+   Details of the error can be analyzed in details using executor logs available in stdout
+
+   ![Query Failure Spark UI](../../../src/site/markdown/images/query_failure_procedure.png?raw=true)
+
+   Below snapshot shows executor logs with error message for query failure which can be helpful to locate the error
+
+   ![Query Failure Spark UI](../../../src/site/markdown/images/query_failure_issue.png?raw=true)    
 
 ## Failed to execute load query on cluster.
 
@@ -229,11 +277,11 @@ who are building, deploying, and using CarbonData.
 
    2. For the changes to take effect, restart the Spark cluster.
 
-## Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.
+## Failed to execute Concurrent Operations.
 
   **Symptom**
 
-  Execution fails with the following exception :
+  Execution of  Concurrent Operations (Load,Insert,Update) on table by multiple workers fails with the following exception :
 
    ```
    Table is locked for updation.
@@ -264,3 +312,29 @@ who are building, deploying, and using CarbonData.
   **Procedure**
 
   A single column that can be considered as dimension is mandatory for table creation.
+
+## Data Failure because of Bad Records
+
+   **Symptom**
+
+   Data Loading fails with the following exception
+
+   ```
+   Error: java.lang.Exception: Data load failed due to Bad record
+   ```
+
+   **Possible Causes**
+
+   The parameter BAD_RECORDS_ACTION has not been specified in the Query.
+
+   **Procedure**
+
+   Set the following parameter in the load command OPTIONS as shown below :
+
+   'BAD_RECORDS_ACTION'='FORCE‘
+
+   *Example :*
+
+   ```
+   LOAD DATA INPATH 'hdfs://hacluster/user/loader/moredata01.csv' INTO TABLE flow_carbon_256b OPTIONS('DELIMITER'=',', 'BAD_RECORDS_ACTION'='FORCE');
+   ```

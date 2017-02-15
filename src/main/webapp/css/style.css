@@ -840,15 +840,15 @@ p img{ max-width: 100% }
 
 .meetup-info  .meetup-location { font-size:16px; color: #444; margin-bottom: 10px;}
 .meetup-info p { font-size:13px; color: #444; line-height: 18px; margin: 0 }
-.meetup-info i {font-size: 60px; color: #ff943d; border: 1px dashed #ff943d; padding: 15px; margin-bottom:6px; background-color: #fff;}
-.meetup-info:hover{background-color: #fff; border-color: #ff943d;}  
+.meetup-info i {font-size: 60px; color: #ff943d; /*border: 1px dashed #ff943d;*/ padding: 15px; margin-bottom:6px; background-color: #fff;}
+.meetup-info:hover{background-color: #fff; border-color: #ff943d;}
 .meetup-info .viewlink{ font-size:14px;} 
 .meetup-info .meetup-icon{ text-align: right}
 .meetup-info .viewlink {font-size: 14px;  width: 84px; background: #ff943d; display: inline-block; text-align: center;
     padding: 4px 2px; color: #fff; font-weight: 600;}
 
 .meetup-info .viewlink:hover {background: #dd6300;}
-.meetup-info i:hover {color: #dd6300; border: 1px dashed #dd6300; }
+.meetup-info i:hover {color: #dd6300; /*border: 1px dashed #dd6300; */}
 
 .feedbackbox{width:80%; margin:20px auto; padding:20px; border:1px solid #eee; background-color: #fff;
 box-shadow: 0 3px 2px #aaa }
@@ -901,6 +901,41 @@ box-shadow: 0 3px 2px #aaa }
    width: 30px;
    height: 36px;
 }
+
+#search-box{ position: relative; display: none;}
+.search-block{
+    border: 5px solid #ff943d;
+    padding: 6px;
+    width: 24em;
+    position: absolute;
+    background: #f8f8f8;
+    right: 0;
+
+}
+
+.search-block input[type="text"] {
+    width: 244px;
+    border: 1px solid #ff9443;
+        padding: 0 5px;
+}
+.search-block input[type="submit"] {
+    width: 70px;
+    color: white;
+    background: #ff943d;
+    border: 1px solid #ff943d;
+    font-size: 14px;
+
+}
+
+.search-block input:focus{  border: 1px solid #dd6300;}
+
+    .security-block {background: #fff; margin: 15px 0; padding:5px 15px;}
+    .security-block p{ margin:0 5px 20px;
+    font-size: 14px;
+        color: #444;
+        line-height: 20px;
+        display: block;
+        text-align: justify}
 
 /* ------------------- End Documentation Style here*/
 
@@ -967,7 +1002,11 @@ box-shadow: 0 3px 2px #aaa }
 
 }
 
+/* Media Close*/
 
+
+.mobile{ display: none;}
+.desktop{ display: block;}
 
 
 /* Media Close*/
