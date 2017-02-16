@@ -937,6 +937,13 @@ box-shadow: 0 3px 2px #aaa }
         display: block;
         text-align: justify}
 
+.sitemap {background: #fff; margin: 15px 0; border: 1px solid #ddd; padding: 15px;}
+.sitemap  ul{margin: 0 0 0 20px;}
+.sitemap  ul ul{margin: 0 0 0 20px;}
+.sitemap  ul li{list-style-type: square;}
+.sitemap  ul ul li{list-style-type: circle;}
+
+
 /* ------------------- End Documentation Style here*/
 
 

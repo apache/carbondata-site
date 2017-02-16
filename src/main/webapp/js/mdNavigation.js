@@ -8,6 +8,8 @@
                 $(listOfLinks[i]).click(function(e){
                    $("#viewpage").load($(e.currentTarget).attr("href"));
                    if($(this).is('a:not([href^="#"])')) {
+                       $('html, body').animate({scrollTop:-60}, 'slow');
+                       return false;
                        }else{
                           $('a').off('click')
                        }
