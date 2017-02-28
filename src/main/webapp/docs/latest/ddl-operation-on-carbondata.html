@@ -6,9 +6,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-
+    
       http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -102,8 +102,8 @@
                                                                 saleQuantity Int,
                                                                 revenue Int)
                                                                 STORED BY &#39;carbondata&#39;
-                                                                TBLPROPERTIES (&#39;COLUMN_GROUPS&#39;=&#39;(productName,productCategory)&#39;,
-                                                                &#39;DICTIONARY_EXCLUDE&#39;=&#39;productName&#39;,
+                                                                TBLPROPERTIES (&#39;COLUMN_GROUPS&#39;=&#39;(productNumber,productName)&#39;,
+                                                                &#39;DICTIONARY_EXCLUDE&#39;=&#39;storeCity&#39;,
                                                                 &#39;DICTIONARY_INCLUDE&#39;=&#39;productNumber&#39;,
                                                                 &#39;NO_INVERTED_INDEX&#39;=&#39;productBatch&#39;)
   </code></pre></p></li>
