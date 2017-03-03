@@ -67,7 +67,7 @@
         </executions>
         <configuration>
           <inputDirectory>./src/site/markdown</inputDirectory>
-          <outputDirectory>./src/main/webapp/docs/latest_htmls</outputDirectory>
+          <outputDirectory>${basedir}/target/ver_doc</outputDirectory>
           <inputEncoding>UTF-8</inputEncoding>
           <outputEncoding>ISO-8859-15</outputEncoding>
         </configuration>
