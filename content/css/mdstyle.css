@@ -81,3 +81,5 @@ border-bottom: 1px dashed #e1e1e1;}
     background-color: #f8f8f8;
     border-radius: 4px;
 }
+
+#viewpage li p {margin: 0;}
