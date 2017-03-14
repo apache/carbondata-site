@@ -18,28 +18,6 @@
 --><h1>Troubleshooting</h1>
 <p>This tutorial is designed to provide troubleshooting for end users and developers
     who are building, deploying, and using CarbonData.</p>
-<ul>
-    <li><a href="#failed-to-load-thrift-libraries">Failed to load thrift libraries</a></li>
-    <li><a href="#failed-to-launch-the-spark-shell">Failed to launch the Spark Shell</a></li>
-    <li><a href="#query-failure-with-generic-error-on-the-beeline">Query Failure with Generic Error
-        on the Beeline</a></li>
-    <li><a href="#failed-to-execute-load-query-on-cluster">Failed to execute load query on
-        cluster</a></li>
-    <li><a href="#failed-to-execute-insert-query-on-cluster">Failed to execute insert query on
-        cluster</a></li>
-    <li><a href="#failed-to-connect-to-hiveuser-with-thrift">Failed to connect to hiveuser with
-        thrift</a></li>
-    <li><a href="#failure-to-read-the-metastore-db-during-table-creation">Failure to read the
-        metastore db during table creation</a></li>
-    <li><a href="#failed-to-load-data-on-the-cluster">Failed to load data on the cluster</a></li>
-    <li><a href="#failed-to-insert-data-on-the-cluster">Failed to insert data on the cluster</a>
-    </li>
-    <li><a href="#failed-to-execute-concurrent-operations">Failed to execute Concurrent
-        Operations</a></li>
-    <li><a href="#failed-to-create-a-table-with-a-single-numeric-column">Failed to create a table
-        with a single numeric column</a></li>
-    <li><a href="#data-failure-because-of-bad-records">Data Failure because of Bad Records</a></li>
-</ul>
 <h2 id="failed-to-load-thrift-libraries">Failed to load thrift libraries</h2>
 <p><strong>Symptom</strong></p>
 <p>Thrift throws following exception :</p>
@@ -70,8 +48,7 @@ libthriftc.so.0: cannot open shared object file: No such file or directory
 </code></pre>
     </li>
 </ol>
-<pre><code>Note : Remember to add only the path to the directory, not the full path for that file, all the libraries inside that path will be automatically indexed.
-</code></pre>
+Note : Remember to add only the path to the directory, not the full path for that file, all the libraries inside that path will be automatically indexed.
 <h2 id="failed-to-launch-the-spark-shell">Failed to launch the Spark Shell</h2>
 <p><strong>Symptom</strong></p>
 <p>The shell prompts the following error :</p>
@@ -90,56 +67,11 @@ $OverrideCatalog$$overrides_$e
         <p>Use the following command :</p>
     </li>
 </ol>
-<pre><code>```
+<pre><code>
  &quot;mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package&quot;
-```
 
-Note :  Refrain from using &quot;mvn clean package&quot; without specifying the profile.
 </code></pre>
-<h2 id="query-failure-with-generic-error-on-the-beeline">Query Failure with Generic Error
-    on the Beeline</h2>
-<p><strong>Symptom</strong></p>
-<p>Query fails on the executor side and generic error message is printed on the beeline console</p>
-<p><img src="../../../webapp/docs/latest/images/query_failure_beeline.png?raw=true"
-        alt="Query Failure Beeline"></p>
-<p><strong>Possible Causes</strong></p>
-<ul>
-    <li>In Query flow, Table B-Tree will be loaded into memory on the driver side and filter
-        condition is validated against the min-max of each block to identify false positive,<br>
-        Once the blocks are selected, based on number of available executors, blocks will be
-        distributed to each executor node as shown in below driver logs snapshot
-    </li>
-</ul>
-<p><img src="../../../webapp/docs/latest/images/query_failure_logs.png?raw=true"
-        alt="Query Failure Logs"></p>
-<ul>
-    <li>
-        <p>When the error occurs in driver side while b-tree loading or block distribution, detail
-            error message will be printed on the beeline console and error trace will be printed on
-            the driver logs.</p>
-    </li>
-    <li>
-        <p>When the error occurs in the executor side, generic error message will be printed as
-            shown in issue description.</p>
-    </li>
-</ul>
-<p><img src="../../../webapp/docs/latest/images/query_failure_job_details.png?raw=true"
-        alt="Query Failure Job Details"></p>
-<ul>
-    <li>Details of the failed stages can be seen in the Spark Application UI by clicking on the
-        failed stages on the failed job as shown in previous snapshot
-    </li>
-</ul>
-<p><img src="../../../webapp/docs/latest/images/query_failure_spark_ui.png?raw=true"
-        alt="Query Failure Spark UI"></p>
-<p><strong>Procedure</strong></p>
-<p>Details of the error can be analyzed in details using executor logs available in stdout</p>
-<p><img src="../../../webapp/docs/latest/images/query_failure_procedure.png?raw=true"
-        alt="Query Failure Spark UI"></p>
-<p>Below snapshot shows executor logs with error message for query failure which can be helpful to
-    locate the error</p>
-<p><img src="../../../webapp/docs/latest/images/query_failure_issue.png?raw=true"
-        alt="Query Failure Spark UI"></p>
+Note :  Refrain from using &quot;mvn clean package&quot; without specifying the profile.
 <h2 id="failed-to-execute-load-query-on-cluster">Failed to execute load query on cluster.
 </h2>
 <p><strong>Symptom</strong></p>
@@ -282,16 +214,4 @@ Note :  Refrain from using &quot;mvn clean package&quot; without specifying the 
 <p>Behavior not supported.</p>
 <p><strong>Procedure</strong></p>
 <p>A single column that can be considered as dimension is mandatory for table creation.</p>
-<h2 id="data-failure-because-of-bad-records">Data Failure because of Bad Records</h2>
-<p><strong>Symptom</strong></p>
-<p>Data Loading fails with the following exception</p>
-<pre><code>Error: java.lang.Exception: Data load failed due to Bad record
-</code></pre>
-<p><strong>Possible Causes</strong></p>
-<p>The parameter BAD_RECORDS_ACTION has not been specified in the Query.</p>
-<p><strong>Procedure</strong></p>
-<p>Set the following parameter in the load command OPTIONS as shown below :</p>
-<p>‘BAD_RECORDS_ACTION’='FORCE‘</p>
-<p><em>Example :</em></p>
-<pre><code>LOAD DATA INPATH 'hdfs://hacluster/user/loader/moredata01.csv' INTO TABLE flow_carbon_256b OPTIONS('DELIMITER'=',', 'BAD_RECORDS_ACTION'='FORCE');
-</code></pre>
+
