@@ -87,7 +87,7 @@ You can use the following options to load data:
     ```
 
 - **MULTILINE:** CSV with new line character in quotes.
-5
+
     ```
     OPTIONS('MULTILINE'='true') 
     ```
@@ -123,7 +123,7 @@ You can use the following options to load data:
     column2:dictionaryFilePath2')
     ```
 
-    NOTE: ALL_DICTIONARY_PATH and COLUMNDICT can not be used together.
+    NOTE: ALL_DICTIONARY_PATH and COLUMNDICT can't be used together.
     
 - **DATEFORMAT:** Date format for specified column.
 
@@ -141,8 +141,7 @@ You can use the following options to load data:
 
    Note :  It is recommended to set the value for this option as false.
 
-- **SINGLE_PASS:** Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance
-   in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.
+- **SINGLE_PASS:** Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.
 
    This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.
 
@@ -155,7 +154,6 @@ You can use the following options to load data:
    * If this option is set to TRUE then data loading will take less time.
 
    * If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.
-
 ### Example:
 
 ```
@@ -164,7 +162,7 @@ options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
 'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
  workgroupcategoryname,deptno,deptname,projectcode,
  projectjoindate,projectenddate,attendance,utilization,salary',
-'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$', 
+'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$',
 'COMPLEX_DELIMITER_LEVEL_2'=':',
 'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
 'USE_KETTLE'='FALSE',
@@ -222,7 +220,7 @@ By default the above configuration will be false.
 
 ### Examples
 ```
-INSERT INTO table1 SELECT item1, sum(item2 + 1000) as result FROM
+INSERT INTO table1 SELECT item1 ,sum(item2 + 1000) as result FROM 
 table2 group by item1;
 ```
 
@@ -328,7 +326,7 @@ This command will allow to update the carbon table based on the column expressio
 ```
  UPDATE <table_name>
  SET (column_name1, column_name2, ... column_name n) =
- (column1_expression, column2_expression . .. column n_expression )
+ (column1_expression , column2_expression . .. column n_expression )
  [ WHERE { <filter_condition> } ];
 ```
 
@@ -376,7 +374,7 @@ Here the Update Operation fails as the query contains aggregate function sum(b.p
 
 ```
 UPDATE carbonTable1 d
-SET(d.column3,d.column5 ) = (SELECT s.c33, s.c55
+SET(d.column3,d.column5 ) = (SELECT s.c33 ,s.c55
 FROM sourceTable1 s WHERE d.column1 = s.c11)
 WHERE d.column1 = 'china' EXISTS( SELECT * from table3 o where o.c2 > 1);
 ```
@@ -390,7 +388,7 @@ WHERE exists( select * from iud.other o where o.c2 > 1);
 
 
 ```
-UPDATE carbonTable1 SET (c2, c5 ) = (c2 + 1, concat(c5, "y" ));
+UPDATE carbonTable1 SET (c2, c5 ) = (c2 + 1, concat(c5 , "y" ));
 ```
 
 

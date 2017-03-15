@@ -19,80 +19,43 @@
 
 # FAQs
 
-* [Can we preserve Segments from Compaction?](#can-we-preserve-segments-from-compaction)
-* [Can we disable horizontal compaction?](#can-we-disable-horizontal-compaction)
-* [What is horizontal compaction?](#what-is-horizontal-compaction)
-* [How to enable Compaction while data loading?](#how-to-enable-compaction-while-data-loading)
-* [Where are Bad Records Stored in CarbonData?](#where-are-bad-records-stored-in-carbondata)
 * [What are Bad Records?](#what-are-bad-records)
-* [Can we use CarbonData on Standalone Spark Cluster?](#can-we-use-carbondata-on-standalone-spark-cluster)
-* [What versions of Apache Spark are Compatible with CarbonData?](#what-versions-of-apache-spark-are-compatible-with-carbondata)
-* [Can we Load Data from excel?](#can-we-load-data-from-excel)
-* [How to enable Single Pass Data Loading?](#how-to-enable-single-pass-data-loading)
-* [What is Single Pass Data Loading?](#what-is-single-pass-data-loading)
-* [How to specify the data loading format for CarbonData ?](#how-to-specify-the-data-loading-format-for-carbondata)
-* [How to resolve store location can’t be found?](#how-to-resolve-store-location-can-not-be-found)
-* [What is carbon.lock.type?]()
-* [How to enable Auto Compaction?](#how-to-enable-auto-compaction)
+* [Where are Bad Records Stored in CarbonData?](#where-are-bad-records-stored-in-carbondata)
+* [How to enable Bad Record Logging?](#how-to-enable-bad-record-logging)
+* [How to ignore the Bad Records?](#how-to-ignore-the-bad-records)
+* [How to specify store location while creating carbon session?](#how-to-specify-store-location-while-creating-carbon-session)
+* [What is Carbon Lock Type?](#what-is-carbon-lock-type)
 * [How to resolve Abstract Method Error?](#how-to-resolve-abstract-method-error)
-* [Getting Exception on Creating a View](#getting-exception-on-creating-a-view)
-* [Is CarbonData supported for Windows?](#is-carbondata-supported-for-windows)
 
-## Can we preserve Segments from Compaction?
-If you want to preserve number of segments from being compacted then you can set the property  **carbon.numberof.preserve.segments**  equal to the **value of number of segments to be preserved**.
-
-Note : *No segments are preserved by Default.*
-
-## Can we disable horizontal compaction?
-Yes, to disable horizontal compaction, set **carbon.horizontal.compaction.enable** to ``FALSE`` in carbon.properties file.
-
-## What is horizontal compaction?
-Compaction performed after Update and Delete operations is referred as Horizontal Compaction. After every DELETE and UPDATE operation, horizontal compaction may occur in case the delta (DELETE/ UPDATE) files becomes more than specified threshold.
-
-By default the parameter **carbon.horizontal.compaction.enable** enabling the horizontal compaction is set to ``TRUE``.
-
-## How to enable Compaction while data loading?
-To enable compaction while data loading, set **carbon.enable.auto.load.merge** to ``TRUE`` in carbon.properties file.
+## What are Bad Records?
+Records that fail to get loaded into the CarbonData due to data type incompatibility or are empty or have incompatible format are classified as Bad Records.
 
 ## Where are Bad Records Stored in CarbonData?
 The bad records are stored at the location set in carbon.badRecords.location in carbon.properties file.
 By default **carbon.badRecords.location** specifies the following location ``/opt/Carbon/Spark/badrecords``.
 
-## What are Bad Records?
-Records that fail to get loaded into the CarbonData due to data type incompatibility are classified as Bad Records.
+## How to enable Bad Record Logging?
+While loading data we can specify the approach to handle Bad Records. In order to analyse the cause of the Bad Records the parameter ``BAD_RECORDS_LOGGER_ENABLE`` must be set to value ``TRUE``. There are multiple approaches to handle Bad Records which can be specified  by the parameter ``BAD_RECORDS_ACTION``.
 
-## Can we use CarbonData on Standalone Spark Cluster?
-Yes, CarbonData can be used on a Standalone spark cluster. But using a standalone cluster has following limitations:
-- single node cluster cannot be scaled up
-- the maximum memory and the CPU computation power has a fixed limit
-- the number of processors are limited in a single node cluster
-
-To harness the actual speed of execution of CarbonData on petabytes of data, it is suggested to use a Multinode Cluster.
-
-## What versions of Apache Spark are Compatible with CarbonData?
-Currently **Spark 1.6.2** and **Spark 2.1** is compatible with CarbonData.
-
-## Can we Load Data from excel?
-Yes, the data can be loaded from excel provided the data is in CSV format.
-
-## How to enable Single Pass Data Loading?
-You need to set **SINGLE_PASS** to ``True`` and append it to ``OPTIONS`` Section in the query as demonstrated in the Load Query below :
+- To pad the incorrect values of the csv rows with NULL value and load the data in CarbonData, set the following in the query :
 ```
-LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
-OPTIONS('DELIMITER'=',', 'QUOTECHAR'='"','FILEHEADER'='empno,empname,designation','USE_KETTLE'='FALSE')
+'BAD_RECORDS_ACTION'='FORCE'
 ```
-Refer to [DML-operations-in-CarbonData](https://github.com/PallaviSingh1992/incubator-carbondata/blob/6b4dd5f3dea8c93839a94c2d2c80ab7a799cf209/docs/dml-operation-on-carbondata.md) for more details and example.
 
-## What is Single Pass Data Loading?
-Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.
-This option specifies whether to use single pass for loading data or not. By default this option is set to ``FALSE``.
+- To write the Bad Records without padding incorrect values with NULL in the raw csv (set in the parameter **carbon.badRecords.location**), set the following in the query :
+```
+'BAD_RECORDS_ACTION'='REDIRECT'
+```
 
-## How to specify the data loading format for CarbonData?
-Edit carbon.properties file. Modify the value of parameter **carbon.data.file.version**.
-Setting the parameter **carbon.data.file.version** to ``1`` will support data loading in ``old format(0.x version)`` and setting **carbon.data.file.version** to ``2`` will support data loading in ``new format(1.x onwards)`` only.
-By default the data loading is supported using the new format.
+## How to ignore the Bad Records?
+To ignore the Bad Records from getting stored in the raw csv, we need to set the following in the query :
+```
+'BAD_RECORDS_ACTION'='IGNORE'
+```
 
-## How to resolve store location can not be found?
+## How to specify store location while creating carbon session?
+The store location specified while creating carbon session is used by the CarbonData to store the meta data like the schema, dictionary files, dictionary meta data and sort indexes.
+
 Try creating ``carbonsession`` with ``storepath`` specified in the following manner :
 ```
 val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(<store_path>)
@@ -102,20 +65,13 @@ Example:
 val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("hdfs://localhost:9000/carbon/store ")
 ```
 
-## What is carbon.lock.type?
-This property configuration specifies the type of lock to be acquired during concurrent operations on table. This property can be set with the following values :
+## What is Carbon Lock Type?
+The Apache CarbonData acquires lock on the files to prevent concurrent operation from modifying the same files. The lock can be of the following types depending on the storage location, for HDFS we specify it to be of type HDFSLOCK. By default it is set to type LOCALLOCK.
+The property carbon.lock.type configuration specifies the type of lock to be acquired during concurrent operations on table. This property can be set with the following values :
 - **LOCALLOCK** : This Lock is created on local file system as file. This lock is useful when only one spark driver (thrift server) runs on a machine and no other CarbonData spark application is launched concurrently.
 - **HDFSLOCK** : This Lock is created on HDFS file system as file. This lock is useful when multiple CarbonData spark applications are launched and no ZooKeeper is running on cluster and the HDFS supports, file based locking.
 
-## How to enable Auto Compaction?
-To enable compaction set **carbon.enable.auto.load.merge** to ``TRUE`` in the carbon.properties file.
-
 ## How to resolve Abstract Method Error?
-You need to specify the ``spark version`` while using Maven to build project.
+In order to build CarbonData project it is necessary to specify the spark profile. The spark profile sets the Spark Version. You need to specify the ``spark version`` while using Maven to build project.
 
-## Getting Exception on Creating a View
-View not supported in CarbonData.
-
-## Is CarbonData supported for Windows?
-We may provide support for windows in future. You are welcome to contribute if you want to add the support :)
 

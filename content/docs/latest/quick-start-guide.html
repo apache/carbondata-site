@@ -49,9 +49,14 @@
 </code></p>
 <ul>
     <li>Create a CarbonSession :</li>
-</ul><p><code>
-    val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&quot;&lt;hdfs store path&gt;&quot;)
-</code></p><h4>Executing Queries</h4><h5>Creating a Table</h5><p><code>
+</ul><pre><code>val carbon = SparkSession
+            .builder()
+            .config(sc.getConf)
+            .getOrCreateCarbonSession(&quot;&lt;hdfs store path&gt;&quot;)
+</code></pre>
+<p>NOTE: By default metastore location is pointed to “…/carbon.metastore”, user can provide own metastore location to CarbonSession like</p>
+<pre><code>`SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&quot;&lt;hdfs store path&gt;&quot;, &quot;&lt;local metastore path&gt;&quot;)`
+</code></pre><h4>Executing Queries</h4><h5>Creating a Table</h5><p><code>
     scala&gt;carbon.sql(&quot;CREATE TABLE IF NOT EXISTS test_table(id string, name string, city string, age Int) STORED BY &#39;carbondata&#39;&quot;)
 </code></p><h5>Loading Data to a Table</h5><p><code>
     scala&gt;carbon.sql(&quot;LOAD DATA INPATH &#39;sample.csv file path&#39; INTO TABLE test_table&quot;)
