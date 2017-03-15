@@ -939,6 +939,16 @@ box-shadow: 0 3px 2px #aaa }
 
 /* ------------------- End Documentation Style here*/
 
+.sliderBtn {
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 2px;
+    color: #fff;
+}
+
+.sliderBtn:hover {border: 1px solid #ff943d; color: #ff943d;}
 
 
 /* Media Style */
