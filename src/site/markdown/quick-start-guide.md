@@ -34,7 +34,9 @@ This tutorial provides a quick introduction to using CarbonData.
   EOF
   ```
 
-## Interactive Analysis with Spark Shell Version 2.1
+## Interactive Analysis with Spark Shell
+
+## Version 2.1
 
 Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit [Apache Spark Documentation](http://spark.apache.org/docs/latest/) for more details on Spark shell.
 
@@ -46,7 +48,7 @@ Start Spark shell by running the following command in the Spark directory:
 ./bin/spark-shell --jars <carbondata assembly jar path>
 ```
 
-In this shell, SparkSession is readily available as 'spark' and Spark context is readily available as 'sc'.
+In this shell, SparkSession is readily available as `spark` and Spark context is readily available as `sc`.
 
 In order to create a CarbonSession we will have to configure it explicitly in the following manner :
 
@@ -87,7 +89,8 @@ scala>carbon.sql("SELECT * FROM test_table").show()
 scala>carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY city").show()
 ```
 
-## Interactive Analysis with Spark Shell Version 1.6
+## Interactive Analysis with Spark Shell
+## Version 1.6
 
 #### Basics
 
