@@ -12,10 +12,10 @@ class FileModification {
 
   import scala.io.Source
 
-  val headerContent: String = Source.fromFile("/home/pallavi/WorkSpace/CarbonData/carbondata--site/src/main/scala/html/header.html").mkString
-  val footerContent: String =Source.fromFile("/home/pallavi/WorkSpace/CarbonData/carbondata--site/src/main/scala/html/footer.html").mkString
+  val headerContent: String = Source.fromFile("src/main/scala/html/header.html").mkString
+  val footerContent: String =Source.fromFile("src/main/scala/html/footer.html").mkString
 
-  val location = "/home/pallavi/WorkSpace/CarbonData/incubator-carbondata-site/src/main/webapp/"
+  val location = "src/main/webapp/"
   val fileReadObject = new MdFilehandler
 
   def convertToHtml(): String = {
