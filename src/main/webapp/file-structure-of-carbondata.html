@@ -6,19 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>CarbonData:Security</title>
+    <title>CarbonData</title>
+    <style>
 
+    </style>
     <!-- Bootstrap -->
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/print.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
 <header>
@@ -38,11 +43,12 @@
             </div>
             <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
                 <ul class="nav navbar-nav navbar-right navlist-custom">
-                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
                     <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Download <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
@@ -92,6 +98,7 @@
                             <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
                         </ul>
                     </li>
+
                     <li class="dropdown">
                         <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
                            data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
@@ -103,12 +110,14 @@
                             <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
                         </ul>
                     </li>
+
                     <li>
                         <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
                     </li>
+
                 </ul>
             </div><!--/.nav-collapse -->
-
             <div id="search-box">
                 <form method="get" action="http://www.google.com/search">
                     <div class="search-block">
@@ -131,74 +140,70 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </nav>
 </header> <!-- end Header part -->
 
 <div class="fixed-padding"></div> <!--  top padding with fixde header  -->
 
-<section style="position:relative; overflow:hidden ">
-    <div class="meetup-banber-bg">
-        <img src="images/CDbannerSliderbg.jpg" alt="CarbonData banner"/>
-    </div>
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
 
-    <div class="meetup-banber" style="padding:30px">
-        <div class="container-fluid">
-            <div class="col-md-12 col-sm-12">
-                <h1 class="title-heading">
-                    Indexed Columnar Data Format for Faster Analytics on <br>Big Data Platforms.
+<h1>
+<a id="carbondata-file-structure" class="anchor" href="#carbondata-file-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData File Structure</h1>
 
-                    <span class="title-underline"></span>
-                </h1>
-            </div>
-        </div>
-    </div>
+<p>CarbonData files contain groups of data called blocklets, along with all required information like schema, offsets and indices etc, in a file header and footer, co-located in HDFS.</p>
+
+<p>The file footer can be read once to build the indices in memory, which can be utilized for optimizing the scans and processing for all subsequent queries.</p>
+
+<h3>
+<a id="understanding-carbondata-file-structure" class="anchor" href="#understanding-carbondata-file-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Understanding CarbonData File Structure</h3>
+
+<ul>
+<li>Block : It would be as same as HDFS block, CarbonData creates one file for each data block, user can specify TABLE_BLOCKSIZE during creation table. Each file contains File Header, Blocklets and File Footer. </li>
+</ul>
+
+<p><a href="../docs/images/carbon_data_file_structure_new.png?raw=true" target="_blank"><img src="https://github.com/apache/incubator-carbondata/blob/master/docs/images/carbon_data_file_structure_new.png?raw=true" alt="CarbonData File Structure" style="max-width:100%;"></a></p>
+
+<ul>
+<li>File Header : It contains CarbonData file version number, list of column schema and schema updation timestamp.</li>
+<li>File Footer : it contains Number of rows, segmentinfo ,all blocklets? info and index, you can find the detail from the below diagram.</li>
+<li>Blocklet : Rows are grouped to form a blocklet, the size of the blocklet is configurable and default size is 64MB, Blocklet contains Column Page groups for each column.</li>
+<li>Column Page Group : Data of one column and it is further divided to pages, it is guaranteed to be contiguous in file.</li>
+<li>Page : It has the data of one column and the number of row is fixed to 32000 size. </li>
+</ul>
+
+<p><a href="../docs/images/carbon_data_format_new.png?raw=true" target="_blank"><img src="https://github.com/apache/incubator-carbondata/blob/master/docs/images/carbon_data_format_new.png?raw=true" alt="CarbonData File Format" style="max-width:100%;"></a></p>
+
+<h3>
+<a id="each-page-contains-three-types-of-data" class="anchor" href="#each-page-contains-three-types-of-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Each page contains three types of data</h3>
+
+<ul>
+<li>Data Page: Contains the encoded data of a column of columns.</li>
+<li>Row ID Page (optional): Contains the row ID mappings used when the data page is stored as an inverted index.</li>
+<li>RLE Page (optional): Contains additional metadata used when the data page is RLE coded.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
 </section>
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="security-block">
-                    <h1 class="title-heading"> Apache CarbonData Security
-                        <span class="title-underline"></span>
-                    </h1>
-
-                    <p>
-                        The Apache Software Foundation takes a rigorous standpoint in annihilating the security issues
-                        in its software projects. Apache CarbonData is highly sensitive and forthcoming to issues
-                        pertaining to its features and functionality.
-                    </p>
-                    <p>If you have apprehensions regarding CarbonData’s security or you discover vulnerability or
-                        potential threat, don’t hesitate to get in touch with the Apache Security Team by dropping a
-                        mail at <a href="mailto:security@apache.org"> security@apache.org</a>. In the mail, specify the
-                        project name CarbonData with the description of the issue or potential threat. You are also
-                        urged to recommend the way to reproduce and replicate the issue. The security team and the
-                        CarbonData community will get back to you after assessing and analysing the findings.</p>
-                    <p>
-                        PLEASE PAY ATTENTION to report the security issue on the security email before disclosing it on
-                        public domain.
-                    </p>
-                    <p>
-                        The ASF Security Team maintains a page with the description of how vulnerabilities and potential
-                        threats are handled, check their <a href="http://www.apache.org/security/" target="_blank">Web
-                        page</a> for more Details.
-                    </p>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
-<script src="js/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
 <script src="js/custom.js"></script>
-<script src="js/mdNavigation.js" type="text/javascript"></script>
 </body>
 </html>

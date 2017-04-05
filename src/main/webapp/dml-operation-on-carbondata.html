@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
+                                   target="_blank">Project PPMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+
+<h1>
+<a id="dml-operations-on-carbondata" class="anchor" href="#dml-operations-on-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DML Operations on CarbonData</h1>
+
+<p>This tutorial guides you through the data manipulation language support provided by CarbonData.</p>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>The following DML operations are supported in CarbonData :</p>
+
+<ul>
+<li><a href="#load-data">LOAD DATA</a></li>
+<li><a href="#insert-data-into-a-carbondata-table">INSERT DATA INTO A CARBONDATA TABLE</a></li>
+<li><a href="#show-segments">SHOW SEGMENTS</a></li>
+<li><a href="#delete-segment-by-id">DELETE SEGMENT BY ID</a></li>
+<li><a href="#delete-segment-by-date">DELETE SEGMENT BY DATE</a></li>
+<li><a href="#update-carbondata-table">UPDATE CARBONDATA TABLE</a></li>
+<li><a href="#delete-records-from-carbondata-table">DELETE RECORDS FROM CARBONDATA TABLE</a></li>
+</ul>
+
+<h2>
+<a id="load-data" class="anchor" href="#load-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD DATA</h2>
+
+<p>This command loads the user data in raw format to the CarbonData specific data format store, this allows CarbonData to provide good performance while querying the data.
+Please visit <a href="data-management.html">Data Management</a> for more details on LOAD.</p>
+
+<h3>
+<a id="syntax" class="anchor" href="#syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+
+<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+INTO TABLE [db_name.]table_name 
+OPTIONS(property_name=property_value, ...)
+</code></pre>
+
+<p>OPTIONS are not mandatory for data loading process. Inside OPTIONS user can provide either of any options like DELIMITER, QUOTECHAR, ESCAPECHAR, MULTILINE as per requirement.</p>
+
+<p>NOTE: The path shall be canonical path.</p>
+
+<h3>
+<a id="parameter-description" class="anchor" href="#parameter-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>folder_path</td>
+<td>Path of raw csv data folder or file.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>db_name</td>
+<td>Database name, if it is not specified then it uses the current database.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>The name of the table in provided database.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>OPTIONS</td>
+<td>Extra options provided to Load</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="usage-guidelines" class="anchor" href="#usage-guidelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
+
+<p>You can use the following options to load data:</p>
+
+<ul>
+<li>
+<p><strong>DELIMITER:</strong> Delimiters can be provided in the load command.</p>
+
+<pre><code>OPTIONS('DELIMITER'=',')
+</code></pre>
+</li>
+<li>
+<p><strong>QUOTECHAR:</strong> Quote Characters can be provided in the load command.</p>
+
+<pre><code>OPTIONS('QUOTECHAR'='"')
+</code></pre>
+</li>
+<li>
+<p><strong>COMMENTCHAR:</strong> Comment Characters can be provided in the load command if user want to comment lines.</p>
+
+<pre><code>OPTIONS('COMMENTCHAR'='#')
+</code></pre>
+</li>
+<li>
+<p><strong>FILEHEADER:</strong> Headers can be provided in the LOAD DATA command if headers are missing in the source files.</p>
+
+<pre><code>OPTIONS('FILEHEADER'='column1,column2') 
+</code></pre>
+</li>
+<li>
+<p><strong>MULTILINE:</strong> CSV with new line character in quotes.</p>
+
+<pre><code>OPTIONS('MULTILINE'='true') 
+</code></pre>
+</li>
+<li>
+<p><strong>ESCAPECHAR:</strong> Escape char can be provided if user want strict validation of escape character on CSV.</p>
+
+<pre><code>OPTIONS('ESCAPECHAR'='\') 
+</code></pre>
+</li>
+<li>
+<p><strong>COMPLEX_DELIMITER_LEVEL_1:</strong> Split the complex type data column in a row (eg., a$b$c --&gt; Array = {a,b,c}).</p>
+
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='$') 
+</code></pre>
+</li>
+<li>
+<p><strong>COMPLEX_DELIMITER_LEVEL_2:</strong> Split the complex type nested data column in a row. Applies level_1 delimiter &amp; applies level_2 based on complex data type (eg., a:b$c:d --&gt; Array&gt; = {{a,b},{c,d}}).</p>
+
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':') 
+</code></pre>
+</li>
+<li>
+<p><strong>ALL_DICTIONARY_PATH:</strong> All dictionary files path.</p>
+
+<pre><code>OPTIONS('ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary')
+</code></pre>
+</li>
+<li>
+<p><strong>COLUMNDICT:</strong> Dictionary file path for specified column.</p>
+
+<pre><code>OPTIONS('COLUMNDICT'='column1:dictionaryFilePath1,
+column2:dictionaryFilePath2')
+</code></pre>
+
+<p>NOTE: ALL_DICTIONARY_PATH and COLUMNDICT can't be used together.</p>
+</li>
+<li>
+<p><strong>DATEFORMAT:</strong> Date format for specified column.</p>
+
+<pre><code>OPTIONS('DATEFORMAT'='column1:dateFormat1, column2:dateFormat2')
+</code></pre>
+
+<p>NOTE: Date formats are specified by date pattern strings. The date pattern letters in CarbonData are same as in JAVA. Refer to <a href="http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html">SimpleDateFormat</a>.</p>
+</li>
+<li>
+<p><strong>USE_KETTLE:</strong> This option is used to specify whether to use kettle for loading data or not. By default kettle is not used for data loading.</p>
+
+<pre><code>OPTIONS('USE_KETTLE'='FALSE')
+</code></pre>
+
+<p>Note :  It is recommended to set the value for this option as false.</p>
+</li>
+<li>
+<p><strong>SINGLE_PASS:</strong> Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.</p>
+
+<p>This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.</p>
+
+<pre><code>OPTIONS('SINGLE_PASS'='TRUE')
+</code></pre>
+
+<p>Note :</p>
+
+<ul>
+<li><p>If this option is set to TRUE then data loading will take less time.</p></li>
+<li>
+<p>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</p>
+
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+</li>
+</ul>
+</li>
+</ul>
+
+<pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
+options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
+'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
+ workgroupcategoryname,deptno,deptname,projectcode,
+ projectjoindate,projectenddate,attendance,utilization,salary',
+'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$',
+'COMPLEX_DELIMITER_LEVEL_2'=':',
+'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
+'USE_KETTLE'='FALSE',
+'SINGLE_PASS'='TRUE'
+)
+</code></pre>
+
+<h2>
+<a id="insert-data-into-a-carbondata-table" class="anchor" href="#insert-data-into-a-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO A CARBONDATA TABLE</h2>
+
+<p>This command inserts data into a CarbonData table. It is defined as a combination of two queries Insert and Select query respectively. It inserts records from a source table into a target CarbonData table. The source table can be a Hive table, Parquet table or a CarbonData table itself. It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p>
+
+<p><strong>NOTE</strong> :  The client node where the INSERT command is executing, must be part of the cluster.</p>
+
+<h3>
+<a id="syntax-1" class="anchor" href="#syntax-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+
+<pre><code>INSERT INTO TABLE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ];
+</code></pre>
+
+<p>You can also omit the <code>table</code> keyword and write your query as:</p>
+
+<pre><code>INSERT INTO &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ];
+</code></pre>
+
+<h3>
+<a id="parameter-description-1" class="anchor" href="#parameter-description-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARBON TABLE</td>
+<td>The name of the Carbon table in which you want to perform the insert operation.</td>
+</tr>
+<tr>
+<td>sourceTableName</td>
+<td>The table from which the records are read and inserted into destination CarbonData table.</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="usage-guidelines-1" class="anchor" href="#usage-guidelines-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
+
+<p>The following condition must be met for successful insert operation :</p>
+
+<ul>
+<li>The source table and the CarbonData table must have the same table schema.</li>
+<li>The table must be created.</li>
+<li>Overwrite is not supported for CarbonData table.</li>
+<li>The data type of source and destination table columns should be same, else the data from source table will be treated as bad records and the INSERT command fails.</li>
+<li>INSERT INTO command does not support partial success if bad records are found, it will fail.</li>
+<li>Data cannot be loaded or updated in source table while insert from source table to target table is in progress.</li>
+</ul>
+
+<p>To enable data load or update during insert operation, configure the following property to true.</p>
+
+<pre><code>carbon.insert.persist.enable=true
+</code></pre>
+
+<p>By default the above configuration will be false.</p>
+
+<p><strong>NOTE</strong>: Enabling this property will reduce the performance.</p>
+
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+
+<pre><code>INSERT INTO table1 SELECT item1 ,sum(item2 + 1000) as result FROM 
+table2 group by item1;
+</code></pre>
+
+<pre><code>INSERT INTO table1 SELECT item1, item2, item3 FROM table2 
+where item2='xyz';
+</code></pre>
+
+<pre><code>INSERT INTO table1 SELECT * FROM table2 
+where exists (select * from table3 
+where table2.item1 = table3.item1);
+</code></pre>
+
+<p><strong>The Status Success/Failure shall be captured in the driver log.</strong></p>
+
+<h2>
+<a id="show-segments" class="anchor" href="#show-segments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW SEGMENTS</h2>
+
+<p>This command is used to get the segments of CarbonData table.</p>
+
+<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name 
+LIMIT number_of_segments;
+</code></pre>
+
+<h3>
+<a id="parameter-description-2" class="anchor" href="#parameter-description-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db_name</td>
+<td>Database name, if it is not specified then it uses the current database.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>The name of the table in provided database.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>number_of_segments</td>
+<td>Limit the output to this number.</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code>SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4;
+</code></pre>
+
+<h2>
+<a id="delete-segment-by-id" class="anchor" href="#delete-segment-by-id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY ID</h2>
+
+<p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it. 
+Using this segment ID, you can remove the segment.</p>
+
+<p>The following command will get the segmentID.</p>
+
+<pre><code>SHOW SEGMENTS FOR Table dbname.tablename LIMIT number_of_segments
+</code></pre>
+
+<p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
+
+<pre><code>DELETE SEGMENT segment_sequence_id1, segments_sequence_id2, .... 
+FROM TABLE tableName
+</code></pre>
+
+<h3>
+<a id="parameter-description-3" class="anchor" href="#parameter-description-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>segment_id</td>
+<td>Segment Id of the load.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>db_name</td>
+<td>Database name, if it is not specified then it uses the current database.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>The name of the table in provided database.</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="example-2" class="anchor" href="#example-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code>DELETE SEGMENT 0 FROM TABLE CarbonDatabase.CarbonTable;
+DELETE SEGMENT 0.1,5,8 FROM TABLE CarbonDatabase.CarbonTable;
+</code></pre>
+
+<p>NOTE: Here 0.1 is compacted segment sequence id. </p>
+
+<h2>
+<a id="delete-segment-by-date" class="anchor" href="#delete-segment-by-date" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY DATE</h2>
+
+<p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command. 
+The segment created before the particular date will be removed from the specific stores.</p>
+
+<pre><code>DELETE FROM TABLE [schema_name.]table_name 
+WHERE[DATE_FIELD]BEFORE [DATE_VALUE]
+</code></pre>
+
+<h3>
+<a id="parameter-description-4" class="anchor" href="#parameter-description-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATE_VALUE</td>
+<td>Valid segment load start time value. All the segments before this specified date will be deleted.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>db_name</td>
+<td>Database name, if it is not specified then it uses the current database.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>The name of the table in provided database.</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="example-3" class="anchor" href="#example-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code> DELETE SEGMENTS FROM TABLE CarbonDatabase.CarbonTable 
+ WHERE STARTTIME BEFORE '2017-06-01 12:05:06';  
+</code></pre>
+
+<h2>
+<a id="update-carbondata-table" class="anchor" href="#update-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update CarbonData Table</h2>
+
+<p>This command will allow to update the carbon table based on the column expression and optional filter conditions.</p>
+
+<h3>
+<a id="syntax-2" class="anchor" href="#syntax-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+
+<pre><code> UPDATE &lt;table_name&gt;
+ SET (column_name1, column_name2, ... column_name n) =
+ (column1_expression , column2_expression . .. column n_expression )
+ [ WHERE { &lt;filter_condition&gt; } ];
+</code></pre>
+
+<p>alternatively the following the command can also be used for updating the CarbonData Table :</p>
+
+<pre><code>UPDATE &lt;table_name&gt;
+SET (column_name1, column_name2,) =
+(select sourceColumn1, sourceColumn2 from sourceTable
+[ WHERE { &lt;filter_condition&gt; } ] )
+[ WHERE { &lt;filter_condition&gt; } ];
+</code></pre>
+
+<h3>
+<a id="parameter-description-5" class="anchor" href="#parameter-description-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table_name</td>
+<td>The name of the Carbon table in which you want to perform the update operation.</td>
+</tr>
+<tr>
+<td>column_name</td>
+<td>The destination columns to be updated.</td>
+</tr>
+<tr>
+<td>sourceColumn</td>
+<td>The source table column values to be updated in destination table.</td>
+</tr>
+<tr>
+<td>sourceTable</td>
+<td>The table from which the records are updated into destination Carbon table.</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="usage-guidelines-2" class="anchor" href="#usage-guidelines-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
+
+<p>The following conditions must be met for successful updation :</p>
+
+<ul>
+<li>The update command fails if multiple input rows in source table are matched with single row in destination table.</li>
+<li>If the source table generates empty records, the update operation will complete successfully without updating the table.</li>
+<li>If a source table row does not correspond to any of the existing rows in a destination table, the update operation will complete successfully without updating the table.</li>
+<li>In sub-query, if the source table and the target table are same, then the update operation fails.</li>
+<li>If the sub-query used in UPDATE statement contains aggregate method or group by query, then the UPDATE operation fails.</li>
+</ul>
+
+<h3>
+<a id="examples-1" class="anchor" href="#examples-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+
+<p>Update is not supported for queries that contain aggregate or group by.</p>
+
+<pre><code> UPDATE t_carbn01 a
+ SET (a.item_type_code, a.profit) = ( SELECT b.item_type_cd,
+ sum(b.profit) from t_carbn01b b
+ WHERE item_type_cd =2 group by item_type_code);
+</code></pre>
+
+<p>Here the Update Operation fails as the query contains aggregate function sum(b.profit) and group by clause in the sub-query.</p>
+
+<pre><code>UPDATE carbonTable1 d
+SET(d.column3,d.column5 ) = (SELECT s.c33 ,s.c55
+FROM sourceTable1 s WHERE d.column1 = s.c11)
+WHERE d.column1 = 'china' EXISTS( SELECT * from table3 o where o.c2 &gt; 1);
+</code></pre>
+
+<pre><code>UPDATE carbonTable1 d SET (c3) = (SELECT s.c33 from sourceTable1 s
+WHERE d.column1 = s.c11)
+WHERE exists( select * from iud.other o where o.c2 &gt; 1);
+</code></pre>
+
+<pre><code>UPDATE carbonTable1 SET (c2, c5 ) = (c2 + 1, concat(c5 , "y" ));
+</code></pre>
+
+<pre><code>UPDATE carbonTable1 d SET (c2, c5 ) = (c2 + 1, "xyx")
+WHERE d.column1 = 'india';
+</code></pre>
+
+<pre><code>UPDATE carbonTable1 d SET (c2, c5 ) = (c2 + 1, "xyx")
+WHERE d.column1 = 'india'
+and EXISTS( SELECT * FROM table3 o WHERE o.column2 &gt; 1);
+</code></pre>
+
+<p><strong>The Status Success/Failure shall be captured in the driver log and the client.</strong></p>
+
+<h2>
+<a id="delete-records-from-carbondata-table" class="anchor" href="#delete-records-from-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete Records from CarbonData Table</h2>
+
+<p>This command allows us to delete records from CarbonData table.</p>
+
+<h3>
+<a id="syntax-3" class="anchor" href="#syntax-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+
+<pre><code>DELETE FROM table_name [WHERE expression];
+</code></pre>
+
+<h3>
+<a id="parameter-description-6" class="anchor" href="#parameter-description-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table_name</td>
+<td>The name of the Carbon table in which you want to perform the delete.</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="examples-2" class="anchor" href="#examples-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+
+<pre><code>DELETE FROM columncarbonTable1 d WHERE d.column1  = 'china';
+</code></pre>
+
+<pre><code>DELETE FROM dest WHERE column1 IN ('china', 'USA');
+</code></pre>
+
+<pre><code>DELETE FROM columncarbonTable1
+WHERE column1 IN (SELECT column11 FROM sourceTable2);
+</code></pre>
+
+<pre><code>DELETE FROM columncarbonTable1
+WHERE column1 IN (SELECT column11 FROM sourceTable2 WHERE
+column1 = 'USA');
+</code></pre>
+
+<pre><code>DELETE FROM columncarbonTable1 WHERE column2 &gt;= 4
+</code></pre>
+
+<p><strong>The Status Success/Failure shall be captured in the driver log and the client.</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

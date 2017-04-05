@@ -6,19 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>CarbonData:Security</title>
+    <title>CarbonData</title>
+    <style>
 
+    </style>
     <!-- Bootstrap -->
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/print.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
 <header>
@@ -38,11 +43,12 @@
             </div>
             <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
                 <ul class="nav navbar-nav navbar-right navlist-custom">
-                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a></li>
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
                     <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Download <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
@@ -92,6 +98,7 @@
                             <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
                         </ul>
                     </li>
+
                     <li class="dropdown">
                         <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
                            data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
@@ -103,12 +110,14 @@
                             <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
                         </ul>
                     </li>
+
                     <li>
                         <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
                     </li>
+
                 </ul>
             </div><!--/.nav-collapse -->
-
             <div id="search-box">
                 <form method="get" action="http://www.google.com/search">
                     <div class="search-block">
@@ -131,74 +140,119 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </nav>
 </header> <!-- end Header part -->
 
 <div class="fixed-padding"></div> <!--  top padding with fixde header  -->
 
-<section style="position:relative; overflow:hidden ">
-    <div class="meetup-banber-bg">
-        <img src="images/CDbannerSliderbg.jpg" alt="CarbonData banner"/>
-    </div>
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
 
-    <div class="meetup-banber" style="padding:30px">
-        <div class="container-fluid">
-            <div class="col-md-12 col-sm-12">
-                <h1 class="title-heading">
-                    Indexed Columnar Data Format for Faster Analytics on <br>Big Data Platforms.
+<h1>
+<a id="faqs" class="anchor" href="#faqs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FAQs</h1>
 
-                    <span class="title-underline"></span>
-                </h1>
-            </div>
-        </div>
-    </div>
+<ul>
+<li><a href="#what-are-bad-records">What are Bad Records?</a></li>
+<li><a href="#where-are-bad-records-stored-in-carbondata">Where are Bad Records Stored in CarbonData?</a></li>
+<li><a href="#how-to-enable-bad-record-logging">How to enable Bad Record Logging?</a></li>
+<li><a href="#how-to-ignore-the-bad-records">How to ignore the Bad Records?</a></li>
+<li><a href="#how-to-specify-store-location-while-creating-carbon-session">How to specify store location while creating carbon session?</a></li>
+<li><a href="#what-is-carbon-lock-type">What is Carbon Lock Type?</a></li>
+<li><a href="#how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</a></li>
+</ul>
+
+<h2>
+<a id="what-are-bad-records" class="anchor" href="#what-are-bad-records" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What are Bad Records?</h2>
+
+<p>Records that fail to get loaded into the CarbonData due to data type incompatibility or are empty or have incompatible format are classified as Bad Records.</p>
+
+<h2>
+<a id="where-are-bad-records-stored-in-carbondata" class="anchor" href="#where-are-bad-records-stored-in-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Where are Bad Records Stored in CarbonData?</h2>
+
+<p>The bad records are stored at the location set in carbon.badRecords.location in carbon.properties file.
+By default <strong>carbon.badRecords.location</strong> specifies the following location <code>/opt/Carbon/Spark/badrecords</code>.</p>
+
+<h2>
+<a id="how-to-enable-bad-record-logging" class="anchor" href="#how-to-enable-bad-record-logging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to enable Bad Record Logging?</h2>
+
+<p>While loading data we can specify the approach to handle Bad Records. In order to analyse the cause of the Bad Records the parameter <code>BAD_RECORDS_LOGGER_ENABLE</code> must be set to value <code>TRUE</code>. There are multiple approaches to handle Bad Records which can be specified  by the parameter <code>BAD_RECORDS_ACTION</code>.</p>
+
+<ul>
+<li>To pad the incorrect values of the csv rows with NULL value and load the data in CarbonData, set the following in the query :</li>
+</ul>
+
+<pre><code>'BAD_RECORDS_ACTION'='FORCE'
+</code></pre>
+
+<ul>
+<li>To write the Bad Records without padding incorrect values with NULL in the raw csv (set in the parameter <strong>carbon.badRecords.location</strong>), set the following in the query :</li>
+</ul>
+
+<pre><code>'BAD_RECORDS_ACTION'='REDIRECT'
+</code></pre>
+
+<h2>
+<a id="how-to-ignore-the-bad-records" class="anchor" href="#how-to-ignore-the-bad-records" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to ignore the Bad Records?</h2>
+
+<p>To ignore the Bad Records from getting stored in the raw csv, we need to set the following in the query :</p>
+
+<pre><code>'BAD_RECORDS_ACTION'='IGNORE'
+</code></pre>
+
+<h2>
+<a id="how-to-specify-store-location-while-creating-carbon-session" class="anchor" href="#how-to-specify-store-location-while-creating-carbon-session" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to specify store location while creating carbon session?</h2>
+
+<p>The store location specified while creating carbon session is used by the CarbonData to store the meta data like the schema, dictionary files, dictionary meta data and sort indexes.</p>
+
+<p>Try creating <code>carbonsession</code> with <code>storepath</code> specified in the following manner :</p>
+
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&lt;store_path&gt;)
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("hdfs://localhost:9000/carbon/store ")
+</code></pre>
+
+<h2>
+<a id="what-is-carbon-lock-type" class="anchor" href="#what-is-carbon-lock-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is Carbon Lock Type?</h2>
+
+<p>The Apache CarbonData acquires lock on the files to prevent concurrent operation from modifying the same files. The lock can be of the following types depending on the storage location, for HDFS we specify it to be of type HDFSLOCK. By default it is set to type LOCALLOCK.
+The property carbon.lock.type configuration specifies the type of lock to be acquired during concurrent operations on table. This property can be set with the following values :</p>
+
+<ul>
+<li>
+<strong>LOCALLOCK</strong> : This Lock is created on local file system as file. This lock is useful when only one spark driver (thrift server) runs on a machine and no other CarbonData spark application is launched concurrently.</li>
+<li>
+<strong>HDFSLOCK</strong> : This Lock is created on HDFS file system as file. This lock is useful when multiple CarbonData spark applications are launched and no ZooKeeper is running on cluster and the HDFS supports, file based locking.</li>
+</ul>
+
+<h2>
+<a id="how-to-resolve-abstract-method-error" class="anchor" href="#how-to-resolve-abstract-method-error" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to resolve Abstract Method Error?</h2>
+
+<p>In order to build CarbonData project it is necessary to specify the spark profile. The spark profile sets the Spark Version. You need to specify the <code>spark version</code> while using Maven to build project.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
 </section>
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="security-block">
-                    <h1 class="title-heading"> Apache CarbonData Security
-                        <span class="title-underline"></span>
-                    </h1>
-
-                    <p>
-                        The Apache Software Foundation takes a rigorous standpoint in annihilating the security issues
-                        in its software projects. Apache CarbonData is highly sensitive and forthcoming to issues
-                        pertaining to its features and functionality.
-                    </p>
-                    <p>If you have apprehensions regarding CarbonData’s security or you discover vulnerability or
-                        potential threat, don’t hesitate to get in touch with the Apache Security Team by dropping a
-                        mail at <a href="mailto:security@apache.org"> security@apache.org</a>. In the mail, specify the
-                        project name CarbonData with the description of the issue or potential threat. You are also
-                        urged to recommend the way to reproduce and replicate the issue. The security team and the
-                        CarbonData community will get back to you after assessing and analysing the findings.</p>
-                    <p>
-                        PLEASE PAY ATTENTION to report the security issue on the security email before disclosing it on
-                        public domain.
-                    </p>
-                    <p>
-                        The ASF Security Team maintains a page with the description of how vulnerabilities and potential
-                        threats are handled, check their <a href="http://www.apache.org/security/" target="_blank">Web
-                        page</a> for more Details.
-                    </p>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
-<script src="js/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
 <script src="js/custom.js"></script>
-<script src="js/mdNavigation.js" type="text/javascript"></script>
 </body>
 </html>

@@ -20,6 +20,26 @@ a:hover, a:focus{ color:#ff943d; text-decoration:none}
 
 img{ max-width:100%; height:auto}
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
 .container-fluid{ max-width: 1180px}
 .container-fluid-full{ max-width: 100%}
 
@@ -509,6 +529,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .cd-quickbtns .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
 
 
+.doc-heading {
+    margin: 10px 0 0;
+    padding:5px 0;
+}
+
+.doc-heading .title {font-size: 30px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 40px;  text-transform: capitalize; font-weight: 500;}
+.doc-heading .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
+
+
 .quickstart-btn {
     background: #ff943d;
     border: 1px solid #ff943d;
@@ -542,6 +571,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 /*.quickstart-btn i.fa {font-size: 36px; position: absolute; left: 8px; top: 50%; margin-top: -19px;}*/
 .quickstart-btn i.fa {font-size: 30px;position: absolute; left: 16px; top: 50%; margin-top: -16px;}
+
+.ul-padding{
+    padding-left: 20px;
+}
+
+.div-styling{
+    background: #f8f8f8;
+    padding: 5px 15px;
+}
+
+.display-style{
+    display: inline-block;
+}
 
 
 footer{ background: #111; padding:0; }
@@ -937,9 +979,33 @@ box-shadow: 0 3px 2px #aaa }
         display: block;
         text-align: justify}
 
+.cell.cellcummunity{  width:75%; padding-right: 2%}
+.cell.celllatestnews {
+    width: 23%;
+    height: 100%;
+    background: #fdfdfd;
+    padding: 15px;
+    border: 2px solid #ff943d;
+}
+.cell{display: table-cell; vertical-align:top; height: 100%;}
+
+.celllatestnews .title {font-size: 22px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 40px;  text-transform: capitalize; font-weight: 500;}
+.celllatestnews .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
+
+.newsblock {    margin-top: 20px;font-size: 13px;text-align: justify;}
+
+.slider-btn{display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #aaa;
+    padding: 8px 20px;
+    line-height: 20px;
+    border-radius: 2px;
+}
+
+.slider-btn:hover {color: #fff; border: 1px solid #ff943d; background: #ff943d;}
+
 /* ------------------- End Documentation Style here*/
-
-
 
 /* Media Style */
 

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
+                                   target="_blank">Project PPMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+
+<h1>
+<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Troubleshooting</h1>
+
+<p>This tutorial is designed to provide troubleshooting for end users and developers
+who are building, deploying, and using CarbonData.</p>
+
+<h2>
+<a id="failed-to-load-thrift-libraries" class="anchor" href="#failed-to-load-thrift-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to load thrift libraries</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Thrift throws following exception :</p>
+
+<pre><code>  thrift: error while loading shared libraries:
+  libthriftc.so.0: cannot open shared object file: No such file or directory
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The complete path to the directory containing the libraries is not configured correctly.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Follow the Apache thrift docs at <a href="https://thrift.apache.org/docs/install">https://thrift.apache.org/docs/install</a> to install thrift correctly.</p>
+
+<h2>
+<a id="failed-to-launch-the-spark-shell" class="anchor" href="#failed-to-launch-the-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to launch the Spark Shell</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>The shell prompts the following error :</p>
+
+<pre><code>  org.apache.spark.sql.CarbonContext$$anon$$apache$spark$sql$catalyst$analysis
+  $OverrideCatalog$_setter_$org$apache$spark$sql$catalyst$analysis
+  $OverrideCatalog$$overrides_$e
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The Spark Version and the selected Spark Profile do not match.</p>
+
+<p><strong>Procedure</strong></p>
+
+<ol>
+<li><p>Ensure your spark version and selected profile for spark are correct.</p></li>
+<li>
+<p>Use the following command :</p>
+
+<pre><code> "mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package"
+</code></pre>
+
+<p>Note :  Refrain from using "mvn clean package" without specifying the profile.</p>
+</li>
+</ol>
+
+<h2>
+<a id="failed-to-execute-load-query-on-cluster" class="anchor" href="#failed-to-execute-load-query-on-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute load query on cluster.</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Load query failed with the following exception:</p>
+
+<pre><code>  Dictionary file is locked for updation.
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The carbon.properties file is not identical in all the nodes of the cluster.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Follow the steps to ensure the carbon.properties file is consistent across all the nodes:</p>
+
+<ol>
+<li><p>Copy the carbon.properties file from the master node to all the other nodes in the cluster.
+ For example, you can use ssh to copy this file to all the nodes.</p></li>
+<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
+</ol>
+
+<h2>
+<a id="failed-to-execute-insert-query-on-cluster" class="anchor" href="#failed-to-execute-insert-query-on-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute insert query on cluster.</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Load query failed with the following exception:</p>
+
+<pre><code>  Dictionary file is locked for updation.
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The carbon.properties file is not identical in all the nodes of the cluster.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Follow the steps to ensure the carbon.properties file is consistent across all the nodes:</p>
+
+<ol>
+<li><p>Copy the carbon.properties file from the master node to all the other nodes in the cluster.
+   For example, you can use scp to copy this file to all the nodes.</p></li>
+<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
+</ol>
+
+<h2>
+<a id="failed-to-connect-to-hiveuser-with-thrift" class="anchor" href="#failed-to-connect-to-hiveuser-with-thrift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to connect to hiveuser with thrift</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>We get the following exception :</p>
+
+<pre><code>  Cannot connect to hiveuser.
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The external process does not have permission to access.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Ensure that the Hiveuser in mysql must allow its access to the external processes.</p>
+
+<h2>
+<a id="failure-to-read-the-metastore-db-during-table-creation" class="anchor" href="#failure-to-read-the-metastore-db-during-table-creation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failure to read the metastore db during table creation.</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>We get the following exception on trying to connect :</p>
+
+<pre><code>  Cannot read the metastore db
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The metastore db is dysfunctional.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Remove the metastore db from the carbon.metastore in the Spark Directory.</p>
+
+<h2>
+<a id="failed-to-load-data-on-the-cluster" class="anchor" href="#failed-to-load-data-on-the-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to load data on the cluster</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Data loading fails with the following exception :</p>
+
+<pre><code>   Data Load failure exeception
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The following issue can cause the failure :</p>
+
+<ol>
+<li><p>The core-site.xml, hive-site.xml, yarn-site and carbon.properties are not consistent across all nodes of the cluster.</p></li>
+<li>
+<p>Path to hdfs ddl is not configured correctly in the carbon.properties.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Follow the steps to ensure the following configuration files are consistent across all the nodes:</p>
+
+<ol>
+<li>
+<p>Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
+For example, you can use scp to copy this file to all the nodes.</p>
+
+<p>Note : Set the path to hdfs ddl in carbon.properties in the master node.</p>
+</li>
+<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
+</ol>
+</li>
+</ol>
+
+<h2>
+<a id="failed-to-insert-data-on-the-cluster" class="anchor" href="#failed-to-insert-data-on-the-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to insert data on the cluster</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Insertion fails with the following exception :</p>
+
+<pre><code>   Data Load failure exeception
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>The following issue can cause the failure :</p>
+
+<ol>
+<li><p>The core-site.xml, hive-site.xml, yarn-site and carbon.properties are not consistent across all nodes of the cluster.</p></li>
+<li>
+<p>Path to hdfs ddl is not configured correctly in the carbon.properties.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Follow the steps to ensure the following configuration files are consistent across all the nodes:</p>
+
+<ol>
+<li>
+<p>Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
+For example, you can use scp to copy this file to all the nodes.</p>
+
+<p>Note : Set the path to hdfs ddl in carbon.properties in the master node.</p>
+</li>
+<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
+</ol>
+</li>
+</ol>
+
+<h2>
+<a id="failed-to-execute-concurrent-operationsloadinsertupdate-on-table-by-multiple-workers" class="anchor" href="#failed-to-execute-concurrent-operationsloadinsertupdate-on-table-by-multiple-workers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Execution fails with the following exception :</p>
+
+<pre><code>   Table is locked for updation.
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>Concurrency not supported.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>Worker must wait for the query execution to complete and the table to release the lock for another query execution to succeed..</p>
+
+<h2>
+<a id="failed-to-create-a-table-with-a-single-numeric-column" class="anchor" href="#failed-to-create-a-table-with-a-single-numeric-column" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to create a table with a single numeric column.</h2>
+
+<p><strong>Symptom</strong></p>
+
+<p>Execution fails with the following exception :</p>
+
+<pre><code>   Table creation fails.
+</code></pre>
+
+<p><strong>Possible Cause</strong></p>
+
+<p>Behavior not supported.</p>
+
+<p><strong>Procedure</strong></p>
+
+<p>A single column that can be considered as dimension is mandatory for table creation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

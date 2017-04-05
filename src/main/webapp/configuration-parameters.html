@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
+                                   target="_blank">Project PPMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+
+<h1>
+<a id="configuring-carbondata" class="anchor" href="#configuring-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring CarbonData</h1>
+
+<p>This tutorial guides you through the advanced configurations of CarbonData :</p>
+
+<ul>
+<li><a href="#system-configuration">System Configuration</a></li>
+<li><a href="#performance-configuration">Performance Configuration</a></li>
+<li><a href="#miscellaneous-configuration">Miscellaneous Configuration</a></li>
+<li><a href="#spark-configuration">Spark Configuration</a></li>
+</ul>
+
+<h2>
+<a id="system-configuration" class="anchor" href="#system-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System Configuration</h2>
+
+<p>This section provides the details of all the configurations required for the CarbonData System.</p>
+
+<p><b></b></p><p align="center">System Configuration in carbon.properties</p>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.storelocation</td>
+<td>/user/hive/warehouse/carbon.store</td>
+<td>Location where CarbonData will create the store, and write the data in its own format. NOTE: Store location should be in HDFS.</td>
+</tr>
+<tr>
+<td>carbon.ddl.base.hdfs.url</td>
+<td>hdfs://hacluster/opt/data</td>
+<td>This property is used to configure the HDFS relative path, the path configured in carbon.ddl.base.hdfs.url will be appended to the HDFS path configured in fs.defaultFS. If this path is configured, then user need not pass the complete path while dataload. For example: If absolute path of the csv file is hdfs://10.18.101.155:54310/data/cnbc/2016/xyz.csv, the path "hdfs://10.18.101.155:54310" will come from property fs.defaultFS and user can configure the /data/cnbc/ as carbon.ddl.base.hdfs.url. Now while dataload user can specify the csv path as /2016/xyz.csv.</td>
+</tr>
+<tr>
+<td>carbon.badRecords.location</td>
+<td>/opt/Carbon/Spark/badrecords</td>
+<td>Path where the bad records are stored.</td>
+</tr>
+<tr>
+<td>carbon.kettle.home</td>
+<td>$SPARK_HOME/carbonlib/carbonplugins</td>
+<td>Configuration for loading the data with kettle.</td>
+</tr>
+<tr>
+<td>carbon.data.file.version</td>
+<td>2</td>
+<td>If this parameter value is set to 1, then CarbonData will support the data load which is in old format(0.x version). If the value is set to 2(1.x onwards version), then CarbonData will support the data load of new format only.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="performance-configuration" class="anchor" href="#performance-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Performance Configuration</h2>
+
+<p>This section provides the details of all the configurations required for CarbonData Performance Optimization.</p>
+
+<p><b></b></p><p align="center">Performance Configuration in carbon.properties</p>
+
+<ul>
+<li><strong>Data Loading Configuration</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.sort.file.buffer.size</td>
+<td>20</td>
+<td>File read buffer size used during sorting. This value is expressed in MB.</td>
+<td>Min=1 and Max=100</td>
+</tr>
+<tr>
+<td>carbon.graph.rowset.size</td>
+<td>100000</td>
+<td>Rowset size exchanged between data load graph steps.</td>
+<td>Min=500 and Max=1000000</td>
+</tr>
+<tr>
+<td>carbon.number.of.cores.while.loading</td>
+<td>6</td>
+<td>Number of cores to be used while loading data.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.sort.size</td>
+<td>500000</td>
+<td>Record count to sort and write intermediate files to temp.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.enableXXHash</td>
+<td>true</td>
+<td>Algorithm for hashmap for hashkey calculation.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.number.of.cores.block.sort</td>
+<td>7</td>
+<td>Number of cores to use for block sort while loading data.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.max.driver.lru.cache.size</td>
+<td>-1</td>
+<td>Max LRU cache size upto which data will be loaded at the driver side. This value is expressed in MB. Default value of -1 means there is no memory limit for caching. Only integer values greater than 0 are accepted.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.max.executor.lru.cache.size</td>
+<td>-1</td>
+<td>Max LRU cache size upto which data will be loaded at the executor side. This value is expressed in MB. Default value of -1 means there is no memory limit for caching. Only integer values greater than 0 are accepted. If this parameter is not configured, then the carbon.max.driver.lru.cache.size value will be considered.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.merge.sort.prefetch</td>
+<td>true</td>
+<td>Enable prefetch of data during merge sort while reading data from sort temp files in data loading.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.update.persist.enable</td>
+<td>true</td>
+<td>Enabling this parameter considers persistent data. Enabling this will reduce the execution time of UPDATE operation.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Compaction Configuration</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.number.of.cores.while.compacting</td>
+<td>2</td>
+<td>Number of cores which are used to write data during compaction.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.compaction.level.threshold</td>
+<td>4, 3</td>
+<td>This property is for minor compaction which decides how many segments to be merged. Example: If it is set as 2, 3 then minor compaction will be triggered for every 2 segments. 3 is the number of level 1 compacted segment which is further compacted to new segment.</td>
+<td>Valid values are from 0-100.</td>
+</tr>
+<tr>
+<td>carbon.major.compaction.size</td>
+<td>1024</td>
+<td>Major compaction size can be configured using this parameter. Sum of the segments which is below this threshold will be merged. This value is expressed in MB.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.horizontal.compaction.enable</td>
+<td>true</td>
+<td>This property is used to turn ON/OFF horizontal compaction. After every DELETE and UPDATE statement, horizontal compaction may occur in case the delta (DELETE/ UPDATE) files becomes more than specified threshold.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.horizontal.UPDATE.compaction.threshold</td>
+<td>1</td>
+<td>This property specifies the threshold limit on number of UPDATE delta files within a segment. In case the number of delta files goes beyond the threshold, the UPDATE delta files within the segment becomes eligible for horizontal compaction and compacted into single UPDATE delta file.</td>
+<td>Values between 1 to 10000.</td>
+</tr>
+<tr>
+<td>carbon.horizontal.DELETE.compaction.threshold</td>
+<td>1</td>
+<td>This property specifies the threshold limit on number of DELETE delta files within a block of a segment. In case the number of delta files goes beyond the threshold, the DELETE delta files for the particular block of the segment becomes eligible for horizontal compaction and compacted into single DELETE delta file.</td>
+<td>Values between 1 to 10000.</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Query Configuration</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.number.of.cores</td>
+<td>4</td>
+<td>Number of cores to be used while querying.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.inmemory.record.size</td>
+<td>120000</td>
+<td>Number of records to be in memory while querying.</td>
+<td>Min=100000 and Max=240000</td>
+</tr>
+<tr>
+<td>carbon.enable.quick.filter</td>
+<td>false</td>
+<td>Improves the performance of filter query.</td>
+<td></td>
+</tr>
+<tr>
+<td>no.of.cores.to.load.blocks.in.driver</td>
+<td>10</td>
+<td>Number of core to load the blocks in driver.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="miscellaneous-configuration" class="anchor" href="#miscellaneous-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Miscellaneous Configuration</h2>
+
+<p><b></b></p><p align="center">Extra Configuration in carbon.properties</p>
+
+<ul>
+<li>
+<strong>Time format for CarbonData</strong> </li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Format</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.timestamp.format</td>
+<td>yyyy-MM-dd HH:mm:ss</td>
+<td>Timestamp format of input data used for timestamp data type.</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Dataload Configuration</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.sort.file.write.buffer.size</td>
+<td>10485760</td>
+<td>File write buffer size used during sorting.</td>
+</tr>
+<tr>
+<td>carbon.lock.type</td>
+<td>LOCALLOCK</td>
+<td>This configuration specifies the type of lock to be acquired during concurrent operations on table. There are following types of lock implementation: - LOCALLOCK: Lock is created on local file system as file. This lock is useful when only one spark driver (thrift server) runs on a machine and no other CarbonData spark application is launched concurrently. - HDFSLOCK: Lock is created on HDFS file system as file. This lock is useful when multiple CarbonData spark applications are launched and no ZooKeeper is running on cluster and HDFS supports file based locking.</td>
+</tr>
+<tr>
+<td>carbon.sort.intermediate.files.limit</td>
+<td>20</td>
+<td>Minimum number of intermediate files after which merged sort can be started.</td>
+</tr>
+<tr>
+<td>carbon.block.meta.size.reserved.percentage</td>
+<td>10</td>
+<td>Space reserved in percentage for writing block meta data in CarbonData file.</td>
+</tr>
+<tr>
+<td>carbon.csv.read.buffersize.byte</td>
+<td>1048576</td>
+<td>csv reading buffer size.</td>
+</tr>
+<tr>
+<td>high.cardinality.value</td>
+<td>100000</td>
+<td>To identify and apply compression for non-high cardinality columns.</td>
+</tr>
+<tr>
+<td>carbon.merge.sort.reader.thread</td>
+<td>3</td>
+<td>Maximum no of threads used for reading intermediate files for final merging.</td>
+</tr>
+<tr>
+<td>carbon.load.metadata.lock.retries</td>
+<td>3</td>
+<td>Maximum number of retries to get the metadata lock for loading data to table.</td>
+</tr>
+<tr>
+<td>carbon.load.metadata.lock.retry.timeout.sec</td>
+<td>5</td>
+<td>Interval between the retries to get the lock.</td>
+</tr>
+<tr>
+<td>carbon.tempstore.location</td>
+<td>/opt/Carbon/TempStoreLoc</td>
+<td>Temporary store location. By default it takes System.getProperty("java.io.tmpdir").</td>
+</tr>
+<tr>
+<td>carbon.load.log.counter</td>
+<td>500000</td>
+<td>Data loading records count logger.</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Compaction Configuration</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.numberof.preserve.segments</td>
+<td>0</td>
+<td>If the user wants to preserve some number of segments from being compacted then he can set this property. Example: carbon.numberof.preserve.segments=2 then 2 latest segments will always be excluded from the compaction. No segments will be preserved by default.</td>
+</tr>
+<tr>
+<td>carbon.allowed.compaction.days</td>
+<td>0</td>
+<td>Compaction will merge the segments which are loaded with in the specific number of days configured. Example: If the configuration is 2, then the segments which are loaded in the time frame of 2 days only will get merged. Segments which are loaded 2 days apart will not be merged. This is disabled by default.</td>
+</tr>
+<tr>
+<td>carbon.enable.auto.load.merge</td>
+<td>false</td>
+<td>To enable compaction while data loading.</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Query Configuration</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max.query.execution.time</td>
+<td>60</td>
+<td>Maximum time allowed for one query to be executed. The value is in minutes.</td>
+</tr>
+<tr>
+<td>carbon.enableMinMax</td>
+<td>true</td>
+<td>Min max is feature added to enhance query performance. To disable this feature, set it false.</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Global Dictionary Configurations</strong></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>high.cardinality.identify.enable</td>
+<td>true</td>
+<td>If the parameter is true, the high cardinality columns of the dictionary code are automatically recognized and these columns will not be used as global dictionary encoding. If the parameter is false, all dictionary encoding columns are used as dictionary encoding. The high cardinality column must meet the following requirements: value of cardinality &gt; configured value of high.cardinalityEqually, the value of cardinality is higher than the threshold.value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentageEqually, the ratio of the cardinality value to data row number is higher than the configured percentage.</td>
+</tr>
+<tr>
+<td>high.cardinality.threshold</td>
+<td>1000000</td>
+<td>high.cardinality.threshold</td>
+</tr>
+<tr>
+<td>high.cardinality.row.count.percentage</td>
+<td>80</td>
+<td>Percentage to identify whether column cardinality is more than configured percent of total row count.Configuration value formula:Value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentageThe value of the parameter must be larger than 0.</td>
+</tr>
+<tr>
+<td>carbon.cutOffTimestamp</td>
+<td>1970-01-01 05:30:00</td>
+<td>Sets the start date for calculating the timestamp. Java counts the number of milliseconds from start of "1970-01-01 00:00:00". This property is used to customize the start of position. For example "2000-01-01 00:00:00". The date must be in the form "carbon.timestamp.format". NOTE: The CarbonData supports data store up to 68 years from the cut-off time defined. For example, if the cut-off time is 1970-01-01 05:30:00, then the data can be stored up to 2038-01-01 05:30:00.</td>
+</tr>
+<tr>
+<td>carbon.timegranularity</td>
+<td>SECOND</td>
+<td>The property used to set the data granularity level DAY, HOUR, MINUTE, or SECOND.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="spark-configuration" class="anchor" href="#spark-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark Configuration</h2>
+
+<p><b></b></p><p align="center">Spark Configuration Reference in spark-defaults.conf</p>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spark.driver.memory</td>
+<td>1g</td>
+<td>Amount of memory to be used by the driver process.</td>
+</tr>
+<tr>
+<td>spark.executor.memory</td>
+<td>1g</td>
+<td>Amount of memory to be used per executor process.</td>
+</tr>
+<tr>
+<td>spark.sql.bigdata.register.analyseRule</td>
+<td>org.apache.spark.sql.hive.acl.CarbonAccessControlRules</td>
+<td>CarbonAccessControlRules need to be set for enabling Access Control.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

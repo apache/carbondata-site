@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
+                                   target="_blank">Project PPMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+
+<h1>
+<a id="installation-guide" class="anchor" href="#installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation Guide</h1>
+
+<p>This tutorial guides you through the installation and configuration of CarbonData in the following two modes :</p>
+
+<ul>
+<li><a href="#installing-and-configuring-carbondata-on-standalone-spark-cluster">Installing and Configuring CarbonData on Standalone Spark Cluster</a></li>
+<li><a href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster">Installing and Configuring CarbonData on ?Spark on YARN? Cluster</a></li>
+</ul>
+
+<p>followed by :</p>
+
+<ul>
+<li><a href="#query-execution-using-carbondata-thrift-server">Query Execution using CarbonData Thrift Server</a></li>
+</ul>
+
+<h2>
+<a id="installing-and-configuring-carbondata-on-standalone-spark-cluster" class="anchor" href="#installing-and-configuring-carbondata-on-standalone-spark-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Standalone Spark Cluster</h2>
+
+<h3>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h3>
+
+<ul>
+<li><p>Hadoop HDFS and Yarn should be installed and running.</p></li>
+<li><p>Spark should be installed and running on all the cluster nodes.</p></li>
+<li><p>CarbonData user should have permission to access HDFS.</p></li>
+</ul>
+
+<h3>
+<a id="procedure" class="anchor" href="#procedure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
+
+<ol>
+<li><p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.html">Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code>. </p></li>
+<li>
+<p>Copy <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> to <code>$SPARK_HOME/carbonlib</code> folder.</p>
+
+<p><strong>NOTE</strong>: Create the carbonlib folder if it does not exist inside <code>$SPARK_HOME</code> path.</p>
+</li>
+<li><p>Add the carbonlib folder path in the Spark classpath. (Edit <code>$SPARK_HOME/conf/spark-env.sh</code> file and modify the value of <code>SPARK_CLASSPATH</code> by appending <code>$SPARK_HOME/carbonlib/*</code> to the existing value)</p></li>
+<li><p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p></li>
+<li>
+<p>Copy the <code>./processing/carbonplugins</code> folder from CarbonData repository to <code>$SPARK_HOME/carbonlib/</code> folder.</p>
+
+<p><strong>NOTE</strong>: carbonplugins will contain .kettle folder.</p>
+</li>
+<li><p>Repeat Step 2 to Step 5 in all the nodes of the cluster.</p></li>
+<li>
+<p>In Spark node[master], configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.kettle.home</td>
+<td><code>$SPARK_HOME/carbonlib/carbonplugins</code></td>
+<td>Path that will be used by CarbonData internally to create graph for loading the data</td>
+</tr>
+<tr>
+<td>spark.driver.extraJavaOptions</td>
+<td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
+<td>A string of extra JVM options to pass to the driver. For instance, GC settings or other logging.</td>
+</tr>
+<tr>
+<td>spark.executor.extraJavaOptions</td>
+<td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
+<td>A string of extra JVM options to pass to executors. For instance, GC settings or other logging. <strong>NOTE</strong>: You can enter multiple values separated by space.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code> file:</p>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.storelocation</td>
+<td>NO</td>
+<td>Location where data CarbonData will create the store and write the data in its own format.</td>
+<td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
+<td>Propose to set HDFS directory</td>
+</tr>
+<tr>
+<td>carbon.kettle.home</td>
+<td>YES</td>
+<td>Path that will be used by CarbonData internally to create graph for loading the data.</td>
+<td><code>$SPARK_HOME/carbonlib/carbonplugins</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Verify the installation. For example:</p>
+
+<pre><code>./spark-shell --master spark://HOSTNAME:PORT --total-executor-cores 2
+--executor-memory 2G
+</code></pre>
+</li>
+</ol>
+
+<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
+
+<p>To get started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
+
+<h2>
+<a id="installing-and-configuring-carbondata-on-spark-on-yarn-cluster" class="anchor" href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on "Spark on YARN" Cluster</h2>
+
+<p>This section provides the procedure to install CarbonData on "Spark on YARN" cluster.</p>
+
+<h3>
+<a id="prerequisites-1" class="anchor" href="#prerequisites-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h3>
+
+<ul>
+<li>Hadoop HDFS and Yarn should be installed and running.</li>
+<li>Spark should be installed and running in all the clients.</li>
+<li>CarbonData user should have permission to access HDFS.</li>
+</ul>
+
+<h3>
+<a id="procedure-1" class="anchor" href="#procedure-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
+
+<p>The following steps are only for Driver Nodes. (Driver nodes are the one which starts the spark context.)</p>
+
+<ol>
+<li>
+<p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.html">Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
+
+<p><strong>NOTE</strong>: Create the carbonlib folder if it does not exists inside <code>$SPARK_HOME</code> path.</p>
+</li>
+<li>
+<p>Copy the <code>./processing/carbonplugins</code> folder from CarbonData repository to <code>$SPARK_HOME/carbonlib/</code> folder.</p>
+
+<p><strong>NOTE</strong>: carbonplugins will contain .kettle folder.</p>
+</li>
+<li><p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p></li>
+<li>
+<p>Create <code>tar,gz</code> file of carbonlib folder and move it inside the carbonlib folder.</p>
+
+<pre><code>cd $SPARK_HOME
+tar -zcvf carbondata.tar.gz carbonlib/
+mv carbondata.tar.gz carbonlib/
+</code></pre>
+</li>
+<li>
+<p>Configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spark.master</td>
+<td>Set this value to run the Spark in yarn cluster mode.</td>
+<td>Set yarn-client to run the Spark in yarn cluster mode.</td>
+</tr>
+<tr>
+<td>spark.yarn.dist.files</td>
+<td>Comma-separated list of files to be placed in the working directory of each executor.</td>
+<td><code>$SPARK_HOME/conf/carbon.properties</code></td>
+</tr>
+<tr>
+<td>spark.yarn.dist.archives</td>
+<td>Comma-separated list of archives to be extracted into the working directory of each executor.</td>
+<td><code>$SPARK_HOME/carbonlib/carbondata.tar.gz</code></td>
+</tr>
+<tr>
+<td>spark.executor.extraJavaOptions</td>
+<td>A string of extra JVM options to pass to executors. For instance  <strong>NOTE</strong>: You can enter multiple values separated by space.</td>
+<td><code>-Dcarbon.properties.filepath=carbon.properties</code></td>
+</tr>
+<tr>
+<td>spark.executor.extraClassPath</td>
+<td>Extra classpath entries to prepend to the classpath of executors. <strong>NOTE</strong>: If SPARK_CLASSPATH is defined in spark-env.sh, then comment it and append the values in below parameter spark.driver.extraClassPath</td>
+<td><code>carbondata.tar.gz/carbonlib/*</code></td>
+</tr>
+<tr>
+<td>spark.driver.extraClassPath</td>
+<td>Extra classpath entries to prepend to the classpath of the driver. <strong>NOTE</strong>: If SPARK_CLASSPATH is defined in spark-env.sh, then comment it and append the value in below parameter spark.driver.extraClassPath.</td>
+<td><code>$SPARK_HOME/carbonlib/carbonlib/*</code></td>
+</tr>
+<tr>
+<td>spark.driver.extraJavaOptions</td>
+<td>A string of extra JVM options to pass to the driver. For instance, GC settings or other logging.</td>
+<td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code>:</p>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.storelocation</td>
+<td>NO</td>
+<td>Location where CarbonData will create the store and write the data in its own format.</td>
+<td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
+<td>Propose to set HDFS directory</td>
+</tr>
+<tr>
+<td>carbon.kettle.home</td>
+<td>YES</td>
+<td>Path that will be used by CarbonData internally to create graph for loading the data.</td>
+<td>carbondata.tar.gz/carbonlib/carbonplugins</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Verify the installation.</p>
+
+<pre><code> ./bin/spark-shell --master yarn-client --driver-memory 1g
+ --executor-cores 2 --executor-memory 2G
+</code></pre>
+
+<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
+
+<p>Getting started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
+</li>
+</ol>
+
+<h2>
+<a id="query-execution-using-carbondata-thrift-server" class="anchor" href="#query-execution-using-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Execution Using CarbonData Thrift Server</h2>
+
+<h3>
+<a id="starting-carbondata-thrift-server" class="anchor" href="#starting-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting CarbonData Thrift Server.</h3>
+
+<p>a. cd <code>$SPARK_HOME</code></p>
+
+<p>b. Run the following command to start the CarbonData thrift server.</p>
+
+<pre><code>   ./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true
+   --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer
+   $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARBON_ASSEMBLY_JAR</td>
+<td>CarbonData assembly jar name present in the <code>$SPARK_HOME/carbonlib/</code> folder.</td>
+<td>carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar</td>
+</tr>
+<tr>
+<td>carbon_store_path</td>
+<td>This is a parameter to the CarbonThriftServer class. This a HDFS path where CarbonData files will be kept. Strongly Recommended to put same as carbon.storelocation parameter of carbon.properties.</td>
+<td><code>hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store</code></td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Examples</strong></p>
+
+<ul>
+<li>Start with default memory and executors.</li>
+</ul>
+
+<pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true 
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
+$SPARK_HOME/carbonlib
+/carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 
+hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
+</code></pre>
+
+<ul>
+<li>Start with Fixed executors and resources.</li>
+</ul>
+
+<pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true 
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
+--num-executors 3 --driver-memory 20g --executor-memory 250g 
+--executor-cores 32 
+/srv/OSCON/BigData/HACluster/install/spark/sparkJdbc/lib
+/carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 
+hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
+</code></pre>
+
+<h3>
+<a id="connecting-to-carbondata-thrift-server-using-beeline" class="anchor" href="#connecting-to-carbondata-thrift-server-using-beeline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting to CarbonData Thrift Server Using Beeline.</h3>
+
+<pre><code>     cd $SPARK_HOME
+     ./bin/beeline jdbc:hive2://&lt;thrftserver_host&gt;:port
+
+     Example
+     ./bin/beeline jdbc:hive2://10.10.10.10:10000
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

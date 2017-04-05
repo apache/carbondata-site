@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
+                                   target="_blank">Project PPMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+
+<h1>
+<a id="ddl-operations-on-carbondata" class="anchor" href="#ddl-operations-on-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DDL Operations on CarbonData</h1>
+
+<p>This tutorial guides you through the data definition language support provided by CarbonData.</p>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>The following DDL operations are supported in CarbonData :</p>
+
+<ul>
+<li><a href="#create-table">CREATE TABLE</a></li>
+<li><a href="#show-table">SHOW TABLE</a></li>
+<li><a href="#drop-table">DROP TABLE</a></li>
+<li><a href="#compaction">COMPACTION</a></li>
+<li><a href="#bucketing">BUCKETING</a></li>
+</ul>
+
+<h2>
+<a id="create-table" class="anchor" href="#create-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE</h2>
+
+<p>This command can be used to create a CarbonData table by specifying the list of fields along with the table properties.</p>
+
+<pre><code>   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                    [(col_name data_type , ...)]
+   STORED BY 'carbondata'
+   [TBLPROPERTIES (property_name=property_value, ...)]
+   // All Carbon's additional table options will go into properties
+</code></pre>
+
+<h3>
+<a id="parameter-description" class="anchor" href="#parameter-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db_name</td>
+<td>Name of the database. Database name should consist of alphanumeric characters and underscore(_) special character.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>field_list</td>
+<td>Comma separated List of fields with data type. The field names should consist of alphanumeric characters and underscore(_) special character.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>The name of the table in Database. Table Name should consist of alphanumeric characters and underscore(_) special character.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>STORED BY</td>
+<td>"org.apache.carbondata.format", identifies and creates a CarbonData table.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>TBLPROPERTIES</td>
+<td>List of CarbonData table properties.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="usage-guidelines" class="anchor" href="#usage-guidelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
+
+<p>Following are the guidelines for using table properties.</p>
+
+<ul>
+<li>
+<p><strong>Dictionary Encoding Configuration</strong></p>
+
+<p>Dictionary encoding is enabled by default for all String columns, and disabled for non-String columns. You can include and exclude columns for dictionary encoding.</p>
+</li>
+</ul>
+
+<pre><code>       TBLPROPERTIES ('DICTIONARY_EXCLUDE'='column1, column2')
+       TBLPROPERTIES ('DICTIONARY_INCLUDE'='column1, column2')
+</code></pre>
+
+<p>Here, DICTIONARY_EXCLUDE will exclude dictionary creation. This is applicable for high-cardinality columns and is an optional parameter. DICTIONARY_INCLUDE will generate dictionary for the columns specified in the list.</p>
+
+<ul>
+<li>
+<p><strong>Row/Column Format Configuration</strong></p>
+
+<p>Column groups with more than one column are stored in row format, instead of columnar format. By default, each column is a separate column group.</p>
+</li>
+</ul>
+
+<pre><code>TBLPROPERTIES ('COLUMN_GROUPS'='(column1, column3),
+(Column4,Column5,Column6)')
+</code></pre>
+
+<ul>
+<li>
+<p><strong>Table Block Size Configuration</strong></p>
+
+<p>The block size of table files can be defined using the property TABLE_BLOCKSIZE. It accepts only integer values. The default value is 1024 MB and supports a range of 1 MB to 2048 MB.
+ If you do not specify this value in the DDL command, default value is used.</p>
+</li>
+</ul>
+
+<pre><code>       TBLPROPERTIES ('TABLE_BLOCKSIZE'='512')
+</code></pre>
+
+<p>Here 512 MB means the block size of this table is 512 MB, you can also set it as 512M or 512.</p>
+
+<ul>
+<li>
+<p><strong>Inverted Index Configuration</strong></p>
+
+<p>Inverted index is very useful to improve compression ratio and query speed, especially for those low-cardinality columns who are in reward position.
+  By default inverted index is enabled. The user can disable the inverted index creation for some columns.</p>
+</li>
+</ul>
+
+<pre><code>       TBLPROPERTIES ('NO_INVERTED_INDEX'='column1, column3')
+</code></pre>
+
+<p>No inverted index shall be generated for the columns specified in NO_INVERTED_INDEX. This property is applicable on columns with high-cardinality and is an optional parameter.</p>
+
+<p>NOTE:</p>
+
+<ul>
+<li><p>By default all columns other than numeric datatype are treated as dimensions and all columns of numeric datatype are treated as measures.</p></li>
+<li><p>All dimensions except complex datatype columns are part of multi dimensional key(MDK). This behavior can be overridden by using TBLPROPERTIES. If the user wants to keep any column (except columns of complex datatype) in multi dimensional key then he can keep the columns either in DICTIONARY_EXCLUDE or DICTIONARY_INCLUDE.</p></li>
+</ul>
+
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code>    CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                                   productNumber Int,
+                                   productName String,
+                                   storeCity String,
+                                   storeProvince String,
+                                   productCategory String,
+                                   productBatch String,
+                                   saleQuantity Int,
+                                   revenue Int)
+      STORED BY 'carbondata'
+      TBLPROPERTIES ('COLUMN_GROUPS'='(productNumber,productName)',
+                     'DICTIONARY_EXCLUDE'='storeCity',
+                     'DICTIONARY_INCLUDE'='productNumber',
+                     'NO_INVERTED_INDEX'='productBatch')
+</code></pre>
+
+<h2>
+<a id="show-table" class="anchor" href="#show-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW TABLE</h2>
+
+<p>This command can be used to list all the tables in current database or all the tables of a specific database.</p>
+
+<pre><code>  SHOW TABLES [IN db_Name];
+</code></pre>
+
+<h3>
+<a id="parameter-description-1" class="anchor" href="#parameter-description-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IN db_Name</td>
+<td>Name of the database. Required only if tables of this specific database are to be listed.</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code>  SHOW TABLES IN ProductSchema;
+</code></pre>
+
+<h2>
+<a id="drop-table" class="anchor" href="#drop-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DROP TABLE</h2>
+
+<p>This command is used to delete an existing table.</p>
+
+<pre><code>  DROP TABLE [IF EXISTS] [db_name.]table_name;
+</code></pre>
+
+<h3>
+<a id="parameter-description-2" class="anchor" href="#parameter-description-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db_Name</td>
+<td>Name of the database. If not specified, current database will be selected.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>Name of the table to be deleted.</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="example-2" class="anchor" href="#example-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code>  DROP TABLE IF EXISTS productSchema.productSalesTable;
+</code></pre>
+
+<h2>
+<a id="compaction" class="anchor" href="#compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPACTION</h2>
+
+<p>This command merges the specified number of segments into one segment. This enhances the query performance of the table.</p>
+
+<pre><code>  ALTER TABLE [db_name.]table_name COMPACT 'MINOR/MAJOR';
+</code></pre>
+
+<p>To get details about Compaction refer to <a href="data-management.html">Data Management</a></p>
+
+<h3>
+<a id="parameter-description-3" class="anchor" href="#parameter-description-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db_name</td>
+<td>Database name, if it is not specified then it uses current database.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>table_name</td>
+<td>The name of the table in provided database.</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="syntax" class="anchor" href="#syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+
+<ul>
+<li><strong>Minor Compaction</strong></li>
+</ul>
+
+<pre><code>ALTER TABLE table_name COMPACT 'MINOR';
+</code></pre>
+
+<ul>
+<li><strong>Major Compaction</strong></li>
+</ul>
+
+<pre><code>ALTER TABLE table_name COMPACT 'MAJOR';
+</code></pre>
+
+<h2>
+<a id="bucketing" class="anchor" href="#bucketing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BUCKETING</h2>
+
+<p>Bucketing feature can be used to distribute/organize the table/partition data into multiple files such
+that similar records are present in the same file. While creating a table, a user needs to specify the
+columns to be used for bucketing and the number of buckets. For the selction of bucket the Hash value
+of columns is used.</p>
+
+<pre><code>   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                    [(col_name data_type, ...)]
+   STORED BY 'carbondata'
+   TBLPROPERTIES(?BUCKETNUMBER?=?noOfBuckets?,
+   ?BUCKETCOLUMNS?=??columnname?)
+</code></pre>
+
+<h2>
+<a id="parameter-description-4" class="anchor" href="#parameter-description-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BUCKETNUMBER</td>
+<td>Specifies the number of Buckets to be created.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>BUCKETCOLUMNS</td>
+<td>Specify the columns to be considered for Bucketing</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="usage-guidelines-1" class="anchor" href="#usage-guidelines-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h2>
+
+<ul>
+<li><p>The feature is supported for Spark 1.6.2 onwards, but the performance optimization is evident from Spark 2.1 onwards.</p></li>
+<li><p>Bucketing can not be performed for columns of Complex Data Types.</p></li>
+<li><p>Columns in the BUCKETCOLUMN parameter must be only dimension. The BUCKETCOLUMN parameter can not be a measure or a combination of measures and dimensions.</p></li>
+</ul>
+
+<h2>
+<a id="example-" class="anchor" href="#example-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example :</h2>
+
+<pre><code> CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                                productNumber Int,
+                                productName String,
+                                storeCity String,
+                                storeProvince String,
+                                productCategory String,
+                                productBatch String,
+                                saleQuantity Int,
+                                revenue Int)
+   STORED BY 'carbondata'
+   TBLPROPERTIES ('COLUMN_GROUPS'='(productName,productNumber)',
+                  'DICTIONARY_EXCLUDE'='productName',
+                  'DICTIONARY_INCLUDE'='productNumber',
+                  'NO_INVERTED_INDEX'='productBatch',
+                  'BUCKETNUMBER'='4',
+                  'BUCKETCOLUMNS'='productName')
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
