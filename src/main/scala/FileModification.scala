@@ -18,6 +18,10 @@ class FileModification {
   val location = "src/main/webapp/"
   val fileReadObject = new MdFilehandler
 
+  /**
+    * reads list of files , converts file extension to output file extension and writes file to the locaion
+    * @return status of each file i.e. success or failure
+    */
   def convertToHtml(): String = {
     val listOfFiles = readListOfFiles()
     val statusList = listOfFiles.map { file =>
@@ -40,15 +44,25 @@ class FileModification {
       "All files successfully Converted"
   }
 
+  /**
+    * Reads list of files from application.conf file
+    * @return list of string
+    */
   private def readListOfFiles(): List[String] = {
     val listOfFiles = ConfigFactory.load().getStringList("fileList").asScala.toList
     logger.info(s"List of files : $listOfFiles")
     listOfFiles
   }
 
+  /**
+    * writes file to the destination provided by path parameter
+    * @param path storage location of the file
+    * @param data contents of the file
+    */
   private def writeToFile(path: String, data: String): Unit = {
     val writer = new PrintWriter(new File(path))
     writer.write(headerContent + data + footerContent)
     writer.close()
   }
 }
+
