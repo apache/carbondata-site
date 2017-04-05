@@ -999,6 +999,17 @@ box-shadow: 0 3px 2px #aaa }
 
 .newsblock {    margin-top: 20px;font-size: 13px;text-align: justify;}
 
+.slider-btn{display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #aaa;
+    padding: 8px 20px;
+    line-height: 20px;
+    border-radius: 2px;
+}
+
+.slider-btn:hover {color: #fff; border: 1px solid #ff943d; background: #ff943d;}
+
 /* ------------------- End Documentation Style here*/
 
 /* Media Style */
