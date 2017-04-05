@@ -1,8 +1,5 @@
 import org.slf4j.LoggerFactory
 
-/**
-  * Created by knoldus on 3/4/17.
-  */
 class FileOperationMain
 
 object FileOperationMain {
