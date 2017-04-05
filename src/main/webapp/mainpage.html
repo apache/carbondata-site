@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
+                                   target="_blank">Project PPMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="doc-heading">
+                                <h4 class="title">Documentation
+                                    <span class="title-underline"></span>
+                                </h4>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-12  col-md-12">
+                                    <span class="text-justify">
+                                        Welcome to Apache CarbonData. Apache CarbonData(incubating) is a new big data file format for faster interactive query using advanced columnar storage, index, compression and encoding techniques to improve computing efficiency, which helps in speeding up queries by an order of magnitude faster over PetaBytes of data. This user guide provides a detailed description about the CarbonData and its features.
+                                        Let's get started !
+                                    </span>
+                                    <hr style="margin: 12px 0 8px">
+                                    <div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style">
+                                                <a href="quick-start-guide.html">Quick
+                                                    Start</a></h4>
+                                            &nbsp for a quick set-up instructions and querying using Apache CarbonData.
+
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a href="#">Introduction
+                                                and Features</a></h4>
+                                            &nbsp get an overview of Apache CarbonData features.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="supported-data-types-in-carbondata.html">Data
+                                                Types</a></h4>
+                                            &nbsp for list of supported Data Types in Apache CarbonData.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="file-structure-of-carbondata.html">CarbonData
+                                                File Structure</a></a></h4>
+                                            &nbsp detailed overview of Apache CarbonData File Structure.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="installation-guide.html">Installation
+                                                Guide</a></h4>
+                                            &nbsp guide to help you install and setup CarbonData.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="configuration-parameters.html">Configuring
+                                                CarbonData</a></h4>
+                                            &nbsp details for configuring and customizing CarbonData for best
+                                            optimization.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="data-management.html">Using
+                                                CarbonData
+                                                and Data Management</a></h4>
+
+                                            &nbsp will discusses the disciplines related to management of data in
+                                            Apache CarbonData.It will be focusing on conceptual details related to
+                                            operations like load data, delete data, update data and Compacting Data.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="ddl-operation-on-carbondata.html">Data
+                                                Definition Language Support</a></h4>
+                                            <p>provides the detailed aspects related to creation and modification of the structure of database. It shall discuss in detail about :
+                                            <ul class="ul-padding">
+                                                <li>
+                                                    <a href="ddl-operation-on-carbondata.html#create-table">Create Table
+                                                    </a></li>
+                                                <li>
+                                                    <a href="ddl-operation-on-carbondata.html#show-table">Show Table
+                                                    </a></li>
+                                                <li>
+                                                    <a href="ddl-operation-on-carbondata.html#drop-table">Drop Table
+                                                    </a></li>
+                                                <li>
+                                                    <a href="ddl-operation-on-carbondata.html#compaction">Compaction
+                                                    </a></li>
+                                                <li>
+                                                    <a href="ddl-operation-on-carbondata.html#bucketing">Bucketing
+                                                    </a></li>
+
+                                            </ul>
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="dml-operation-on-carbondata.html">Data
+                                                Manipulation Language Support</a></h4>
+                                            <p>provides the detailed aspects related to data manipulation in database. It shall discuss in detail about selecting, loading, and deleting in a database. This manipulation comprises of :
+                                            </p>
+                                            <ul class="ul-padding">
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#load-data">Loading
+                                                        data into database tables</a></li>
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#insert-data-into-a-carbondata-table">Inserting
+                                                        data into database tables</a></li>
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#show-segments">Show Segments</a></li>
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#delete-segment-by-id">Delete Segment By ID</a></li>
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#delete-segment-by-date">Deleting
+                                                        segments By Date</a></li>
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#update-carbondata-table">Updating
+                                                        data in existing tables</a></li>
+                                                <li>
+                                                    <a href="dml-operation-on-carbondata.html#delete-records-from-carbondata-table">Deleting
+                                                        Records from CarbonData tables</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="useful-tips-on-carbondata.html">Useful
+                                                Tips</a></h4>
+                                            &nbsp best practices to optimize performance and memory usage.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="troubleshooting.html">Troubleshooting</a>
+                                            </h4>
+                                            &nbsp a list of solutions to resolve failures and bottlenecks.
+                                        </div>
+
+                                        <div class="text-justify">
+                                            <h4 class="display-style"><a
+                                                    href="faq.html">FAQs</a>
+                                            </h4>
+                                            &nbsp a list of commonly asked questions.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doc-footer">
+                            <a href="#top" class="scroll-top">Top</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section><!-- End systemblock part -->
+            </div>
+        </div>
+    </div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

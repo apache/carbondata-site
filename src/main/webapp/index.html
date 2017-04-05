@@ -17,7 +17,7 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    
+
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -73,7 +73,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="docs/latest/mainpage.html?page=userguide" class="">Documentation</a></li>
+                    <li><a href="mainpage.html" class="">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Community <span
@@ -87,7 +87,10 @@
                                    target="_blank">Project PPMC and Committers</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
-                                   target="_blank">CarbonData Meetups</a></li>                          
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -101,7 +104,6 @@
                                    target="_blank">License</a></li>
                             <li><a href="http://www.apache.org/foundation/sponsorship.html"
                                    target="_blank">Sponsorship</a></li>
-                            <li><a href="security.html">Apache CarbonData Security</a></li>
                             <li><a href="http://www.apache.org/foundation/thanks.html"
                                    target="_blank">Thanks</a></li>
                         </ul>
@@ -123,24 +125,30 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" id="search-icon" ><i class="fa fa-search" aria-hidden="true"></i></a>
-    
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
                     </li>
-    
+
                 </ul>
             </div><!--/.nav-collapse -->
-            <div id="search-box" >
+            <div id="search-box">
                 <form method="get" action="http://www.google.com/search">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
                                 <td style="width:80%">
-                                    <input type="text" name="q" size=" 5" maxlength="255" value="" class="search-input" />
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"/>
                                 </td>
                                 <td style="width:20%">
-                                    <input type="submit" value="Search" /></td></tr>
-                            <tr><td align="left"  style="font-size:75%" colspan="2">
-                                <input type="checkbox"  name="sitesearch" value="carbondata.apache.org" checked /> Only search for CarbonData   </td></tr>
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    Only search for CarbonData
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </form>
@@ -160,7 +168,7 @@
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
-    
+
             <!-- Wrapper for Slides -->
             <div class="carousel-inner">
                 <div class="item active">
@@ -208,12 +216,12 @@
                                 <div class="slide-img"><img src="images/cd-slider-3.png" alt=""/>
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
             </div>
-    
+
             <!-- Controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="icon-prev"></span>
@@ -221,7 +229,7 @@
             <a class="right carousel-control" href="#myCarousel" data-slide="next">
                 <span class="icon-next"></span>
             </a>
-    
+
         </div>
 
 
@@ -243,19 +251,19 @@
                                     Apache CarbonData (incubating) is an indexed columnar data
                                     format for fast analytics on big data platform, e.g. Apache
                                     Hadoop, Apache Spark, etc.
-    
+
                                 </p>
                                 <!--<h2 class="cd-indexing-heading">CarbonData flow</h2>-->
                                 <div class="cd-indexing-blog">
                                     <img src="images/CDfullyIndexing.png" alt=""/>
                                 </div>
-                                <a href="docs/latest/mainpage.html?page=userguide" id="learnmore"
+                                <a href="mainpage.html" id="learnmore"
                                    class="knowmore-btn"> learn more</a>
-    
+
                             </div>
                         </div>
                     </div>
-    
+
                 </div>  <!-- carbonData -->
                 <div class="col-md-4 col-sm-5">
                     <div class="right-block">
@@ -300,12 +308,12 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="cd-quickbtns">
                             <h4 class="title">Quick Links
                                 <span class="title-underline"></span>
                             </h4>
-                            <a href="docs/latest/mainpage.html?page=quickStart" class="quickstart-btn"><i
+                            <a href="quick-start-guide.html" class="quickstart-btn"><i
                                     class="fa rocket-icon icon-margin-r"></i> Quick Start
                             </a>
                             <a href="https://github.com/apache/incubator-carbondata"
@@ -315,7 +323,7 @@
                             </a>
                             <a href="pdf/maven-pdf-plugin.pdf" class="quickstart-btn"
                                target="_blank"><i class="fa fa-file-pdf-o icon-margin-r"
-                                                  aria-hidden="true"></i></i> Download Docs
+                                                  aria-hidden="true"></i></i> Download Documentation
                             </a>
                         </div>
                     </div>
@@ -330,7 +338,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                                <span class="title">  
+                                <span class="title">
                                   Subscribe for the latest news and development details of the rapidly growing CarbonData community
                                  </span>
                         <a href="mailto:dev-subscribe@carbondata.incubator.apache.org"
@@ -344,58 +352,75 @@
         </div>
     </div>
 </section>
-
 <section><!-- Flow systemblock part -->
     <div class="cd-systemblock">
         <div class="container-fluid">
             <div class="row">
-    
-            <div class="col-md-12 col-sm-12">
-                <div class="cd-thecolumnblock joinblog">
-                    <h4 class="title">Join CarbonData Community
-                        <span class="title-underline"></span>
-                    </h4>
-                    <p class="title-info">
-    
-                        Apache CarbonData is an open source project of The Apache Software
-                        Foundation (ASF). We are an open and friendly community. We welcome everyone
-                        to join the community and contribute to CarbonData.
-    
-                    </p>
-                    <p class="title-info">It is very easy to join CarbonData community:
-                    </p>
-                    <ul class="listlink">
-                        <li> Subscribe for the mailing list by sending an email to
-                            <a href="mailto:dev-subscribe@carbondata.incubator.apache.org"
-                               target="_blank">dev-subscribe@carbondata.incubator.apache.org</a>
-                        </li>
-                        <li> After you subscribe, you can discuss your ideas, queries, and issues by
-                            sending an email to
-                            <a href="mailto:dev@carbondata.incubator.apache.org" target="_blank">dev@carbondata.incubator.apache.org</a>
-                            or visit <a
-                                    href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com"
-                                    target="_blank">http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com</a>
-                        </li>
-                        <li> To start contributing to CarbonData and be a contributor, see <a
-                                href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
-                                target="_blank">Contributing to Apache CarbonData</a>.
-                        </li>
-                        <li> To report issue on <a
-                                href="https://issues.apache.org/jira/browse/CARBONDATA"
-                                target="_blank">Apache Jira</a>.
-                        </li>
-                    </ul>
-    
-                    <p class="social-icons">
-                        <a href="https://www.facebook.com/carbondata/" target="_blank">
-                            <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
-                        <a href="https://twitter.com/search?q=%23CarbonData" target="_blank"> <i
-                                class="fa fa-twitter-square" aria-hidden="true"></i></a>
-                        <a> <i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-                    </p>
+
+                <div class="col-md-12 col-sm-12">
+                    <div class="cd-thecolumnblock joinblog">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="cell cellcummunity">
+
+                                    <h4 class="title">Join CarbonData Community
+                                        <span class="title-underline"></span>
+                                    </h4>
+                                    <p class="title-info">
+
+                                        Apache CarbonData is an open source project of The Apache Software
+                                        Foundation (ASF). We are an open and friendly community. We welcome everyone
+                                        to join the community and contribute to CarbonData.
+
+                                    </p>
+                                    <p class="title-info">It is very easy to join CarbonData community:
+                                    </p>
+                                    <ul class="listlink">
+                                        <li> Subscribe for the mailing list by sending an email to
+                                            <a href="mailto:dev-subscribe@carbondata.incubator.apache.org"
+                                               target="_blank">dev-subscribe@carbondata.incubator.apache.org</a>
+                                        </li>
+                                        <li> After you subscribe, you can discuss your ideas, queries, and issues by
+                                            sending an email to
+                                            <a href="mailto:dev@carbondata.incubator.apache.org" target="_blank">dev@carbondata.incubator.apache.org</a>
+                                            or visit <a
+                                                    href="http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com"
+                                                    target="_blank">http://apache-carbondata-mailing-list-archive.1130556.n5.nabble.com</a>
+                                        </li>
+                                        <li> To start contributing to CarbonData and be a contributor, see <a
+                                                href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                                target="_blank">Contributing to Apache CarbonData</a>.
+                                        </li>
+                                        <li> To report issue on <a
+                                                href="https://issues.apache.org/jira/browse/CARBONDATA"
+                                                target="_blank">Apache Jira</a>.
+                                        </li>
+                                    </ul>
+                                    <p class="social-icons">
+                                        <a href="https://www.facebook.com/carbondata/" target="_blank">
+                                            <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                                        <a href="https://twitter.com/search?q=%23CarbonData" target="_blank"> <i
+                                                class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                                        <a> <i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                                    </p>
+                                </div>
+                                <div class="cell celllatestnews">
+                                    <h4 class="title">Latest News
+                                        <span class="title-underline"></span>
+                                    </h4>
+                                    <div class="newsblock">
+                                        Apache CarbonData is honored with
+                                        <a href="https://www.blackducksoftware.com/open-source-rookies-2016#Bigdata"
+                                           target="_blank"> <strong> Black Duck Open Source ROOKIES of the Year 2016 Award</strong></a>
+                                        as the most innovative and influential open source project launched during the
+                                        year 2016.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="cd-thecolumnblock getstartlog">
@@ -408,26 +433,26 @@
                             <li>
                                 <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
                                    target="_blank">Download </a>the latest release.
-    
+
                             </li>
-                            <li>Follow the <a href="docs/latest/mainpage.html?page=quickStart">Quick Start</a>.
+                            <li>Follow the <a href="quick-start-guide.html">Quick Start</a>.
                             </li>
                         </ol>
                         <p class="title-info">
                             For detailed reference on CarbonData, read the <a
-                                href="docs/latest/mainpage.html?page=userguide">User Guide</a>.
+                                href="mainpage.html">User Guide</a>.
                         </p>
                     </div>
-    
+
                 </div>
                 <div class="col-md-6 col-sm-6">
-    
+
                     <div class="cd-thecolumnblock latestblog">
                         <h4 class="title">Latest Blogs
                             <span class="title-underline"></span>
                         </h4>
                         <ul class="orderlist">
-    
+
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=67640751" target="_blank">Case
                                     Study of CarbonData</a> 23 Dec 2016
@@ -436,7 +461,7 @@
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Using+Apache+CarbonData" target="_blank">Using
                                     CarbonData</a> 17 Dec 2016
                             </li>
-    
+
                             <li><a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Interactive+Analysis+With+Apache+CarbonData" target="_blank">Interactive
                                 Analysis with CarbonData</a> 28 Nov 2016
                             </li>
@@ -446,14 +471,14 @@
                         <p class="title-info">
                             Check out for <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Articles" target="_blank">more blog</a> posts.
                         </p>
-    
+
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </div>
-</section><!-- End systemblock part -->
+</section>
 
 <section><!-- Flow carbonData part -->
     <div class="cd-flowblock">
@@ -461,9 +486,9 @@
             <h4 class="title"> Why CarbonData
                 <span class="title-underline"></span>
             </h4>
-    
+
             <div class="col-md-4 col-sm-6">
-                <a href="docs/latest/mainpage.html?page=uniqueData" id="ref_butn">
+                <a href="mainpage.html" id="ref_butn">
                     <div class="cd-columnblock">
                         <div class="iconbox">
                             <i class="icon uniquedata"></i>
@@ -475,9 +500,9 @@
                     </div>
                 </a>
             </div>
-    
+
             <div class="col-md-4 col-sm-6">
-                <a href="docs/latest/mainpage.html?page=uniqueData" id="ref_butn">
+                <a href="mainpage.html" id="ref_butn">
                     <div class="cd-columnblock">
                         <div class="iconbox">
                             <i class="icon multilevelindexing"></i>
@@ -488,9 +513,9 @@
                     </div>
                 </a>
             </div>
-    
+
             <div class="col-md-4 col-sm-6">
-                <a href="docs/latest/mainpage.html?page=uniqueData">
+                <a href="mainpage.html">
                     <div class="cd-columnblock">
                         <div class="iconbox">
                             <i class="icon deepsparkintegration"></i>
@@ -500,9 +525,9 @@
                     </div>
                 </a>
             </div>
-    
+
             <div class="col-md-4 col-sm-6">
-                <a href="docs/latest/mainpage.html?page=uniqueData">
+                <a href="mainpage.html">
                     <div class="cd-columnblock">
                         <div class="iconbox">
                             <i class="icon advancedpushdownoptimization"></i>
@@ -514,9 +539,9 @@
                     </div>
                 </a>
             </div>
-    
+
             <div class="col-md-4 col-sm-6">
-                <a href="docs/latest/mainpage.html?page=uniqueData">
+                <a href="mainpage.html">
                     <div class="cd-columnblock">
                         <div class="iconbox">
                             <i class="icon dictionaryencoding"></i>
@@ -530,7 +555,7 @@
 
 
             <div class="col-md-4 col-sm-6">
-                <a href="docs/latest/mainpage.html?page=uniqueData">
+                <a href="mainpage.html">
                     <div class="cd-columnblock">
                         <div class="iconbox">
                             <i class="icon updatedeletesupport"></i>
@@ -540,7 +565,7 @@
                     </div>
                 </a>
             </div>
-    
+
         </div>
     </div>
 </section><!-- End Flow carbonData part -->
@@ -574,7 +599,7 @@
                     </p>
                 </div>
             </div>
-    
+
         </div>
     </div>
 </section><!-- End apacheblock part -->
@@ -587,7 +612,7 @@
                     Apache CarbonData, CarbonData, Apache, the Apache feather logo, and the Apache
                     CarbonData project logo are trademarks of The Apache Software Foundation
                 </p>
-    
+
             </div>
             <div class="col-md-8 col-sm-8">
                 <ul class="footer-nav">
@@ -607,7 +632,7 @@
                     <a href="http://www.apache.org/foundation/policies/privacy.html"
                        class="term-links" target="blank"> Privacy Policy </a>
                 </p>
-    
+
             </div>
             <div class="col-md-4 col-sm-4">
                 <div class="social-icon">
