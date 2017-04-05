@@ -12,6 +12,12 @@ class MdFilehandler {
 
   val logger = LoggerFactory.getLogger(classOf[MdFilehandler])
 
+  /**
+    * converts .md extension to .html extension
+    * changes location of image from local to git repository
+    * @param input
+    * @return contents of file
+    */
   def ConvertMdExtension(input: String): String = {
     val modifyContentPattern = new Regex("id=\"user-content-")
     val modifyMdPattern = new Regex(".md")
@@ -22,6 +28,11 @@ class MdFilehandler {
     contentAfterReplacingImage
   }
 
+  /**
+    * gets content of the file through rest call
+    * @param data file Url
+    * @return contents of the file in responseBody if found else None is returned
+    */
   def getFileContent(data: String): Option[String] = {
     val httpClient = new DefaultHttpClient()
     val httpRequest: HttpPost = new HttpPost("https://api.github.com/markdown/raw");
@@ -44,3 +55,4 @@ class MdFilehandler {
   }
 
 }
+
