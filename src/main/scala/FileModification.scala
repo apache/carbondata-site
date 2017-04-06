@@ -1,25 +1,26 @@
 import java.io.{File, PrintWriter}
-import collection.JavaConverters._
 
 import com.typesafe.config.ConfigFactory
 import org.slf4j.LoggerFactory
 
+import scala.collection.JavaConverters._
+
 class FileModification {
   val logger = LoggerFactory.getLogger(classOf[FileModification])
-  val url = "https://raw.githubusercontent.com/apache/incubator-carbondata/master/docs/"
+  val url = ConfigFactory.load().getString("apiUrl")
   val inputFileExtension = ".md"
   val outputFileExtension = ".html"
 
   import scala.io.Source
+  val headerContent: String = Source.fromFile(ConfigFactory.load().getString("headerPath")).mkString
+  val footerContent: String = Source.fromFile(ConfigFactory.load().getString("footerPath")).mkString
 
-  val headerContent: String = Source.fromFile("src/main/scala/html/header.html").mkString
-  val footerContent: String =Source.fromFile("src/main/scala/html/footer.html").mkString
-
-  val location = "src/main/webapp/"
+  val location = ConfigFactory.load().getString("outputFileLocation")
   val fileReadObject = new MdFilehandler
 
   /**
-    * reads list of files , converts file extension to output file extension and writes file to the locaion
+    * reads list of files , converts file extension to output file extension and writes file to the location
+    *
     * @return status of each file i.e. success or failure
     */
   def convertToHtml(): String = {
@@ -46,6 +47,7 @@ class FileModification {
 
   /**
     * Reads list of files from application.conf file
+    *
     * @return list of string
     */
   private def readListOfFiles(): List[String] = {
@@ -56,6 +58,7 @@ class FileModification {
 
   /**
     * writes file to the destination provided by path parameter
+    *
     * @param path storage location of the file
     * @param data contents of the file
     */
