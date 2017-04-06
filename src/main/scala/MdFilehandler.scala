@@ -22,11 +22,13 @@ class MdFilehandler {
     val modifyContentPattern = new Regex("id=\"user-content-")
     val modifyMdPattern = new Regex(".md")
     val modifyImagePattern=new Regex("<img src=\"../docs")
-    val modifyFileLink="""(<a href=\"https)://([a-zA-Z0-9-/.]+)(\")""".r
+    val modifyHttpsFileLink="""(<a href=\"https)://([a-zA-Z0-9-/.]+)(\")""".r
+    val modifyHttpFileLink="""(<a href=\"http)://([a-zA-Z0-9-/.]+)(\")""".r
     val contentAfterRemovingUserContent: String = modifyContentPattern replaceAllIn(input, "id=\"")
     val contentAfterReplacingId: String = modifyMdPattern replaceAllIn(contentAfterRemovingUserContent, ".html")
     val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingId, "<img src=\"https://github.com/apache/incubator-carbondata/blob/master/docs")
-    val contentAfterReplacingFileLink: String = modifyFileLink replaceAllIn(contentAfterReplacingImage, "$1://$2$3 target=_blank")
+    val contentAfterReplacingHttpsFileLink: String = modifyHttpsFileLink replaceAllIn(contentAfterReplacingImage, "$1://$2$3 target=_blank")
+    val contentAfterReplacingFileLink: String = modifyHttpFileLink replaceAllIn(contentAfterReplacingHttpsFileLink, "$1://$2$3 target=_blank")
     contentAfterReplacingFileLink
   }
 

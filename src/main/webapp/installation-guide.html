@@ -189,7 +189,7 @@
 <a id="procedure" class="anchor" href="#procedure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
 
 <ol>
-<li><p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.html">Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code>. </p></li>
+<li><p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.html" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code>. </p></li>
 <li>
 <p>Copy <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> to <code>$SPARK_HOME/carbonlib</code> folder.</p>
 
@@ -197,11 +197,6 @@
 </li>
 <li><p>Add the carbonlib folder path in the Spark classpath. (Edit <code>$SPARK_HOME/conf/spark-env.sh</code> file and modify the value of <code>SPARK_CLASSPATH</code> by appending <code>$SPARK_HOME/carbonlib/*</code> to the existing value)</p></li>
 <li><p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p></li>
-<li>
-<p>Copy the <code>./processing/carbonplugins</code> folder from CarbonData repository to <code>$SPARK_HOME/carbonlib/</code> folder.</p>
-
-<p><strong>NOTE</strong>: carbonplugins will contain .kettle folder.</p>
-</li>
 <li><p>Repeat Step 2 to Step 5 in all the nodes of the cluster.</p></li>
 <li>
 <p>In Spark node[master], configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
@@ -215,11 +210,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>carbon.kettle.home</td>
-<td><code>$SPARK_HOME/carbonlib/carbonplugins</code></td>
-<td>Path that will be used by CarbonData internally to create graph for loading the data</td>
-</tr>
 <tr>
 <td>spark.driver.extraJavaOptions</td>
 <td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
@@ -253,13 +243,6 @@
 <td>Location where data CarbonData will create the store and write the data in its own format.</td>
 <td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
 <td>Propose to set HDFS directory</td>
-</tr>
-<tr>
-<td>carbon.kettle.home</td>
-<td>YES</td>
-<td>Path that will be used by CarbonData internally to create graph for loading the data.</td>
-<td><code>$SPARK_HOME/carbonlib/carbonplugins</code></td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -298,14 +281,9 @@
 
 <ol>
 <li>
-<p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.html">Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
+<p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.html" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
 
 <p><strong>NOTE</strong>: Create the carbonlib folder if it does not exists inside <code>$SPARK_HOME</code> path.</p>
-</li>
-<li>
-<p>Copy the <code>./processing/carbonplugins</code> folder from CarbonData repository to <code>$SPARK_HOME/carbonlib/</code> folder.</p>
-
-<p><strong>NOTE</strong>: carbonplugins will contain .kettle folder.</p>
 </li>
 <li><p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p></li>
 <li>
@@ -386,13 +364,6 @@ mv carbondata.tar.gz carbonlib/
 <td>Location where CarbonData will create the store and write the data in its own format.</td>
 <td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
 <td>Propose to set HDFS directory</td>
-</tr>
-<tr>
-<td>carbon.kettle.home</td>
-<td>YES</td>
-<td>Path that will be used by CarbonData internally to create graph for loading the data.</td>
-<td>carbondata.tar.gz/carbonlib/carbonplugins</td>
-<td></td>
 </tr>
 </tbody>
 </table>

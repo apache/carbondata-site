@@ -158,249 +158,152 @@
                                     <div>
 
 <h1>
-<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Troubleshooting</h1>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h1>
 
-<p>This tutorial is designed to provide troubleshooting for end users and developers
-who are building, deploying, and using CarbonData.</p>
-
-<h2>
-<a id="failed-to-load-thrift-libraries" class="anchor" href="#failed-to-load-thrift-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to load thrift libraries</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>Thrift throws following exception :</p>
-
-<pre><code>  thrift: error while loading shared libraries:
-  libthriftc.so.0: cannot open shared object file: No such file or directory
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The complete path to the directory containing the libraries is not configured correctly.</p>
-
-<p><strong>Procedure</strong></p>
-
-<p>Follow the Apache thrift docs at <a href="https://thrift.apache.org/docs/install" target=_blank>https://thrift.apache.org/docs/install</a> to install thrift correctly.</p>
+<p>This tutorial provides a quick introduction to using CarbonData.</p>
 
 <h2>
-<a id="failed-to-launch-the-spark-shell" class="anchor" href="#failed-to-launch-the-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to launch the Spark Shell</h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
 
-<p><strong>Symptom</strong></p>
-
-<p>The shell prompts the following error :</p>
-
-<pre><code>  org.apache.spark.sql.CarbonContext$$anon$$apache$spark$sql$catalyst$analysis
-  $OverrideCatalog$_setter_$org$apache$spark$sql$catalyst$analysis
-  $OverrideCatalog$$overrides_$e
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The Spark Version and the selected Spark Profile do not match.</p>
-
-<p><strong>Procedure</strong></p>
-
-<ol>
-<li><p>Ensure your spark version and selected profile for spark are correct.</p></li>
+<ul>
 <li>
-<p>Use the following command :</p>
-
-<pre><code> "mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package"
-</code></pre>
-
-<p>Note :  Refrain from using "mvn clean package" without specifying the profile.</p>
-</li>
-</ol>
-
-<h2>
-<a id="failed-to-execute-load-query-on-cluster" class="anchor" href="#failed-to-execute-load-query-on-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute load query on cluster.</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>Load query failed with the following exception:</p>
-
-<pre><code>  Dictionary file is locked for updation.
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The carbon.properties file is not identical in all the nodes of the cluster.</p>
-
-<p><strong>Procedure</strong></p>
-
-<p>Follow the steps to ensure the carbon.properties file is consistent across all the nodes:</p>
-
-<ol>
-<li><p>Copy the carbon.properties file from the master node to all the other nodes in the cluster.
- For example, you can use ssh to copy this file to all the nodes.</p></li>
-<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
-</ol>
-
-<h2>
-<a id="failed-to-execute-insert-query-on-cluster" class="anchor" href="#failed-to-execute-insert-query-on-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute insert query on cluster.</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>Load query failed with the following exception:</p>
-
-<pre><code>  Dictionary file is locked for updation.
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The carbon.properties file is not identical in all the nodes of the cluster.</p>
-
-<p><strong>Procedure</strong></p>
-
-<p>Follow the steps to ensure the carbon.properties file is consistent across all the nodes:</p>
-
-<ol>
-<li><p>Copy the carbon.properties file from the master node to all the other nodes in the cluster.
-   For example, you can use scp to copy this file to all the nodes.</p></li>
-<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
-</ol>
-
-<h2>
-<a id="failed-to-connect-to-hiveuser-with-thrift" class="anchor" href="#failed-to-connect-to-hiveuser-with-thrift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to connect to hiveuser with thrift</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>We get the following exception :</p>
-
-<pre><code>  Cannot connect to hiveuser.
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The external process does not have permission to access.</p>
-
-<p><strong>Procedure</strong></p>
-
-<p>Ensure that the Hiveuser in mysql must allow its access to the external processes.</p>
-
-<h2>
-<a id="failure-to-read-the-metastore-db-during-table-creation" class="anchor" href="#failure-to-read-the-metastore-db-during-table-creation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failure to read the metastore db during table creation.</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>We get the following exception on trying to connect :</p>
-
-<pre><code>  Cannot read the metastore db
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The metastore db is dysfunctional.</p>
-
-<p><strong>Procedure</strong></p>
-
-<p>Remove the metastore db from the carbon.metastore in the Spark Directory.</p>
-
-<h2>
-<a id="failed-to-load-data-on-the-cluster" class="anchor" href="#failed-to-load-data-on-the-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to load data on the cluster</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>Data loading fails with the following exception :</p>
-
-<pre><code>   Data Load failure exeception
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The following issue can cause the failure :</p>
-
-<ol>
-<li><p>The core-site.xml, hive-site.xml, yarn-site and carbon.properties are not consistent across all nodes of the cluster.</p></li>
+<a href="https://github.com/apache/incubator-carbondata/blob/master/build" target=_blank>Installation and building CarbonData</a>.</li>
 <li>
-<p>Path to hdfs ddl is not configured correctly in the carbon.properties.</p>
+<p>Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData.</p>
 
-<p><strong>Procedure</strong></p>
-
-<p>Follow the steps to ensure the following configuration files are consistent across all the nodes:</p>
-
-<ol>
-<li>
-<p>Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
-For example, you can use scp to copy this file to all the nodes.</p>
-
-<p>Note : Set the path to hdfs ddl in carbon.properties in the master node.</p>
+<pre><code>cd carbondata
+cat &gt; sample.csv &lt;&lt; EOF
+id,name,city,age
+1,david,shenzhen,31
+2,eason,shenzhen,27
+3,jarry,wuhan,35
+EOF
+</code></pre>
 </li>
-<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
-</ol>
-</li>
-</ol>
+</ul>
 
 <h2>
-<a id="failed-to-insert-data-on-the-cluster" class="anchor" href="#failed-to-insert-data-on-the-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to insert data on the cluster</h2>
-
-<p><strong>Symptom</strong></p>
-
-<p>Insertion fails with the following exception :</p>
-
-<pre><code>   Data Load failure exeception
-</code></pre>
-
-<p><strong>Possible Cause</strong></p>
-
-<p>The following issue can cause the failure :</p>
-
-<ol>
-<li><p>The core-site.xml, hive-site.xml, yarn-site and carbon.properties are not consistent across all nodes of the cluster.</p></li>
-<li>
-<p>Path to hdfs ddl is not configured correctly in the carbon.properties.</p>
-
-<p><strong>Procedure</strong></p>
-
-<p>Follow the steps to ensure the following configuration files are consistent across all the nodes:</p>
-
-<ol>
-<li>
-<p>Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
-For example, you can use scp to copy this file to all the nodes.</p>
-
-<p>Note : Set the path to hdfs ddl in carbon.properties in the master node.</p>
-</li>
-<li><p>For the changes to take effect, restart the Spark cluster.</p></li>
-</ol>
-</li>
-</ol>
+<a id="interactive-analysis-with-spark-shell" class="anchor" href="#interactive-analysis-with-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Analysis with Spark Shell</h2>
 
 <h2>
-<a id="failed-to-execute-concurrent-operationsloadinsertupdate-on-table-by-multiple-workers" class="anchor" href="#failed-to-execute-concurrent-operationsloadinsertupdate-on-table-by-multiple-workers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers.</h2>
+<a id="version-21" class="anchor" href="#version-21" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 2.1</h2>
 
-<p><strong>Symptom</strong></p>
+<p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank>Apache Spark Documentation</a> for more details on Spark shell.</p>
 
-<p>Execution fails with the following exception :</p>
+<h4>
+<a id="basics" class="anchor" href="#basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basics</h4>
 
-<pre><code>   Table is locked for updation.
+<p>Start Spark shell by running the following command in the Spark directory:</p>
+
+<pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
 
-<p><strong>Possible Cause</strong></p>
+<p>In this shell, SparkSession is readily available as <code>spark</code> and Spark context is readily available as <code>sc</code>.</p>
 
-<p>Concurrency not supported.</p>
+<p>In order to create a CarbonSession we will have to configure it explicitly in the following manner :</p>
 
-<p><strong>Procedure</strong></p>
+<ul>
+<li>Import the following :</li>
+</ul>
 
-<p>Worker must wait for the query execution to complete and the table to release the lock for another query execution to succeed..</p>
+<pre><code>import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.CarbonSession._
+</code></pre>
+
+<ul>
+<li>Create a CarbonSession :</li>
+</ul>
+
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("&lt;hdfs store path&gt;")
+</code></pre>
+
+<p><strong>NOTE</strong>: By default metastore location is pointed to <code>../carbon.metastore</code>, user can provide own metastore location to CarbonSession like <code>SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("&lt;hdfs store path&gt;", "&lt;local metastore path&gt;")</code></p>
+
+<h4>
+<a id="executing-queries" class="anchor" href="#executing-queries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Queries</h4>
+
+<h5>
+<a id="creating-a-table" class="anchor" href="#creating-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Table</h5>
+
+<pre><code>scala&gt;carbon.sql("CREATE TABLE IF NOT EXISTS test_table(id string, name string, city string, age Int) STORED BY 'carbondata'")
+</code></pre>
+
+<h5>
+<a id="loading-data-to-a-table" class="anchor" href="#loading-data-to-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h5>
+
+<pre><code>scala&gt;carbon.sql("LOAD DATA INPATH 'sample.csv file path' INTO TABLE test_table")
+</code></pre>
+
+<p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
+
+<h6>
+<a id="query-data-from-a-table" class="anchor" href="#query-data-from-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h6>
+
+<pre><code>scala&gt;carbon.sql("SELECT * FROM test_table").show()
+
+scala&gt;carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY city").show()
+</code></pre>
 
 <h2>
-<a id="failed-to-create-a-table-with-a-single-numeric-column" class="anchor" href="#failed-to-create-a-table-with-a-single-numeric-column" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to create a table with a single numeric column.</h2>
+<a id="interactive-analysis-with-spark-shell-1" class="anchor" href="#interactive-analysis-with-spark-shell-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Analysis with Spark Shell</h2>
 
-<p><strong>Symptom</strong></p>
+<h2>
+<a id="version-16" class="anchor" href="#version-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 1.6</h2>
 
-<p>Execution fails with the following exception :</p>
+<h4>
+<a id="basics-1" class="anchor" href="#basics-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basics</h4>
 
-<pre><code>   Table creation fails.
+<p>Start Spark shell by running the following command in the Spark directory:</p>
+
+<pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
 
-<p><strong>Possible Cause</strong></p>
+<p><strong>NOTE</strong>: In this shell, SparkContext is readily available as <code>sc</code>.</p>
 
-<p>Behavior not supported.</p>
+<ul>
+<li>In order to execute the Queries we need to import CarbonContext:</li>
+</ul>
 
-<p><strong>Procedure</strong></p>
+<pre><code>import org.apache.spark.sql.CarbonContext
+</code></pre>
 
-<p>A single column that can be considered as dimension is mandatory for table creation.</p>
+<ul>
+<li>Create an instance of CarbonContext in the following manner :</li>
+</ul>
+
+<pre><code>val cc = new CarbonContext(sc, "&lt;hdfs store path&gt;")
+</code></pre>
+
+<p><strong>NOTE</strong>: If running on local machine without hdfs, configure the local machine's store path instead of hdfs store path</p>
+
+<h4>
+<a id="executing-queries-1" class="anchor" href="#executing-queries-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Queries</h4>
+
+<h5>
+<a id="creating-a-table-1" class="anchor" href="#creating-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Table</h5>
+
+<pre><code>scala&gt;cc.sql("CREATE TABLE IF NOT EXISTS test_table (id string, name string, city string, age Int) STORED BY 'carbondata'")
+</code></pre>
+
+<p>To see the table created :</p>
+
+<pre><code>scala&gt;cc.sql("SHOW TABLES").show()
+</code></pre>
+
+<h5>
+<a id="loading-data-to-a-table-1" class="anchor" href="#loading-data-to-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h5>
+
+<pre><code>scala&gt;cc.sql("LOAD DATA INPATH 'sample.csv file path' INTO TABLE test_table")
+</code></pre>
+
+<p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
+
+<h5>
+<a id="query-data-from-a-table-1" class="anchor" href="#query-data-from-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h5>
+
+<pre><code>scala&gt;cc.sql("SELECT * FROM test_table").show()
+scala&gt;cc.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY city").show()
+</code></pre>
 </div>
 </div>
 </div>
