@@ -12,6 +12,7 @@ class FileModification {
   val outputFileExtension = ".html"
 
   import scala.io.Source
+
   val headerContent: String = Source.fromFile(ConfigFactory.load().getString("headerPath")).mkString
   val footerContent: String = Source.fromFile(ConfigFactory.load().getString("footerPath")).mkString
 
