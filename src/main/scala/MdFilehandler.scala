@@ -1,3 +1,5 @@
+import java.io.{File, PrintWriter}
+
 import com.typesafe.config.ConfigFactory
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpPost
@@ -33,6 +35,18 @@ class MdFilehandler {
     val contentAfterReplacingHttpsFileLink: String = modifyHttpsFileLink replaceAllIn(contentAfterReplacingImage, "$1://$2$3 target=_blank")
     val contentAfterReplacingFileLink: String = modifyHttpFileLink replaceAllIn(contentAfterReplacingHttpsFileLink, "$1://$2$3 target=_blank")
     contentAfterReplacingFileLink
+  }
+
+  def ConvertReadMeExtension(): String = {
+    val location = ConfigFactory.load().getString("outputFileLocation")
+    val outputFileExtension = ".html"
+    val modifyMdPattern = new Regex("(README)(.html)")
+    val fileURLContent = scala.io.Source.fromFile("src/main/webapp/installation-guide.html").mkString
+    val writer = new PrintWriter(new File(location + "installation-guide" + outputFileExtension))
+    val fileContent = modifyMdPattern replaceAllIn(fileURLContent, "$1.md")
+    writer.write(fileContent)
+    writer.close()
+    fileContent
   }
 
   /**

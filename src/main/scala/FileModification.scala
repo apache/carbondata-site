@@ -28,17 +28,20 @@ class FileModification {
     val listOfFiles = readListOfFiles()
     val statusList = listOfFiles.map { file =>
       val fileURLContent = scala.io.Source.fromURL(url + file + inputFileExtension).mkString
-      val getFileData = fileReadObject.getFileContent(fileURLContent)
+      val getFileData: Option[String] = fileReadObject.getFileContent(fileURLContent)
       getFileData match {
         case Some(data: String) => val fileData = fileReadObject.ConvertMdExtension(data)
-          logger.info("Begin writing [" + file + "." + outputFileExtension + "] at " + location)
+          logger.info("Begin writing [" + file + outputFileExtension + "] at " + location)
           writeToFile(location + file + outputFileExtension, fileData)
-          logger.info("Successfully written [" + file + "." + outputFileExtension + "] at " + location)
+          logger.info("Successfully written [" + file  + outputFileExtension + "] at " + location)
           "Success"
         case None => logger.error(s"$file Conversion failed ")
           "Failure"
       }
     }
+
+    fileReadObject.ConvertReadMeExtension()
+    logger.info("Restored back the ReadMe.md file extension in Installation Guide")
 
     if (statusList.contains("Failure"))
       "Some Files Failed To Convert"
