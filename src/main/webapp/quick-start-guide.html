@@ -195,6 +195,8 @@ EOF
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
 
+<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
+
 <p>In this shell, SparkSession is readily available as <code>spark</code> and Spark context is readily available as <code>sc</code>.</p>
 
 <p>In order to create a CarbonSession we will have to configure it explicitly in the following manner :</p>
@@ -251,6 +253,8 @@ scala&gt;carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY ci
 
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
+
+<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
 
 <p><strong>NOTE</strong>: In this shell, SparkContext is readily available as <code>sc</code>.</p>
 

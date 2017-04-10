@@ -8,6 +8,7 @@ import org.apache.http.util.EntityUtils
 import org.slf4j.LoggerFactory
 
 import scala.util.matching.Regex
+import scala.collection.JavaConverters._
 
 /**
   * Created by pallavi on 4/4/17.
@@ -37,16 +38,22 @@ class MdFilehandler {
     contentAfterReplacingFileLink
   }
 
-  def ConvertReadMeExtension(): String = {
+  def ConvertReadMeExtension(): List[String] = {
+    val listOfFiles = ConfigFactory.load().getStringList("fileListToRetain").asScala.toList
+    logger.info(s"List of files to retain .md extensions : $listOfFiles")
     val location = ConfigFactory.load().getString("outputFileLocation")
     val outputFileExtension = ".html"
     val modifyMdPattern = new Regex("(README)(.html)")
-    val fileURLContent = scala.io.Source.fromFile("src/main/webapp/installation-guide.html").mkString
-    val writer = new PrintWriter(new File(location + "installation-guide" + outputFileExtension))
-    val fileContent = modifyMdPattern replaceAllIn(fileURLContent, "$1.md")
-    writer.write(fileContent)
-    writer.close()
-    fileContent
+
+    listOfFiles.map { file =>
+      val fileURLContent = scala.io.Source.fromFile("src/main/webapp/" + file + outputFileExtension).mkString
+      val writer = new PrintWriter(new File(location + file + outputFileExtension))
+      val fileContent = modifyMdPattern replaceAllIn(fileURLContent, "$1.md")
+      writer.write(fileContent)
+      writer.close()
+      fileContent
+    }
+
   }
 
   /**
