@@ -20,6 +20,26 @@ a:hover, a:focus{ color:#ff943d; text-decoration:none}
 
 img{ max-width:100%; height:auto}
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
 .container-fluid{ max-width: 1180px}
 .container-fluid-full{ max-width: 100%}
 
@@ -178,6 +198,11 @@ left: auto; right: auto;}
     border: 1px solid #ddd;
     background: #f6f6f6;*/
 }
+
+.sub-nav li{
+    margin: 10px 20px;
+}
+
 
 
 
@@ -509,6 +534,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .cd-quickbtns .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
 
 
+.doc-heading {
+    margin: 10px 0 0;
+    padding:5px 0;
+}
+
+.doc-heading .title {font-size: 30px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 40px;  text-transform: capitalize; font-weight: 500;}
+.doc-heading .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
+
+
 .quickstart-btn {
     background: #ff943d;
     border: 1px solid #ff943d;
@@ -542,6 +576,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 /*.quickstart-btn i.fa {font-size: 36px; position: absolute; left: 8px; top: 50%; margin-top: -19px;}*/
 .quickstart-btn i.fa {font-size: 30px;position: absolute; left: 16px; top: 50%; margin-top: -16px;}
+
+.ul-padding{
+    padding-left: 20px;
+}
+
+.div-styling{
+    background: #f8f8f8;
+    padding: 5px 15px;
+}
+
+.display-style{
+    display: inline-block;
+}
 
 
 footer{ background: #111; padding:0; }
@@ -937,9 +984,33 @@ box-shadow: 0 3px 2px #aaa }
         display: block;
         text-align: justify}
 
+.cell.cellcummunity{  width:75%; padding-right: 2%}
+.cell.celllatestnews {
+    width: 23%;
+    height: 100%;
+    background: #fdfdfd;
+    padding: 15px;
+    border: 2px solid #ff943d;
+}
+.cell{display: table-cell; vertical-align:top; height: 100%;}
+
+.celllatestnews .title {font-size: 22px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 40px;  text-transform: capitalize; font-weight: 500;}
+.celllatestnews .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
+
+.newsblock {    margin-top: 20px;font-size: 13px;text-align: justify;}
+
+.slider-btn{display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #aaa;
+    padding: 8px 20px;
+    line-height: 20px;
+    border-radius: 2px;
+}
+
+.slider-btn:hover {color: #fff; border: 1px solid #ff943d; background: #ff943d;}
+
 /* ------------------- End Documentation Style here*/
-
-
 
 /* Media Style */
 
@@ -1103,7 +1174,6 @@ box-shadow: 0 3px 2px #aaa }
 }/* Media Close*/
 
 @media (max-width:480px){
-
 .quickstart-btn {
     padding: 10px 20px 10px 40px;
     font-size: 16px;
@@ -1111,6 +1181,84 @@ box-shadow: 0 3px 2px #aaa }
     margin: 0 auto 10px;
     width: 94%;
 }
-
-
 }
+
+
+/* MD styles*/
+
+#viewpage{ font-family: sans-serif; }
+
+#viewpage h1,
+#viewpage h2,
+#viewpage h3,
+#viewpage h4,
+#viewpage h5,
+#viewpage h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+
+#viewpage h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+}
+
+
+#viewpage h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 1px solid #eaecef;
+}
+
+
+#viewpage pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    word-wrap: normal;
+}
+
+#viewpage ul, #viewpage ol {
+    padding-left: 2em;
+}
+
+#viewpage li+li {
+    margin-top: 0.25em;
+}
+
+#viewpage table {
+    display: table;
+    width: 100%;
+    overflow: auto;
+    margin: 10px 0 20px;
+}
+
+#viewpage table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+#viewpage table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+#viewpage table th, #viewpage table td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+#viewpage table th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#viewpage table td {
+    word-break: break-all;
+}
+

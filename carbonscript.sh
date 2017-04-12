@@ -1,2 +1,3 @@
-mvn pdf:pdf
+mvn exec:java -Dexec.mainClass=FileOperationMain
+
 mvn install
