@@ -156,51 +156,53 @@
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
-
 <h1>
 <a id="installation-guide" class="anchor" href="#installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation Guide</h1>
-
 <p>This tutorial guides you through the installation and configuration of CarbonData in the following two modes :</p>
-
 <ul>
 <li><a href="#installing-and-configuring-carbondata-on-standalone-spark-cluster">Installing and Configuring CarbonData on Standalone Spark Cluster</a></li>
 <li><a href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster">Installing and Configuring CarbonData on ?Spark on YARN? Cluster</a></li>
 </ul>
-
 <p>followed by :</p>
-
 <ul>
 <li><a href="#query-execution-using-carbondata-thrift-server">Query Execution using CarbonData Thrift Server</a></li>
 </ul>
-
 <h2>
 <a id="installing-and-configuring-carbondata-on-standalone-spark-cluster" class="anchor" href="#installing-and-configuring-carbondata-on-standalone-spark-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Standalone Spark Cluster</h2>
-
 <h3>
 <a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h3>
-
 <ul>
-<li><p>Hadoop HDFS and Yarn should be installed and running.</p></li>
-<li><p>Spark should be installed and running on all the cluster nodes.</p></li>
-<li><p>CarbonData user should have permission to access HDFS.</p></li>
+<li>
+<p>Hadoop HDFS and Yarn should be installed and running.</p>
+</li>
+<li>
+<p>Spark should be installed and running on all the cluster nodes.</p>
+</li>
+<li>
+<p>CarbonData user should have permission to access HDFS.</p>
+</li>
 </ul>
-
 <h3>
 <a id="procedure" class="anchor" href="#procedure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
-
 <ol>
-<li><p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code>. </p></li>
+<li>
+<p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code>.</p>
+</li>
 <li>
 <p>Copy <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> to <code>$SPARK_HOME/carbonlib</code> folder.</p>
-
 <p><strong>NOTE</strong>: Create the carbonlib folder if it does not exist inside <code>$SPARK_HOME</code> path.</p>
 </li>
-<li><p>Add the carbonlib folder path in the Spark classpath. (Edit <code>$SPARK_HOME/conf/spark-env.sh</code> file and modify the value of <code>SPARK_CLASSPATH</code> by appending <code>$SPARK_HOME/carbonlib/*</code> to the existing value)</p></li>
-<li><p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p></li>
-<li><p>Repeat Step 2 to Step 5 in all the nodes of the cluster.</p></li>
+<li>
+<p>Add the carbonlib folder path in the Spark classpath. (Edit <code>$SPARK_HOME/conf/spark-env.sh</code> file and modify the value of <code>SPARK_CLASSPATH</code> by appending <code>$SPARK_HOME/carbonlib/*</code> to the existing value)</p>
+</li>
+<li>
+<p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p>
+</li>
+<li>
+<p>Repeat Step 2 to Step 5 in all the nodes of the cluster.</p>
+</li>
 <li>
 <p>In Spark node[master], configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
-
 <table>
 <thead>
 <tr>
@@ -225,7 +227,6 @@
 </li>
 <li>
 <p>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code> file:</p>
-
 <table>
 <thead>
 <tr>
@@ -249,46 +250,36 @@
 </li>
 <li>
 <p>Verify the installation. For example:</p>
-
 <pre><code>./spark-shell --master spark://HOSTNAME:PORT --total-executor-cores 2
 --executor-memory 2G
 </code></pre>
 </li>
 </ol>
-
 <p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
-
 <p>To get started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
-
 <h2>
 <a id="installing-and-configuring-carbondata-on-spark-on-yarn-cluster" class="anchor" href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on "Spark on YARN" Cluster</h2>
-
 <p>This section provides the procedure to install CarbonData on "Spark on YARN" cluster.</p>
-
 <h3>
 <a id="prerequisites-1" class="anchor" href="#prerequisites-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h3>
-
 <ul>
 <li>Hadoop HDFS and Yarn should be installed and running.</li>
 <li>Spark should be installed and running in all the clients.</li>
 <li>CarbonData user should have permission to access HDFS.</li>
 </ul>
-
 <h3>
 <a id="procedure-1" class="anchor" href="#procedure-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
-
 <p>The following steps are only for Driver Nodes. (Driver nodes are the one which starts the spark context.)</p>
-
 <ol>
 <li>
 <p><a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
-
 <p><strong>NOTE</strong>: Create the carbonlib folder if it does not exists inside <code>$SPARK_HOME</code> path.</p>
 </li>
-<li><p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p></li>
+<li>
+<p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p>
+</li>
 <li>
 <p>Create <code>tar,gz</code> file of carbonlib folder and move it inside the carbonlib folder.</p>
-
 <pre><code>cd $SPARK_HOME
 tar -zcvf carbondata.tar.gz carbonlib/
 mv carbondata.tar.gz carbonlib/
@@ -296,7 +287,6 @@ mv carbondata.tar.gz carbonlib/
 </li>
 <li>
 <p>Configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
-
 <table>
 <thead>
 <tr>
@@ -346,7 +336,6 @@ mv carbondata.tar.gz carbonlib/
 </li>
 <li>
 <p>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code>:</p>
-
 <table>
 <thead>
 <tr>
@@ -370,32 +359,23 @@ mv carbondata.tar.gz carbonlib/
 </li>
 <li>
 <p>Verify the installation.</p>
-
-<pre><code> ./bin/spark-shell --master yarn-client --driver-memory 1g
- --executor-cores 2 --executor-memory 2G
+<pre><code>  ./bin/spark-shell --master yarn-client --driver-memory 1g
+  --executor-cores 2 --executor-memory 2G
 </code></pre>
-
-<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
-
-<p>Getting started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
 </li>
 </ol>
-
+<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
+<p>Getting started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
 <h2>
 <a id="query-execution-using-carbondata-thrift-server" class="anchor" href="#query-execution-using-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Execution Using CarbonData Thrift Server</h2>
-
 <h3>
 <a id="starting-carbondata-thrift-server" class="anchor" href="#starting-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting CarbonData Thrift Server.</h3>
-
 <p>a. cd <code>$SPARK_HOME</code></p>
-
 <p>b. Run the following command to start the CarbonData thrift server.</p>
-
-<pre><code>   ./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true
-   --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer
-   $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
+<pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer
+$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
 </code></pre>
-
 <table>
 <thead>
 <tr>
@@ -417,24 +397,19 @@ mv carbondata.tar.gz carbonlib/
 </tr>
 </tbody>
 </table>
-
 <p><strong>Examples</strong></p>
-
 <ul>
 <li>Start with default memory and executors.</li>
 </ul>
-
 <pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true 
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
 $SPARK_HOME/carbonlib
 /carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 
 hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 </code></pre>
-
 <ul>
 <li>Start with Fixed executors and resources.</li>
 </ul>
-
 <pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true 
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
 --num-executors 3 --driver-memory 20g --executor-memory 250g 
@@ -443,10 +418,8 @@ hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 /carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 
 hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 </code></pre>
-
 <h3>
 <a id="connecting-to-carbondata-thrift-server-using-beeline" class="anchor" href="#connecting-to-carbondata-thrift-server-using-beeline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting to CarbonData Thrift Server Using Beeline.</h3>
-
 <pre><code>     cd $SPARK_HOME
      ./bin/beeline jdbc:hive2://&lt;thrftserver_host&gt;:port
 

@@ -156,36 +156,26 @@
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
-
 <h1>
 <a id="carbondata-file-structure" class="anchor" href="#carbondata-file-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData File Structure</h1>
-
 <p>CarbonData files contain groups of data called blocklets, along with all required information like schema, offsets and indices etc, in a file header and footer, co-located in HDFS.</p>
-
 <p>The file footer can be read once to build the indices in memory, which can be utilized for optimizing the scans and processing for all subsequent queries.</p>
-
 <h3>
 <a id="understanding-carbondata-file-structure" class="anchor" href="#understanding-carbondata-file-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Understanding CarbonData File Structure</h3>
-
 <ul>
-<li>Block : It would be as same as HDFS block, CarbonData creates one file for each data block, user can specify TABLE_BLOCKSIZE during creation table. Each file contains File Header, Blocklets and File Footer. </li>
+<li>Block : It would be as same as HDFS block, CarbonData creates one file for each data block, user can specify TABLE_BLOCKSIZE during creation table. Each file contains File Header, Blocklets and File Footer.</li>
 </ul>
-
 <p><a href="../docs/images/carbon_data_file_structure_new.png?raw=true" target="_blank"><img src="https://github.com/apache/incubator-carbondata/blob/master/docs/images/carbon_data_file_structure_new.png?raw=true" alt="CarbonData File Structure" style="max-width:100%;"></a></p>
-
 <ul>
 <li>File Header : It contains CarbonData file version number, list of column schema and schema updation timestamp.</li>
 <li>File Footer : it contains Number of rows, segmentinfo ,all blocklets? info and index, you can find the detail from the below diagram.</li>
 <li>Blocklet : Rows are grouped to form a blocklet, the size of the blocklet is configurable and default size is 64MB, Blocklet contains Column Page groups for each column.</li>
 <li>Column Page Group : Data of one column and it is further divided to pages, it is guaranteed to be contiguous in file.</li>
-<li>Page : It has the data of one column and the number of row is fixed to 32000 size. </li>
+<li>Page : It has the data of one column and the number of row is fixed to 32000 size.</li>
 </ul>
-
 <p><a href="../docs/images/carbon_data_format_new.png?raw=true" target="_blank"><img src="https://github.com/apache/incubator-carbondata/blob/master/docs/images/carbon_data_format_new.png?raw=true" alt="CarbonData File Format" style="max-width:100%;"></a></p>
-
 <h3>
 <a id="each-page-contains-three-types-of-data" class="anchor" href="#each-page-contains-three-types-of-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Each page contains three types of data</h3>
-
 <ul>
 <li>Data Page: Contains the encoded data of a column of columns.</li>
 <li>Row ID Page (optional): Contains the row ID mappings used when the data page is stored as an inverted index.</li>
