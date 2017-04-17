@@ -1233,7 +1233,7 @@ box-shadow: 0 3px 2px #aaa }
 }
 
 #viewpage table {
-    display: table;
+    display: block;
     width: 100%;
     overflow: auto;
     margin: 10px 0 20px;
@@ -1256,9 +1256,5 @@ box-shadow: 0 3px 2px #aaa }
 #viewpage table th {
     font-weight: 600;
     white-space: nowrap;
-}
-
-#viewpage table td {
-    word-break: break-all;
 }
 
