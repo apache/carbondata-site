@@ -67,7 +67,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li><a href="mainpage.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -125,7 +125,7 @@
                             <tr>
                                 <td style="width:80%">
                                     <input type="text" name="q" size=" 5" maxlength="255" value=""
-                                           class="search-input"/>
+                                           class="search-input"  placeholder="Search...."    required/>
                                 </td>
                                 <td style="width:20%">
                                     <input type="submit" value="Search"/></td>
@@ -133,7 +133,7 @@
                             <tr>
                                 <td align="left" style="font-size:75%" colspan="2">
                                     <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
-                                    Only search for CarbonData
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
                                 </td>
                             </tr>
                         </table>
@@ -201,12 +201,12 @@ CarbonData store metadata. The table below lists the possible load status.</p>
 </tr>
 </tbody>
 </table>
-<p>In case of failure, the error will be logged in error log. Details of loads can be seen with <a href="dml-operation-on-carbondata.html">SHOW SEGMENTS</a> command. The show segment command output consists of :</p>
+<p>In case of failure, the error will be logged in error log. Details of loads can be seen with <a href="dml-operation-on-carbondata.html#show-segments">SHOW SEGMENTS</a> command. The show segment command output consists of :</p>
 <ul>
-<li>SegmentSequenceID</li>
-<li>START_TIME OF LOAD</li>
-<li>END_TIME OF LOAD</li>
-<li>LOAD STATUS</li>
+<li>SegmentSequenceId</li>
+<li>Status</li>
+<li>Load Start Time</li>
+<li>Load End Time</li>
 </ul>
 <p>The latest load will be displayed first in the output.</p>
 <p>Refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a> for load commands.</p>

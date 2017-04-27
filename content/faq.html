@@ -67,7 +67,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="">Documentation</a></li>
+                    <li><a href="mainpage.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -125,7 +125,7 @@
                             <tr>
                                 <td style="width:80%">
                                     <input type="text" name="q" size=" 5" maxlength="255" value=""
-                                           class="search-input"/>
+                                           class="search-input"  placeholder="Search...."    required/>
                                 </td>
                                 <td style="width:20%">
                                     <input type="submit" value="Search"/></td>
@@ -133,7 +133,7 @@
                             <tr>
                                 <td align="left" style="font-size:75%" colspan="2">
                                     <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
-                                    Only search for CarbonData
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
                                 </td>
                             </tr>
                         </table>
@@ -166,6 +166,7 @@
 <li><a href="#how-to-specify-store-location-while-creating-carbon-session">How to specify store location while creating carbon session?</a></li>
 <li><a href="#what-is-carbon-lock-type">What is Carbon Lock Type?</a></li>
 <li><a href="#how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</a></li>
+<li><a href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios">How Carbon will behave when execute insert operation in abnormal scenarios?</a></li>
 </ul>
 <h2>
 <a id="what-are-bad-records" class="anchor" href="#what-are-bad-records" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What are Bad Records?</h2>
@@ -214,6 +215,48 @@ The property carbon.lock.type configuration specifies the type of lock to be acq
 <h2>
 <a id="how-to-resolve-abstract-method-error" class="anchor" href="#how-to-resolve-abstract-method-error" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to resolve Abstract Method Error?</h2>
 <p>In order to build CarbonData project it is necessary to specify the spark profile. The spark profile sets the Spark Version. You need to specify the <code>spark version</code> while using Maven to build project.</p>
+<h2>
+<a id="how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" class="anchor" href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How Carbon will behave when execute insert operation in abnormal scenarios?</h2>
+<p>Carbon support insert operation, you can refer to the syntax mentioned in <a href="http://carbondata.apache.org/dml-operation-on-carbondata" target=_blank>DML Operations on CarbonData</a>.
+First, create a soucre table in spark-sql and load data into this created table.</p>
+<pre><code>CREATE TABLE source_table(
+id String,
+name String,
+city String)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ",";
+</code></pre>
+<pre><code>SELECT * FROM source_table;
+id  name    city
+1   jack    beijing
+2   erlu    hangzhou
+3   davi    shenzhen
+</code></pre>
+<p><strong>Scenario 1</strong> :</p>
+<p>Suppose, the column order in carbon table is different from source table, use script "SELECT * FROM carbon table" to query, will get the column order similar as source table, rather than in carbon table's column order as expected.</p>
+<pre><code>CREATE TABLE IF NOT EXISTS carbon_table(
+id String,
+city String,
+name String)
+STORED BY 'carbondata';
+</code></pre>
+<pre><code>INSERT INTO TABLE carbon_table SELECT * FROM source_table;
+</code></pre>
+<pre><code>SELECT * FROM carbon_table;
+id  city    name
+1   jack    beijing
+2   erlu    hangzhou
+3   davi    shenzhen
+</code></pre>
+<p>As result shows, the second column is city in carbon table, but what inside is name, such as jack. This phenomenon is same with insert data into hive table.</p>
+<p>If you want to insert data into corresponding column in carbon table, you have to specify the column order same in insert statment.</p>
+<pre><code>INSERT INTO TABLE carbon_table SELECT id, city, name FROM source_table;
+</code></pre>
+<p><strong>Scenario 2</strong> :</p>
+<p>Insert operation will be failed when the number of column in carbon table is different from the column specified in select statement. The following insert operation will be failed.</p>
+<pre><code>INSERT INTO TABLE carbon_table SELECT id, city FROM source_table;
+</code></pre>
+<p><strong>Scenario 3</strong> :</p>
+<p>When the column type in carbon table is different from from the column specified in select statement. The insert operation will still success, but you may get NULL in result, because NULL will be substitute value when conversion type failed.</p>
 </div>
 </div>
 </div>
