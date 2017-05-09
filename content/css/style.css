@@ -482,8 +482,10 @@ cd-updatedeletesupport-icon.png
 .cd-thecolumnblock .orderlist li { font-size: 13px; line-height: 18px; color: #555; margin-bottom: 8px;}
 .cd-thecolumnblock .social-icons{ padding: 5px 0 0; text-align: right; margin: 0}
 .cd-thecolumnblock .social-icons i.fa {font-size: 24px; margin-right: 5px;color: #aaa;}
-.cd-thecolumnblock .social-icons i.fa:hover {color:#666;}
-
+.cd-thecolumnblock .social-icons i.fa:hover {opacity: .7;}
+.social-icons i.fa.fa-facebook-square{color:#4e71a8;}
+.social-icons i.fa.fa-twitter-square{color:#1cb7eb}
+.social-icons i.fa.fa-linkedin-square{color:#1686b0}
 
 .cd-apacheblock{ padding: 20px 0; background: #f4f4f4;
 /*
