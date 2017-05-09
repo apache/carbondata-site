@@ -527,7 +527,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .cd-quickbtns {
     background: #f1f1f1;
     margin: 10px 0 0;
-    padding:5px 10px;
+    padding:5px 6px;
     border: 1px solid #d2d2ff;
 }
 
@@ -548,9 +548,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background: #ff943d;
     border: 1px solid #ff943d;
     display: inline-block;
-    margin:5px 0 ;
+    margin: 5px 0;
     text-align: center;
-    padding: 10px 10px;
+    padding: 10px 40px;
     color: #fff;
     font-size: 16px;
     font-weight: 600;
@@ -560,23 +560,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     position: relative;
     border-radius: 40px;
 }
+
 .quickstart-btn:hover, .quickstart-btn:focus {
     background: #dd6300;
     border: 1px solid #dd6300;
     color:#fff;
 }
 
-
 .quickstart-btn i.rocket-icon {
     background: url(../images/cd-rocket-icon.png) no-repeat center center;
-    width: 30px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     background-size: cover;
     margin-top: -13px !important;
 }
 
 /*.quickstart-btn i.fa {font-size: 36px; position: absolute; left: 8px; top: 50%; margin-top: -19px;}*/
-.quickstart-btn i.fa {font-size: 30px;position: absolute; left: 16px; top: 50%; margin-top: -16px;}
+.quickstart-btn i.fa {font-size: 24px;position: absolute; left: 16px; top: 50%; margin-top: -13px;}
 
 .ul-padding{
     padding-left: 20px;
@@ -985,7 +985,8 @@ box-shadow: 0 3px 2px #aaa }
         display: block;
         text-align: justify}
 
-.cell.cellcummunity{  width:75%; padding-right: 2%}
+.cell.cellcummunity{  width:100%; padding-right: 0%; display:block}
+
 .cell.celllatestnews {
     width: 23%;
     height: 100%;
@@ -1061,11 +1062,11 @@ box-shadow: 0 3px 2px #aaa }
 .right-block { padding: 15px;}
 
 .quickstart-btn {
-    padding: 10px 40px;
+    padding: 10px 44px;
     font-size: 18px;
     display: block;
-    margin:0 0 10px;
-    width:100%;
+    margin: 0 0 10px;
+    width: 100%;
 }
 
 .cd-thecolumnblock.joinblog { margin:20px 0px 0;}
@@ -1153,11 +1154,11 @@ box-shadow: 0 3px 2px #aaa }
 .cd-thecolumnblock.getstartlog { margin: 0px 0 15px;}
 
 .quickstart-btn {
-    padding: 10px 40px;
-    font-size: 18px;
-    display: block;
-    margin: 0 auto 10px;
-    width:300px;
+   padding: 10px 40px;
+   font-size: 18px;
+   display: block;
+   margin: 0 auto 10px;
+   width: 340px;
 }
 
 .cd-aboutblock{ margin: 20px 0  10px;}
@@ -1176,7 +1177,7 @@ box-shadow: 0 3px 2px #aaa }
 
 @media (max-width:480px){
 .quickstart-btn {
-    padding: 10px 20px 10px 40px;
+    padding: 10px 40px;
     font-size: 16px;
     display: block;
     margin: 0 auto 10px;
