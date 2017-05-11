@@ -32,7 +32,7 @@ class MdFilehandler {
     val modifyHttpFileLink ="""(<a href=\"http)://([a-zA-Z0-9-/.]+)(\")""".r
     val contentAfterRemovingUserContent: String = modifyContentPattern replaceAllIn(input, "id=\"")
     val contentAfterReplacingId: String = modifyMdPattern replaceAllIn(contentAfterRemovingUserContent, ".html")
-    val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingId, "<img src=\"https://github.com/apache/incubator-carbondata/blob/master/docs")
+    val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingId, "<img src=\"https://github.com/apache/carbondata/blob/master/docs")
     val contentAfterReplacingHttpsFileLink: String = modifyHttpsFileLink replaceAllIn(contentAfterReplacingImage, "$1://$2$3 target=_blank")
     val contentAfterReplacingFileLink: String = modifyHttpFileLink replaceAllIn(contentAfterReplacingHttpsFileLink, "$1://$2$3 target=_blank")
     contentAfterReplacingFileLink

@@ -51,16 +51,16 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/1.0.0-incubating/"
                                    target="_blank">Apache CarbonData 1.0.0</a></li>
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.2.0-incubating/"
                                    target="_blank">Apache CarbonData 0.2.0</a></li>
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.1-incubating/"
                                    target="_blank">Apache CarbonData 0.1.1</a></li>
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.0-incubating/"
                                    target="_blank">Apache CarbonData 0.1.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
@@ -73,8 +73,11 @@
                            aria-expanded="false">Community <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
                                    target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
                                    target="_blank">Project PPMC and Committers</a></li>
@@ -165,7 +168,7 @@
 <ul>
 <li>Block : It would be as same as HDFS block, CarbonData creates one file for each data block, user can specify TABLE_BLOCKSIZE during creation table. Each file contains File Header, Blocklets and File Footer.</li>
 </ul>
-<p><a href="../docs/images/carbon_data_file_structure_new.png?raw=true" target="_blank"><img src="https://github.com/apache/incubator-carbondata/blob/master/docs/images/carbon_data_file_structure_new.png?raw=true" alt="CarbonData File Structure" style="max-width:100%;"></a></p>
+<p><a href="../docs/images/carbon_data_file_structure_new.png?raw=true" target="_blank"><img src="https://github.com/apache/carbondata/blob/master/docs/images/carbon_data_file_structure_new.png?raw=true" alt="CarbonData File Structure" style="max-width:100%;"></a></p>
 <ul>
 <li>File Header : It contains CarbonData file version number, list of column schema and schema updation timestamp.</li>
 <li>File Footer : it contains Number of rows, segmentinfo ,all blocklets? info and index, you can find the detail from the below diagram.</li>
@@ -173,7 +176,7 @@
 <li>Column Page Group : Data of one column and it is further divided to pages, it is guaranteed to be contiguous in file.</li>
 <li>Page : It has the data of one column and the number of row is fixed to 32000 size.</li>
 </ul>
-<p><a href="../docs/images/carbon_data_format_new.png?raw=true" target="_blank"><img src="https://github.com/apache/incubator-carbondata/blob/master/docs/images/carbon_data_format_new.png?raw=true" alt="CarbonData File Format" style="max-width:100%;"></a></p>
+<p><a href="../docs/images/carbon_data_format_new.png?raw=true" target="_blank"><img src="https://github.com/apache/carbondata/blob/master/docs/images/carbon_data_format_new.png?raw=true" alt="CarbonData File Format" style="max-width:100%;"></a></p>
 <h3>
 <a id="each-page-contains-three-types-of-data" class="anchor" href="#each-page-contains-three-types-of-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Each page contains three types of data</h3>
 <ul>

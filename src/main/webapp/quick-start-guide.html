@@ -51,16 +51,16 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/1.0.0-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/1.0.0-incubating/"
                                    target="_blank">Apache CarbonData 1.0.0</a></li>
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.2.0-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.2.0-incubating/"
                                    target="_blank">Apache CarbonData 0.2.0</a></li>
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.1-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.1-incubating/"
                                    target="_blank">Apache CarbonData 0.1.1</a></li>
                             <li>
-                                <a href="https://www.apache.org/dyn/closer.lua/incubator/carbondata/0.1.0-incubating"
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.0-incubating/"
                                    target="_blank">Apache CarbonData 0.1.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
@@ -73,8 +73,11 @@
                            aria-expanded="false">Community <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
                                    target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
                                    target="_blank">Project PPMC and Committers</a></li>
@@ -163,7 +166,7 @@
 <a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
 <ul>
 <li>
-<p><a href="https://github.com/apache/incubator-carbondata/blob/master/build" target=_blank>Installation and building CarbonData</a>.</p>
+<p><a href="https://github.com/apache/carbondata/blob/master/build" target=_blank>Installation and building CarbonData</a>.</p>
 </li>
 <li>
 <p>Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData.</p>
@@ -185,7 +188,7 @@ EOF
 <p>Start Spark shell by running the following command in the Spark directory:</p>
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
-<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
+<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
 <p>In this shell, SparkSession is readily available as <code>spark</code> and Spark context is readily available as <code>sc</code>.</p>
 <p>In order to create a CarbonSession we will have to configure it explicitly in the following manner :</p>
 <ul>
@@ -224,7 +227,7 @@ scala&gt;carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY ci
 <p>Start Spark shell by running the following command in the Spark directory:</p>
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
-<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/incubator-carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
+<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
 <p><strong>NOTE</strong>: In this shell, SparkContext is readily available as <code>sc</code>.</p>
 <ul>
 <li>In order to execute the Queries we need to import CarbonContext:</li>
