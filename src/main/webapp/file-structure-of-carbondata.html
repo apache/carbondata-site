@@ -76,11 +76,7 @@
                                 <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
                                    target="_blank">Contributing to CarbonData</a></li>
                             <li>
-<<<<<<< HEAD
                                 <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
-=======
-                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/release-guide.md"
->>>>>>> pr-34
                                    target="_blank">Release Guide</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
@@ -177,7 +173,7 @@
 <li>File Header : It contains CarbonData file version number, list of column schema and schema updation timestamp.</li>
 <li>File Footer : it contains Number of rows, segmentinfo ,all blocklets? info and index, you can find the detail from the below diagram.</li>
 <li>Blocklet : Rows are grouped to form a blocklet, the size of the blocklet is configurable and default size is 64MB, Blocklet contains Column Page groups for each column.</li>
-<li>Column Page Group : Data of one column and it is further divided to pages, it is guaranteed to be contiguous in file.</li>
+<li>Column Page Group : Data of one column and it is further divided into pages, it is guaranteed to be contiguous in file.</li>
 <li>Page : It has the data of one column and the number of row is fixed to 32000 size.</li>
 </ul>
 <p><a href="../docs/images/carbon_data_format_new.png?raw=true" target="_blank"><img src="https://github.com/apache/carbondata/blob/master/docs/images/carbon_data_format_new.png?raw=true" alt="CarbonData File Format" style="max-width:100%;"></a></p>

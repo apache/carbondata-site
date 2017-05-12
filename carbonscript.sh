@@ -1,5 +1,5 @@
 mvn compile
 
-mvn exec:java -Dexec.mainClass=FileOperationMain
+mvn exec:java -Dexec.mainClass=WebsiteLauncher
 
 mvn install

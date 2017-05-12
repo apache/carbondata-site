@@ -42,6 +42,17 @@ img{ max-width:100%; height:auto}
 .container-fluid{ max-width: 1180px}
 .container-fluid-full{ max-width: 100%}
 
+.cd-mail-btn {
+    font-size: 13px;
+    color: #ff943d;
+    clear: both;
+    text-transform: capitalize;
+    font-weight: 800;
+    margin: 13px;
+}
+.cd-mail-btn:hover{
+    color: #00a0d2;
+}
 
 
 .getmore-btn, .knowmore-btn, .join-community{display: block; background: #ff943d; border-radius: 4px; padding: 12px 40px; text-decoration: none;
