@@ -76,11 +76,7 @@
                                 <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
                                    target="_blank">Contributing to CarbonData</a></li>
                             <li>
-<<<<<<< HEAD
                                 <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
-=======
-                                <a href="https://github.com/apache/incubator-carbondata/blob/master/docs/release-guide.md"
->>>>>>> pr-34
                                    target="_blank">Release Guide</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PPMC+and+Committers+member+list"
@@ -267,7 +263,7 @@ If you do not specify this value in the DDL command, default value is used.</p>
 <ul>
 <li>
 <p><strong>Inverted Index Configuration</strong></p>
-<p>Inverted index is very useful to improve compression ratio and query speed, especially for those low-cardinality columns who are in reward position.
+<p>Inverted index is very useful to improve compression ratio and query speed, especially for those low-cardinality columns which are in reward position.
 By default inverted index is enabled. The user can disable the inverted index creation for some columns.</p>
 </li>
 </ul>
@@ -533,7 +529,7 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <a id="valid-scenarios" class="anchor" href="#valid-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Valid Scenarios</h4>
 <ul>
 <li>
-<p>Invalid scenario - Change of decimal precision from (10,2) to (10,5) is not valid as in this case only scale is increased but total number of digits remain the same.</p>
+<p>Invalid scenario - Change of decimal precision from (10,2) to (10,5) is invalid as in this case only scale is increased but total number of digits remains the same.</p>
 </li>
 <li>
 <p>Valid scenario - Change of decimal precision from (10,2) to (12,3) is valid as the total number of digits are increased by 2 but scale is increased only by 1 which will not lead to any data loss.</p>
@@ -631,7 +627,7 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <a id="bucketing" class="anchor" href="#bucketing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BUCKETING</h2>
 <p>Bucketing feature can be used to distribute/organize the table/partition data into multiple files such
 that similar records are present in the same file. While creating a table, a user needs to specify the
-columns to be used for bucketing and the number of buckets. For the selction of bucket the Hash value
+columns to be used for bucketing and the number of buckets. For the selection of bucket the Hash value
 of columns is used.</p>
 <pre><code>   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
                     [(col_name data_type, ...)]
@@ -676,7 +672,7 @@ of columns is used.</p>
 </li>
 </ul>
 <h3>
-<a id="example-" class="anchor" href="#example-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example :</h3>
+<a id="example-3" class="anchor" href="#example-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 <pre><code> CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
                                 productNumber Int,
                                 saleQuantity Int,
