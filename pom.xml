@@ -143,12 +143,35 @@
                     </configuration>
                 </execution>
             </executions>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.maven.doxia</groupId>
+                    <artifactId>doxia-module-markdown</artifactId>
+                    <version>1.6</version>
+                </dependency>
+            </dependencies>
         </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
             <version>3.0.2</version>
             <executions>
+                <execution>
+                    <id>publish-site</id>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/content</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${basedir}/target/site-17</directory>
+                                <filtering>false</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
                 <execution>
                     <id>publish-pdf</id>
                     <phase>install</phase>
@@ -164,22 +187,6 @@
                                 <includes>
                                     <include>**/*.pdf</include>
                                 </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-                <execution>
-                    <id>publish-site</id>
-                    <phase>install</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${basedir}/content</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${basedir}/target/site-17</directory>
-                                <filtering>false</filtering>
                             </resource>
                         </resources>
                     </configuration>
@@ -214,11 +221,6 @@
       <artifactId>scala-library</artifactId>
       <version>2.12.1</version>
     </dependency>
-      <dependency>
-          <groupId>org.apache.maven.doxia</groupId>
-          <artifactId>doxia-module-markdown</artifactId>
-          <version>1.6</version>
-      </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -266,5 +268,6 @@
       <version>3.0</version>
     </dependency>
   </dependencies>
+
 </project>
 
