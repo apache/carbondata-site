@@ -2,6 +2,8 @@ mvn compile
 
 mvn exec:java -Dexec.mainClass=WebsiteLauncher
 
+mvn pdf:pdf
+
 mvn install
 
-mvn pdf:pdf
+mvn exec:java -Dexec.mainClass=CleanUp

@@ -31,6 +31,6 @@ class MDFileConverterSpec extends FlatSpec with MockitoSugar {
   val fileModification = new MDFileConverter(fileServiceMock, confServiceMock, dataServiceMock)
 
   it should "return successful convert list of files to html files" in {
-    assert(fileModification.convertToHtml() === "[SUCCESS]: All files converted successfully.")
+    assert(fileModification.convertToHtml(true) === "[SUCCESS]: All files converted successfully.")
   }
 }

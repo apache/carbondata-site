@@ -56,16 +56,31 @@
               </execution>
           </executions>
       </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.2.1</version>
-        <configuration>
-          <mainClass>WebsiteLauncher</mainClass>
-        </configuration>
-      </plugin>
-
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <executions>
+                <execution>
+                    <id>first-execution</id>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>WebsiteLauncher</mainClass>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>second-execution</id>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>CleanUp</mainClass>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
@@ -173,25 +188,6 @@
                     </configuration>
                 </execution>
                 <execution>
-                    <id>publish-pdf</id>
-                    <phase>install</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${basedir}/src/pdf</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${basedir}/target/pdf</directory>
-                                <filtering>false</filtering>
-                                <includes>
-                                    <include>**/*.pdf</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-                <execution>
                     <id>copy-pdf</id>
                     <phase>install</phase>
                     <goals>
@@ -210,6 +206,25 @@
                         </resources>
                     </configuration>
                 </execution>
+                <execution>
+                   <id>publish-pdf</id>
+                   <phase>install</phase>
+                   <goals>
+                       <goal>copy-resources</goal>
+                   </goals>
+                   <configuration>
+                       <outputDirectory>${basedir}/src/main/webapp/pdf</outputDirectory>
+                       <resources>
+                           <resource>
+                               <directory>${basedir}/target/pdf</directory>
+                               <filtering>false</filtering>
+                               <includes>
+                                   <include>**/*.pdf</include>
+                               </includes>
+                           </resource>
+                       </resources>
+                   </configuration>
+               </execution>
             </executions>
         </plugin>
     </plugins>

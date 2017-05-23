@@ -18,7 +18,7 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
     *
     * @return status of each file i.e. success or failure
     */
-  def convertToHtml(): String = {
+  def convertToHtml(status: Boolean): String = {
     val listOfFiles: List[String] = confService.readListOfString("fileList")
     val statusList: List[String] = listOfFiles.map { file =>
       val fileURLContent: String = dataService.dataOnGetRequest(url + file + inputFileExtension)
@@ -27,7 +27,7 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
         case Some(data: String) => val fileData = fileReadObject.convertMdExtensions(data)
           logger.info(s"Begin writing [ $file outputFileExtension ] at $location")
           val statusHtmlFile = fileService.writeToFile(location + file + outputFileExtension, headerContent + fileData + footerContent)
-          val statusMdFile = fileService.writeToFile(confService.readString("mdFileLocation") + file + inputFileExtension, fileURLContent)
+          saveMdFilesForPDF(status, fileURLContent, file)
           if (statusHtmlFile) {
             logger.info(s"Successfully written [ $file $outputFileExtension ] at $location")
             "Success"
@@ -48,6 +48,23 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
     }
     else {
       "[SUCCESS]: All files converted successfully."
+    }
+  }
+
+  /**
+    * saves the fetched MD Files for generation of PDF
+    * @param status
+    * @param fileURLContent
+    * @param file
+    * @return
+    */
+  private def saveMdFilesForPDF(status: Boolean, fileURLContent: String, file: String): Boolean = {
+    if (status) {
+      logger.info(s"[SUCCESS] :Saving Markdown : $file for PDF Generation")
+      fileService.writeToFile(confService.readString("mdFileLocation") + file + inputFileExtension, fileURLContent)
+    } else {
+      logger.error(s"[ERROR] : Failed to save Markdown :$file for PDF Generation")
+      false
     }
   }
 }
