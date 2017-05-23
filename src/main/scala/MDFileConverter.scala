@@ -27,6 +27,7 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
         case Some(data: String) => val fileData = fileReadObject.convertMdExtensions(data)
           logger.info(s"Begin writing [ $file outputFileExtension ] at $location")
           val statusHtmlFile = fileService.writeToFile(location + file + outputFileExtension, headerContent + fileData + footerContent)
+          val statusMdFile = fileService.writeToFile(confService.readString("mdFileLocation") + file + inputFileExtension, fileURLContent)
           if (statusHtmlFile) {
             logger.info(s"Successfully written [ $file $outputFileExtension ] at $location")
             "Success"

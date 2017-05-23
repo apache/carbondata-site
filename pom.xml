@@ -125,6 +125,93 @@
                 </execution>
             </executions>
         </plugin>
+        <!--PDF Generation Plugin -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pdf-plugin</artifactId>
+            <version>1.3</version>
+            <executions>
+                <execution>
+                    <id>pdf</id>
+                    <phase>site</phase>
+                    <goals>
+                        <goal>pdf</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
+                        <includeReports>false</includeReports>
+                    </configuration>
+                </execution>
+            </executions>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.maven.doxia</groupId>
+                    <artifactId>doxia-module-markdown</artifactId>
+                    <version>1.6</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.0.2</version>
+            <executions>
+                <execution>
+                    <id>publish-site</id>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/content</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${basedir}/target/site-17</directory>
+                                <filtering>false</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>publish-pdf</id>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/src/pdf</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${basedir}/target/pdf</directory>
+                                <filtering>false</filtering>
+                                <includes>
+                                    <include>**/*.pdf</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>copy-pdf</id>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/content/pdf/</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${basedir}/target/pdf</directory>
+                                <filtering>false</filtering>
+                                <includes>
+                                    <include>**/*.pdf</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
 
@@ -134,7 +221,6 @@
       <artifactId>scala-library</artifactId>
       <version>2.12.1</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -182,5 +268,6 @@
       <version>3.0</version>
     </dependency>
   </dependencies>
+
 </project>
 
