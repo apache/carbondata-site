@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page not found</title>
+    <style>
+        body{ font-family: 'Josefin Sans', sans-serif}
+
+        .image-block{padding: 20px;margin: 20px auto; width: 418px; text-align: center}
+        .image-block img{ max-width: 100%}
+        .error-txt{ text-align: center; text-transform: uppercase}
+
+        a { text-decoration: none; margin: 0 10px; }
+
+        a.btn {
+            display: inline-block;
+            color: #666;
+            background-color: #eee;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+            padding: 8px 20px;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.3);
+            border-bottom-width: 3px;
+            text-align: center;
+        }
+
+        a.btn:hover {
+            background-color: #e3e3e3;
+            border-color: rgba(0,0,0,0.5);
+        }
+
+        a.btn:active {
+            background-color: #CCC;
+            border-color: rgba(0,0,0,0.9);
+        }
+
+        /* ornage button */
+
+        a.btn.btn-org {
+            background-color: #ff943d;
+            border-color: rgba(0,0,0,0.3);
+            text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+            color: #FFF;
+        }
+
+        a.btn.btn-orgorg:hover {
+            background-color: #dd6300;
+            border-color: rgba(0,0,0,0.5);
+        }
+
+        a.btn.btn-org:active {
+            background-color: #dd6300;
+            border-color: rgba(0,0,0,0.9);
+        }
+
+        @media screen and (max-width:767px ){
+            .image-block{padding: 20px;margin: 20px auto; width:100%; box-sizing: border-box}
+        }
+    </style>
+</head>
+<body style="background:#eee">
+<div class="content-wrapper">
+    <div class="body-wrapper" style="padding-top:20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class='image-block'>
+                        <img src="images/404error.png"  alt="CarbonData "/>
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <p class="error-txt" >Oops... Page doesn't exist.</p>
+                    <p class="error-txt">
+                      <a href="http://carbondata.apache.org/" class="btn btn-org">Go to home page</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+
+
+
+</body>
+</html>
