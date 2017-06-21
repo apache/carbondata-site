@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -250,8 +250,8 @@
 <p>Column groups with more than one column are stored in row format, instead of columnar format. By default, each column is a separate column group.</p>
 </li>
 </ul>
-<pre><code>TBLPROPERTIES ('COLUMN_GROUPS'='(column1, column2),
-(Column3,Column4,Column5)')
+<pre><code>       TBLPROPERTIES ('COLUMN_GROUPS'='(column1, column2),
+       (Column3,Column4,Column5)')
 </code></pre>
 <ul>
 <li>
@@ -426,11 +426,14 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <a id="examples-1" class="anchor" href="#examples-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples:</h4>
 <pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING);
 </code></pre>
-<pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING) TBLPROPERTIES('DICTIONARY_EXCLUDE'='b1');
+<pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING)
+    TBLPROPERTIES('DICTIONARY_EXCLUDE'='b1');
 </code></pre>
-<pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING) TBLPROPERTIES('DICTIONARY_INCLUDE'='a1');
+<pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING)
+    TBLPROPERTIES('DICTIONARY_INCLUDE'='a1');
 </code></pre>
-<pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING) TBLPROPERTIES('DEFAULT.VALUE.a1'='10');
+<pre><code>    ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING)
+    TBLPROPERTIES('DEFAULT.VALUE.a1'='10');
 </code></pre>
 <h3>
 <a id="drop-columns" class="anchor" href="#drop-columns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>DROP COLUMNS</strong>
@@ -493,7 +496,8 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <a id="change-data-type" class="anchor" href="#change-data-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>CHANGE DATA TYPE</strong>
 </h3>
 <p>This command is used to change the data type from INT to BIGINT or decimal precision from lower to higher.</p>
-<pre><code>    ALTER TABLE [db_name.]table_name CHANGE col_name col_name changed_column_type;
+<pre><code>    ALTER TABLE [db_name.]table_name
+    CHANGE col_name col_name changed_column_type;
 </code></pre>
 <h4>
 <a id="parameter-description-5" class="anchor" href="#parameter-description-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h4>

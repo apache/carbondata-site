@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -209,6 +209,8 @@
 </li>
 <li>
 <p>In Spark node[master], configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
+</li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -220,19 +222,19 @@
 <tbody>
 <tr>
 <td>spark.driver.extraJavaOptions</td>
-<td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
+<td><code>-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties</code></td>
 <td>A string of extra JVM options to pass to the driver. For instance, GC settings or other logging.</td>
 </tr>
 <tr>
 <td>spark.executor.extraJavaOptions</td>
-<td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
+<td><code>-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties</code></td>
 <td>A string of extra JVM options to pass to executors. For instance, GC settings or other logging. <strong>NOTE</strong>: You can enter multiple values separated by space.</td>
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code> file:</p>
+<ol start="7">
+<li>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code> file:</li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -253,14 +255,12 @@
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>Verify the installation. For example:</p>
+<ol start="8">
+<li>Verify the installation. For example:</li>
+</ol>
 <pre><code>./spark-shell --master spark://HOSTNAME:PORT --total-executor-cores 2
 --executor-memory 2G
 </code></pre>
-</li>
-</ol>
 <p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
 <p>To get started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
 <h2>
@@ -286,13 +286,15 @@
 </li>
 <li>
 <p>Create <code>tar,gz</code> file of carbonlib folder and move it inside the carbonlib folder.</p>
+</li>
+</ol>
 <pre><code>cd $SPARK_HOME
 tar -zcvf carbondata.tar.gz carbonlib/
 mv carbondata.tar.gz carbonlib/
 </code></pre>
-</li>
-<li>
-<p>Configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
+<ol start="4">
+<li>Configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -320,7 +322,7 @@ mv carbondata.tar.gz carbonlib/
 <tr>
 <td>spark.executor.extraJavaOptions</td>
 <td>A string of extra JVM options to pass to executors. For instance  <strong>NOTE</strong>: You can enter multiple values separated by space.</td>
-<td><code>-Dcarbon.properties.filepath=carbon.properties</code></td>
+<td><code>-Dcarbon.properties.filepath = carbon.properties</code></td>
 </tr>
 <tr>
 <td>spark.executor.extraClassPath</td>
@@ -335,13 +337,13 @@ mv carbondata.tar.gz carbonlib/
 <tr>
 <td>spark.driver.extraJavaOptions</td>
 <td>A string of extra JVM options to pass to the driver. For instance, GC settings or other logging.</td>
-<td><code>-Dcarbon.properties.filepath=$SPARK_HOME/conf/carbon.properties</code></td>
+<td><code>-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties</code></td>
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code>:</p>
+<ol start="5">
+<li>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code>:</li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -362,14 +364,12 @@ mv carbondata.tar.gz carbonlib/
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>Verify the installation.</p>
-<pre><code>  ./bin/spark-shell --master yarn-client --driver-memory 1g
-  --executor-cores 2 --executor-memory 2G
-</code></pre>
-</li>
+<ol start="6">
+<li>Verify the installation.</li>
 </ol>
+<pre><code> ./bin/spark-shell --master yarn-client --driver-memory 1g
+ --executor-cores 2 --executor-memory 2G
+</code></pre>
 <p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
 <p>Getting started with CarbonData : <a href="quick-start-guide.html">Quick Start</a>, <a href="ddl-operation-on-carbondata.html">DDL Operations on CarbonData</a></p>
 <h2>
@@ -378,7 +378,8 @@ mv carbondata.tar.gz carbonlib/
 <a id="starting-carbondata-thrift-server" class="anchor" href="#starting-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting CarbonData Thrift Server.</h3>
 <p>a. cd <code>$SPARK_HOME</code></p>
 <p>b. Run the following command to start the CarbonData thrift server.</p>
-<pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true
+<pre><code>./bin/spark-submit
+--conf spark.sql.hive.thriftServer.singleSession=true
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer
 $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
 </code></pre>
@@ -407,7 +408,8 @@ $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
 <ul>
 <li>Start with default memory and executors.</li>
 </ul>
-<pre><code>./bin/spark-submit --conf spark.sql.hive.thriftServer.singleSession=true 
+<pre><code>./bin/spark-submit
+--conf spark.sql.hive.thriftServer.singleSession=true
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
 $SPARK_HOME/carbonlib
 /carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 

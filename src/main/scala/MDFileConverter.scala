@@ -2,6 +2,8 @@ import com.google.inject.Inject
 import org.slf4j.{Logger, LoggerFactory}
 import services.{ConfService, DataService, FileService}
 
+import scala.util.matching.Regex
+
 class MDFileConverter @Inject()(fileService: FileService, confService: ConfService, dataService: DataService) {
   val logger: Logger = LoggerFactory.getLogger(classOf[MDFileConverter])
   val url: String = confService.readString("apiUrl")
@@ -20,6 +22,7 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
     */
   def convertToHtml(status: Boolean): String = {
     val listOfFiles: List[String] = confService.readListOfString("fileList")
+    val imageFileList: List[String] =confService.readListOfString("imagesFilesList")
     val statusList: List[String] = listOfFiles.map { file =>
       val fileURLContent: String = dataService.dataOnGetRequest(url + file + inputFileExtension)
       val getFileData: Option[String] = dataService.dataOnPostRequest(fileURLContent)
@@ -28,6 +31,12 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
           logger.info(s"Begin writing [ $file outputFileExtension ] at $location")
           val statusHtmlFile = fileService.writeToFile(location + file + outputFileExtension, headerContent + fileData + footerContent)
           saveMdFilesForPDF(status, fileURLContent, file)
+          if (imageFileList.contains(file)) {
+            saveMdFilesForPDF(status, changeImageLink(fileURLContent), file)
+          }
+          else {
+            saveMdFilesForPDF(status, fileURLContent, file)
+          }
           if (statusHtmlFile) {
             logger.info(s"Successfully written [ $file $outputFileExtension ] at $location")
             "Success"
@@ -53,6 +62,7 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
 
   /**
     * saves the fetched MD Files for generation of PDF
+    *
     * @param status
     * @param fileURLContent
     * @param file
@@ -66,6 +76,17 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
       logger.error(s"[ERROR] : Failed to save Markdown :$file for PDF Generation")
       false
     }
+  }
+  /**
+    * changes git link of image to local image for generation of pdf
+    *
+    * @param content
+    * @return
+    */
+  private def changeImageLink(content: String): String = {
+    val modifyImagePattern: Regex = """(../docs/images/)([a-zA-Z0-9-/._]+)(\?raw=true)""".r
+    val contentAfterModifyImageLink: String = modifyImagePattern replaceAllIn(content, "../../src/site/images/"+"$2"+"")
+    contentAfterModifyImageLink
   }
 }
 
