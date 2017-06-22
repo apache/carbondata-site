@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -281,6 +281,12 @@
 <td>carbon.update.persist.enable</td>
 <td>true</td>
 <td>Enabling this parameter considers persistent data. Enabling this will reduce the execution time of UPDATE operation.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.load.global.sort.partitions</td>
+<td>0</td>
+<td>The Number of partitions to use when shuffling data for sort. If user don't configurate or configurate it less than 1, it uses the number of map tasks as reduce tasks. In general, we recommend 2-3 tasks per CPU core in your cluster.</td>
 <td></td>
 </tr>
 </tbody>
@@ -481,7 +487,7 @@
 <tr>
 <td>carbon.numberof.preserve.segments</td>
 <td>0</td>
-<td>If the user wants to preserve some number of segments from being compacted then he can set this property. Example: carbon.numberof.preserve.segments=2 then 2 latest segments will always be excluded from the compaction. No segments will be preserved by default.</td>
+<td>If the user wants to preserve some number of segments from being compacted then he can set this property. Example: carbon.numberof.preserve.segments = 2 then 2 latest segments will always be excluded from the compaction. No segments will be preserved by default.</td>
 </tr>
 <tr>
 <td>carbon.allowed.compaction.days</td>
@@ -534,7 +540,7 @@
 <tr>
 <td>high.cardinality.identify.enable</td>
 <td>true</td>
-<td>If the parameter is true, the high cardinality columns of the dictionary code are automatically recognized and these columns will not be used as global dictionary encoding. If the parameter is false, all dictionary encoding columns are used as dictionary encoding. The high cardinality column must meet the following requirements: value of cardinality &gt; configured value of high.cardinalityEqually, the value of cardinality is higher than the threshold.value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentageEqually, the ratio of the cardinality value to data row number is higher than the configured percentage.</td>
+<td>If the parameter is true, the high cardinality columns of the dictionary code are automatically recognized and these columns will not be used as global dictionary encoding. If the parameter is false, all dictionary encoding columns are used as dictionary encoding. The high cardinality column must meet the following requirements: value of cardinality &gt; configured value of high.cardinality. Equally, the value of cardinality is higher than the threshold.value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentage. Equally, the ratio of the cardinality value to data row number is higher than the configured percentage. Note: If SINGLE_PASS is used during data load, then this property will be disabled.</td>
 </tr>
 <tr>
 <td>high.cardinality.threshold</td>
@@ -544,7 +550,7 @@
 <tr>
 <td>high.cardinality.row.count.percentage</td>
 <td>80</td>
-<td>Percentage to identify whether column cardinality is more than configured percent of total row count.Configuration value formula:Value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentageThe value of the parameter must be larger than 0.</td>
+<td>Percentage to identify whether column cardinality is more than configured percent of total row count.Configuration value formula:Value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentage. The value of the parameter must be larger than 0.</td>
 </tr>
 <tr>
 <td>carbon.cutOffTimestamp</td>

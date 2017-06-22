@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -263,7 +263,7 @@ OPTIONS(property_name=property_value, ...)
 </li>
 <li>
 <p><strong>COMPLEX_DELIMITER_LEVEL_2:</strong> Split the complex type nested data column in a row. Applies level_1 delimiter &amp; applies level_2 based on complex data type (eg., a:b$c:d --&gt; Array&gt; = {{a,b},{c,d}}).</p>
-<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':') 
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':')
 </code></pre>
 </li>
 <li>
@@ -296,6 +296,9 @@ column2:dictionaryFilePath2')
 </li>
 <li>
 <p>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</p>
+</li>
+<li>
+<p>If this option is set to TRUE, then high.cardinality.identify.enable property will be disabled during data load.</p>
 </li>
 </ul>
 </li>
@@ -543,6 +546,7 @@ SET (column_name1, column_name2,) =
 </tr>
 </tbody>
 </table>
+<p>NOTE: This functionality is currently not supported in Spark 2.x and will support soon.</p>
 <h3>
 <a id="usage-guidelines-2" class="anchor" href="#usage-guidelines-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
 <p>The following conditions must be met for successful updation :</p>
@@ -604,6 +608,7 @@ and EXISTS( SELECT * FROM table3 o WHERE o.column2 &gt; 1);
 </tr>
 </tbody>
 </table>
+<p>NOTE: This functionality is currently not supported in Spark 2.x and will support soon.</p>
 <h3>
 <a id="examples-2" class="anchor" href="#examples-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
 <pre><code>DELETE FROM columncarbonTable1 d WHERE d.column1  = 'china';

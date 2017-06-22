@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -169,7 +169,7 @@ The following sections will elaborate on the above topics :</p>
 <ul>
 <li><a href="#suggestions-to-create-carbondata-table">Suggestions to create CarbonData Table</a></li>
 <li><a href="#configuration-for-optimizing-data-loading-performance-for-massive-data">Configuration for Optimizing Data Loading performance for Massive Data</a></li>
-<li><a href="#optimizing-mass-data-loading">Optimizing Mass Data Loading</a></li>
+<li><a href="#configurations-for-optimizing-carbondata-performance">Optimizing Mass Data Loading</a></li>
 </ul>
 <h2>
 <a id="suggestions-to-create-carbondata-table" class="anchor" href="#suggestions-to-create-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Suggestions to Create CarbonData Table</h2>
@@ -277,7 +277,7 @@ The create table command can be modified as below :</p>
 </ul>
 <pre><code>  create table carbondata_table(
   Dime_1 String,
-  BEGIN_TIME bigint
+  BEGIN_TIME bigint,
   HOST String,
   MSISDN String,
   ...
@@ -294,7 +294,7 @@ query performance. The create table command can be modified as below :</p>
 </ul>
 <pre><code>  create table carbondata_table(
   Dime_1 String,
-  BEGIN_TIME bigint
+  BEGIN_TIME bigint,
   HOST String,
   MSISDN String,
   counter_1 double,
@@ -309,8 +309,8 @@ query performance. The create table command can be modified as below :</p>
 <ul>
 <li>
 <p><strong>Columns of incremental character should be re-arranged at the end of dimensions</strong></p>
-<p>Consider the following scenario where data is loaded each day and the start_time is incremental for each load, it is
-suggested to put start_time at the end of dimensions.</p>
+<p>Consider the following scenario where data is loaded each day and the begin_time is incremental for each load, it is
+suggested to put begin_time at the end of dimensions.</p>
 <p>Incremental values are efficient in using min/max index. The create table command can be modified as below :</p>
 </li>
 </ul>
@@ -342,7 +342,7 @@ excessive memory usage.</p>
 <p>CarbonData supports large data load, in this process sorting data while loading consumes a lot of memory and disk IO and
 this can result sometimes in "Out Of Memory" exception.
 If you do not have much memory to use, then you may prefer to slow the speed of data loading instead of data load failure.
-You can configure CarbonData by tuning following properties in carbon.properties file to get a better performance.:</p>
+You can configure CarbonData by tuning following properties in carbon.properties file to get a better performance.</p>
 <table>
 <thead>
 <tr>
@@ -359,8 +359,8 @@ You can configure CarbonData by tuning following properties in carbon.properties
 </tr>
 <tr>
 <td>carbon.sort.size</td>
-<td>Data loading</td>
 <td>Default: 100000. The value should be &gt;= 100.</td>
+<td>Threshold to write local file in sort step when loading data</td>
 </tr>
 <tr>
 <td>carbon.sort.file.write.buffer.size</td>
@@ -385,7 +385,7 @@ You can configure CarbonData by tuning following properties in carbon.properties
 </tbody>
 </table>
 <p>For example, if there are  10 million records ,and i have only 16 cores ,64GB memory, will be loaded to CarbonData table.
-Using the default configuration  always fail in sort step. Modify carbon.properties as suggested below</p>
+Using the default configuration  always fail in sort step. Modify carbon.properties as suggested below:</p>
 <pre><code>carbon.number.of.cores.block.sort=1
 carbon.merge.sort.reader.thread=1
 carbon.sort.size=5000
@@ -430,14 +430,14 @@ scenarios. After the completion of POC, some of the configurations impacting the
 </tr>
 <tr>
 <td>spark.sql.shuffle.partitions</td>
-<td>spark/con/spark-defaults.conf</td>
+<td>spark/conf/spark-defaults.conf</td>
 <td>Querying</td>
 <td>The number of task started when spark shuffle.</td>
 <td>The value can be 1 to 2 times as much as the executor cores. In an aggregation scenario, reducing the number from 200 to 32 reduced the query time from 17 to 9 seconds.</td>
 </tr>
 <tr>
-<td>num-executors/executor-cores/executor-memory</td>
-<td>spark/con/spark-defaults.conf</td>
+<td>spark.executor.instances/spark.executor.cores/spark.executor.memory</td>
+<td>spark/conf/spark-defaults.conf</td>
 <td>Querying</td>
 <td>The number of executors, CPU cores, and memory used for CarbonData query.</td>
 <td>In the bank scenario, we provide the 4 CPUs cores and 15 GB for each executor which can get good performance. This 2 value does not mean more the better. It needs to be configured properly in case of limited resources. For example, In the bank scenario, it has enough CPU 32 cores each node but less memory 64 GB each node. So we cannot give more CPU but less memory. For example, when 4 cores and 12GB for each executor. It sometimes happens GC during the query which impact the query performance very much from the 3 second to more than 15 seconds. In this scenario need to increase the memory or decrease the CPU cores.</td>
@@ -458,8 +458,7 @@ scenarios. After the completion of POC, some of the configurations impacting the
 </tr>
 </tbody>
 </table>
-<p>Note: If your CarbonData instance is provided only for query, you may specify the conf 'spark.speculation=true' which is conf
-in spark.</p>
+<p>Note: If your CarbonData instance is provided only for query, you may specify the property 'spark.speculation=true' which is in conf directory of spark.</p>
 </div>
 </div>
 </div>
