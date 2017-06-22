@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -203,10 +203,12 @@ By default <strong>carbon.badRecords.location</strong> specifies the following l
 <a id="how-to-specify-store-location-while-creating-carbon-session" class="anchor" href="#how-to-specify-store-location-while-creating-carbon-session" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to specify store location while creating carbon session?</h2>
 <p>The store location specified while creating carbon session is used by the CarbonData to store the meta data like the schema, dictionary files, dictionary meta data and sort indexes.</p>
 <p>Try creating <code>carbonsession</code> with <code>storepath</code> specified in the following manner :</p>
-<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&lt;store_path&gt;)
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf)
+             .getOrCreateCarbonSession(&lt;store_path&gt;)
 </code></pre>
 <p>Example:</p>
-<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("hdfs://localhost:9000/carbon/store ")
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf)
+             .getOrCreateCarbonSession("hdfs://localhost:9000/carbon/store")
 </code></pre>
 <h2>
 <a id="what-is-carbon-lock-type" class="anchor" href="#what-is-carbon-lock-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is Carbon Lock Type?</h2>
@@ -223,7 +225,7 @@ The property carbon.lock.type configuration specifies the type of lock to be acq
 <p>In order to build CarbonData project it is necessary to specify the spark profile. The spark profile sets the Spark Version. You need to specify the <code>spark version</code> while using Maven to build project.</p>
 <h2>
 <a id="how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" class="anchor" href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How Carbon will behave when execute insert operation in abnormal scenarios?</h2>
-<p>Carbon support insert operation, you can refer to the syntax mentioned in <a href="http://carbondata.apache.org/dml-operation-on-carbondata" target=_blank>DML Operations on CarbonData</a>.
+<p>Carbon support insert operation, you can refer to the syntax mentioned in <a href="dml-operation-on-carbondata.html">DML Operations on CarbonData</a>.
 First, create a soucre table in spark-sql and load data into this created table.</p>
 <pre><code>CREATE TABLE source_table(
 id String,

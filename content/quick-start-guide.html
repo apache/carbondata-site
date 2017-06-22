@@ -125,7 +125,7 @@
                 </ul>
             </div><!--/.nav-collapse -->
             <div id="search-box">
-                <form method="get" action="http://www.google.com/search">
+                <form method="get" action="http://www.google.com/search" target="_blank">
                     <div class="search-block">
                         <table border="0" cellpadding="0" width="100%">
                             <tr>
@@ -203,25 +203,35 @@ import org.apache.spark.sql.CarbonSession._
 <ul>
 <li>Create a CarbonSession :</li>
 </ul>
-<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("&lt;hdfs store path&gt;")
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf)
+             .getOrCreateCarbonSession("&lt;hdfs store path&gt;")
 </code></pre>
-<p><strong>NOTE</strong>: By default metastore location is pointed to <code>../carbon.metastore</code>, user can provide own metastore location to CarbonSession like <code>SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("&lt;hdfs store path&gt;", "&lt;local metastore path&gt;")</code></p>
+<p><strong>NOTE</strong>: By default metastore location is pointed to <code>../carbon.metastore</code>, user can provide own metastore location to CarbonSession like <code>SparkSession.builder().config(sc.getConf) .getOrCreateCarbonSession("&lt;hdfs store path&gt;", "&lt;local metastore path&gt;")</code></p>
 <h4>
 <a id="executing-queries" class="anchor" href="#executing-queries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Queries</h4>
 <h6>
 <a id="creating-a-table" class="anchor" href="#creating-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Table</h6>
-<pre><code>scala&gt;carbon.sql("CREATE TABLE IF NOT EXISTS test_table(id string, name string, city string, age Int) STORED BY 'carbondata'")
+<pre><code>scala&gt;carbon.sql("CREATE TABLE
+                        IF NOT EXISTS test_table(
+                                  id string,
+                                  name string,
+                                  city string,
+                                  age Int)
+                       STORED BY 'carbondata'")
 </code></pre>
 <h6>
 <a id="loading-data-to-a-table" class="anchor" href="#loading-data-to-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h6>
-<pre><code>scala&gt;carbon.sql("LOAD DATA INPATH 'sample.csv file path' INTO TABLE test_table")
+<pre><code>scala&gt;carbon.sql("LOAD DATA INPATH 'sample.csv file path'
+                  INTO TABLE test_table")
 </code></pre>
 <p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
 <h6>
 <a id="query-data-from-a-table" class="anchor" href="#query-data-from-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h6>
 <pre><code>scala&gt;carbon.sql("SELECT * FROM test_table").show()
 
-scala&gt;carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY city").show()
+scala&gt;carbon.sql("SELECT city, avg(age), sum(age)
+                  FROM test_table
+                  GROUP BY city").show()
 </code></pre>
 <h2>
 <a id="interactive-analysis-with-spark-shell-version-16" class="anchor" href="#interactive-analysis-with-spark-shell-version-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Analysis with Spark Shell Version 1.6</h2>
@@ -230,7 +240,8 @@ scala&gt;carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY ci
 <p>Start Spark shell by running the following command in the Spark directory:</p>
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
-<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
+<p><strong>NOTE</strong>: Assembly jar will be available after [building CarbonData](<a href="https://github.com/apache/carbondata/" target=_blank>https://github.com/apache/carbondata/</a>
+blob/master/build/README.md) and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
 <p><strong>NOTE</strong>: In this shell, SparkContext is readily available as <code>sc</code>.</p>
 <ul>
 <li>In order to execute the Queries we need to import CarbonContext:</li>
@@ -247,20 +258,29 @@ scala&gt;carbon.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY ci
 <a id="executing-queries-1" class="anchor" href="#executing-queries-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Queries</h4>
 <h6>
 <a id="creating-a-table-1" class="anchor" href="#creating-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Table</h6>
-<pre><code>scala&gt;cc.sql("CREATE TABLE IF NOT EXISTS test_table (id string, name string, city string, age Int) STORED BY 'carbondata'")
+<pre><code>scala&gt;cc.sql("CREATE TABLE
+              IF NOT EXISTS test_table (
+                         id string,
+                         name string,
+                         city string,
+                         age Int)
+              STORED BY 'carbondata'")
 </code></pre>
 <p>To see the table created :</p>
 <pre><code>scala&gt;cc.sql("SHOW TABLES").show()
 </code></pre>
 <h6>
 <a id="loading-data-to-a-table-1" class="anchor" href="#loading-data-to-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h6>
-<pre><code>scala&gt;cc.sql("LOAD DATA INPATH 'sample.csv file path' INTO TABLE test_table")
+<pre><code>scala&gt;cc.sql("LOAD DATA INPATH 'sample.csv file path'
+              INTO TABLE test_table")
 </code></pre>
 <p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
 <h6>
 <a id="query-data-from-a-table-1" class="anchor" href="#query-data-from-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h6>
 <pre><code>scala&gt;cc.sql("SELECT * FROM test_table").show()
-scala&gt;cc.sql("SELECT city, avg(age), sum(age) FROM test_table GROUP BY city").show()
+scala&gt;cc.sql("SELECT city, avg(age), sum(age)
+              FROM test_table
+              GROUP BY city").show()
 </code></pre>
 </div>
 </div>

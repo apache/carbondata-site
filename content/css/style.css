@@ -44,14 +44,15 @@ img{ max-width:100%; height:auto}
 
 .cd-mail-btn {
     font-size: 13px;
-    color: #ff943d;
+   /* color: #ff943d;*/
     clear: both;
     text-transform: capitalize;
     font-weight: 200;
-    margin: 13px;
+    margin: 13px 7px;
 }
 .cd-mail-btn:hover{
-    color: #00a0d2;
+    color: #ff943d;
+    text-decoration:underline
 }
 
 
@@ -64,7 +65,7 @@ img{ max-width:100%; height:auto}
 .mobile-view{ display:none}
 header{position: fixed;z-index: 9999; width: 100%; height:46px }
 .fixed-padding{ position: relative; padding-top:46px; }
-a.logo { width: 170px; display: inline-block;  margin: 1px 0;}
+a.logo { width: 170px; display: inline-block;  margin: 1px 0 0;}
 .cd-navbar-wrapper.navbar {margin-bottom:0px;border-bottom: 4px solid #ff943d; border-radius: 0; min-height: 40px;}
 /*.cd_navcontnt { margin-top: 20px;}*/
 .cd_navcontnt{ margin-top:9px}
@@ -240,7 +241,7 @@ left: auto; right: auto;}
     text-align: left;
     margin: 0px 0 10px;
 }
-.cd-releaseblock .title .title-underline{ height: 2px; width:50px; background: #444; margin:6px 0; padding: 0; display:block;}
+.cd-releaseblock .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:6px 0; padding: 0; display:block;}
 .cd-releaseblock .release-links { font-size: 14px; color: #444; line-height: 20px; display: block; text-align:left; text-decoration: none}
 .cd-releaseblock .release-info { font-size: 14px; color: #444; line-height: 18px; display: block; text-align:left; text-decoration: none}
 .cd-releaseblock .release-links:hover { text-decoration: underline; color:#00a0d2;}
@@ -250,6 +251,7 @@ left: auto; right: auto;}
     line-height: 18px;
     display: inline-block;
     text-align: left;
+    width:60px;
 }
 
 .cd-releaseblock .nextR{display: block;   padding: 2px 15px 15px;} 
@@ -273,8 +275,8 @@ left: auto; right: auto;}
 .cd-releaseblock .nextR{ display:none;}
 
 .cd-flowblock {padding: 20px 0; background: #fdfdfd; border-bottom: 1px solid #ddd;}
-.cd-flowblock .title {font-size: 22px;  color: #444;  line-height: 24px;  display: block; text-align: center; margin: 10px 4px 30px; height:36px;  text-transform: capitalize; font-weight: 500;}
-.cd-flowblock .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px auto; padding: 0; display:block;}
+.cd-flowblock .title {font-size: 22px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 30px; height:36px;  text-transform: capitalize; font-weight: 500;}
+.cd-flowblock .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px 0; padding: 0; display:block;}
 
 
 .cd-columnblock {display: block; margin:5px 0; padding:10px 10px; height: 150px}
@@ -400,7 +402,7 @@ cd-updatedeletesupport-icon.png
 
 .cd-columnblock .iconbox .icon.uniquedata{ background: url(../images/cd-uniquedata-icon.png) no-repeat center center; background-size: 40px; }
 .cd-columnblock:hover .iconbox .icon.uniquedata{ background: #ff943d url(../images/cd-uniquedata-icon-hover.png) no-repeat center center; 
-  transform:scale(1.1);  background-size: 40px;
+   background-size: 40px;
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -410,7 +412,7 @@ cd-updatedeletesupport-icon.png
 
 .cd-columnblock .iconbox .icon.multilevelindexing{ background: url(../images/cd-multilevelindexing-icon.png) no-repeat center center; background-size: 36px; }
 .cd-columnblock:hover .iconbox .icon.multilevelindexing{ background: #ff943d url(../images/cd-multilevelindexing-icon-hover.png) no-repeat center center; 
-  transform:scale(1.1);  background-size: 36px;
+   background-size: 36px;
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -419,7 +421,7 @@ cd-updatedeletesupport-icon.png
 
 .cd-columnblock .iconbox .icon.deepsparkintegration{ background: url(../images/cd-deepsparkintegration-icon.png) no-repeat center center; background-size: 36px; }
 .cd-columnblock:hover .iconbox .icon.deepsparkintegration{ background: #ff943d url(../images/cd-deepsparkintegration-icon-hover.png) no-repeat center center; 
-  transform:scale(1.1);  background-size: 36px;
+  background-size: 36px;
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -428,7 +430,7 @@ cd-updatedeletesupport-icon.png
 
   .cd-columnblock .iconbox .icon.advancedpushdownoptimization{ background: url(../images/cd-advancedpushdownoptimization-icon.png) no-repeat center center; background-size: 36px; }
 .cd-columnblock:hover .iconbox .icon.advancedpushdownoptimization{ background: #ff943d url(../images/cd-advancedpushdownoptimization-icon-hover.png) no-repeat center center; 
-  transform:scale(1.1);  background-size: 36px;
+   background-size: 36px;
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -437,7 +439,7 @@ cd-updatedeletesupport-icon.png
 
   .cd-columnblock .iconbox .icon.dictionaryencoding{ background: url(../images/cd-dictionaryencoding-icon.png) no-repeat center center; background-size: 36px; }
 .cd-columnblock:hover .iconbox .icon.dictionaryencoding{ background: #ff943d url(../images/cd-dictionaryencoding-icon-hover.png) no-repeat center center; 
-  transform:scale(1.1);  background-size: 36px;
+    background-size: 36px;
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -446,7 +448,7 @@ cd-updatedeletesupport-icon.png
 
   .cd-columnblock .iconbox .icon.updatedeletesupport{ background: url(../images/cd-updatedeletesupport-icon.png) no-repeat center center; background-size: 36px; }
 .cd-columnblock:hover .iconbox .icon.updatedeletesupport{ background: #ff943d url(../images/cd-updatedeletesupport-icon-hover.png) no-repeat center center; 
-  transform:scale(1.1);  background-size: 36px;
+  background-size: 36px;
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -484,12 +486,13 @@ cd-updatedeletesupport-icon.png
 .cd-thecolumnblock.joinblog{margin-top: 15px; background: #fff; padding:20px; margin: 15px -10px 0; box-shadow: 0 1px 1px #bbb;}
 .cd-thecolumnblock.getstartlog { background: #fff; box-shadow: 0 1px 1px #bbb;padding: 15px; margin: 15px 0px 15px -10px;}
 .cd-thecolumnblock.latestblog {padding: 15px; background: #fcfcfc; margin: 15px -10px 15px 0px; box-shadow: 0 1px 1px #bbb;}
-.cd-thecolumnblock.getstartlog .title .title-underline, .cd-thecolumnblock.latestblog .title .title-underline {background: #444;}
+.cd-thecolumnblock.getstartlog .title .title-underline, .cd-thecolumnblock.latestblog .title .title-underline {background: #ff943d;}
 
 
 .cd-thecolumnblock .listlink, .cd-thecolumnblock .orderlist{margin: 6px 0 0 20px; padding: 0;}
 .cd-thecolumnblock .listlink li { list-style-type: square; font-size: 13px; line-height: 18px; color: #555; margin-bottom: 8px;word-wrap: break-word;}
 .cd-thecolumnblock .orderlist li { font-size: 13px; line-height: 18px; color: #555; margin-bottom: 8px;}
+.cd-thecolumnblock .orderlist li a {margin-right: 10px;}
 .cd-thecolumnblock .social-icons{ padding: 5px 0 0; text-align: right; margin: 0}
 .cd-thecolumnblock .social-icons i.fa {font-size: 24px; margin-right: 5px;color: #aaa;}
 .cd-thecolumnblock .social-icons i.fa:hover {opacity: .7;}
@@ -542,7 +545,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .cd-quickbtns .title {font-size: 22px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 40px;  text-transform: capitalize; font-weight: 500;}
-.cd-quickbtns .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
+.cd-quickbtns .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px 0; padding: 0; display:block;}
 
 
 .doc-heading {
@@ -551,7 +554,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .doc-heading .title {font-size: 30px;  color: #444;  line-height: 24px;  display: block; text-align: left; margin: 10px 4px 10px; height: 40px;  text-transform: capitalize; font-weight: 500;}
-.doc-heading .title .title-underline{ height: 2px; width:50px; background: #444; margin:10px 0; padding: 0; display:block;}
+.doc-heading .title .title-underline{ height: 2px; width:50px; background: #ff943d; margin:10px 0; padding: 0; display:block;}
 
 
 .quickstart-btn {
@@ -827,8 +830,7 @@ iframe {
 .doc-footer{display: block; position: relative;}
 .blog-content p img {max-width: 100%; margin: 20px auto 10px; display: block; border: 1px solid #f4f3f4;}
 
-.scroll-top{position: fixed; top: auto; right: 10px; bottom:4px; background: #ddd;  padding: 2px 6px;
-    border-radius: 2px; font-size: 12px; text-decoration: none;  color: #666;}
+.scroll-top{position: fixed; top: auto; right: 10px; bottom:4px; background: #ddd;  padding:5px 10px;display:none;    border-radius: 2px; font-size: 12px; text-decoration: none;  color: #666;}
 
 
 .doc-header span{ margin-right: 30px;}
@@ -1014,13 +1016,15 @@ box-shadow: 0 3px 2px #aaa }
 .slider-btn{display: inline-block;
     font-size: 14px;
     color: #fff;
-    border: 1px solid #aaa;
-    padding: 8px 20px;
+     padding: 8px 20px;
     line-height: 20px;
     border-radius: 2px;
+    background: #ff943d;
+    text-shadow: none;
 }
 
-.slider-btn:hover {color: #fff; border: 1px solid #ff943d; background: #ff943d;}
+.slider-btn:hover, .slider-btn:focus{color: #fff; background: #dd6300;}
+
 
 /* ------------------- End Documentation Style here*/
 
