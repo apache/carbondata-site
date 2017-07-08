@@ -395,7 +395,7 @@ $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
 <tr>
 <td>CARBON_ASSEMBLY_JAR</td>
 <td>CarbonData assembly jar name present in the <code>$SPARK_HOME/carbonlib/</code> folder.</td>
-<td>carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar</td>
+<td>carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar</td>
 </tr>
 <tr>
 <td>carbon_store_path</td>
@@ -412,7 +412,7 @@ $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
 --conf spark.sql.hive.thriftServer.singleSession=true
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
 $SPARK_HOME/carbonlib
-/carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 
+/carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar
 hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 </code></pre>
 <ul>
@@ -423,7 +423,7 @@ hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 --num-executors 3 --driver-memory 20g --executor-memory 250g 
 --executor-cores 32 
 /srv/OSCON/BigData/HACluster/install/spark/sparkJdbc/lib
-/carbondata_2.10-0.1.0-incubating-SNAPSHOT-shade-hadoop2.7.2.jar 
+/carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar
 hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 </code></pre>
 <h3>

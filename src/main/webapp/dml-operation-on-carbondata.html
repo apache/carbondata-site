@@ -421,11 +421,10 @@ LIMIT number_of_segments;
 <p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it.
 Using this segment ID, you can remove the segment.</p>
 <p>The following command will get the segmentID.</p>
-<pre><code>SHOW SEGMENTS FOR Table dbname.tablename LIMIT number_of_segments
+<pre><code>SHOW SEGMENTS FOR Table [db_name.]table_name LIMIT number_of_segments
 </code></pre>
 <p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
-<pre><code>DELETE SEGMENT segment_sequence_id1, segments_sequence_id2, .... 
-FROM TABLE tableName
+<pre><code>DELETE FROM TABLE [db_name.]table_name WERE SEGMENT.ID IN (segment_id1, segments_id2, ....)
 </code></pre>
 <h3>
 <a id="parameter-description-3" class="anchor" href="#parameter-description-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
@@ -457,16 +456,16 @@ FROM TABLE tableName
 </table>
 <h3>
 <a id="example-2" class="anchor" href="#example-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
-<pre><code>DELETE SEGMENT 0 FROM TABLE CarbonDatabase.CarbonTable;
-DELETE SEGMENT 0.1,5,8 FROM TABLE CarbonDatabase.CarbonTable;
+<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0);
+DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0,5,8);
 </code></pre>
 <p>NOTE: Here 0.1 is compacted segment sequence id.</p>
 <h2>
 <a id="delete-segment-by-date" class="anchor" href="#delete-segment-by-date" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY DATE</h2>
 <p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command.
 The segment created before the particular date will be removed from the specific stores.</p>
-<pre><code>DELETE SEGMENTS FROM TABLE [db_name.]table_name 
-WHERE STARTTIME BEFORE DATE_VALUE
+<pre><code>DELETE FROM TABLE [db_name.]table_name 
+WHERE SEGMENT.STARTTIME BEFORE DATE_VALUE
 </code></pre>
 <h3>
 <a id="parameter-description-4" class="anchor" href="#parameter-description-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
@@ -498,8 +497,8 @@ WHERE STARTTIME BEFORE DATE_VALUE
 </table>
 <h3>
 <a id="example-3" class="anchor" href="#example-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
-<pre><code> DELETE SEGMENTS FROM TABLE CarbonDatabase.CarbonTable 
- WHERE STARTTIME BEFORE '2017-06-01 12:05:06';  
+<pre><code> DELETE FROM TABLE CarbonDatabase.CarbonTable 
+ WHERE SEGMENT.STARTTIME BEFORE '2017-06-01 12:05:06';  
 </code></pre>
 <h2>
 <a id="update-carbondata-table" class="anchor" href="#update-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update CarbonData Table</h2>
