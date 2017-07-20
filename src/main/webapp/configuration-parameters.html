@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
+                                   target="_blank">Apache CarbonData 1.1.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.0/"
                                    target="_blank">Apache CarbonData 1.1.0</a></li>
                             <li>
@@ -540,17 +543,12 @@
 <tr>
 <td>high.cardinality.identify.enable</td>
 <td>true</td>
-<td>If the parameter is true, the high cardinality columns of the dictionary code are automatically recognized and these columns will not be used as global dictionary encoding. If the parameter is false, all dictionary encoding columns are used as dictionary encoding. The high cardinality column must meet the following requirements: value of cardinality &gt; configured value of high.cardinality. Equally, the value of cardinality is higher than the threshold.value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentage. Equally, the ratio of the cardinality value to data row number is higher than the configured percentage. Note: If SINGLE_PASS is used during data load, then this property will be disabled.</td>
+<td>If the parameter is true, the high cardinality columns of the dictionary code are automatically recognized and these columns will not be used as global dictionary encoding. If the parameter is false, all dictionary encoding columns are used as dictionary encoding. The high cardinality column must meet the following requirements: value of cardinality &gt; configured value of high.cardinality. <b> Note: </b> If SINGLE_PASS is used during data load, then this property will be disabled.</td>
 </tr>
 <tr>
 <td>high.cardinality.threshold</td>
 <td>1000000</td>
 <td>It is a threshold to identify high cardinality of the columns.If the value of columns' cardinality &gt; the configured value, then the columns are excluded from dictionary encoding.</td>
-</tr>
-<tr>
-<td>high.cardinality.row.count.percentage</td>
-<td>80</td>
-<td>Percentage to identify whether column cardinality is more than configured percent of total row count.Configuration value formula:Value of cardinality/ row number x 100 &gt; configured value of high.cardinality.row.count.percentage. The value of the parameter must be larger than 0.</td>
 </tr>
 <tr>
 <td>carbon.cutOffTimestamp</td>
