@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
+                                   target="_blank">Apache CarbonData 1.1.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.0/"
                                    target="_blank">Apache CarbonData 1.1.0</a></li>
                             <li>
@@ -246,6 +249,15 @@ The create table command can be modified as suggested below :</p>
   )STORED BY 'org.apache.carbondata.format'
   TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,..',
   'DICTIONARY_INCLUDE'='...');
+
+  Example:
+  create table carbondata_table(
+    msisdn String,
+    BEGIN_TIME bigint
+    )STORED BY 'org.apache.carbondata.format'
+    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN',
+    'DICTIONARY_INCLUDE'='BEGIN_TIME');
+
 </code></pre>
 <p>Now the query with MSISDN in the filter will be more efficient.</p>
 <ul>
@@ -267,6 +279,17 @@ The create table command can be modified as suggested below :</p>
   )STORED BY 'org.apache.carbondata.format'
   TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST..',
   'DICTIONARY_INCLUDE'='Dime_1..');
+
+  Example:
+  create table carbondata_table(
+    Dime_1 String,
+    HOST String,
+    MSISDN String
+    )STORED BY 'org.apache.carbondata.format'
+    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST',
+    'DICTIONARY_INCLUDE'='Dime_1');
+
+
 </code></pre>
 <ul>
 <li>
@@ -276,14 +299,15 @@ The create table command can be modified as below :</p>
 </li>
 </ul>
 <pre><code>  create table carbondata_table(
-  Dime_1 String,
-  BEGIN_TIME bigint,
-  HOST String,
-  MSISDN String,
-  ...
-  )STORED BY 'org.apache.carbondata.format'
-  TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST,IMSI..',
-  'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME..');
+    Dime_1 String,
+    BEGIN_TIME bigint,
+    END_TIME bigint,
+    HOST String,
+    MSISDN String
+    ...
+    )STORED BY 'org.apache.carbondata.format'
+    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST...',
+    'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME...');
 </code></pre>
 <ul>
 <li>
@@ -293,17 +317,18 @@ query performance. The create table command can be modified as below :</p>
 </li>
 </ul>
 <pre><code>  create table carbondata_table(
-  Dime_1 String,
-  BEGIN_TIME bigint,
-  HOST String,
-  MSISDN String,
-  counter_1 double,
-  counter_2 double,
-  ...
-  counter_100 double
-  )STORED BY 'org.apache.carbondata.format'
-  TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST,IMSI',
-  'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME');
+    Dime_1 String,
+    BEGIN_TIME bigint,
+    END_TIME bigint,
+    HOST String,
+    MSISDN String,
+    counter_1 double,
+    counter_2 double,
+    ...
+    counter_100 double
+    )STORED BY 'org.apache.carbondata.format'
+    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST...',
+    'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME...');
 </code></pre>
 <p>The result of performance analysis of test-case shows reduction in query execution time from 15 to 3 seconds, thereby improving performance by nearly 5 times.</p>
 <ul>
@@ -315,17 +340,18 @@ suggested to put begin_time at the end of dimensions.</p>
 </li>
 </ul>
 <pre><code>  create table carbondata_table(
-  Dime_1 String,
-  HOST String,
-  MSISDN String,
-  counter_1 double,
-  counter_2 double,
-  BEGIN_TIME bigint,
-  ...
-  counter_100 double
-  )STORED BY 'org.apache.carbondata.format'
-  TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST,IMSI',
-  'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME');
+    Dime_1 String,
+    HOST String,
+    MSISDN String,
+    counter_1 double,
+    counter_2 double,
+    BEGIN_TIME bigint,
+    END_TIME bigint,
+    ...
+    counter_100 double
+    )STORED BY 'org.apache.carbondata.format'
+    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST...',
+    'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME....');
 </code></pre>
 <ul>
 <li>
