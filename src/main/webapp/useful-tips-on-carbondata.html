@@ -482,6 +482,13 @@ scenarios. After the completion of POC, some of the configurations impacting the
 <td>Whether use YARN local directories for multi-table load disk load balance</td>
 <td>If this is set it to true CarbonData will use YARN local directories for multi-table load disk load balance, that will improve the data load performance.</td>
 </tr>
+<tr>
+<td>carbon.use.multiple.temp.dir</td>
+<td>spark/carbonlib/carbon.properties</td>
+<td>Data loading</td>
+<td>Whether to use multiple YARN local directories during table data loading for disk load balance</td>
+<td>After enabling 'carbon.use.local.dir', if this is set to true, CarbonData will use all YARN local directories during data load for disk load balance, that will improve the data load performance. Please enable this property when you encounter disk hotspot problem during data loading.</td>
+</tr>
 </tbody>
 </table>
 <p>Note: If your CarbonData instance is provided only for query, you may specify the property 'spark.speculation=true' which is in conf directory of spark.</p>

@@ -427,7 +427,7 @@ Using this segment ID, you can remove the segment.</p>
 <pre><code>SHOW SEGMENTS FOR Table [db_name.]table_name LIMIT number_of_segments
 </code></pre>
 <p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
-<pre><code>DELETE FROM TABLE [db_name.]table_name WERE SEGMENT.ID IN (segment_id1, segments_id2, ....)
+<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.ID IN (segment_id1, segments_id2, ....)
 </code></pre>
 <h3>
 <a id="parameter-description-3" class="anchor" href="#parameter-description-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
