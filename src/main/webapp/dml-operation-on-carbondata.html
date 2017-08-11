@@ -304,10 +304,10 @@ column2:dictionaryFilePath2')
 <p>If this option is set to TRUE, then high.cardinality.identify.enable property will be disabled during data load.</p>
 </li>
 </ul>
-</li>
-</ul>
 <h3>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+</li>
+</ul>
 <pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
 options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
 'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
@@ -319,6 +319,74 @@ options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
 'SINGLE_PASS'='TRUE'
 )
 </code></pre>
+<ul>
+<li>
+<p><strong>BAD RECORDS HANDLING:</strong> Methods of handling bad records are as follows:</p>
+<ul>
+<li>
+<p>Load all of the data before dealing with the errors.</p>
+</li>
+<li>
+<p>Clean or delete bad records before loading data or stop the loading when bad records are found.</p>
+</li>
+</ul>
+<pre><code>OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true', 'BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon', 'BAD_RECORDS_ACTION'='REDIRECT', 'IS_EMPTY_DATA_BAD_RECORD'='false')
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>
+<p>If the REDIRECT option is used, Carbon will add all bad records in to a separate CSV file. However, this file must not be used for subsequent data loading because the content may not exactly match the source record. You are advised to cleanse the original source record for further data ingestion. This option is used to remind you which records are bad records.</p>
+</li>
+<li>
+<p>In loaded data, if all records are bad records, the BAD_RECORDS_ACTION is invalid and the load operation fails.</p>
+</li>
+<li>
+<p>The maximum number of characters per column is 100000. If there are more than 100000 characters in a column, data loading will fail.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3>
+<a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+<pre><code>LOAD DATA INPATH 'filepath.csv'
+INTO TABLE tablename
+OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true',
+'BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon',
+'BAD_RECORDS_ACTION'='REDIRECT',
+'IS_EMPTY_DATA_BAD_RECORD'='false');
+</code></pre>
+<p><strong>Bad Records Management Options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BAD_RECORDS_LOGGER_ENABLE</td>
+<td>false</td>
+<td>Whether to create logs with details about bad records.</td>
+</tr>
+<tr>
+<td>BAD_RECORDS_ACTION</td>
+<td>FAIL</td>
+<td>Following are the four types of action for bad records:  FORCE: Auto-corrects the data by storing the bad records as NULL.  REDIRECT: Bad records are written to the raw CSV instead of being loaded.  IGNORE: Bad records are neither loaded nor written to the raw CSV.  FAIL: Data loading fails if any bad records are found.  NOTE: In loaded data, if all records are bad records, the BAD_RECORDS_ACTION is invalid and the load operation fails.</td>
+</tr>
+<tr>
+<td>IS_EMPTY_DATA_BAD_RECORD</td>
+<td>false</td>
+<td>If false, then empty ("" or '' or ,,) data will not be considered as bad record and vice versa.</td>
+</tr>
+<tr>
+<td>BAD_RECORD_PATH</td>
+<td>-</td>
+<td>Specifies the HDFS path where bad records are stored. By default the value is Null. This path must to be configured by the user if bad record logger is enabled or bad record action redirect.</td>
+</tr>
+</tbody>
+</table>
 <h2>
 <a id="insert-data-into-a-carbondata-table" class="anchor" href="#insert-data-into-a-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO A CARBONDATA TABLE</h2>
 <p>This command inserts data into a CarbonData table. It is defined as a combination of two queries Insert and Select query respectively. It inserts records from a source table into a target CarbonData table. The source table can be a Hive table, Parquet table or a CarbonData table itself. It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p>
@@ -416,7 +484,7 @@ LIMIT number_of_segments;
 </tbody>
 </table>
 <h3>
-<a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+<a id="example-2" class="anchor" href="#example-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 <pre><code>SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4;
 </code></pre>
 <h2>
@@ -458,7 +526,7 @@ Using this segment ID, you can remove the segment.</p>
 </tbody>
 </table>
 <h3>
-<a id="example-2" class="anchor" href="#example-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+<a id="example-3" class="anchor" href="#example-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 <pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0);
 DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0,5,8);
 </code></pre>
@@ -499,7 +567,7 @@ WHERE SEGMENT.STARTTIME BEFORE DATE_VALUE
 </tbody>
 </table>
 <h3>
-<a id="example-3" class="anchor" href="#example-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+<a id="example-4" class="anchor" href="#example-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 <pre><code> DELETE FROM TABLE CarbonDatabase.CarbonTable 
  WHERE SEGMENT.STARTTIME BEFORE '2017-06-01 12:05:06';  
 </code></pre>

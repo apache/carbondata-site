@@ -292,6 +292,30 @@
 <td>The Number of partitions to use when shuffling data for sort. If user don't configurate or configurate it less than 1, it uses the number of map tasks as reduce tasks. In general, we recommend 2-3 tasks per CPU core in your cluster.</td>
 <td></td>
 </tr>
+<tr>
+<td>carbon.options.bad.records.logger.enable</td>
+<td>false</td>
+<td>Whether to create logs with details about bad records.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.bad.records.action</td>
+<td>fail</td>
+<td>This property can have four types of actions for bad records FORCE, REDIRECT, IGNORE and FAIL. If set to FORCE then it auto-corrects the data by storing the bad records as NULL. If set to REDIRECT then bad records are written to the raw CSV instead of being loaded. If set to IGNORE then bad records are neither loaded nor written to the raw CSV. If set to FAIL then data loading fails if any bad records are found.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.options.is.empty.data.bad.record</td>
+<td>false</td>
+<td>If false, then empty ("" or '' or ,,) data will not be considered as bad record and vice versa.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.options.bad.record.path</td>
+<td></td>
+<td>Specifies the HDFS path where bad records are stored. By default the value is Null. This path must to be configured by the user if bad record logger is enabled or bad record action redirect.</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <ul>

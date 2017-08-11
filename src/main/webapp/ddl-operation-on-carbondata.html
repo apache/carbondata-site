@@ -275,7 +275,13 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <li>
 <p>All dimensions except complex datatype columns are part of multi dimensional key(MDK). This behavior can be overridden by using TBLPROPERTIES. If the user wants to keep any column (except columns of complex datatype) in multi dimensional key then he can keep the columns either in DICTIONARY_EXCLUDE or DICTIONARY_INCLUDE.</p>
 </li>
+<li>
+<p><strong>Sort Columns Configuration</strong></p>
+<p>"SORT_COLUMN" property is for users to specify which columns belong to the MDK index. If user don't specify "SORT_COLUMN" property, by default MDK index be built by using all dimension columns except complex datatype column.</p>
+</li>
 </ul>
+<pre><code>       TBLPROPERTIES ('SORT_COLUMNS'='column1, column3')
+</code></pre>
 <h3>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 <pre><code>    CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
@@ -290,8 +296,25 @@ By default inverted index is enabled. The user can disable the inverted index cr
       STORED BY 'carbondata'
       TBLPROPERTIES ('DICTIONARY_EXCLUDE'='storeCity',
                      'DICTIONARY_INCLUDE'='productNumber',
-                     'NO_INVERTED_INDEX'='productBatch')
+                     'NO_INVERTED_INDEX'='productBatch',
+                     'SORT_COLUMNS'='productName,storeCity')
 </code></pre>
+<ul>
+<li><strong>SORT_COLUMNS</strong></li>
+</ul>
+<pre><code>This table property specifies the order of the sort column.
+</code></pre>
+<pre><code>    TBLPROPERTIES('SORT_COLUMNS'='column1, column3')
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>
+<p>If this property is not specified, then by default SORT_COLUMNS consist of all dimension (exclude Complex Column).</p>
+</li>
+<li>
+<p>If this property is specified but with empty argument, then the table will be loaded without sort. For example, ('SORT_COLUMNS'='')</p>
+</li>
+</ul>
 <h2>
 <a id="show-table" class="anchor" href="#show-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW TABLE</h2>
 <p>This command can be used to list all the tables in current database or all the tables of a specific database.</p>
