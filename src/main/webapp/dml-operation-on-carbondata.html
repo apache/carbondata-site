@@ -495,7 +495,7 @@ Using this segment ID, you can remove the segment.</p>
 <pre><code>SHOW SEGMENTS FOR Table [db_name.]table_name LIMIT number_of_segments
 </code></pre>
 <p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
-<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.ID IN (segment_id1, segments_id2, ....)
+<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.ID IN (segment_id1, segments_id2, ...)
 </code></pre>
 <h3>
 <a id="parameter-description-3" class="anchor" href="#parameter-description-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameter Description</h3>
@@ -578,12 +578,12 @@ WHERE SEGMENT.STARTTIME BEFORE DATE_VALUE
 <a id="syntax-2" class="anchor" href="#syntax-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
 <pre><code> UPDATE &lt;table_name&gt;
  SET (column_name1, column_name2, ... column_name n) =
- (column1_expression , column2_expression . .. column n_expression )
+ (column1_expression , column2_expression, ... column n_expression )
  [ WHERE { &lt;filter_condition&gt; } ];
 </code></pre>
 <p>alternatively the following the command can also be used for updating the CarbonData Table :</p>
 <pre><code>UPDATE &lt;table_name&gt;
-SET (column_name1, column_name2,) =
+SET (column_name1, column_name2) =
 (select sourceColumn1, sourceColumn2 from sourceTable
 [ WHERE { &lt;filter_condition&gt; } ] )
 [ WHERE { &lt;filter_condition&gt; } ];
@@ -692,7 +692,7 @@ WHERE column1 IN (SELECT column11 FROM sourceTable2);
 WHERE column1 IN (SELECT column11 FROM sourceTable2 WHERE
 column1 = 'USA');
 </code></pre>
-<pre><code>DELETE FROM columncarbonTable1 WHERE column2 &gt;= 4
+<pre><code>DELETE FROM columncarbonTable1 WHERE column2 &gt;= 4;
 </code></pre>
 <p><strong>The Status Success/Failure shall be captured in the driver log and the client.</strong></p>
 </div>

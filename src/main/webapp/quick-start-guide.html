@@ -224,7 +224,7 @@ import org.apache.spark.sql.CarbonSession._
 </code></pre>
 <h6>
 <a id="loading-data-to-a-table" class="anchor" href="#loading-data-to-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h6>
-<pre><code>scala&gt;carbon.sql("LOAD DATA INPATH 'sample.csv file path'
+<pre><code>scala&gt;carbon.sql("LOAD DATA INPATH '/path/to/sample.csv'
                   INTO TABLE test_table")
 </code></pre>
 <p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
@@ -243,8 +243,7 @@ scala&gt;carbon.sql("SELECT city, avg(age), sum(age)
 <p>Start Spark shell by running the following command in the Spark directory:</p>
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
-<p><strong>NOTE</strong>: Assembly jar will be available after [building CarbonData](<a href="https://github.com/apache/carbondata/" target=_blank>https://github.com/apache/carbondata/</a>
-blob/master/build/README.md) and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
+<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
 <p><strong>NOTE</strong>: In this shell, SparkContext is readily available as <code>sc</code>.</p>
 <ul>
 <li>In order to execute the Queries we need to import CarbonContext:</li>
@@ -279,7 +278,7 @@ blob/master/build/README.md) and can be copied from <code>./assembly/target/scal
 </code></pre>
 <p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
 <h6>
-<a id="query-data-from-a-table-1" class="anchor" href="#query-data-from-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h6>
+<a id="querying-data-from-a-table" class="anchor" href="#querying-data-from-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying Data from a Table</h6>
 <pre><code>scala&gt;cc.sql("SELECT * FROM test_table").show()
 scala&gt;cc.sql("SELECT city, avg(age), sum(age)
               FROM test_table

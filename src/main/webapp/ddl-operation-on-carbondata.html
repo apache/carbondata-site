@@ -210,27 +210,27 @@
 <tr>
 <td>db_name</td>
 <td>Name of the database. Database name should consist of alphanumeric characters and underscore(_) special character.</td>
-<td>Yes</td>
+<td>YES</td>
 </tr>
 <tr>
 <td>field_list</td>
 <td>Comma separated List of fields with data type. The field names should consist of alphanumeric characters and underscore(_) special character.</td>
-<td>No</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>table_name</td>
-<td>The name of the table in Database. Table Name should consist of alphanumeric characters and underscore(_) special character.</td>
-<td>No</td>
+<td>The name of the table in Database. Table name should consist of alphanumeric characters and underscore(_) special character.</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>STORED BY</td>
 <td>"org.apache.carbondata.format", identifies and creates a CarbonData table.</td>
-<td>No</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>TBLPROPERTIES</td>
 <td>List of CarbonData table properties.</td>
-<td></td>
+<td>YES</td>
 </tr>
 </tbody>
 </table>
@@ -334,7 +334,7 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <tr>
 <td>IN db_Name</td>
 <td>Name of the database. Required only if tables of this specific database are to be listed.</td>
-<td>Yes</td>
+<td>YES</td>
 </tr>
 </tbody>
 </table>
@@ -358,20 +358,24 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <tr>
 <th>Parameter</th>
 <th>Description</th>
+<th>Optional</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>db_Name</td>
 <td>Name of the database. If this parameter is left unspecified, the current database is selected.</td>
+<td>YES</td>
 </tr>
 <tr>
 <td>table_name</td>
 <td>Name of the existing table.</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>new_table_name</td>
 <td>New table name for the existing table.</td>
+<td>NO</td>
 </tr>
 </tbody>
 </table>
@@ -407,20 +411,24 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <tr>
 <th>Parameter</th>
 <th>Description</th>
+<th>Optional</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>db_Name</td>
 <td>Name of the database. If this parameter is left unspecified, the current database is selected.</td>
+<td>YES</td>
 </tr>
 <tr>
 <td>table_name</td>
 <td>Name of the existing table.</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>col_name data_type</td>
 <td>Name of comma-separated column with data type. Column names contain letters, digits, and underscores (_).</td>
+<td>NO</td>
 </tr>
 </tbody>
 </table>
@@ -464,20 +472,24 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <tr>
 <th>Parameter</th>
 <th>Description</th>
+<th>Optional</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>db_Name</td>
 <td>Name of the database. If this parameter is left unspecified, the current database is selected.</td>
+<td>YES</td>
 </tr>
 <tr>
 <td>table_name</td>
 <td>Name of the existing table.</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>col_name</td>
 <td>Name of comma-separated column with data type. Column names contain letters, digits, and underscores (_)</td>
+<td>NO</td>
 </tr>
 </tbody>
 </table>
@@ -504,9 +516,7 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <ul>
 <li><strong>To delete multiple columns:</strong></li>
 </ul>
-<pre><code>   ALTER TABLE carbon DROP COLUMNS (b1,c1);
-</code></pre>
-<pre><code>   ALTER TABLE carbon DROP COLUMNS (b1,c1);
+<pre><code>   ALTER TABLE carbon DROP COLUMNS (c1,d1);
 </code></pre>
 <h3>
 <a id="change-data-type" class="anchor" href="#change-data-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>CHANGE DATA TYPE</strong>
@@ -522,24 +532,29 @@ By default inverted index is enabled. The user can disable the inverted index cr
 <tr>
 <th>Parameter</th>
 <th>Description</th>
+<th>Optional</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>db_Name</td>
 <td>Name of the database. If this parameter is left unspecified, the current database is selected.</td>
+<td>YES</td>
 </tr>
 <tr>
 <td>table_name</td>
 <td>Name of the existing table.</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>col_name</td>
 <td>Name of comma-separated column with data type. Column names contain letters, digits, and underscores (_).</td>
+<td>NO</td>
 </tr>
 <tr>
 <td>changed_column_type</td>
 <td>The change in the data type.</td>
+<td>NO</td>
 </tr>
 </tbody>
 </table>
