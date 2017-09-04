@@ -108,10 +108,33 @@ left: auto; right: auto;}
 .cd-joinblock {
     background: #555;
     padding: 10px 0;
-    /*  border-bottom: 4px solid #444;    
+    /*  border-bottom: 4px solid #444;
     border-top: 4px solid #444;
     */
 }
+
+.cd-below-slider{
+    width: 100%;
+    height:42px;
+    background: url(../images/CDbannerSliderbg.jpg) no-repeat top center;
+    background-size: cover;
+    padding: 10px 0;
+    position: relative;
+}
+
+.text-rotate img.icon{ width: 24px; height: auto;}
+
+.text-rotate{padding:0 10px; font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #ff7f2b; white-space: nowrap}
+
+.text-rotate a {padding: 0 10px;color: #00a0d2;}
+.text-rotate a:hover{ color: #00a0d2; text-decoration: underline}
+
+.cd-shadow{ background:rgba(0,0,0,0.4); position: absolute; left: 0;top:0; width: 100%;
+    height:100%;}
+
 
 .cd-joinblock .title {
     font-size: 18px;
