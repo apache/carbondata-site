@@ -316,6 +316,12 @@
 <td>Specifies the HDFS path where bad records are stored. By default the value is Null. This path must to be configured by the user if bad record logger is enabled or bad record action redirect.</td>
 <td></td>
 </tr>
+<tr>
+<td>carbon.enable.vector.reader</td>
+<td>true</td>
+<td>This parameter increases the performance of select queries as it fetch columnar batch of size 4*1024 rows instead of fetching data row by row.</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -366,6 +372,12 @@
 <td>1</td>
 <td>This property specifies the threshold limit on number of DELETE delta files within a block of a segment. In case the number of delta files goes beyond the threshold, the DELETE delta files for the particular block of the segment becomes eligible for horizontal compaction and compacted into single DELETE delta file.</td>
 <td>Values between 1 to 10000.</td>
+</tr>
+<tr>
+<td>carbon.update.segment.parallelism</td>
+<td>1</td>
+<td>This property specifies the parallelism for each segment during update. If there are segments that contain too many records to update and the spark job encounter data-spill related errors, it is better to increase this property value. It is recommended to set this value to a multiple of the number of executors for balance.</td>
+<td>Values between 1 to 1000.</td>
 </tr>
 </tbody>
 </table>
