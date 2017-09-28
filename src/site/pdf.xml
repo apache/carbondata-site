@@ -15,6 +15,7 @@
     <item name="Data Management" ref='data-management.md'/>
       <item name="DDL" ref='ddl-operation-on-carbondata.md'/>
         <item name="DML" ref='dml-operation-on-carbondata.md '/>
+        <item name="Partition Table" ref='partition-guide.md '/>
         <item name="Installation" ref='installation-guide.md'/>
     <item name="Configuring CarbonData" ref='configuration-parameters.md'/>
     <item name="FAQs" ref='faq.md'/>

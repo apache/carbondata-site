@@ -166,232 +166,164 @@
                                 <div class="col-sm-12  col-md-12">
                                     <div>
 <h1>
-<a id="data-management" class="anchor" href="#data-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management</h1>
-<p>This tutorial is going to introduce you to the conceptual details of data management like:</p>
+<a id="carbondata-partition-table-guide" class="anchor" href="#carbondata-partition-table-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Partition Table Guide</h1>
+<p>This tutorial is designed to provide a quick introduction to create and use partition table in Apache CarbonData.</p>
 <ul>
-<li><a href="#loading-data">Loading Data</a></li>
-<li><a href="#deleting-data">Deleting Data</a></li>
-<li><a href="#compacting-data">Compacting Data</a></li>
-<li><a href="#updating-data">Updating Data</a></li>
+<li>
+<a href="#create-partition-table">Create Partition Table</a>
+<ul>
+<li><a href="#create-hash-partition-table">Create Hash Partition Table</a></li>
+<li><a href="#create-range-partition-table">Create Range Partition Table</a></li>
+<li><a href="#create-list-partition-table">Create List Partition Table</a></li>
+</ul>
+</li>
+<li><a href="#show-partitions">Show Partitions</a></li>
+<li><a href="#maintaining-the-partitions">Maintaining the Partitions</a></li>
+<li><a href="#partition-id">Partition Id</a></li>
+<li><a href="#useful-tips">Useful Tips</a></li>
 </ul>
 <h2>
-<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data</h2>
-<ul>
-<li>
-<p><strong>Scenario</strong></p>
-<p>After creating a table, you can load data to the table using the <a href="dml-operation-on-carbondata.html">LOAD DATA</a> command. The loaded data is available for querying.
-When data load is triggered, the data is encoded in CarbonData format and copied into HDFS CarbonData store path (specified in carbon.properties file)
-in compressed, multi dimensional columnar format for quick analysis queries. The same command can be used to load new data or to
-update the existing data. Only one data load can be triggered for one table. The high cardinality columns of the dictionary encoding are
-automatically recognized and these columns will not be used for dictionary encoding.</p>
-</li>
-<li>
-<p><strong>Procedure</strong></p>
-<p>Data loading is a process that involves execution of multiple steps to read, sort and encode the data in CarbonData store format.
-Each step is executed on different threads. After data loading process is complete, the status (success/partial success) is updated to
-CarbonData store metadata. The table below lists the possible load status.</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Success</td>
-<td>All the data is loaded into table and no bad records found.</td>
-</tr>
-<tr>
-<td>Partial Success</td>
-<td>Data is loaded into table and bad records are found. Bad records are stored at carbon.badrecords.location.</td>
-</tr>
-</tbody>
-</table>
-<p>In case of failure, the error will be logged in error log. Details of loads can be seen with <a href="dml-operation-on-carbondata.html#show-segments">SHOW SEGMENTS</a> command. The show segment command output consists of :</p>
-<ul>
-<li>SegmentSequenceId</li>
-<li>Status</li>
-<li>Load Start Time</li>
-<li>Load End Time</li>
-</ul>
-<p>The latest load will be displayed first in the output.</p>
-<p>Refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a> for load commands.</p>
-<h2>
-<a id="deleting-data" class="anchor" href="#deleting-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deleting Data</h2>
-<ul>
-<li>
-<p><strong>Scenario</strong></p>
-<p>If you have loaded wrong data into the table, or too many bad records are present and you want to modify and reload the data, you can delete required data loads.
-The load can be deleted using the Segment Sequence Id or if the table contains date field then the data can be deleted using the date field.
-If there are some specific records that need to be deleted based on some filter condition(s) we can delete by records.</p>
-</li>
-<li>
-<p><strong>Procedure</strong></p>
-<p>The loaded data can be deleted in the following ways:</p>
-<ul>
-<li>
-<p>Delete by Segment ID</p>
-<p>After you get the segment ID of the segment that you want to delete, execute the delete command for the selected segment.
-The status of deleted segment is updated to Marked for delete / Marked for Update.</p>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>SegmentSequenceId</th>
-<th>Status</th>
-<th>Load Start Time</th>
-<th>Load End Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Success</td>
-<td>2015-11-19 19:14:...</td>
-<td>2015-11-19 19:14:...</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Marked for Update</td>
-<td>2015-11-19 19:54:...</td>
-<td>2015-11-19 20:08:...</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Marked for Delete</td>
-<td>2015-11-19 20:25:...</td>
-<td>2015-11-19 20:49:...</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>
-<p>Delete by Date Field</p>
-<p>If the table contains date field, you can delete the data based on a specific date.</p>
-</li>
-<li>
-<p>Delete by Record</p>
-<p>To delete records from CarbonData table based on some filter Condition(s).</p>
-<p>For delete commands refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a>.</p>
-</li>
-<li>
-<p><strong>NOTE</strong>:</p>
-<ul>
-<li>
-<p>When the delete segment DML is called, segment will not be deleted physically from the file system. Instead the segment status will be marked as "Marked for Delete". For the query execution, this deleted segment will be excluded.</p>
-</li>
-<li>
-<p>The deleted segment will be deleted physically during the next load operation and only after the maximum query execution time configured using "max.query.execution.time". By default it is 60 minutes.</p>
-</li>
-<li>
-<p>If the user wants to force delete the segment physically then he can use CLEAN FILES Command.</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>Example :</p>
-<pre><code>CLEAN FILES FOR TABLE table1
+<a id="create-partition-table" class="anchor" href="#create-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Partition Table</h2>
+<h3>
+<a id="create-hash-partition-table" class="anchor" href="#create-hash-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Hash Partition Table</h3>
+<pre><code>   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                    [(col_name data_type , ...)]
+   PARTITIONED BY (partition_col_name data_type)
+   STORED BY 'carbondata'
+   [TBLPROPERTIES ('PARTITION_TYPE'='HASH',
+                   'PARTITION_NUM'='N' ...)]
+   //N is the number of hash partitions
 </code></pre>
-<p>This DML will physically delete the segment which are "Marked for delete" and "Compacted" immediately.</p>
+<p>Example:</p>
+<pre><code>   create table if not exists hash_partition_table(
+      col_A String,
+      col_B Int,
+      col_C Long,
+      col_D Decimal(10,2),
+      col_F Timestamp
+   ) partitioned by (col_E Long)
+   stored by 'carbondata'
+   tblproperties('partition_type'='Hash','partition_num'='9')
+</code></pre>
+<h3>
+<a id="create-range-partition-table" class="anchor" href="#create-range-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Range Partition Table</h3>
+<pre><code>   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                    [(col_name data_type , ...)]
+   PARTITIONED BY (partition_col_name data_type)
+   STORED BY 'carbondata'
+   [TBLPROPERTIES ('PARTITION_TYPE'='RANGE',
+                   'RANGE_INFO'='2014-01-01, 2015-01-01, 2016-01-01' ...)]
+</code></pre>
+<p><strong>Note:</strong></p>
+<ul>
+<li>
+<p>The 'RANGE_INFO' must be defined in ascending order in the table properties.</p>
+</li>
+<li>
+<p>The default format for partition column of Date/Timestamp type is yyyy-MM-dd. Alternate formats for Date/Timestamp could be defined in CarbonProperties.</p>
+</li>
+</ul>
+<p>Example:</p>
+<pre><code>   create table if not exists hash_partition_table(
+      col_A String,
+      col_B Int,
+      col_C Long,
+      col_D Decimal(10,2),
+      col_E Long
+   ) partitioned by (col_F Timestamp)
+   stored by 'carbondata'
+   tblproperties('partition_type'='Range',
+   'range_info'='2015-01-01, 2016-01-01, 2017-01-01, 2017-02-01')
+</code></pre>
+<h3>
+<a id="create-list-partition-table" class="anchor" href="#create-list-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create List Partition Table</h3>
+<pre><code>   CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                    [(col_name data_type , ...)]
+   PARTITIONED BY (partition_col_name data_type)
+   STORED BY 'carbondata'
+   [TBLPROPERTIES ('PARTITION_TYPE'='LIST',
+                   'LIST_INFO'='A, B, C' ...)]
+</code></pre>
+<p><strong>Note :</strong></p>
+<ul>
+<li>List partition supports list info in one level group.</li>
+</ul>
+<p>Example:</p>
+<pre><code>   create table if not exists hash_partition_table(
+      col_B Int,
+      col_C Long,
+      col_D Decimal(10,2),
+      col_E Long,
+      col_F Timestamp
+   ) partitioned by (col_A String)
+   stored by 'carbondata'
+   tblproperties('partition_type'='List',
+   'list_info'='aaaa, bbbb, (cccc, dddd), eeee')
+</code></pre>
 <h2>
-<a id="compacting-data" class="anchor" href="#compacting-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting Data</h2>
-<ul>
-<li>
-<p><strong>Scenario</strong></p>
-<p>Frequent data ingestion results in several fragmented CarbonData files in the store directory. Since data is sorted only within each load, the indices perform only within each
-load. This means that there will be one index for each load and as number of data load increases, the number of indices also increases. As each index works only on one load,
-the performance of indices is reduced. CarbonData provides provision for compacting the loads. Compaction process combines several segments into one large segment by merge sorting the data from across the segments.</p>
-</li>
-<li>
-<p><strong>Procedure</strong></p>
-<p>There are two types of compaction Minor and Major compaction.</p>
-<ul>
-<li>
-<p><strong>Minor Compaction</strong></p>
-<p>In minor compaction the user can specify how many loads to be merged. Minor compaction triggers for every data load if the parameter carbon.enable.auto.load.merge is set. If any segments are available to be merged, then compaction will
-run parallel with data load. There are 2 levels in minor compaction.</p>
-<ul>
-<li>Level 1: Merging of the segments which are not yet compacted.</li>
-<li>Level 2: Merging of the compacted segments again to form a bigger segment.</li>
-</ul>
-</li>
-<li>
-<p><strong>Major Compaction</strong></p>
-<p>In Major compaction, many segments can be merged into one big segment. User will specify the compaction size until which segments can be merged. Major compaction is usually done during the off-peak time.</p>
-</li>
-</ul>
-<p>There are number of parameters related to Compaction that can be set in carbon.properties file</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Application</th>
-<th>Description</th>
-<th>Valid Values</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>carbon.compaction.level.threshold</td>
-<td>4, 3</td>
-<td>Minor</td>
-<td>This property is for minor compaction which decides how many segments to be merged. Example: If it is set as "2, 3", then minor compaction will be triggered for every 2 segments in level 1. 3 is the number of level 1 compacted segment which is further compacted to new segment in level 2.</td>
-<td>NA</td>
-</tr>
-<tr>
-<td>carbon.major.compaction.size</td>
-<td>1024 MB</td>
-<td>Major</td>
-<td>Major compaction size can be configured using this parameter. Sum of the segments which is below this threshold will be merged.</td>
-<td>NA</td>
-</tr>
-<tr>
-<td>carbon.numberof.preserve.segments</td>
-<td>0</td>
-<td>Minor/Major</td>
-<td>This property configures number of segments to preserve from being compacted. Example: carbon.numberof.preserve.segments=2 then 2 latest segments will always be excluded from the compaction. No segments will be preserved by default.</td>
-<td>0-100</td>
-</tr>
-<tr>
-<td>carbon.allowed.compaction.days</td>
-<td>0</td>
-<td>Minor/Major</td>
-<td>Compaction will merge the segments which are loaded within the specific number of days configured. Example: If the configuration is 2, then the segments which are loaded in the time frame of 2 days only will get merged. Segments which are loaded 2 days apart will not be merged. This is disabled by default.</td>
-<td>0-100</td>
-</tr>
-<tr>
-<td>carbon.number.of.cores.while.compacting</td>
-<td>2</td>
-<td>Minor/Major</td>
-<td>Number of cores which is used to write data during compaction.</td>
-<td>0-100</td>
-</tr>
-</tbody>
-</table>
-<p>For compaction commands refer to <a href="ddl-operation-on-carbondata.html">DDL operations on CarbonData</a></p>
+<a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h2>
+<p>The following command is executed to get the partition information of the table</p>
+<pre><code>   SHOW PARTITIONS [db_name.]table_name
+</code></pre>
 <h2>
-<a id="updating-data" class="anchor" href="#updating-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Updating Data</h2>
+<a id="maintaining-the-partitions" class="anchor" href="#maintaining-the-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Maintaining the Partitions</h2>
+<h3>
+<a id="add-a-new-partition" class="anchor" href="#add-a-new-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a new partition</h3>
+<pre><code>   ALTER TABLE [db_name].table_name ADD PARTITION('new_partition')
+</code></pre>
+<h3>
+<a id="split-a-partition" class="anchor" href="#split-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Split a partition</h3>
+<pre><code>   ALTER TABLE [db_name].table_name SPLIT PARTITION(partition_id)
+   INTO('new_partition1', 'new_partition2'...)
+</code></pre>
+<h3>
+<a id="drop-a-partition" class="anchor" href="#drop-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop a partition</h3>
+<pre><code>   //Drop partition definition only and keep data
+   ALTER TABLE [db_name].table_name DROP PARTITION(partition_id)
+
+   //Drop both partition definition and data
+   ALTER TABLE [db_name].table_name DROP PARTITION(partition_id) WITH DATA
+</code></pre>
+<p><strong>Note</strong>:</p>
 <ul>
 <li>
-<p><strong>Scenario</strong></p>
-<p>Sometimes after the data has been ingested into the System, it is required to be updated. Also there may be situations where some specific columns need to be updated
-on the basis of column expression and optional filter conditions.</p>
+<p>In the first case where the data in the table is preserved there can be multiple scenarios as described below :</p>
+<ul>
+<li>
+<p>if the table is a range partition table, data will be merged into the next partition, and if the dropped partition is the last partition, then data will be merged into the default partition.</p>
 </li>
 <li>
-<p><strong>Procedure</strong></p>
-<p>To update we need to specify the column expression with an optional filter condition(s).</p>
-<p>For update commands refer to <a href="dml-operation-on-carbondata.html">DML operations on CarbonData</a>.</p>
+<p>if the table is a list partition table, data will be merged into default partition.</p>
 </li>
 </ul>
+</li>
+<li>
+<p>Dropping the default partition is not allowed, but DELETE statement can be used to delete data in default partition.</p>
+</li>
+<li>
+<p>The partition_id could be fetched using the <a href="#show-partitions">SHOW PARTITIONS</a> command.</p>
+</li>
+<li>
+<p>Hash partition table is not supported for ADD, SPLIT and DROP commands.</p>
+</li>
+</ul>
+<h2>
+<a id="partition-id" class="anchor" href="#partition-id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Partition Id</h2>
+<p>In CarbonData like the hive, folders are not used to divide partitions instead partition id is used to replace the task id. It could make use of the characteristic and meanwhile reduce some metadata.</p>
+<pre><code>SegmentDir/0_batchno0-0-1502703086921.carbonindex
+           ^
+SegmentDir/part-0-0_batchno0-0-1502703086921.carbondata
+                  ^
+</code></pre>
+<h2>
+<a id="useful-tips" class="anchor" href="#useful-tips" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Useful Tips</h2>
+<p>Here are some useful tips to improve query performance of carbonData partition table:</p>
+<p><strong>Prior analysis of proper partition column</strong></p>
+<p>The distribution of data based on some random column could be skewed, building a skewed partition table is meaningless. Some basic statistical analysis before the creation of partition table can avoid an extremely skewed column.</p>
+<p><strong>Exclude partition column from sort columns</strong></p>
+<p>If you have many dimensions, that need to be sorted then one must exclude column present in the partition from sort columns, this will allow another dimension to do the efficient sorting.</p>
+<p><strong>Remember to add filter on partition column when writing SQL</strong></p>
+<p>When writing SQL on a partition table, try to use filters on the partition column.</p>
 </div>
 </div>
 </div>
