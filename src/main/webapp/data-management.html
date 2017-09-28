@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.2.0/"
+                                   target="_blank">Apache CarbonData 1.2.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
                                    target="_blank">Apache CarbonData 1.1.1</a></li>
                             <li>
@@ -298,7 +301,7 @@ The status of deleted segment is updated to Marked for delete / Marked for Updat
 <p>Example :</p>
 <pre><code>CLEAN FILES FOR TABLE table1
 </code></pre>
-<p>This DML will physically delete the segment which are "Marked for delete" immediately.</p>
+<p>This DML will physically delete the segment which are "Marked for delete" and "Compacted" immediately.</p>
 <h2>
 <a id="compacting-data" class="anchor" href="#compacting-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting Data</h2>
 <ul>
@@ -344,7 +347,7 @@ run parallel with data load. There are 2 levels in minor compaction.</p>
 <td>carbon.compaction.level.threshold</td>
 <td>4, 3</td>
 <td>Minor</td>
-<td>This property is for minor compaction which decides how many segments to be merged. Example: If it is set as 2, 3 then minor compaction will be triggered for every 2 segments. 3 is the number of level 1 compacted segment which is further compacted to new segment.</td>
+<td>This property is for minor compaction which decides how many segments to be merged. Example: If it is set as "2, 3", then minor compaction will be triggered for every 2 segments in level 1. 3 is the number of level 1 compacted segment which is further compacted to new segment in level 2.</td>
 <td>NA</td>
 </tr>
 <tr>

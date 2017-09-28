@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.2.0/"
+                                   target="_blank">Apache CarbonData 1.2.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
                                    target="_blank">Apache CarbonData 1.1.1</a></li>
                             <li>
@@ -432,10 +435,11 @@ hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 <h3>
 <a id="connecting-to-carbondata-thrift-server-using-beeline" class="anchor" href="#connecting-to-carbondata-thrift-server-using-beeline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting to CarbonData Thrift Server Using Beeline.</h3>
 <pre><code>     cd $SPARK_HOME
-     ./bin/beeline jdbc:hive2://&lt;thriftserver_host&gt;:port
+     ./sbin/start-thriftserver.sh
+     ./bin/beeline -u jdbc:hive2://&lt;thriftserver_host&gt;:port
 
      Example
-     ./bin/beeline jdbc:hive2://10.10.10.10:10000
+     ./bin/beeline -u jdbc:hive2://10.10.10.10:10000
 </code></pre>
 </div>
 </div>
