@@ -173,6 +173,24 @@
 <p>This tutorial is designed to provide troubleshooting for end users and developers
 who are building, deploying, and using CarbonData.</p>
 <h2>
+<a id="when-loading-data-gets-tablestatuslock-issues" class="anchor" href="#when-loading-data-gets-tablestatuslock-issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>When loading data, gets tablestatus.lock issues:</h2>
+<p><strong>Symptom</strong></p>
+<pre><code>17/11/11 16:48:13 ERROR LocalFileLock: main hdfs:/localhost:9000/carbon/store/default/hdfstable/tablestatus.lock (No such file or directory)
+java.io.FileNotFoundException: hdfs:/localhost:9000/carbon/store/default/hdfstable/tablestatus.lock (No such file or directory)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:213)
+	at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:101)
+</code></pre>
+<p><strong>Possible Cause</strong>
+If you use  as store path when creating carbonsession, may get the errors,because the default is LOCALLOCK.</p>
+<p><strong>Procedure</strong>
+Before creating carbonsession, sets as below:</p>
+<pre><code>import org.apache.carbondata.core.util.CarbonProperties
+import org.apache.carbondata.core.constants.CarbonCommonConstants
+CarbonProperties.getInstance().addProperty(CarbonCommonConstants.LOCK_TYPE, "HDFSLOCK")
+</code></pre>
+<h2>
 <a id="failed-to-load-thrift-libraries" class="anchor" href="#failed-to-load-thrift-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to load thrift libraries</h2>
 <p><strong>Symptom</strong></p>
 <p>Thrift throws following exception :</p>
@@ -182,7 +200,7 @@ libthriftc.so.0: cannot open shared object file: No such file or directory
 <p><strong>Possible Cause</strong></p>
 <p>The complete path to the directory containing the libraries is not configured correctly.</p>
 <p><strong>Procedure</strong></p>
-<p>Follow the Apache thrift docs at <a href="https://thrift.apache.org/docs/install" target=_blank>https://thrift.apache.org/docs/install</a> to install thrift correctly.</p>
+<p>Follow the Apache thrift docs at <a href="https://thrift.apache.org/docs/install" target=_blank rel="nofollow">https://thrift.apache.org/docs/install</a> to install thrift correctly.</p>
 <h2>
 <a id="failed-to-launch-the-spark-shell" class="anchor" href="#failed-to-launch-the-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to launch the Spark Shell</h2>
 <p><strong>Symptom</strong></p>

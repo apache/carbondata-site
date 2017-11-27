@@ -191,7 +191,7 @@ EOF
 </ul>
 <h2>
 <a id="interactive-analysis-with-spark-shell-version-21" class="anchor" href="#interactive-analysis-with-spark-shell-version-21" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Analysis with Spark Shell Version 2.1</h2>
-<p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank>Apache Spark Documentation</a> for more details on Spark shell.</p>
+<p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">Apache Spark Documentation</a> for more details on Spark shell.</p>
 <h4>
 <a id="basics" class="anchor" href="#basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basics</h4>
 <p>Start Spark shell by running the following command in the Spark directory:</p>
@@ -230,7 +230,8 @@ import org.apache.spark.sql.CarbonSession._
 <pre><code>scala&gt;carbon.sql("LOAD DATA INPATH '/path/to/sample.csv'
                   INTO TABLE test_table")
 </code></pre>
-<p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
+<p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.
+If you get "tablestatus.lock" issue, please refer to <a href="troubleshooting.html">troubleshooting</a></p>
 <h6>
 <a id="query-data-from-a-table" class="anchor" href="#query-data-from-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h6>
 <pre><code>scala&gt;carbon.sql("SELECT * FROM test_table").show()
@@ -238,54 +239,6 @@ import org.apache.spark.sql.CarbonSession._
 scala&gt;carbon.sql("SELECT city, avg(age), sum(age)
                   FROM test_table
                   GROUP BY city").show()
-</code></pre>
-<h2>
-<a id="interactive-analysis-with-spark-shell-version-16" class="anchor" href="#interactive-analysis-with-spark-shell-version-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Analysis with Spark Shell Version 1.6</h2>
-<h4>
-<a id="basics-1" class="anchor" href="#basics-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basics</h4>
-<p>Start Spark shell by running the following command in the Spark directory:</p>
-<pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
-</code></pre>
-<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
-<p><strong>NOTE</strong>: In this shell, SparkContext is readily available as <code>sc</code>.</p>
-<ul>
-<li>In order to execute the Queries we need to import CarbonContext:</li>
-</ul>
-<pre><code>import org.apache.spark.sql.CarbonContext
-</code></pre>
-<ul>
-<li>Create an instance of CarbonContext in the following manner :</li>
-</ul>
-<pre><code>val cc = new CarbonContext(sc, "&lt;hdfs store path&gt;")
-</code></pre>
-<p><strong>NOTE</strong>: If running on local machine without hdfs, configure the local machine's store path instead of hdfs store path</p>
-<h4>
-<a id="executing-queries-1" class="anchor" href="#executing-queries-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Queries</h4>
-<h6>
-<a id="creating-a-table-1" class="anchor" href="#creating-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Table</h6>
-<pre><code>scala&gt;cc.sql("CREATE TABLE
-              IF NOT EXISTS test_table (
-                         id string,
-                         name string,
-                         city string,
-                         age Int)
-              STORED BY 'carbondata'")
-</code></pre>
-<p>To see the table created :</p>
-<pre><code>scala&gt;cc.sql("SHOW TABLES").show()
-</code></pre>
-<h6>
-<a id="loading-data-to-a-table-1" class="anchor" href="#loading-data-to-a-table-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h6>
-<pre><code>scala&gt;cc.sql("LOAD DATA INPATH 'sample.csv file path'
-              INTO TABLE test_table")
-</code></pre>
-<p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.</p>
-<h6>
-<a id="querying-data-from-a-table" class="anchor" href="#querying-data-from-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying Data from a Table</h6>
-<pre><code>scala&gt;cc.sql("SELECT * FROM test_table").show()
-scala&gt;cc.sql("SELECT city, avg(age), sum(age)
-              FROM test_table
-              GROUP BY city").show()
 </code></pre>
 </div>
 </div>

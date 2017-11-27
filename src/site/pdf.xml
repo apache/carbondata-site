@@ -10,13 +10,10 @@
 
   <toc name="Table of Contents">
      <item name="Quick Start" ref='quick-start-guide.md'/>
-   <item name="CarbonData File Structure" ref='file-structure-of-carbondata.md'/>
+   <item name="Data Management on CarbonData" ref='data-management-on-carbondata.md'/>
     <item name="Data Types" ref='supported-data-types-in-carbondata.md'/>
-    <item name="Data Management" ref='data-management.md'/>
-      <item name="DDL" ref='ddl-operation-on-carbondata.md'/>
-        <item name="DML" ref='dml-operation-on-carbondata.md '/>
-        <item name="Partition Table" ref='partition-guide.md '/>
-        <item name="Installation" ref='installation-guide.md'/>
+      <item name="CarbonData File Structure" ref='file-structure-of-carbondata.md'/>
+      <item name="Installation" ref='installation-guide.md'/>
     <item name="Configuring CarbonData" ref='configuration-parameters.md'/>
     <item name="FAQs" ref='faq.md'/>
     <item name="Troubleshooting" ref='troubleshooting.md'/>

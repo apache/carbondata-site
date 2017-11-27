@@ -179,11 +179,11 @@ The following sections will elaborate on the above topics :</p>
 </ul>
 <h2>
 <a id="suggestions-to-create-carbondata-table" class="anchor" href="#suggestions-to-create-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Suggestions to Create CarbonData Table</h2>
-<p>Recently CarbonData was used to analyze performance of Telecommunication field.
-The results of the analysis for table creation with dimensions ranging from
-10 thousand to 10 billion rows and 100 to 300 columns have been summarized below.</p>
-<p>The following table describes some of the columns from the table used.</p>
-<p><strong>Table Column Description</strong></p>
+<p>For example, the results of the analysis for table creation with dimensions ranging from 10 thousand to 10 billion rows and 100 to 300 columns have been summarized below.
+The following table describes some of the columns from the table used.</p>
+<ul>
+<li><strong>Table Column Description</strong></li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -220,6 +220,12 @@ The results of the analysis for table creation with dimensions ranging from
 </tr>
 <tr>
 <td>counter_1</td>
+<td>Decimal</td>
+<td>NA</td>
+<td>Measure</td>
+</tr>
+<tr>
+<td>counter_2</td>
 <td>Numeric(20,0)</td>
 <td>NA</td>
 <td>Measure</td>
@@ -232,140 +238,85 @@ The results of the analysis for table creation with dimensions ranging from
 </tr>
 <tr>
 <td>counter_100</td>
-<td>Numeric(20,0)</td>
+<td>Decimal</td>
 <td>NA</td>
 <td>Measure</td>
 </tr>
 </tbody>
 </table>
-<p>CarbonData has more than 50 test cases, on the basis of these we have following suggestions to enhance the query performance :</p>
 <ul>
-<li>
-<p><strong>Put the frequently-used column filter in the beginning</strong></p>
+<li><strong>Put the frequently-used column filter in the beginning</strong></li>
+</ul>
 <p>For example, MSISDN filter is used in most of the query then we must put the MSISDN in the first column.
 The create table command can be modified as suggested below :</p>
-</li>
-</ul>
-<pre><code>  create table carbondata_table(
+<pre><code>create table carbondata_table(
   msisdn String,
+  BEGIN_TIME bigint,
+  HOST String,
+  Dime_1 String,
+  counter_1, Decimal
   ...
-  )STORED BY 'org.apache.carbondata.format'
-  TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,..',
-  'DICTIONARY_INCLUDE'='...');
-
-  Example:
-  create table carbondata_table(
-    msisdn String,
-    BEGIN_TIME bigint
-    )STORED BY 'org.apache.carbondata.format'
-    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN',
-    'DICTIONARY_INCLUDE'='BEGIN_TIME');
-
+  
+  )STORED BY 'carbondata'
+  TBLPROPERTIES ('SORT_COLUMNS'='msisdn, Dime_1')
 </code></pre>
 <p>Now the query with MSISDN in the filter will be more efficient.</p>
 <ul>
-<li>
-<p><strong>Put the frequently-used columns in the order of low to high cardinality</strong></p>
+<li><strong>Put the frequently-used columns in the order of low to high cardinality</strong></li>
+</ul>
 <p>If the table in the specified query has multiple columns which are frequently used to filter the results, it is suggested to put
 the columns in the order of cardinality low to high. This ordering of frequently used columns improves the compression ratio and
 enhances the performance of queries with filter on these columns.</p>
-<p>For example if MSISDN, HOST and Dime_1 are frequently-used columns, then the column order of table is suggested as
-Dime_1&gt;HOST&gt;MSISDN as Dime_1 has the lowest cardinality.
+<p>For example, if MSISDN, HOST and Dime_1 are frequently-used columns, then the column order of table is suggested as
+Dime_1&gt;HOST&gt;MSISDN, because Dime_1 has the lowest cardinality.
 The create table command can be modified as suggested below :</p>
-</li>
-</ul>
-<pre><code>  create table carbondata_table(
-  Dime_1 String,
-  HOST String,
-  MSISDN String,
-  ...
-  )STORED BY 'org.apache.carbondata.format'
-  TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST..',
-  'DICTIONARY_INCLUDE'='Dime_1..');
-
-  Example:
-  create table carbondata_table(
-    Dime_1 String,
-    HOST String,
-    MSISDN String
-    )STORED BY 'org.apache.carbondata.format'
-    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST',
-    'DICTIONARY_INCLUDE'='Dime_1');
-
-
-</code></pre>
-<ul>
-<li>
-<p><strong>Put the Dimension type columns in order of low to high cardinality</strong></p>
-<p>If the columns used to filter are not frequently used, then it is suggested to order all the columns of dimension type in order of low to high cardinality.
-The create table command can be modified as below :</p>
-</li>
-</ul>
-<pre><code>  create table carbondata_table(
-    Dime_1 String,
+<pre><code>create table carbondata_table(
+    msisdn String,
     BEGIN_TIME bigint,
-    END_TIME bigint,
     HOST String,
-    MSISDN String
+    Dime_1 String,
+    counter_1, Decimal
     ...
-    )STORED BY 'org.apache.carbondata.format'
-    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST...',
-    'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME...');
+    
+    )STORED BY 'carbondata'
+    TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
 <ul>
-<li>
-<p><strong>For measure type columns with non high accuracy, replace Numeric(20,0) data type with Double data type</strong></p>
-<p>For columns of measure type, not requiring high accuracy, it is suggested to replace Numeric data type with Double to enhance
-query performance. The create table command can be modified as below :</p>
-</li>
+<li><strong>For measure type columns with non high accuracy, replace Numeric(20,0) data type with Double data type</strong></li>
 </ul>
+<p>For columns of measure type, not requiring high accuracy, it is suggested to replace Numeric data type with Double to enhance query performance.
+The create table command can be modified as below :</p>
 <pre><code>  create table carbondata_table(
     Dime_1 String,
     BEGIN_TIME bigint,
     END_TIME bigint,
     HOST String,
     MSISDN String,
-    counter_1 double,
+    counter_1 decimal,
     counter_2 double,
     ...
-    counter_100 double
-    )STORED BY 'org.apache.carbondata.format'
-    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST...',
-    'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME...');
+    )STORED BY 'carbondata'
+    TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
 <p>The result of performance analysis of test-case shows reduction in query execution time from 15 to 3 seconds, thereby improving performance by nearly 5 times.</p>
 <ul>
-<li>
-<p><strong>Columns of incremental character should be re-arranged at the end of dimensions</strong></p>
-<p>Consider the following scenario where data is loaded each day and the begin_time is incremental for each load, it is
-suggested to put begin_time at the end of dimensions.</p>
-<p>Incremental values are efficient in using min/max index. The create table command can be modified as below :</p>
-</li>
+<li><strong>Columns of incremental character should be re-arranged at the end of dimensions</strong></li>
 </ul>
-<pre><code>  create table carbondata_table(
-    Dime_1 String,
-    HOST String,
-    MSISDN String,
-    counter_1 double,
-    counter_2 double,
-    BEGIN_TIME bigint,
-    END_TIME bigint,
-    ...
-    counter_100 double
-    )STORED BY 'org.apache.carbondata.format'
-    TBLPROPERTIES ( 'DICTIONARY_EXCLUDE'='MSISDN,HOST...',
-    'DICTIONARY_INCLUDE'='Dime_1,END_TIME,BEGIN_TIME....');
+<p>Consider the following scenario where data is loaded each day and the begin_time is incremental for each load, it is suggested to put begin_time at the end of dimensions.
+Incremental values are efficient in using min/max index. The create table command can be modified as below :</p>
+<pre><code>create table carbondata_table(
+  Dime_1 String,
+  HOST String,
+  MSISDN String,
+  counter_1 double,
+  counter_2 double,
+  BEGIN_TIME bigint,
+  END_TIME bigint,
+  ...
+  counter_100 double
+  )STORED BY 'carbondata'
+  TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
-<ul>
-<li>
-<p><strong>Avoid adding high cardinality columns to dictionary</strong></p>
-<p>If the system has low memory configuration, then it is suggested to exclude high cardinality columns from the dictionary to
-enhance load performance. Creation of  dictionary for high cardinality columns at time of load will degrade load performance due to
-excessive memory usage.</p>
-<p>By default CarbonData determines the cardinality at the first data load and allows for dictionary creation only if the cardinality is less than
-1 million.</p>
-</li>
-</ul>
 <h2>
 <a id="configuration-for-optimizing-data-loading-performance-for-massive-data" class="anchor" href="#configuration-for-optimizing-data-loading-performance-for-massive-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration for Optimizing Data Loading performance for Massive Data</h2>
 <p>CarbonData supports large data load, in this process sorting data while loading consumes a lot of memory and disk IO and
@@ -413,7 +364,7 @@ You can configure CarbonData by tuning following properties in carbon.properties
 </tr>
 </tbody>
 </table>
-<p>For example, if there are  10 million records ,and i have only 16 cores ,64GB memory, will be loaded to CarbonData table.
+<p>For example, if there are 10 million records, and i have only 16 cores, 64GB memory, will be loaded to CarbonData table.
 Using the default configuration  always fail in sort step. Modify carbon.properties as suggested below:</p>
 <pre><code>carbon.number.of.cores.block.sort=1
 carbon.merge.sort.reader.thread=1
