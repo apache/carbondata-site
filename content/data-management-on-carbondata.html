@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.2.0/"
+                                   target="_blank">Apache CarbonData 1.2.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
+                                   target="_blank">Apache CarbonData 1.1.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.0/"
+                                   target="_blank">Apache CarbonData 1.1.0</a></li>
+                            <li>
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/1.0.0-incubating/"
+                                   target="_blank">Apache CarbonData 1.0.0</a></li>
+                            <li>
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.2.0-incubating/"
+                                   target="_blank">Apache CarbonData 0.2.0</a></li>
+                            <li>
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.1-incubating/"
+                                   target="_blank">Apache CarbonData 0.1.1</a></li>
+                            <li>
+                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.0-incubating/"
+                                   target="_blank">Apache CarbonData 0.1.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mainpage.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="row">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="data-management-on-carbondata" class="anchor" href="#data-management-on-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management on CarbonData</h1>
+<p>This tutorial is going to introduce all commands and data operations on CarbonData.</p>
+<ul>
+<li><a href="#create-table">CREATE TABLE</a></li>
+<li><a href="#table-management">TABLE MANAGEMENT</a></li>
+<li><a href="#load-data">LOAD DATA</a></li>
+<li><a href="#update-and-delete">UPDATE AND DELETE</a></li>
+<li><a href="#compaction">COMPACTION</a></li>
+<li><a href="#partition">PARTITION</a></li>
+<li><a href="#bucketing">BUCKETING</a></li>
+<li><a href="#segment-management">SEGMENT MANAGEMENT</a></li>
+</ul>
+<h2>
+<a id="create-table" class="anchor" href="#create-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE</h2>
+<p>This command can be used to create a CarbonData table by specifying the list of fields along with the table properties.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name[(col_name data_type , ...)]
+STORED BY 'carbondata'
+[TBLPROPERTIES (property_name=property_value, ...)]
+</code></pre>
+<h3>
+<a id="usage-guidelines" class="anchor" href="#usage-guidelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
+<p>Following are the guidelines for TBLPROPERTIES, CarbonData's additional table options can be set via carbon.properties.</p>
+<ul>
+<li>
+<p><strong>Dictionary Encoding Configuration</strong></p>
+<p>Dictionary encoding is turned off for all columns by default from 1.3 onwards, you can use this command for including columns to do dictionary encoding.
+Suggested use cases : do dictionary encoding for low cardinality columns, it might help to improve data compression ratio and performance.</p>
+<pre><code>TBLPROPERTIES ('DICTIONARY_INCLUDE'='column1, column2')
+</code></pre>
+</li>
+<li>
+<p><strong>Inverted Index Configuration</strong></p>
+<p>By default inverted index is enabled, it might help to improve compression ratio and query speed, especially for low cardinality columns which are in reward position.
+Suggested use cases : For high cardinality columns, you can disable the inverted index for improving the data loading performance.</p>
+<pre><code>TBLPROPERTIES ('NO_INVERTED_INDEX'='column1, column3')
+</code></pre>
+</li>
+<li>
+<p><strong>Sort Columns Configuration</strong></p>
+<p>This property is for users to specify which columns belong to the MDK(Multi-Dimensions-Key) index.</p>
+<ul>
+<li>If users don't specify "SORT_COLUMN" property, by default MDK index be built by using all dimension columns except complex datatype column.</li>
+<li>If this property is specified but with empty argument, then the table will be loaded without sort..
+Suggested use cases : Only build MDK index for required columns,it might help to improve the data loading performance.</li>
+</ul>
+<pre><code>TBLPROPERTIES ('SORT_COLUMNS'='column1, column3')
+OR
+TBLPROPERTIES ('SORT_COLUMNS'='')
+</code></pre>
+</li>
+<li>
+<p><strong>Sort Scope Configuration</strong></p>
+<p>This property is for users to specify the scope of the sort during data load, following are the types of sort scope.</p>
+<ul>
+<li>LOCAL_SORT: It is the default sort scope.</li>
+<li>NO_SORT: It will load the data in unsorted manner, it will significantly increase load performance.</li>
+<li>BATCH_SORT: It increases the load performance but decreases the query performance if identified blocks &gt; parallelism.</li>
+<li>GLOBAL_SORT: It increases the query performance, especially high concurrent point query.
+And if you care about loading resources isolation strictly, because the system uses the spark GroupBy to sort data, the resource can be controlled by spark.</li>
+</ul>
+</li>
+<li>
+<p><strong>Table Block Size Configuration</strong></p>
+<p>This command is for setting block size of this table, the default value is 1024 MB and supports a range of 1 MB to 2048 MB.</p>
+<pre><code>TBLPROPERTIES ('TABLE_BLOCKSIZE'='512')
+</code></pre>
+<p>Note: 512 or 512M both are accepted.</p>
+</li>
+</ul>
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
+<pre><code>```
+CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                               productNumber Int,
+                               productName String,
+                               storeCity String,
+                               storeProvince String,
+                               productCategory String,
+                               productBatch String,
+                               saleQuantity Int,
+                               revenue Int)
+STORED BY 'carbondata'
+TBLPROPERTIES ('DICTIONARY_INCLUDE'='productNumber',
+               'NO_INVERTED_INDEX'='productBatch',
+               'SORT_COLUMNS'='productName,storeCity',
+               'SORT_SCOPE'='NO_SORT',
+               'TABLE_BLOCKSIZE'='512')
+```
+</code></pre>
+<h2>
+<a id="table-management" class="anchor" href="#table-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TABLE MANAGEMENT</h2>
+<h3>
+<a id="show-table" class="anchor" href="#show-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW TABLE</h3>
+<p>This command can be used to list all the tables in current database or all the tables of a specific database.</p>
+<pre><code>SHOW TABLES [IN db_Name]
+</code></pre>
+<p>Example:</p>
+<pre><code>SHOW TABLES
+OR
+SHOW TABLES IN defaultdb
+</code></pre>
+<h3>
+<a id="alter-talbe" class="anchor" href="#alter-talbe" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ALTER TALBE</h3>
+<p>The following section introduce the commands to modify the physical or logical state of the existing table(s).</p>
+<ul>
+<li>
+<p><strong>RENAME TABLE</strong></p>
+<p>This command is used to rename the existing table.</p>
+<pre><code>ALTER TABLE [db_name.]table_name RENAME TO new_table_name
+</code></pre>
+<p>Examples:</p>
+<pre><code>ALTER TABLE carbon RENAME TO carbondata
+OR
+ALTER TABLE test_db.carbon RENAME TO test_db.carbondata
+</code></pre>
+</li>
+<li>
+<p><strong>ADD COLUMNS</strong></p>
+<p>This command is used to add a new column to the existing table.</p>
+<pre><code>ALTER TABLE [db_name.]table_name ADD COLUMNS (col_name data_type,...)
+TBLPROPERTIES('DICTIONARY_INCLUDE'='col_name,...',
+'DEFAULT.VALUE.COLUMN_NAME'='default_value')
+</code></pre>
+<p>Examples:</p>
+<pre><code>ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING)
+</code></pre>
+<pre><code>ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING) TBLPROPERTIES('DICTIONARY_INCLUDE'='a1')
+</code></pre>
+<pre><code>ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING) TBLPROPERTIES('DEFAULT.VALUE.a1'='10')
+</code></pre>
+</li>
+<li>
+<p><strong>DROP COLUMNS</strong></p>
+<p>This command is used to delete the existing column(s) in a table.</p>
+<pre><code>ALTER TABLE [db_name.]table_name DROP COLUMNS (col_name, ...)
+</code></pre>
+<p>Examples:</p>
+<pre><code>ALTER TABLE carbon DROP COLUMNS (b1)
+OR
+ALTER TABLE test_db.carbon DROP COLUMNS (b1)
+
+ALTER TABLE carbon DROP COLUMNS (c1,d1)
+</code></pre>
+</li>
+<li>
+<p><strong>CHANGE DATA TYPE</strong></p>
+<p>This command is used to change the data type from INT to BIGINT or decimal precision from lower to higher.
+Change of decimal data type from lower precision to higher precision will only be supported for cases where there is no data loss.</p>
+<pre><code>ALTER TABLE [db_name.]table_name CHANGE col_name col_name changed_column_type
+</code></pre>
+<p>Valid Scenarios</p>
+<ul>
+<li>Invalid scenario - Change of decimal precision from (10,2) to (10,5) is invalid as in this case only scale is increased but total number of digits remains the same.</li>
+<li>Valid scenario - Change of decimal precision from (10,2) to (12,3) is valid as the total number of digits are increased by 2 but scale is increased only by 1 which will not lead to any data loss.</li>
+<li>Note :The allowed range is 38,38 (precision, scale) and is a valid upper case scenario which is not resulting in data loss.</li>
+</ul>
+<p>Example1:Changing data type of column a1 from INT to BIGINT.</p>
+<pre><code>ALTER TABLE test_db.carbon CHANGE a1 a1 BIGINT
+</code></pre>
+<p>Example2:Changing decimal precision of column a1 from 10 to 18.</p>
+<pre><code>ALTER TABLE test_db.carbon CHANGE a1 a1 DECIMAL(18,2)
+</code></pre>
+</li>
+</ul>
+<h3>
+<a id="drop-table" class="anchor" href="#drop-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DROP TABLE</h3>
+<p>This command is used to delete an existing table.</p>
+<pre><code>DROP TABLE [IF EXISTS] [db_name.]table_name
+</code></pre>
+<p>Example:</p>
+<pre><code>DROP TABLE IF EXISTS productSchema.productSalesTable
+</code></pre>
+<h2>
+<a id="load-data" class="anchor" href="#load-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD DATA</h2>
+<h3>
+<a id="load-files-to-carbondata-table" class="anchor" href="#load-files-to-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD FILES TO CARBONDATA TABLE</h3>
+<p>This command is used to load csv files to carbondata, OPTIONS are not mandatory for data loading process.
+Inside OPTIONS user can provide either of any options like DELIMITER, QUOTECHAR, FILEHEADER, ESCAPECHAR, MULTILINE as per requirement.</p>
+<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+INTO TABLE [db_name.]table_name 
+OPTIONS(property_name=property_value, ...)
+</code></pre>
+<p>You can use the following options to load data:</p>
+<ul>
+<li>
+<p><strong>DELIMITER:</strong> Delimiters can be provided in the load command.</p>
+<pre><code>OPTIONS('DELIMITER'=',')
+</code></pre>
+</li>
+<li>
+<p><strong>QUOTECHAR:</strong> Quote Characters can be provided in the load command.</p>
+<pre><code>OPTIONS('QUOTECHAR'='"')
+</code></pre>
+</li>
+<li>
+<p><strong>COMMENTCHAR:</strong> Comment Characters can be provided in the load command if user want to comment lines.</p>
+<pre><code>OPTIONS('COMMENTCHAR'='#')
+</code></pre>
+</li>
+<li>
+<p><strong>FILEHEADER:</strong> Headers can be provided in the LOAD DATA command if headers are missing in the source files.</p>
+<pre><code>OPTIONS('FILEHEADER'='column1,column2') 
+</code></pre>
+</li>
+<li>
+<p><strong>MULTILINE:</strong> CSV with new line character in quotes.</p>
+<pre><code>OPTIONS('MULTILINE'='true') 
+</code></pre>
+</li>
+<li>
+<p><strong>ESCAPECHAR:</strong> Escape char can be provided if user want strict validation of escape character on CSV.</p>
+<pre><code>OPTIONS('ESCAPECHAR'='\') 
+</code></pre>
+</li>
+<li>
+<p><strong>COMPLEX_DELIMITER_LEVEL_1:</strong> Split the complex type data column in a row (eg., a$b$c --&gt; Array = {a,b,c}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='$') 
+</code></pre>
+</li>
+<li>
+<p><strong>COMPLEX_DELIMITER_LEVEL_2:</strong> Split the complex type nested data column in a row. Applies level_1 delimiter &amp; applies level_2 based on complex data type (eg., a:b$c:d --&gt; Array&gt; = {{a,b},{c,d}}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':')
+</code></pre>
+</li>
+<li>
+<p><strong>ALL_DICTIONARY_PATH:</strong> All dictionary files path.</p>
+<pre><code>OPTIONS('ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary')
+</code></pre>
+</li>
+<li>
+<p><strong>COLUMNDICT:</strong> Dictionary file path for specified column.</p>
+<pre><code>OPTIONS('COLUMNDICT'='column1:dictionaryFilePath1,column2:dictionaryFilePath2')
+</code></pre>
+<p>NOTE: ALL_DICTIONARY_PATH and COLUMNDICT can't be used together.</p>
+</li>
+<li>
+<p><strong>DATEFORMAT/TIMESTAMPFORMAT:</strong> Date and Timestamp format for specified column.</p>
+<pre><code>OPTIONS('DATEFORMAT' = 'yyyy-MM-dd','TIMESTAMPFORMAT'='yyyy-MM-dd HH:mm:ss')
+</code></pre>
+<p>NOTE: Date formats are specified by date pattern strings. The date pattern letters in CarbonData are same as in JAVA. Refer to <a href="http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html" target=_blank rel="nofollow">SimpleDateFormat</a>.</p>
+</li>
+<li>
+<p><strong>SINGLE_PASS:</strong> Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.</p>
+</li>
+</ul>
+<p>This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.</p>
+<pre><code>```
+OPTIONS('SINGLE_PASS'='TRUE')
+```
+</code></pre>
+<p>Note :</p>
+<ul>
+<li>If this option is set to TRUE then data loading will take less time.</li>
+<li>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</li>
+<li>If this option is set to TRUE, then high.cardinality.identify.enable property will be disabled during data load.</li>
+<li>For first Load SINGLE_PASS loading option is disabled.</li>
+</ul>
+<p>Example:</p>
+<pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
+options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
+'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
+workgroupcategoryname,deptno,deptname,projectcode,
+projectjoindate,projectenddate,attendance,utilization,salary',
+'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$',
+'COMPLEX_DELIMITER_LEVEL_2'=':',
+'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
+'SINGLE_PASS'='TRUE')
+</code></pre>
+<ul>
+<li>
+<p><strong>BAD RECORDS HANDLING:</strong> Methods of handling bad records are as follows:</p>
+<ul>
+<li>Load all of the data before dealing with the errors.</li>
+<li>Clean or delete bad records before loading data or stop the loading when bad records are found.</li>
+</ul>
+<pre><code>OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true', 'BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon', 'BAD_RECORDS_ACTION'='REDIRECT', 'IS_EMPTY_DATA_BAD_RECORD'='false')
+</code></pre>
+</li>
+</ul>
+<p>NOTE:</p>
+<ul>
+<li>BAD_RECORD_ACTION property can have four type of actions for bad records FORCE, REDIRECT, IGNORE and FAIL.</li>
+<li>If the REDIRECT option is used, CarbonData will add all bad records in to a separate CSV file. However, this file must not be used for subsequent data loading because the content may not exactly match the source record. You are advised to cleanse the original source record for further data ingestion. This option is used to remind you which records are bad records.</li>
+<li>If the FORCE option is used, then it auto-corrects the data by storing the bad records as NULL before Loading data.</li>
+<li>If the IGNORE option is used, then bad records are neither loaded nor written to the separate CSV file.</li>
+<li>IF the FAIL option is used, then data loading fails if any bad records are found.</li>
+<li>In loaded data, if all records are bad records, the BAD_RECORDS_ACTION is invalid and the load operation fails.</li>
+<li>The maximum number of characters per column is 100000. If there are more than 100000 characters in a column, data loading will fail.</li>
+</ul>
+<p>Example:</p>
+<pre><code>LOAD DATA INPATH 'filepath.csv' INTO TABLE tablename
+OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true','BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon',
+'BAD_RECORDS_ACTION'='REDIRECT','IS_EMPTY_DATA_BAD_RECORD'='false')
+</code></pre>
+<h3>
+<a id="insert-data-into-carbondata-table" class="anchor" href="#insert-data-into-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO CARBONDATA TABLE</h3>
+<p>This command inserts data into a CarbonData table, it is defined as a combination of two queries Insert and Select query respectively.
+It inserts records from a source table into a target CarbonData table, the source table can be a Hive table, Parquet table or a CarbonData table itself.
+It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p>
+<pre><code>INSERT INTO TABLE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>You can also omit the <code>table</code> keyword and write your query as:</p>
+<pre><code>INSERT INTO &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>Overwrite insert data:</p>
+<pre><code>INSERT OVERWRITE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>The source table and the CarbonData table must have the same table schema.</li>
+<li>The data type of source and destination table columns should be same</li>
+<li>INSERT INTO command does not support partial success if bad records are found, it will fail.</li>
+<li>Data cannot be loaded or updated in source table while insert from source table to target table is in progress.</li>
+</ul>
+<p>Examples</p>
+<pre><code>INSERT INTO table1 SELECT item1, sum(item2 + 1000) as result FROM table2 group by item1
+</code></pre>
+<pre><code>INSERT INTO table1 SELECT item1, item2, item3 FROM table2 where item2='xyz'
+</code></pre>
+<pre><code>INSERT OVERWRITE table1 SELECT * FROM TABLE2
+</code></pre>
+<h2>
+<a id="update-and-delete" class="anchor" href="#update-and-delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UPDATE AND DELETE</h2>
+<h3>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UPDATE</h3>
+<p>This command will allow to update the CarbonData table based on the column expression and optional filter conditions.</p>
+<pre><code>UPDATE &lt;table_name&gt; 
+SET (column_name1, column_name2, ... column_name n) = (column1_expression , column2_expression, ... column n_expression )
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>alternatively the following the command can also be used for updating the CarbonData Table :</p>
+<pre><code>UPDATE &lt;table_name&gt;
+SET (column_name1, column_name2) =(select sourceColumn1, sourceColumn2 from sourceTable [ WHERE { &lt;filter_condition&gt; } ] )
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>NOTE:The update command fails if multiple input rows in source table are matched with single row in destination table.</p>
+<p>Examples:</p>
+<pre><code>UPDATE t3 SET (t3_salary) = (t3_salary + 9) WHERE t3_name = 'aaa1'
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_date, t3_country) = ('2017-11-18', 'india') WHERE t3_salary &lt; 15003
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_country, t3_name) = (SELECT t5_country, t5_name FROM t5 WHERE t5_id = 5) WHERE t3_id &lt; 5
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_date, t3_serialname, t3_salary) = (SELECT '2099-09-09', t5_serialname, '9999' FROM t5 WHERE t5_id = 5) WHERE t3_id &lt; 5
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_country, t3_salary) = (SELECT t5_country, t5_salary FROM t5 FULL JOIN t3 u WHERE u.t3_id = t5_id and t5_id=6) WHERE t3_id &gt;6
+</code></pre>
+<h3>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE</h3>
+<p>This command allows us to delete records from CarbonData table.</p>
+<pre><code>DELETE FROM table_name [WHERE expression]
+</code></pre>
+<p>Examples:</p>
+<pre><code>DELETE FROM carbontable WHERE column1  = 'china'
+</code></pre>
+<pre><code>DELETE FROM carbontable WHERE column1 IN ('china', 'USA')
+</code></pre>
+<pre><code>DELETE FROM carbontable WHERE column1 IN (SELECT column11 FROM sourceTable2)
+</code></pre>
+<pre><code>DELETE FROM carbontable WHERE column1 IN (SELECT column11 FROM sourceTable2 WHERE column1 = 'USA')
+</code></pre>
+<h2>
+<a id="compaction" class="anchor" href="#compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPACTION</h2>
+<p>Compaction improves the query performance significantly.
+During the load data, several CarbonData files are generated, this is because data is sorted only within each load (per load segment and one B+ tree index).</p>
+<p>There are two types of compaction, Minor and Major compaction.</p>
+<pre><code>ALTER TABLE [db_name.]table_name COMPACT 'MINOR/MAJOR'
+</code></pre>
+<ul>
+<li><strong>Minor Compaction</strong></li>
+</ul>
+<p>In Minor compaction, user can specify the number of loads to be merged.
+Minor compaction triggers for every data load if the parameter carbon.enable.auto.load.merge is set to true.
+If any segments are available to be merged, then compaction will run parallel with data load, there are 2 levels in minor compaction:</p>
+<ul>
+<li>Level 1: Merging of the segments which are not yet compacted.</li>
+<li>Level 2: Merging of the compacted segments again to form a larger segment.</li>
+</ul>
+<pre><code>ALTER TABLE table_name COMPACT 'MINOR'
+</code></pre>
+<ul>
+<li><strong>Major Compaction</strong></li>
+</ul>
+<p>In Major compaction, multiple segments can be merged into one large segment.
+User will specify the compaction size until which segments can be merged, Major compaction is usually done during the off-peak time.
+This command merges the specified number of segments into one segment:</p>
+<pre><code>ALTER TABLE table_name COMPACT 'MAJOR'
+</code></pre>
+<h2>
+<a id="partition" class="anchor" href="#partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PARTITION</h2>
+<p>Similar to other system's partition features, CarbonData's partition feature also can be used to improve query performance by filtering on the partition column.</p>
+<h3>
+<a id="create-hash-partition-table" class="anchor" href="#create-hash-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Hash Partition Table</h3>
+<p>This command allows us to create hash partition.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                  [(col_name data_type , ...)]
+PARTITIONED BY (partition_col_name data_type)
+STORED BY 'carbondata'
+[TBLPROPERTIES ('PARTITION_TYPE'='HASH',
+                'NUM_PARTITIONS'='N' ...)]
+</code></pre>
+<p>NOTE: N is the number of hash partitions</p>
+<p>Example:</p>
+<pre><code>CREATE TABLE IF NOT EXISTS hash_partition_table(
+    col_A String,
+    col_B Int,
+    col_C Long,
+    col_D Decimal(10,2),
+    col_F Timestamp
+) PARTITIONED BY (col_E Long)
+STORED BY 'carbondata' TBLPROPERTIES('PARTITION_TYPE'='HASH','NUM_PARTITIONS'='9')
+</code></pre>
+<h3>
+<a id="create-range-partition-table" class="anchor" href="#create-range-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Range Partition Table</h3>
+<p>This command allows us to create range partition.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                  [(col_name data_type , ...)]
+PARTITIONED BY (partition_col_name data_type)
+STORED BY 'carbondata'
+[TBLPROPERTIES ('PARTITION_TYPE'='RANGE',
+                'RANGE_INFO'='2014-01-01, 2015-01-01, 2016-01-01, ...')]
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>The 'RANGE_INFO' must be defined in ascending order in the table properties.</li>
+<li>The default format for partition column of Date/Timestamp type is yyyy-MM-dd. Alternate formats for Date/Timestamp could be defined in CarbonProperties.</li>
+</ul>
+<p>Example:</p>
+<pre><code>CREATE TABLE IF NOT EXISTS range_partition_table(
+    col_A String,
+    col_B Int,
+    col_C Long,
+    col_D Decimal(10,2),
+    col_E Long
+ ) partitioned by (col_F Timestamp)
+ PARTITIONED BY 'carbondata'
+ TBLPROPERTIES('PARTITION_TYPE'='RANGE',
+ 'RANGE_INFO'='2015-01-01, 2016-01-01, 2017-01-01, 2017-02-01')
+</code></pre>
+<h3>
+<a id="create-list-partition-table" class="anchor" href="#create-list-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create List Partition Table</h3>
+<p>This command allows us to create list partition.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                  [(col_name data_type , ...)]
+PARTITIONED BY (partition_col_name data_type)
+STORED BY 'carbondata'
+[TBLPROPERTIES ('PARTITION_TYPE'='LIST',
+                'LIST_INFO'='A, B, C, ...')]
+</code></pre>
+<p>NOTE : List partition supports list info in one level group.</p>
+<p>Example:</p>
+<pre><code>CREATE TABLE IF NOT EXISTS list_partition_table(
+    col_B Int,
+    col_C Long,
+    col_D Decimal(10,2),
+    col_E Long,
+    col_F Timestamp
+ ) PARTITIONED BY (col_A String)
+ STORED BY 'carbondata'
+ TBLPROPERTIES('PARTITION_TYPE'='LIST',
+ 'LIST_INFO'='aaaa, bbbb, (cccc, dddd), eeee')
+</code></pre>
+<h3>
+<a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h3>
+<p>The following command is executed to get the partition information of the table</p>
+<pre><code>SHOW PARTITIONS [db_name.]table_name
+</code></pre>
+<h3>
+<a id="add-a-new-partition" class="anchor" href="#add-a-new-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a new partition</h3>
+<pre><code>ALTER TABLE [db_name].table_name ADD PARTITION('new_partition')
+</code></pre>
+<h3>
+<a id="split-a-partition" class="anchor" href="#split-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Split a partition</h3>
+<pre><code>ALTER TABLE [db_name].table_name SPLIT PARTITION(partition_id) INTO('new_partition1', 'new_partition2'...)
+</code></pre>
+<h3>
+<a id="drop-a-partition" class="anchor" href="#drop-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop a partition</h3>
+<pre><code>Only drop partition definition, but keep data
+</code></pre>
+<pre><code>  ALTER TABLE [db_name].table_name DROP PARTITION(partition_id)
+</code></pre>
+<p>Drop both partition definition and data</p>
+<pre><code>ALTER TABLE [db_name].table_name DROP PARTITION(partition_id) WITH DATA
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>Hash partition table is not supported for ADD, SPLIT and DROP commands.</li>
+<li>Partition Id: in CarbonData like the hive, folders are not used to divide partitions instead partition id is used to replace the task id. It could make use of the characteristic and meanwhile reduce some metadata.</li>
+</ul>
+<pre><code>SegmentDir/0_batchno0-0-1502703086921.carbonindex
+          ^
+SegmentDir/part-0-0_batchno0-0-1502703086921.carbondata
+                   ^
+</code></pre>
+<p>Here are some useful tips to improve query performance of carbonData partition table:</p>
+<ul>
+<li>The partitioned column can be excluded from SORT_COLUMNS, this will let other columns to do the efficient sorting.</li>
+<li>When writing SQL on a partition table, try to use filters on the partition column.</li>
+</ul>
+<h2>
+<a id="bucketing" class="anchor" href="#bucketing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BUCKETING</h2>
+<p>Bucketing feature can be used to distribute/organize the table/partition data into multiple files such
+that similar records are present in the same file. While creating a table, user needs to specify the
+columns to be used for bucketing and the number of buckets. For the selection of bucket the Hash value
+of columns is used.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
+                  [(col_name data_type, ...)]
+STORED BY 'carbondata'
+TBLPROPERTIES('BUCKETNUMBER'='noOfBuckets',
+'BUCKETCOLUMNS'='columnname')
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>Bucketing can not be performed for columns of Complex Data Types.</li>
+<li>Columns in the BUCKETCOLUMN parameter must be only dimension. The BUCKETCOLUMN parameter can not be a measure or a combination of measures and dimensions.</li>
+</ul>
+<p>Example:</p>
+<pre><code>CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                              productNumber Int,
+                              saleQuantity Int,
+                              productName String,
+                              storeCity String,
+                              storeProvince String,
+                              productCategory String,
+                              productBatch String,
+                              revenue Int)
+STORED BY 'carbondata'
+TBLPROPERTIES ('BUCKETNUMBER'='4', 'BUCKETCOLUMNS'='productName')
+</code></pre>
+<h2>
+<a id="segment-management" class="anchor" href="#segment-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SEGMENT MANAGEMENT</h2>
+<h3>
+<a id="show-segment" class="anchor" href="#show-segment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW SEGMENT</h3>
+<p>This command is used to get the segments of CarbonData table.</p>
+<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
+</code></pre>
+<p>Example:</p>
+<pre><code>SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
+</code></pre>
+<h3>
+<a id="delete-segment-by-id" class="anchor" href="#delete-segment-by-id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY ID</h3>
+<p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it.
+Using this segment ID, you can remove the segment.</p>
+<p>The following command will get the segmentID.</p>
+<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
+</code></pre>
+<p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
+<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.ID IN (segment_id1, segments_id2, ...)
+</code></pre>
+<p>Example:</p>
+<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0)
+DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0,5,8)
+</code></pre>
+<h3>
+<a id="delete-segment-by-date" class="anchor" href="#delete-segment-by-date" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY DATE</h3>
+<p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command.
+The segment created before the particular date will be removed from the specific stores.</p>
+<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.STARTTIME BEFORE DATE_VALUE
+</code></pre>
+<p>Example:</p>
+<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.STARTTIME BEFORE '2017-06-01 12:05:06' 
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
