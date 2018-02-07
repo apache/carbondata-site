@@ -15,6 +15,7 @@
       <item name="CarbonData File Structure" ref='file-structure-of-carbondata.md'/>
       <item name="Installation" ref='installation-guide.md'/>
     <item name="Configuring CarbonData" ref='configuration-parameters.md'/>
+    <item name="Streaming" ref='streaming-guide.md'/>
     <item name="FAQs" ref='faq.md'/>
     <item name="Troubleshooting" ref='troubleshooting.md'/>
     <item name="Useful Tips" ref='useful-tips-on-carbondata.md'/>
@@ -25,7 +26,7 @@
     <companyLogo>../../src/site/projectLogo/ApacheLogo.png</companyLogo>
     <projectLogo>../../src/site/projectLogo/CarbonDataLogo.png</projectLogo>
     <coverTitle>Apache CarbonData</coverTitle>
-    <coverSubTitle>Ver 1.0 </coverSubTitle>
+    <coverSubTitle>Ver 1.3.0 </coverSubTitle>
     <coverType>Documentation</coverType>
     <projectName>Apache CarbonData</projectName>
     <companyName>The Apache Software Foundation</companyName>

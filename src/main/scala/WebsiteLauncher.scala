@@ -1,4 +1,5 @@
 import java.io.File
+import java.nio.file.{Files, Paths}
 
 import org.slf4j.{Logger, LoggerFactory}
 import services.{ConfServiceImpl, DataServiceImpl, FileServiceImpl}
@@ -8,6 +9,10 @@ object WebsiteLauncher {
     val logger: Logger = LoggerFactory.getLogger("FileOperationMain")
 
     val conf = new ConfServiceImpl
+
+    val mdFileLocation = conf.readString("mdFileLocation")
+
+    deleteRecursively(new File(mdFileLocation))
 
     val file = init(conf.readString("mdFileLocation"))
 
@@ -21,6 +26,13 @@ object WebsiteLauncher {
 
   private def init(path: String): File = {
     new File(path)
+  }
+
+  def deleteRecursively(file: File): Unit = {
+    if (file.isDirectory)
+      file.listFiles.foreach(deleteRecursively)
+    if (file.exists && !file.delete)
+      throw new Exception(s"Unable to delete ${file.getAbsolutePath}")
   }
 
 }
