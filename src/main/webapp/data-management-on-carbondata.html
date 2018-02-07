@@ -173,20 +173,23 @@
 <p>This tutorial is going to introduce all commands and data operations on CarbonData.</p>
 <ul>
 <li><a href="#create-table">CREATE TABLE</a></li>
+<li><a href="#create-database">CREATE DATABASE</a></li>
 <li><a href="#table-management">TABLE MANAGEMENT</a></li>
 <li><a href="#load-data">LOAD DATA</a></li>
 <li><a href="#update-and-delete">UPDATE AND DELETE</a></li>
 <li><a href="#compaction">COMPACTION</a></li>
 <li><a href="#partition">PARTITION</a></li>
+<li><a href="#pre-aggregate-tables">PRE-AGGREGATE TABLES</a></li>
 <li><a href="#bucketing">BUCKETING</a></li>
 <li><a href="#segment-management">SEGMENT MANAGEMENT</a></li>
 </ul>
 <h2>
 <a id="create-table" class="anchor" href="#create-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE</h2>
-<p>This command can be used to create a CarbonData table by specifying the list of fields along with the table properties.</p>
+<p>This command can be used to create a CarbonData table by specifying the list of fields along with the table properties. You can also specify the location where the table needs to be stored.</p>
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name[(col_name data_type , ...)]
 STORED BY 'carbondata'
 [TBLPROPERTIES (property_name=property_value, ...)]
+[LOCATION 'path']
 </code></pre>
 <h3>
 <a id="usage-guidelines" class="anchor" href="#usage-guidelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
@@ -194,7 +197,7 @@ STORED BY 'carbondata'
 <ul>
 <li>
 <p><strong>Dictionary Encoding Configuration</strong></p>
-<p>Dictionary encoding is turned off for all columns by default from 1.3 onwards, you can use this command for including columns to do dictionary encoding.
+<p>Dictionary encoding is turned off for all columns by default from 1.3 onwards, you can use this command for including or excluding columns to do dictionary encoding.
 Suggested use cases : do dictionary encoding for low cardinality columns, it might help to improve data compression ratio and performance.</p>
 <pre><code>TBLPROPERTIES ('DICTIONARY_INCLUDE'='column1, column2')
 </code></pre>
@@ -210,8 +213,9 @@ Suggested use cases : For high cardinality columns, you can disable the inverted
 <p><strong>Sort Columns Configuration</strong></p>
 <p>This property is for users to specify which columns belong to the MDK(Multi-Dimensions-Key) index.</p>
 <ul>
-<li>If users don't specify "SORT_COLUMN" property, by default MDK index be built by using all dimension columns except complex datatype column.</li>
-<li>If this property is specified but with empty argument, then the table will be loaded without sort..
+<li>If users don't specify "SORT_COLUMN" property, by default MDK index be built by using all dimension columns except complex data type column.</li>
+<li>If this property is specified but with empty argument, then the table will be loaded without sort.</li>
+<li>This supports only string, date, timestamp, short, int, long, and boolean data types.
 Suggested use cases : Only build MDK index for required columns,it might help to improve the data loading performance.</li>
 </ul>
 <pre><code>TBLPROPERTIES ('SORT_COLUMNS'='column1, column3')
@@ -235,28 +239,74 @@ And if you care about loading resources isolation strictly, because the system u
 <p>This command is for setting block size of this table, the default value is 1024 MB and supports a range of 1 MB to 2048 MB.</p>
 <pre><code>TBLPROPERTIES ('TABLE_BLOCKSIZE'='512')
 </code></pre>
-<p>Note: 512 or 512M both are accepted.</p>
+<p>NOTE: 512 or 512M both are accepted.</p>
+</li>
+<li>
+<p><strong>Table Compaction Configuration</strong></p>
+<p>These properties are table level compaction configurations, if not specified, system level configurations in carbon.properties will be used.
+Following are 5 configurations:</p>
+<ul>
+<li>MAJOR_COMPACTION_SIZE: same meaning with carbon.major.compaction.size, size in MB.</li>
+<li>AUTO_LOAD_MERGE: same meaning with carbon.enable.auto.load.merge.</li>
+<li>COMPACTION_LEVEL_THRESHOLD: same meaning with carbon.compaction.level.threshold.</li>
+<li>COMPACTION_PRESERVE_SEGMENTS: same meaning with carbon.numberof.preserve.segments.</li>
+<li>ALLOWED_COMPACTION_DAYS: same meaning with carbon.allowed.compaction.days.</li>
+</ul>
+<pre><code>TBLPROPERTIES ('MAJOR_COMPACTION_SIZE'='2048',
+               'AUTO_LOAD_MERGE'='true',
+               'COMPACTION_LEVEL_THRESHOLD'='5,6',
+               'COMPACTION_PRESERVE_SEGMENTS'='10',
+               'ALLOWED_COMPACTION_DAYS'='5')
+</code></pre>
+</li>
+<li>
+<p><strong>Streaming</strong></p>
+<p>CarbonData supports streaming ingestion for real-time data. You can create the ?streaming? table using the following table properties.</p>
+<pre><code>TBLPROPERTIES ('streaming'='true')
+</code></pre>
 </li>
 </ul>
 <h3>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
-<pre><code>```
-CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
-                               productNumber Int,
-                               productName String,
-                               storeCity String,
-                               storeProvince String,
-                               productCategory String,
-                               productBatch String,
-                               saleQuantity Int,
-                               revenue Int)
-STORED BY 'carbondata'
-TBLPROPERTIES ('DICTIONARY_INCLUDE'='productNumber',
-               'NO_INVERTED_INDEX'='productBatch',
-               'SORT_COLUMNS'='productName,storeCity',
-               'SORT_SCOPE'='NO_SORT',
-               'TABLE_BLOCKSIZE'='512')
-```
+<pre><code> CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                                productNumber Int,
+                                productName String,
+                                storeCity String,
+                                storeProvince String,
+                                productCategory String,
+                                productBatch String,
+                                saleQuantity Int,
+                                revenue Int)
+ STORED BY 'carbondata'
+ TBLPROPERTIES ('DICTIONARY_INCLUDE'='productNumber',
+                'NO_INVERTED_INDEX'='productBatch',
+                'SORT_COLUMNS'='productName,storeCity',
+                'SORT_SCOPE'='NO_SORT',
+                'TABLE_BLOCKSIZE'='512',
+                'MAJOR_COMPACTION_SIZE'='2048',
+                'AUTO_LOAD_MERGE'='true',
+                'COMPACTION_LEVEL_THRESHOLD'='5,6',
+                'COMPACTION_PRESERVE_SEGMENTS'='10',
+ 			   'streaming'='true',
+                'ALLOWED_COMPACTION_DAYS'='5')
+</code></pre>
+<h2>
+<a id="create-database" class="anchor" href="#create-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE DATABASE</h2>
+<p>This function creates a new database. By default the database is created in Carbon store location, but you can also specify custom location.</p>
+<pre><code>CREATE DATABASE [IF NOT EXISTS] database_name [LOCATION path];
+</code></pre>
+<h3>
+<a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
+<pre><code>CREATE DATABASE carbon LOCATION ?hdfs://name_cluster/dir1/carbonstore?;
+</code></pre>
+<h2>
+<a id="create-table-as-select" class="anchor" href="#create-table-as-select" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE As SELECT</h2>
+<p>This function allows you to create a Carbon table from any of the Parquet/Hive/Carbon table. This is beneficial when the user wants to create Carbon table from any other Parquet/Hive table and use the Carbon query engine to query and achieve better query results for cases where Carbon is faster than other file formats. Also this feature can be used for backing up the data.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name STORED BY 'carbondata' [TBLPROPERTIES (key1=val1, key2=val2, ...)] AS select_statement;
+</code></pre>
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+<pre><code>CREATE TABLE ctas_select_parquet STORED BY 'carbondata' as select * from parquet_ctas_test;
 </code></pre>
 <h2>
 <a id="table-management" class="anchor" href="#table-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TABLE MANAGEMENT</h2>
@@ -323,7 +373,7 @@ Change of decimal data type from lower precision to higher precision will only b
 <ul>
 <li>Invalid scenario - Change of decimal precision from (10,2) to (10,5) is invalid as in this case only scale is increased but total number of digits remains the same.</li>
 <li>Valid scenario - Change of decimal precision from (10,2) to (12,3) is valid as the total number of digits are increased by 2 but scale is increased only by 1 which will not lead to any data loss.</li>
-<li>Note :The allowed range is 38,38 (precision, scale) and is a valid upper case scenario which is not resulting in data loss.</li>
+<li>NOTE: The allowed range is 38,38 (precision, scale) and is a valid upper case scenario which is not resulting in data loss.</li>
 </ul>
 <p>Example1:Changing data type of column a1 from INT to BIGINT.</p>
 <pre><code>ALTER TABLE test_db.carbon CHANGE a1 a1 BIGINT
@@ -341,6 +391,22 @@ Change of decimal data type from lower precision to higher precision will only b
 <p>Example:</p>
 <pre><code>DROP TABLE IF EXISTS productSchema.productSalesTable
 </code></pre>
+<h3>
+<a id="refresh-table" class="anchor" href="#refresh-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REFRESH TABLE</h3>
+<p>This command is used to register Carbon table to HIVE meta store catalogue from existing Carbon table data.</p>
+<pre><code>REFRESH TABLE $db_NAME.$table_NAME
+</code></pre>
+<p>Example:</p>
+<pre><code>REFRESH TABLE dbcarbon.productSalesTable
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>The new database name and the old database name should be same.</li>
+<li>Before executing this command the old table schema and data should be copied into the new database location.</li>
+<li>If the table is aggregate table, then all the aggregate tables should be copied to the new database location.</li>
+<li>For old store, the time zone of the source and destination cluster should be same.</li>
+<li>If old cluster uses HIVE meta store, refresh will not work as schema file does not exist in file system.</li>
+</ul>
 <h2>
 <a id="load-data" class="anchor" href="#load-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD DATA</h2>
 <h3>
@@ -384,6 +450,11 @@ OPTIONS(property_name=property_value, ...)
 </code></pre>
 </li>
 <li>
+<p><strong>SKIP_EMPTY_LINE:</strong> This option will ignore the empty line in the CSV file during the data load.</p>
+<pre><code>OPTIONS('SKIP_EMPTY_LINE'='TRUE/FALSE') 
+</code></pre>
+</li>
+<li>
 <p><strong>COMPLEX_DELIMITER_LEVEL_1:</strong> Split the complex type data column in a row (eg., a$b$c --&gt; Array = {a,b,c}).</p>
 <pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='$') 
 </code></pre>
@@ -415,16 +486,12 @@ OPTIONS(property_name=property_value, ...)
 </li>
 </ul>
 <p>This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.</p>
-<pre><code>```
-OPTIONS('SINGLE_PASS'='TRUE')
-```
+<pre><code> OPTIONS('SINGLE_PASS'='TRUE')
 </code></pre>
-<p>Note :</p>
+<p>NOTE:</p>
 <ul>
 <li>If this option is set to TRUE then data loading will take less time.</li>
 <li>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</li>
-<li>If this option is set to TRUE, then high.cardinality.identify.enable property will be disabled during data load.</li>
-<li>For first Load SINGLE_PASS loading option is disabled.</li>
 </ul>
 <p>Example:</p>
 <pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
@@ -450,11 +517,11 @@ projectjoindate,projectenddate,attendance,utilization,salary',
 </ul>
 <p>NOTE:</p>
 <ul>
-<li>BAD_RECORD_ACTION property can have four type of actions for bad records FORCE, REDIRECT, IGNORE and FAIL.</li>
+<li>BAD_RECORDS_ACTION property can have four type of actions for bad records FORCE, REDIRECT, IGNORE and FAIL.</li>
+<li>FAIL option is its Default value. If the FAIL option is used, then data loading fails if any bad records are found.</li>
 <li>If the REDIRECT option is used, CarbonData will add all bad records in to a separate CSV file. However, this file must not be used for subsequent data loading because the content may not exactly match the source record. You are advised to cleanse the original source record for further data ingestion. This option is used to remind you which records are bad records.</li>
 <li>If the FORCE option is used, then it auto-corrects the data by storing the bad records as NULL before Loading data.</li>
 <li>If the IGNORE option is used, then bad records are neither loaded nor written to the separate CSV file.</li>
-<li>IF the FAIL option is used, then data loading fails if any bad records are found.</li>
 <li>In loaded data, if all records are bad records, the BAD_RECORDS_ACTION is invalid and the load operation fails.</li>
 <li>The maximum number of characters per column is 100000. If there are more than 100000 characters in a column, data loading will fail.</li>
 </ul>
@@ -560,9 +627,93 @@ User will specify the compaction size until which segments can be merged, Major 
 This command merges the specified number of segments into one segment:</p>
 <pre><code>ALTER TABLE table_name COMPACT 'MAJOR'
 </code></pre>
+<ul>
+<li><strong>CLEAN SEGMENTS AFTER Compaction</strong></li>
+</ul>
+<p>Clean the segments which are compacted:</p>
+<pre><code>CLEAN FILES FOR TABLE carbon_table
+</code></pre>
 <h2>
 <a id="partition" class="anchor" href="#partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PARTITION</h2>
-<p>Similar to other system's partition features, CarbonData's partition feature also can be used to improve query performance by filtering on the partition column.</p>
+<h3>
+<a id="standard-partition" class="anchor" href="#standard-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STANDARD PARTITION</h3>
+<p>The partition is similar as spark and hive partition, user can use any column to build partition:</p>
+<h4>
+<a id="create-partition-table" class="anchor" href="#create-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Partition Table</h4>
+<p>This command allows you to create table with partition.</p>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name 
+  [(col_name data_type , ...)]
+  [COMMENT table_comment]
+  [PARTITIONED BY (col_name data_type , ...)]
+  [STORED BY file_format]
+  [TBLPROPERTIES (property_name=property_value, ...)]
+</code></pre>
+<p>Example:</p>
+<pre><code> CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+                              productNumber Int,
+                              productName String,
+                              storeCity String,
+                              storeProvince String,
+                              saleQuantity Int,
+                              revenue Int)
+PARTITIONED BY (productCategory String, productBatch String)
+STORED BY 'carbondata'
+</code></pre>
+<h4>
+<a id="load-data-using-static-partition" class="anchor" href="#load-data-using-static-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Static Partition</h4>
+<p>This command allows you to load data using static partition.</p>
+<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+  INTO TABLE [db_name.]table_name PARTITION (partition_spec) 
+  OPTIONS(property_name=property_value, ...)
+NSERT INTO INTO TABLE [db_name.]table_name PARTITION (partition_spec) SELECT STATMENT 
+</code></pre>
+<p>Example:</p>
+<pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.txt'
+  INTO TABLE locationTable
+  PARTITION (country = 'US', state = 'CA')
+  
+INSERT INTO TABLE locationTable
+  PARTITION (country = 'US', state = 'AL')
+  SELECT * FROM another_user au 
+  WHERE au.country = 'US' AND au.state = 'AL';
+</code></pre>
+<h4>
+<a id="load-data-using-dynamic-partition" class="anchor" href="#load-data-using-dynamic-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Dynamic Partition</h4>
+<p>This command allows you to load data using dynamic partition. If partition spec is not specified, then the partition is considered as dynamic.</p>
+<p>Example:</p>
+<pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.txt'
+  INTO TABLE locationTable
+        
+INSERT INTO TABLE locationTable
+  SELECT * FROM another_user au 
+  WHERE au.country = 'US' AND au.state = 'AL';
+</code></pre>
+<h4>
+<a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h4>
+<p>This command gets the Hive partition information of the table</p>
+<pre><code>SHOW PARTITIONS [db_name.]table_name
+</code></pre>
+<h4>
+<a id="drop-partition" class="anchor" href="#drop-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop Partition</h4>
+<p>This command drops the specified Hive partition only.</p>
+<pre><code>ALTER TABLE table_name DROP [IF EXISTS] (PARTITION part_spec, ...)
+</code></pre>
+<h4>
+<a id="insert-overwrite" class="anchor" href="#insert-overwrite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Insert OVERWRITE</h4>
+<p>This command allows you to insert or load overwrite on a spcific partition.</p>
+<pre><code> INSERT OVERWRITE TABLE table_name
+  PARTITION (column = 'partition_name')
+  select_statement
+</code></pre>
+<p>Example:</p>
+<pre><code>INSERT OVERWRITE TABLE partitioned_user
+  PARTITION (country = 'US')
+  SELECT * FROM another_user au 
+  WHERE au.country = 'US';
+</code></pre>
+<h3>
+<a id="carbondata-partitionhashrangelist----alpha-feature-this-partition-not-supports-update-and-delete-data" class="anchor" href="#carbondata-partitionhashrangelist----alpha-feature-this-partition-not-supports-update-and-delete-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CARBONDATA PARTITION(HASH,RANGE,LIST) -- Alpha feature, this partition not supports update and delete data.</h3>
+<p>The partition supports three type:(Hash,Range,List), similar to other system's partition features, CarbonData's partition feature can be used to improve query performance by filtering on the partition column.</p>
 <h3>
 <a id="create-hash-partition-table" class="anchor" href="#create-hash-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Hash Partition Table</h3>
 <p>This command allows us to create hash partition.</p>
@@ -621,7 +772,7 @@ STORED BY 'carbondata'
 [TBLPROPERTIES ('PARTITION_TYPE'='LIST',
                 'LIST_INFO'='A, B, C, ...')]
 </code></pre>
-<p>NOTE : List partition supports list info in one level group.</p>
+<p>NOTE: List partition supports list info in one level group.</p>
 <p>Example:</p>
 <pre><code>CREATE TABLE IF NOT EXISTS list_partition_table(
     col_B Int,
@@ -635,7 +786,7 @@ STORED BY 'carbondata'
  'LIST_INFO'='aaaa, bbbb, (cccc, dddd), eeee')
 </code></pre>
 <h3>
-<a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h3>
+<a id="show-partitions-1" class="anchor" href="#show-partitions-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h3>
 <p>The following command is executed to get the partition information of the table</p>
 <pre><code>SHOW PARTITIONS [db_name.]table_name
 </code></pre>
@@ -649,8 +800,7 @@ STORED BY 'carbondata'
 </code></pre>
 <h3>
 <a id="drop-a-partition" class="anchor" href="#drop-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop a partition</h3>
-<pre><code>Only drop partition definition, but keep data
-</code></pre>
+<p>Only drop partition definition, but keep data</p>
 <pre><code>  ALTER TABLE [db_name].table_name DROP PARTITION(partition_id)
 </code></pre>
 <p>Drop both partition definition and data</p>
@@ -670,6 +820,252 @@ SegmentDir/part-0-0_batchno0-0-1502703086921.carbondata
 <ul>
 <li>The partitioned column can be excluded from SORT_COLUMNS, this will let other columns to do the efficient sorting.</li>
 <li>When writing SQL on a partition table, try to use filters on the partition column.</li>
+</ul>
+<h2>
+<a id="pre-aggregate-tables" class="anchor" href="#pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PRE-AGGREGATE TABLES</h2>
+<p>Carbondata supports pre aggregating of data so that OLAP kind of queries can fetch data
+much faster.Aggregate tables are created as datamaps so that the handling is as efficient as
+other indexing support.Users can create as many aggregate tables they require as datamaps to
+improve their query performance,provided the storage requirements and loading speeds are
+acceptable.</p>
+<p>For main table called <strong>sales</strong> which is defined as</p>
+<pre><code>CREATE TABLE sales (
+order_time timestamp,
+user_id string,
+sex string,
+country string,
+quantity int,
+price bigint)
+STORED BY 'carbondata'
+</code></pre>
+<p>user can create pre-aggregate tables using the DDL</p>
+<pre><code>CREATE DATAMAP agg_sales
+ON TABLE sales
+USING "preaggregate"
+AS
+SELECT country, sex, sum(quantity), avg(price)
+FROM sales
+GROUP BY country, sex
+</code></pre>
+<p><b></b></p><p align="left">Functions supported in pre-aggregate tables</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Rollup supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUM</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>AVG</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>MAX</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>MIN</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>COUNT</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h5>
+<a id="how-pre-aggregate-tables-are-selected" class="anchor" href="#how-pre-aggregate-tables-are-selected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How pre-aggregate tables are selected</h5>
+<p>For the main table <strong>sales</strong> and pre-aggregate table <strong>agg_sales</strong> created above, queries of the
+kind</p>
+<pre><code>SELECT country, sex, sum(quantity), avg(price) from sales GROUP BY country, sex
+
+SELECT sex, sum(quantity) from sales GROUP BY sex
+
+SELECT sum(price), country from sales GROUP BY country
+</code></pre>
+<p>will be transformed by Query Planner to fetch data from pre-aggregate table <strong>agg_sales</strong></p>
+<p>But queries of kind</p>
+<pre><code>SELECT user_id, country, sex, sum(quantity), avg(price) from sales GROUP BY country, sex
+
+SELECT sex, avg(quantity) from sales GROUP BY sex
+
+SELECT max(price), country from sales GROUP BY country
+</code></pre>
+<p>will fetch the data from the main table <strong>sales</strong></p>
+<h5>
+<a id="loading-data-to-pre-aggregate-tables" class="anchor" href="#loading-data-to-pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data to pre-aggregate tables</h5>
+<p>For existing table with loaded data, data load to pre-aggregate table will be triggered by the
+CREATE DATAMAP statement when user creates the pre-aggregate table.
+For incremental loads after aggregates tables are created, loading data to main table triggers
+the load to pre-aggregate tables once main table loading is complete.These loads are automic
+meaning that data on main table and aggregate tables are only visible to the user after all tables
+are loaded</p>
+<h5>
+<a id="querying-data-from-pre-aggregate-tables" class="anchor" href="#querying-data-from-pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data from pre-aggregate tables</h5>
+<p>Pre-aggregate tables cannot be queries directly.Queries are to be made on main table.Internally
+carbondata will check associated pre-aggregate tables with the main table and if the
+pre-aggregate tables satisfy the query condition, the plan is transformed automatically to use
+pre-aggregate table to fetch the data</p>
+<h5>
+<a id="compacting-pre-aggregate-tables" class="anchor" href="#compacting-pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting pre-aggregate tables</h5>
+<p>Compaction is an optional operation for pre-aggregate table. If compaction is performed on main
+table but not performed on pre-aggregate table, all queries still can benefit from pre-aggregate
+table.To further improve performance on pre-aggregate table, compaction can be triggered on
+pre-aggregate tables directly, it will merge the segments inside pre-aggregation table.
+To do that, use ALTER TABLE COMPACT command on the pre-aggregate table just like the main table</p>
+<p>NOTE:</p>
+<ul>
+<li>If the aggregate function used in the pre-aggregate table creation included distinct-count,
+during compaction, the pre-aggregate table values are recomputed.This would a costly
+operation as compared to the compaction of pre-aggregate tables containing other aggregate
+functions alone</li>
+</ul>
+<h5>
+<a id="updatedelete-operations-on-pre-aggregate-tables" class="anchor" href="#updatedelete-operations-on-pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update/Delete Operations on pre-aggregate tables</h5>
+<p>This functionality is not supported.</p>
+<p>NOTE (<b>RESTRICTION</b>):</p>
+<ul>
+<li>Update/Delete operations are <b>not supported</b> on main table which has pre-aggregate tables
+created on it.All the pre-aggregate tables <b>will have to be dropped</b> before update/delete
+operations can be performed on the main table.Pre-aggregate tables can be rebuilt manually
+after update/delete operations are completed</li>
+</ul>
+<h5>
+<a id="delete-segment-operations-on-pre-aggregate-tables" class="anchor" href="#delete-segment-operations-on-pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete Segment Operations on pre-aggregate tables</h5>
+<p>This functionality is not supported.</p>
+<p>NOTE (<b>RESTRICTION</b>):</p>
+<ul>
+<li>Delete Segment operations are <b>not supported</b> on main table which has pre-aggregate tables
+created on it.All the pre-aggregate tables <b>will have to be dropped</b> before update/delete
+operations can be performed on the main table.Pre-aggregate tables can be rebuilt manually
+after delete segment operations are completed</li>
+</ul>
+<h5>
+<a id="alter-table-operations-on-pre-aggregate-tables" class="anchor" href="#alter-table-operations-on-pre-aggregate-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alter Table Operations on pre-aggregate tables</h5>
+<p>This functionality is not supported.</p>
+<p>NOTE (<b>RESTRICTION</b>):</p>
+<ul>
+<li>Adding new column in new table does not have any affect on pre-aggregate tables. However if
+dropping or renaming a column has impact in pre-aggregate table, such operations will be
+rejected and error will be thrown.All the pre-aggregate tables <b>will have to be dropped</b>
+before Alter Operations can be performed on the main table.Pre-aggregate tables can be rebuilt
+manually after Alter Table operations are completed</li>
+</ul>
+<h3>
+<a id="supporting-timeseries-data-alpha-feature-in-130" class="anchor" href="#supporting-timeseries-data-alpha-feature-in-130" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supporting timeseries data (Alpha feature in 1.3.0)</h3>
+<p>Carbondata has built-in understanding of time hierarchy and levels: year, month, day, hour, minute.
+Multiple pre-aggregate tables can be created for the hierarchy and Carbondata can do automatic
+roll-up for the queries on these hierarchies.</p>
+<pre><code>CREATE DATAMAP agg_year
+ON TABLE sales
+USING "timeseries"
+DMPROPERTIES (
+'event_time?=?order_time?,
+'year_granualrity?=?1?,
+) AS
+SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+ avg(price) FROM sales GROUP BY order_time, country, sex
+  
+CREATE DATAMAP agg_month
+ON TABLE sales
+USING "timeseries"
+DMPROPERTIES (
+'event_time?=?order_time?,
+'month_granualrity?=?1?,
+) AS
+SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+ avg(price) FROM sales GROUP BY order_time, country, sex
+  
+CREATE DATAMAP agg_day
+ON TABLE sales
+USING "timeseries"
+DMPROPERTIES (
+'event_time?=?order_time?,
+'day_granualrity?=?1?,
+) AS
+SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+ avg(price) FROM sales GROUP BY order_time, country, sex
+      
+CREATE DATAMAP agg_sales_hour
+ON TABLE sales
+USING "timeseries"
+DMPROPERTIES (
+'event_time?=?order_time?,
+'hour_granualrity?=?1?,
+) AS
+SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+ avg(price) FROM sales GROUP BY order_time, country, sex
+
+CREATE DATAMAP agg_minute
+ON TABLE sales
+USING "timeseries"
+DMPROPERTIES (
+'event_time?=?order_time?,
+'minute_granualrity?=?1?,
+) AS
+SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+ avg(price) FROM sales GROUP BY order_time, country, sex
+  
+CREATE DATAMAP agg_minute
+ON TABLE sales
+USING "timeseries"
+DMPROPERTIES (
+'event_time?=?order_time?,
+'minute_granualrity?=?1?,
+) AS
+SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+ avg(price) FROM sales GROUP BY order_time, country, sex
+</code></pre>
+<p>For Querying data and automatically roll-up to the desired aggregation level,Carbondata supports
+UDF as</p>
+<pre><code>timeseries(timeseries column name, ?aggregation level?)
+</code></pre>
+<pre><code>Select timeseries(order_time, ?hour?), sum(quantity) from sales group by timeseries(order_time,
+?hour?)
+</code></pre>
+<p>It is <strong>not necessary</strong> to create pre-aggregate tables for each granularity unless required for
+query
+.Carbondata
+can roll-up the data and fetch it</p>
+<p>For Example: For main table <strong>sales</strong> , If pre-aggregate tables were created as</p>
+<pre><code>CREATE DATAMAP agg_day
+  ON TABLE sales
+  USING "timeseries"
+  DMPROPERTIES (
+  'event_time?=?order_time?,
+  'day_granualrity?=?1?,
+  ) AS
+  SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+   avg(price) FROM sales GROUP BY order_time, country, sex
+        
+  CREATE DATAMAP agg_sales_hour
+  ON TABLE sales
+  USING "timeseries"
+  DMPROPERTIES (
+  'event_time?=?order_time?,
+  'hour_granualrity?=?1?,
+  ) AS
+  SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
+   avg(price) FROM sales GROUP BY order_time, country, sex
+</code></pre>
+<p>Queries like below will be rolled-up and fetched from pre-aggregate tables</p>
+<pre><code>Select timeseries(order_time, ?month?), sum(quantity) from sales group by timeseries(order_time,
+  ?month?)
+  
+Select timeseries(order_time, ?year?), sum(quantity) from sales group by timeseries(order_time,
+  ?year?)
+</code></pre>
+<p>NOTE (<b>RESTRICTION</b>):</p>
+<ul>
+<li>Only value of 1 is supported for hierarchy levels. Other hierarchy levels are not supported.
+Other hierarchy levels are not supported</li>
+<li>pre-aggregate tables for the desired levels needs to be created one after the other</li>
+<li>pre-aggregate tables created for each level needs to be dropped separately</li>
 </ul>
 <h2>
 <a id="bucketing" class="anchor" href="#bucketing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BUCKETING</h2>
@@ -733,6 +1129,49 @@ The segment created before the particular date will be removed from the specific
 </code></pre>
 <p>Example:</p>
 <pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.STARTTIME BEFORE '2017-06-01 12:05:06' 
+</code></pre>
+<h3>
+<a id="query-data-with-specified-segments" class="anchor" href="#query-data-with-specified-segments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QUERY DATA WITH SPECIFIED SEGMENTS</h3>
+<p>This command is used to read data from specified segments during CarbonScan.</p>
+<p>Get the Segment ID:</p>
+<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
+</code></pre>
+<p>Set the segment IDs for table</p>
+<pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = &lt;list of segment IDs&gt;
+</code></pre>
+<p>NOTE:
+carbon.input.segments: Specifies the segment IDs to be queried. This property allows you to query specified segments of the specified table. The CarbonScan will read data from specified segments only.</p>
+<p>If user wants to query with segments reading in multi threading mode, then CarbonSession.threadSet can be used instead of SET query.</p>
+<pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","&lt;list of segment IDs&gt;");
+</code></pre>
+<p>Reset the segment IDs</p>
+<pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = *;
+</code></pre>
+<p>If user wants to query with segments reading in multi threading mode, then CarbonSession.threadSet can be used instead of SET query.</p>
+<pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","*");
+</code></pre>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Example to show the list of segment IDs,segment status, and other required details and then specify the list of segments to be read.</li>
+</ul>
+<pre><code>SHOW SEGMENTS FOR carbontable1;
+
+SET carbon.input.segments.db.carbontable1 = 1,3,9;
+</code></pre>
+<ul>
+<li>Example to query with segments reading in multi threading mode:</li>
+</ul>
+<pre><code>CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1,3");
+</code></pre>
+<ul>
+<li>Example for threadset in multithread environment (following shows how it is used in Scala code):</li>
+</ul>
+<pre><code>def main(args: Array[String]) {
+Future {          
+  CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1")
+  spark.sql("select count(empno) from carbon.input.segments.db.carbontable_Multi_Thread").show();
+   }
+ }
 </code></pre>
 </div>
 </div>

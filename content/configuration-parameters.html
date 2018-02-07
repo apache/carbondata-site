@@ -208,8 +208,18 @@
 </tr>
 <tr>
 <td>carbon.data.file.version</td>
-<td>2</td>
-<td>If this parameter value is set to 1, then CarbonData will support the data load which is in old format(0.x version). If the value is set to 2(1.x onwards version), then CarbonData will support the data load of new format only.</td>
+<td>3</td>
+<td>If this parameter value is set to 1, then CarbonData will support the data load which is in old format(0.x version). If the value is set to 2(1.x onwards version), then CarbonData will support the data load of new format only. The default value for this parameter is 3(latest version is set as default version). It improves the query performance by ~20% to 50%. For configuring V3 format explicitly, add carbon.data.file.version = V3 in carbon.properties file.</td>
+</tr>
+<tr>
+<td>carbon.streaming.auto.handoff.enabled</td>
+<td>true</td>
+<td>If this parameter value is set to true, auto trigger handoff function will be enabled.</td>
+</tr>
+<tr>
+<td>carbon.streaming.segment.max.size</td>
+<td>1024000000</td>
+<td>This parameter defines the maximum size of the streaming segment. Setting this parameter to appropriate value will avoid impacting the streaming ingestion. The value is in bytes.</td>
 </tr>
 </tbody>
 </table>
@@ -300,6 +310,19 @@
 <td>carbon.enable.vector.reader</td>
 <td>true</td>
 <td>This parameter increases the performance of select queries as it fetch columnar batch of size 4*1024 rows instead of fetching data row by row.</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.blockletgroup.size.in.mb</td>
+<td>64 MB</td>
+<td>The data are read as a group of blocklets which are called blocklet groups. This parameter specifies the size of the blocklet group. Higher value results in better sequential IO access.The minimum value is 16MB, any value lesser than 16MB will reset to the default value (64MB).</td>
+<td></td>
+</tr>
+<tr>
+<td>carbon.task.distribution</td>
+<td>block</td>
+<td>
+<strong>block</strong>: Setting this value will launch one task per block. This setting is suggested in case of concurrent queries and queries having big shuffling scenarios. <strong>custom</strong>: Setting this value will group the blocks and distribute it uniformly to the available resources in the cluster. This enhances the query performance but not suggested in case of concurrent queries and queries having big shuffling scenarios. <strong>blocklet</strong>: Setting this value will launch one task per blocklet. This setting is suggested in case of concurrent queries and queries having big shuffling scenarios. <strong>merge_small_files</strong>: Setting this value will merge all the small partitions to a size of (128 MB is the default value of "spark.sql.files.maxPartitionBytes",it is configurable) during querying. The small partitions are combined to a map task to reduce the number of read task. This enhances the performance.</td>
 <td></td>
 </tr>
 </tbody>
@@ -424,8 +447,8 @@
 <tbody>
 <tr>
 <td>carbon.sort.file.write.buffer.size</td>
-<td>10485760</td>
-<td>File write buffer size used during sorting.</td>
+<td>16777216</td>
+<td>File write buffer size used during sorting (minValue = 10 KB, maxValue=10MB).</td>
 </tr>
 <tr>
 <td>carbon.lock.type</td>
@@ -435,7 +458,7 @@
 <tr>
 <td>carbon.sort.intermediate.files.limit</td>
 <td>20</td>
-<td>Minimum number of intermediate files after which merged sort can be started.</td>
+<td>Minimum number of intermediate files after which merged sort can be started (minValue = 2, maxValue=50).</td>
 </tr>
 <tr>
 <td>carbon.block.meta.size.reserved.percentage</td>
@@ -458,14 +481,24 @@
 <td>Maximum no of threads used for reading intermediate files for final merging.</td>
 </tr>
 <tr>
-<td>carbon.load.metadata.lock.retries</td>
-<td>3</td>
-<td>Maximum number of retries to get the metadata lock for loading data to table.</td>
+<td>carbon.concurrent.lock.retries</td>
+<td>100</td>
+<td>Specifies the maximum number of retries to obtain the lock for concurrent operations. This is used for concurrent loading.</td>
 </tr>
 <tr>
-<td>carbon.load.metadata.lock.retry.timeout.sec</td>
+<td>carbon.concurrent.lock.retry.timeout.sec</td>
+<td>1</td>
+<td>Specifies the interval between the retries to obtain the lock for concurrent operations.</td>
+</tr>
+<tr>
+<td>carbon.lock.retries</td>
+<td>3</td>
+<td>Specifies the maximum number of retries to obtain the lock for any operations other than load.</td>
+</tr>
+<tr>
+<td>carbon.lock.retry.timeout.sec</td>
 <td>5</td>
-<td>Interval between the retries to get the lock.</td>
+<td>Specifies the interval between the retries to obtain the lock for any operation other than load.</td>
 </tr>
 <tr>
 <td>carbon.tempstore.location</td>
@@ -476,6 +509,17 @@
 <td>carbon.load.log.counter</td>
 <td>500000</td>
 <td>Data loading records count logger.</td>
+</tr>
+<tr>
+<td>carbon.skip.empty.line</td>
+<td>false</td>
+<td>Setting this property ignores the empty lines in the CSV file during the data load</td>
+</tr>
+<tr>
+<td>carbon.enable.calculate.size</td>
+<td>true</td>
+<td>
+<strong>For Load Operation</strong>: Setting this property calculates the size of the carbon data file (.carbondata) and carbon index file (.carbonindex) for every load and updates the table status file. <strong>For Describe Formatted</strong>: Setting this property calculates the total size of the carbon data files and carbon index files for the respective table and displays in describe formatted command.</td>
 </tr>
 </tbody>
 </table>
@@ -506,6 +550,11 @@
 <td>false</td>
 <td>To enable compaction while data loading.</td>
 </tr>
+<tr>
+<td>carbon.enable.page.level.reader.in.compaction</td>
+<td>true</td>
+<td>Enabling page level reader for compaction reduces the memory usage while compacting more number of segments. It allows reading only page by page instead of reading whole blocklet to memory.</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -530,6 +579,16 @@
 <td>true</td>
 <td>Min max is feature added to enhance query performance. To disable this feature, set it false.</td>
 </tr>
+<tr>
+<td>carbon.dynamicallocation.schedulertimeout</td>
+<td>5</td>
+<td>Specifies the maximum time (unit in seconds) the scheduler can wait for executor to be active. Minimum value is 5 sec and maximum value is 15 sec.</td>
+</tr>
+<tr>
+<td>carbon.scheduler.minregisteredresourcesratio</td>
+<td>0.8</td>
+<td>Specifies the minimum resource (executor) ratio needed for starting the block distribution. The default value is 0.8, which indicates 80% of the requested resource is allocated for starting block distribution.  The minimum value is 0.1 min and the maximum value is 1.0.</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -544,16 +603,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>high.cardinality.identify.enable</td>
-<td>true</td>
-<td>If the parameter is true, the high cardinality columns of the dictionary code are automatically recognized and these columns will not be used as global dictionary encoding. If the parameter is false, all dictionary encoding columns are used as dictionary encoding. The high cardinality column must meet the following requirements: value of cardinality &gt; configured value of high.cardinality. <b> Note: </b> If SINGLE_PASS is used during data load, then this property will be disabled.</td>
-</tr>
-<tr>
-<td>high.cardinality.threshold</td>
-<td>1000000</td>
-<td>It is a threshold to identify high cardinality of the columns.If the value of columns' cardinality &gt; the configured value, then the columns are excluded from dictionary encoding.</td>
-</tr>
 <tr>
 <td>carbon.cutOffTimestamp</td>
 <td>1970-01-01 05:30:00</td>
@@ -661,10 +710,6 @@
 <td>If false, then empty ("" or '' or ,,) data will not be considered as bad record and vice versa.</td>
 </tr>
 <tr>
-<td>carbon.options.sort.scope</td>
-<td>This property can have four possible values BATCH_SORT, LOCAL_SORT, GLOBAL_SORT and NO_SORT. If set to BATCH_SORT, the sorting scope is smaller and more index tree will be created,thus loading is faster but query maybe slower. If set to LOCAL_SORT, the sorting scope is bigger and one index tree per data node will be created, thus loading is slower but query is faster. If set to GLOBAL_SORT, the sorting scope is bigger and one index tree per task will be created, thus loading is slower but query is faster. If set to NO_SORT data will be loaded in unsorted manner.</td>
-</tr>
-<tr>
 <td>carbon.options.batch.sort.size.inmb</td>
 <td>Size of batch data to keep in memory, as a thumb rule it supposed to be less than 45% of sort.inmemory.size.inmb otherwise it may spill intermediate data to disk.</td>
 </tr>
@@ -675,10 +720,6 @@
 <tr>
 <td>carbon.options.bad.record.path</td>
 <td>Specifies the HDFS path where bad records needs to be stored.</td>
-</tr>
-<tr>
-<td>carbon.options.global.sort.partitions</td>
-<td>The Number of partitions to use when shuffling data for sort. If user don't configurate or configurate it less than 1, it uses the number of map tasks as reduce tasks. In general, we recommend 2-3 tasks per CPU core in your cluster.</td>
 </tr>
 <tr>
 <td>carbon.custom.block.distribution</td>

@@ -183,7 +183,7 @@ java.io.FileNotFoundException: hdfs:/localhost:9000/carbon/store/default/hdfstab
 	at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:101)
 </code></pre>
 <p><strong>Possible Cause</strong>
-If you use  as store path when creating carbonsession, may get the errors,because the default is LOCALLOCK.</p>
+If you use <code>&lt;hdfs path&gt;</code> as store path when creating carbonsession, may get the errors,because the default is LOCALLOCK.</p>
 <p><strong>Procedure</strong>
 Before creating carbonsession, sets as below:</p>
 <pre><code>import org.apache.carbondata.core.util.CarbonProperties
