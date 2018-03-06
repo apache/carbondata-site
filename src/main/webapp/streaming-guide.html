@@ -351,6 +351,82 @@ streaming table using following DDL.</p>
 </tbody>
 </table>
 <h2>
+<a id="stream-data-parser" class="anchor" href="#stream-data-parser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stream data parser</h2>
+<p>Config the property "carbon.stream.parser" to define a stream parser to convert InternalRow to Object[] when write stream data.</p>
+<table>
+<thead>
+<tr>
+<th>property name</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.stream.parser</td>
+<td>org.apache.carbondata.streaming.parser.CSVStreamParserImp</td>
+<td>the class of the stream parser</td>
+</tr>
+</tbody>
+</table>
+<p>Currently CarbonData support two parsers, as following:</p>
+<p><strong>1. org.apache.carbondata.streaming.parser.CSVStreamParserImp</strong>: This is the default stream parser, it gets a line data(String type) from the first index of InternalRow and converts this String to Object[].</p>
+<p><strong>2. org.apache.carbondata.streaming.parser.RowStreamParserImp</strong>: This stream parser will auto convert InternalRow to Object[] according to schema of this <code>DataSet</code>, for example:</p>
+<div class="highlight highlight-source-scala"><pre> <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">FileElement</span>(<span class="pl-v">school</span>: <span class="pl-en">Array</span>[<span class="pl-k">String</span>], <span class="pl-v">age</span>: <span class="pl-k">Int</span>)
+ <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">StreamData</span>(<span class="pl-v">id</span>: <span class="pl-k">Int</span>, <span class="pl-v">name</span>: <span class="pl-k">String</span>, <span class="pl-v">city</span>: <span class="pl-k">String</span>, <span class="pl-v">salary</span>: <span class="pl-k">Float</span>, <span class="pl-v">file</span>: <span class="pl-en">FileElement</span>)
+ ...
+
+ <span class="pl-k">var</span> <span class="pl-en">qry</span><span class="pl-k">:</span> <span class="pl-en">StreamingQuery</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>
+ <span class="pl-k">val</span> <span class="pl-en">readSocketDF</span> <span class="pl-k">=</span> spark.readStream
+   .format(<span class="pl-s"><span class="pl-pds">"</span>socket<span class="pl-pds">"</span></span>)
+   .option(<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>)
+   .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-c1">9099</span>)
+   .load()
+   .as[<span class="pl-k">String</span>]
+   .map(_.split(<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>))
+   .map { fields <span class="pl-k">=&gt;</span> {
+     <span class="pl-k">val</span> <span class="pl-en">tmp</span> <span class="pl-k">=</span> fields(<span class="pl-c1">4</span>).split(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\</span>$<span class="pl-pds">"</span></span>)
+     <span class="pl-k">val</span> <span class="pl-en">file</span> <span class="pl-k">=</span> <span class="pl-en">FileElement</span>(tmp(<span class="pl-c1">0</span>).split(<span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span></span>), tmp(<span class="pl-c1">1</span>).toInt)
+     <span class="pl-en">StreamData</span>(fields(<span class="pl-c1">0</span>).toInt, fields(<span class="pl-c1">1</span>), fields(<span class="pl-c1">2</span>), fields(<span class="pl-c1">3</span>).toFloat, file)
+   } }
+
+ <span class="pl-c"><span class="pl-c">//</span> Write data from socket stream to carbondata file</span>
+ qry <span class="pl-k">=</span> readSocketDF.writeStream
+   .format(<span class="pl-s"><span class="pl-pds">"</span>carbondata<span class="pl-pds">"</span></span>)
+   .trigger(<span class="pl-en">ProcessingTime</span>(<span class="pl-s"><span class="pl-pds">"</span>5 seconds<span class="pl-pds">"</span></span>))
+   .option(<span class="pl-s"><span class="pl-pds">"</span>checkpointLocation<span class="pl-pds">"</span></span>, tablePath.getStreamingCheckpointDir)
+   .option(<span class="pl-s"><span class="pl-pds">"</span>dbName<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span>)
+   .option(<span class="pl-s"><span class="pl-pds">"</span>tableName<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>carbon_table<span class="pl-pds">"</span></span>)
+   .option(<span class="pl-en">CarbonStreamParser</span>.<span class="pl-en">CARBON_STREAM_PARSER</span>,
+     <span class="pl-en">CarbonStreamParser</span>.<span class="pl-en">CARBON_STREAM_PARSER_ROW_PARSER</span>)
+   .start()
+
+ ...</pre></div>
+<h3>
+<a id="how-to-implement-a-customized-stream-parser" class="anchor" href="#how-to-implement-a-customized-stream-parser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to implement a customized stream parser</h3>
+<p>If user needs to implement a customized stream parser to convert a specific InternalRow to Object[], it needs to implement <code>initialize</code> method and <code>parserRow</code> method of interface <code>CarbonStreamParser</code>, for example:</p>
+<div class="highlight highlight-source-scala"><pre> <span class="pl-k">package</span> <span class="pl-en">org.XXX.XXX.streaming.parser</span>
+ 
+ <span class="pl-k">import</span> <span class="pl-smi">org.apache.hadoop.conf.</span><span class="pl-smi">Configuration</span>
+ <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.catalyst.</span><span class="pl-smi">InternalRow</span>
+ <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.types.</span><span class="pl-smi">StructType</span>
+ 
+ <span class="pl-k">class</span> <span class="pl-en">XXXStreamParserImp</span> <span class="pl-k">extends</span> <span class="pl-e">CarbonStreamParser</span> {
+ 
+   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">initialize</span>(<span class="pl-v">configuration</span>: <span class="pl-en">Configuration</span>, <span class="pl-v">structType</span>: <span class="pl-en">StructType</span>)<span class="pl-k">:</span> <span class="pl-k">Unit</span> <span class="pl-k">=</span> {
+     <span class="pl-c"><span class="pl-c">//</span> user can get the properties from "configuration"</span>
+   }
+   
+   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">parserRow</span>(<span class="pl-v">value</span>: <span class="pl-en">InternalRow</span>)<span class="pl-k">:</span> <span class="pl-en">Array</span>[<span class="pl-en">Object</span>] <span class="pl-k">=</span> {
+     <span class="pl-c"><span class="pl-c">//</span> convert InternalRow to Object[](Array[Object] in Scala) </span>
+   }
+   
+   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">close</span>()<span class="pl-k">:</span> <span class="pl-k">Unit</span> <span class="pl-k">=</span> {
+   }
+ }
+   </pre></div>
+<p>and then set the property "carbon.stream.parser" to "org.XXX.XXX.streaming.parser.XXXStreamParserImp".</p>
+<h2>
 <a id="close-streaming-table" class="anchor" href="#close-streaming-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Close streaming table</h2>
 <p>Use below command to handoff all streaming segments to columnar format segments and modify the streaming property to false, this table becomes a normal table.</p>
 <div class="highlight highlight-source-sql"><pre><span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> streaming_table COMPACT <span class="pl-s"><span class="pl-pds">'</span>close_streaming<span class="pl-pds">'</span></span>

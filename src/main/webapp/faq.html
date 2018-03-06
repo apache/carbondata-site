@@ -236,7 +236,7 @@ The property carbon.lock.type configuration specifies the type of lock to be acq
 <h2>
 <a id="how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" class="anchor" href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How Carbon will behave when execute insert operation in abnormal scenarios?</h2>
 <p>Carbon support insert operation, you can refer to the syntax mentioned in <a href="dml-operation-on-carbondata.html">DML Operations on CarbonData</a>.
-First, create a soucre table in spark-sql and load data into this created table.</p>
+First, create a source table in spark-sql and load data into this created table.</p>
 <pre><code>CREATE TABLE source_table(
 id String,
 name String,
@@ -266,7 +266,7 @@ id  city    name
 3   davi    shenzhen
 </code></pre>
 <p>As result shows, the second column is city in carbon table, but what inside is name, such as jack. This phenomenon is same with insert data into hive table.</p>
-<p>If you want to insert data into corresponding column in carbon table, you have to specify the column order same in insert statment.</p>
+<p>If you want to insert data into corresponding column in carbon table, you have to specify the column order same in insert statement.</p>
 <pre><code>INSERT INTO TABLE carbon_table SELECT id, city, name FROM source_table;
 </code></pre>
 <p><strong>Scenario 2</strong> :</p>
