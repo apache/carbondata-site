@@ -1,13 +1,13 @@
 import com.google.inject.Inject
 import org.slf4j.{Logger, LoggerFactory}
 import services.{ConfService, DataService, FileService}
-import java.nio.file.{Files, Path, Paths}
 
 import scala.util.matching.Regex
 
 class MDFileConverter @Inject()(fileService: FileService, confService: ConfService, dataService: DataService) {
   val logger: Logger = LoggerFactory.getLogger(classOf[MDFileConverter])
   val url: String = confService.readString("apiUrl")
+  val dataMapFileUrl: String = confService.readString("dataMapFilesUrl")
   val inputFileExtension: String = ".md"
   val outputFileExtension: String = ".html"
   val headerContent: String = fileService.readFromFile(confService.readString("headerPath"))
@@ -15,39 +15,23 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
   val location: String = confService.readString("outputFileLocation")
   val fileReadObject: MdFileHandler = new MdFileHandler(confService, fileService)
   val failMessage: String = "failure"
+  val imageFileList: List[String] = confService.readListOfString("imagesFilesList")
 
   /**
-    * reads list of files , converts file extension to output file extension and writes file to the location
+    * reads list of files , converts file extension to output file extension and writes file to
+    * the location
     *
     * @return status of each file i.e. success or failure
     */
-  def convertToHtml(status: Boolean): String = {
+  def convertToHtml(dirStatus: Boolean): String = {
     val listOfFiles: List[String] = confService.readListOfString("fileList")
-    val imageFileList: List[String] =confService.readListOfString("imagesFilesList")
+    val listOfDataMapFiles: List[String] = confService.readListOfString("dataMapFileList")
     val statusList: List[String] = listOfFiles.map { file =>
-      val fileURLContent: String = dataService.dataOnGetRequest(url + file + inputFileExtension)
-      val getFileData: Option[String] = dataService.dataOnPostRequest(fileURLContent)
-      getFileData match {
-        case Some(data: String) => val fileData = fileReadObject.convertMdExtensions(data)
-          logger.info(s"Begin writing [ $file outputFileExtension ] at $location")
-          val statusHtmlFile = fileService.writeToFile(location + file + outputFileExtension, headerContent + fileData + footerContent)
-          saveMdFilesForPDF(status, fileURLContent, file)
-          if (imageFileList.contains(file)) {
-            saveMdFilesForPDF(status, changeImageLink(fileURLContent), file)
-          }
-          else {
-            saveMdFilesForPDF(status, fileURLContent, file)
-          }
-          if (statusHtmlFile) {
-            logger.info(s"Successfully written [ $file $outputFileExtension ] at $location")
-            "Success"
-          }
-          else {
-            failMessage
-          }
-        case None => logger.error(s"$file Conversion failed !")
-          failMessage
-      }
+      convertToHtmlFromPath(url, location + file + outputFileExtension, dirStatus, file)
+    }
+
+    val dataFileStatusList: List[String] = listOfDataMapFiles.map { file =>
+      convertToHtmlFromPath(dataMapFileUrl, location + file + outputFileExtension, dirStatus, file)
     }
 
     fileReadObject.convertReadMeExtensions()
@@ -89,5 +73,36 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
     val contentAfterModifyImageLink: String = modifyImagePattern replaceAllIn(content, "../../src/site/images/"+"$2"+"")
     contentAfterModifyImageLink
   }
-}
 
+  private def convertToHtmlFromPath(urlPath: String,
+                                    outputPath: String,
+                                    dirStatus: Boolean,
+                                    fileName: String): String = {
+    val fileURLContent: String = dataService
+      .dataOnGetRequest(urlPath + fileName + inputFileExtension)
+    val getFileData: Option[String] = dataService.dataOnPostRequest(fileURLContent)
+    getFileData match {
+      case Some(data: String) => val fileData = fileReadObject.convertMdExtensions(data)
+        logger.info(s"Begin writing [ $fileName outputFileExtension ] at $location")
+        val statusHtmlFile = fileService
+          .writeToFile(outputPath, headerContent + fileData + footerContent)
+        saveMdFilesForPDF(dirStatus, fileURLContent, fileName)
+        if (imageFileList.contains(fileName)) {
+          saveMdFilesForPDF(dirStatus, changeImageLink(fileURLContent), fileName)
+        }
+        else {
+          saveMdFilesForPDF(dirStatus, fileURLContent, fileName)
+        }
+        if (statusHtmlFile) {
+          logger.info(s"Successfully written [ $fileName $outputFileExtension ] at $location")
+          "Success"
+        }
+        else {
+          failMessage
+        }
+      case None => logger.error(s"$fileName Conversion failed !")
+        failMessage
+    }
+  }
+
+}
