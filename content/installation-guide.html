@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
+                                   target="_blank">Apache CarbonData 1.3.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
                                    target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
@@ -258,7 +261,7 @@
 <tr>
 <td>carbon.storelocation</td>
 <td>NO</td>
-<td>Location where data CarbonData will create the store and write the data in its own format.</td>
+<td>Location where data CarbonData will create the store and write the data in its own format. If not specified then it takes spark.sql.warehouse.dir path.</td>
 <td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
 <td>Propose to set HDFS directory</td>
 </tr>
@@ -367,7 +370,7 @@ mv carbondata.tar.gz carbonlib/
 <tr>
 <td>carbon.storelocation</td>
 <td>NO</td>
-<td>Location where CarbonData will create the store and write the data in its own format.</td>
+<td>Location where CarbonData will create the store and write the data in its own format. If not specified then it takes spark.sql.warehouse.dir path.</td>
 <td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
 <td>Propose to set HDFS directory</td>
 </tr>
@@ -407,7 +410,7 @@ $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
 </tr>
 <tr>
 <td>carbon_store_path</td>
-<td>This is a parameter to the CarbonThriftServer class. This a HDFS path where CarbonData files will be kept. Strongly Recommended to put same as carbon.storelocation parameter of carbon.properties.</td>
+<td>This is a parameter to the CarbonThriftServer class. This a HDFS path where CarbonData files will be kept. Strongly Recommended to put same as carbon.storelocation parameter of carbon.properties. If not specified then it takes spark.sql.warehouse.dir path.</td>
 <td><code>hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store</code></td>
 </tr>
 </tbody>
