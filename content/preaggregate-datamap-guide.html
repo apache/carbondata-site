@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
+                                   target="_blank">Apache CarbonData 1.3.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
                                    target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
@@ -359,7 +362,7 @@ assume that query will be faster on smaller table)</p>
 
 SELECT sex, sum(quantity) from sales GROUP BY sex
 
-SELECT sum(price), country from sales GROUP BY country
+SELECT avg(price), country from sales GROUP BY country
 </code></pre>
 <p>will be transformed by CarbonData's query planner to query against pre-aggregate table
 <strong>agg_sales</strong> instead of the main table <strong>sales</strong></p>
@@ -384,7 +387,7 @@ tables are loaded successfully, if one of these loads fails, new data are not vi
 as if the load operation is not happened.</p>
 <h2>
 <a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data</h2>
-<p>As a technique for query acceleration, Pre-aggregate tables cannot be queries directly.
+<p>As a technique for query acceleration, Pre-aggregate tables cannot be queried directly.
 Queries are to be made on main table. While doing query planning, internally CarbonData will check
 associated pre-aggregate tables with the main table, and do query plan transformation accordingly.</p>
 <p>User can verify whether a query can leverage pre-aggregate table or not by executing <code>EXPLAIN</code>
