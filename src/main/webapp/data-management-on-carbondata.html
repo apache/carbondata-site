@@ -287,6 +287,40 @@ Following are 5 configurations:</p>
                 'SORT_SCOPE'='NO_SORT')
 </code></pre>
 <h2>
+<a id="create-table-as-select" class="anchor" href="#create-table-as-select" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE AS SELECT</h2>
+<p>This function allows user to create a Carbon table from any of the Parquet/Hive/Carbon table. This is beneficial when the user wants to create Carbon table from any other Parquet/Hive table and use the Carbon query engine to query and achieve better query results for cases where Carbon is faster than other file formats. Also this feature can be used for backing up the data.</p>
+<h3>
+<a id="syntax" class="anchor" href="#syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name 
+STORED BY 'carbondata' 
+[TBLPROPERTIES (key1=val1, key2=val2, ...)] 
+AS select_statement;
+</code></pre>
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+<pre><code>carbon.sql("CREATE TABLE source_table(
+                           id INT,
+                           name STRING,
+                           city STRING,
+                           age INT)
+            STORED AS parquet")
+carbon.sql("INSERT INTO source_table SELECT 1,'bob','shenzhen',27")
+carbon.sql("INSERT INTO source_table SELECT 2,'david','shenzhen',31")
+
+carbon.sql("CREATE TABLE target_table
+            STORED BY 'carbondata'
+            AS SELECT city,avg(age) FROM source_table GROUP BY city")
+            
+carbon.sql("SELECT * FROM target_table").show
+  // results:
+  //    +--------+--------+
+  //    |    city|avg(age)|
+  //    +--------+--------+
+  //    |shenzhen|    29.0|
+  //    +--------+--------+
+
+</code></pre>
+<h2>
 <a id="create-database" class="anchor" href="#create-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE DATABASE</h2>
 <p>This function creates a new database. By default the database is created in Carbon store location, but you can also specify custom location.</p>
 <pre><code>CREATE DATABASE [IF NOT EXISTS] database_name [LOCATION path];
@@ -294,15 +328,6 @@ Following are 5 configurations:</p>
 <h3>
 <a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
 <pre><code>CREATE DATABASE carbon LOCATION ?hdfs://name_cluster/dir1/carbonstore?;
-</code></pre>
-<h2>
-<a id="create-table-as-select" class="anchor" href="#create-table-as-select" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE As SELECT</h2>
-<p>This function allows you to create a Carbon table from any of the Parquet/Hive/Carbon table. This is beneficial when the user wants to create Carbon table from any other Parquet/Hive table and use the Carbon query engine to query and achieve better query results for cases where Carbon is faster than other file formats. Also this feature can be used for backing up the data.</p>
-<pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name STORED BY 'carbondata' [TBLPROPERTIES (key1=val1, key2=val2, ...)] AS select_statement;
-</code></pre>
-<h3>
-<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
-<pre><code>CREATE TABLE ctas_select_parquet STORED BY 'carbondata' as select * from parquet_ctas_test;
 </code></pre>
 <h2>
 <a id="table-management" class="anchor" href="#table-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TABLE MANAGEMENT</h2>
@@ -705,7 +730,7 @@ STORED BY 'carbondata'
 <pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
 INTO TABLE [db_name.]table_name PARTITION (partition_spec) 
 OPTIONS(property_name=property_value, ...)    
-INSERT INTO INTO TABLE [db_name.]table_name PARTITION (partition_spec) &lt;SELECT STATMENT&gt;
+INSERT INTO INTO TABLE [db_name.]table_name PARTITION (partition_spec) &lt;SELECT STATEMENT&gt;
 </code></pre>
 <p>Example:</p>
 <pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.csv'
