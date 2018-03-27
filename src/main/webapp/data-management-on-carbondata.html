@@ -757,7 +757,10 @@ SELECT &lt;columns list excluding partition columns&gt; FROM another_user
 <h4>
 <a id="drop-partition" class="anchor" href="#drop-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop Partition</h4>
 <p>This command drops the specified Hive partition only.</p>
-<pre><code>ALTER TABLE table_name DROP [IF EXISTS] (PARTITION part_spec, ...)
+<pre><code>ALTER TABLE table_name DROP [IF EXISTS] PARTITION (part_spec, ...)
+</code></pre>
+<p>Example:</p>
+<pre><code>ALTER TABLE locationTable DROP PARTITION (country = 'US');
 </code></pre>
 <h4>
 <a id="insert-overwrite" class="anchor" href="#insert-overwrite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Insert OVERWRITE</h4>
