@@ -16,6 +16,8 @@
         <item name="Installation" ref='installation-guide.md'/>
         <item name="Configuring CarbonData" ref='configuration-parameters.md'/>
         <item name="Streaming Guide" ref='streaming-guide.md'/>
+      <item name="SDK Writer Guide" ref='sdk-writer-guide.md'/>
+      <item name="DataMap Developer Guide" ref='datamap-developer-guide.md'/>
         <item name="CarbonData Pre-aggregate DataMap" ref='preaggregate-datamap-guide.md'/>
         <item name="CarbonData Timeseries DataMap" ref='timeseries-datamap-guide.md'/>
         <item name="FAQs" ref='faq.md'/>

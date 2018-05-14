@@ -186,6 +186,8 @@
 <li><a href="#how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</a></li>
 <li><a href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios">How Carbon will behave when execute insert operation in abnormal scenarios?</a></li>
 <li><a href="#why-aggregate-query-is-not-fetching-data-from-aggregate-table">Why aggregate query is not fetching data from aggregate table?</a></li>
+<li><a href="#Why-all-executors-are-showing-success-in-Spark-UI-even-after-Dataload-command-failed-at-driver-side">Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</a></li>
+<li><a href="#Why-different-time-zone-result-for-select-query-output-when-query-SDK-writer-output">Why different time zone result for select query output when query SDK writer output?</a></li>
 </ul>
 <h2>
 <a id="what-are-bad-records" class="anchor" href="#what-are-bad-records" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What are Bad Records?</h2>
@@ -310,6 +312,19 @@ When aggregate function having 'join' with equal filter.</li>
 <pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored by 'carbondata';
 create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
 select cntry,sum(gdp) from gdp21,pop1 where cntry=ctry group by cntry;
+</code></pre>
+<h2>
+<a id="why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side" class="anchor" href="#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</h2>
+<p>Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as ?FAIL? will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.</p>
+<h2>
+<a id="why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output" class="anchor" href="#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why different time zone result for select query output when query SDK writer output?</h2>
+<p>SDK writer is an independent entity, hence SDK writer can generate carbondata files from a non-cluster machine that has different time zones. But at cluster when those files are read, it always takes cluster time-zone. Hence, the value of timestamp and date datatype fields are not original value.
+If wanted to control timezone of data while writing, then set cluster's time-zone in SDK writer by calling below API.</p>
+<pre><code>TimeZone.setDefault(timezoneValue)
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code>cluster timezone is Asia/Shanghai
+TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"))
 </code></pre>
 </div>
 </div>
