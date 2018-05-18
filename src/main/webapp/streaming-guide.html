@@ -190,16 +190,16 @@
 5,col5
 </code></pre>
 <p>Start spark-shell in new terminal, type :paste, then copy and run the following code.</p>
-<div class="highlight highlight-source-scala"><pre> <span class="pl-k">import</span> <span class="pl-smi">java.io.</span><span class="pl-smi">File</span>
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.</span>{<span class="pl-smi">CarbonEnv</span>, <span class="pl-smi">SparkSession</span>}
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.CarbonSession.</span><span class="pl-smi">_</span>
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.streaming.</span>{<span class="pl-smi">ProcessingTime</span>, <span class="pl-smi">StreamingQuery</span>}
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.util.path.</span><span class="pl-smi">CarbonStorePath</span>
+<div class="highlight highlight-source-scala"><pre> <span class="pl-k">import</span> <span class="pl-en">java</span>.<span class="pl-en">io</span>.<span class="pl-en">File</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.{<span class="pl-en">CarbonEnv</span>, <span class="pl-en">SparkSession</span>}
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">CarbonSession</span>.<span class="pl-en">_</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">streaming</span>.{<span class="pl-en">ProcessingTime</span>, <span class="pl-en">StreamingQuery</span>}
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">carbondata</span>.<span class="pl-en">core</span>.<span class="pl-en">util</span>.<span class="pl-en">path</span>.<span class="pl-en">CarbonStorePath</span>
  
- <span class="pl-k">val</span> <span class="pl-en">warehouse</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./warehouse<span class="pl-pds">"</span></span>).getCanonicalPath
- <span class="pl-k">val</span> <span class="pl-en">metastore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./metastore<span class="pl-pds">"</span></span>).getCanonicalPath
+ <span class="pl-k">val</span> <span class="pl-smi">warehouse</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./warehouse<span class="pl-pds">"</span></span>).getCanonicalPath
+ <span class="pl-k">val</span> <span class="pl-smi">metastore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./metastore<span class="pl-pds">"</span></span>).getCanonicalPath
  
- <span class="pl-k">val</span> <span class="pl-en">spark</span> <span class="pl-k">=</span> <span class="pl-en">SparkSession</span>
+ <span class="pl-k">val</span> <span class="pl-smi">spark</span> <span class="pl-k">=</span> <span class="pl-en">SparkSession</span>
    .builder()
    .master(<span class="pl-s"><span class="pl-pds">"</span>local<span class="pl-pds">"</span></span>)
    .appName(<span class="pl-s"><span class="pl-pds">"</span>StreamExample<span class="pl-pds">"</span></span>)
@@ -220,12 +220,12 @@
 <span class="pl-s">      | STORED BY 'carbondata'</span>
 <span class="pl-s">      | TBLPROPERTIES('streaming'='true')<span class="pl-pds">"""</span></span>.stripMargin)
 
- <span class="pl-k">val</span> <span class="pl-en">carbonTable</span> <span class="pl-k">=</span> <span class="pl-en">CarbonEnv</span>.getCarbonTable(<span class="pl-en">Some</span>(<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span>), <span class="pl-s"><span class="pl-pds">"</span>carbon_table<span class="pl-pds">"</span></span>)(spark)
- <span class="pl-k">val</span> <span class="pl-en">tablePath</span> <span class="pl-k">=</span> <span class="pl-en">CarbonStorePath</span>.getCarbonTablePath(carbonTable.getAbsoluteTableIdentifier)
+ <span class="pl-k">val</span> <span class="pl-smi">carbonTable</span> <span class="pl-k">=</span> <span class="pl-en">CarbonEnv</span>.getCarbonTable(<span class="pl-en">Some</span>(<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span>), <span class="pl-s"><span class="pl-pds">"</span>carbon_table<span class="pl-pds">"</span></span>)(spark)
+ <span class="pl-k">val</span> <span class="pl-smi">tablePath</span> <span class="pl-k">=</span> <span class="pl-en">CarbonStorePath</span>.getCarbonTablePath(carbonTable.getAbsoluteTableIdentifier)
  
  <span class="pl-c"><span class="pl-c">//</span> batch load</span>
- <span class="pl-k">var</span> <span class="pl-en">qry</span><span class="pl-k">:</span> <span class="pl-en">StreamingQuery</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>
- <span class="pl-k">val</span> <span class="pl-en">readSocketDF</span> <span class="pl-k">=</span> spark.readStream
+ <span class="pl-k">var</span> <span class="pl-smi">qry</span><span class="pl-k">:</span> <span class="pl-en">StreamingQuery</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>
+ <span class="pl-k">val</span> <span class="pl-smi">readSocketDF</span> <span class="pl-k">=</span> spark.readStream
    .format(<span class="pl-s"><span class="pl-pds">"</span>socket<span class="pl-pds">"</span></span>)
    .option(<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>)
    .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-c1">9099</span>)
@@ -327,7 +327,7 @@ streaming table using following DDL.</p>
 </table>
 <h2>
 <a id="change-segment-status" class="anchor" href="#change-segment-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change segment status</h2>
-<p>Use below command to change the status of "streaming" segment to "streaming finish" segment.</p>
+<p>Use below command to change the status of "streaming" segment to "streaming finish" segment. If the streaming application is running, this command will be blocked.</p>
 <div class="highlight highlight-source-sql"><pre><span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> streaming_table FINISH STREAMING</pre></div>
 <h2>
 <a id="handoff-streaming-finish-segment-to-columnar-segment" class="anchor" href="#handoff-streaming-finish-segment-to-columnar-segment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handoff "streaming finish" segment to columnar segment</h2>
@@ -379,8 +379,8 @@ streaming table using following DDL.</p>
  <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">StreamData</span>(<span class="pl-v">id</span>: <span class="pl-k">Int</span>, <span class="pl-v">name</span>: <span class="pl-k">String</span>, <span class="pl-v">city</span>: <span class="pl-k">String</span>, <span class="pl-v">salary</span>: <span class="pl-k">Float</span>, <span class="pl-v">file</span>: <span class="pl-en">FileElement</span>)
  ...
 
- <span class="pl-k">var</span> <span class="pl-en">qry</span><span class="pl-k">:</span> <span class="pl-en">StreamingQuery</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>
- <span class="pl-k">val</span> <span class="pl-en">readSocketDF</span> <span class="pl-k">=</span> spark.readStream
+ <span class="pl-k">var</span> <span class="pl-smi">qry</span><span class="pl-k">:</span> <span class="pl-en">StreamingQuery</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>
+ <span class="pl-k">val</span> <span class="pl-smi">readSocketDF</span> <span class="pl-k">=</span> spark.readStream
    .format(<span class="pl-s"><span class="pl-pds">"</span>socket<span class="pl-pds">"</span></span>)
    .option(<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>)
    .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-c1">9099</span>)
@@ -388,8 +388,8 @@ streaming table using following DDL.</p>
    .as[<span class="pl-k">String</span>]
    .map(_.split(<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>))
    .map { fields <span class="pl-k">=&gt;</span> {
-     <span class="pl-k">val</span> <span class="pl-en">tmp</span> <span class="pl-k">=</span> fields(<span class="pl-c1">4</span>).split(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\</span>$<span class="pl-pds">"</span></span>)
-     <span class="pl-k">val</span> <span class="pl-en">file</span> <span class="pl-k">=</span> <span class="pl-en">FileElement</span>(tmp(<span class="pl-c1">0</span>).split(<span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span></span>), tmp(<span class="pl-c1">1</span>).toInt)
+     <span class="pl-k">val</span> <span class="pl-smi">tmp</span> <span class="pl-k">=</span> fields(<span class="pl-c1">4</span>).split(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\</span>$<span class="pl-pds">"</span></span>)
+     <span class="pl-k">val</span> <span class="pl-smi">file</span> <span class="pl-k">=</span> <span class="pl-en">FileElement</span>(tmp(<span class="pl-c1">0</span>).split(<span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span></span>), tmp(<span class="pl-c1">1</span>).toInt)
      <span class="pl-en">StreamData</span>(fields(<span class="pl-c1">0</span>).toInt, fields(<span class="pl-c1">1</span>), fields(<span class="pl-c1">2</span>), fields(<span class="pl-c1">3</span>).toFloat, file)
    } }
 
@@ -408,11 +408,11 @@ streaming table using following DDL.</p>
 <h3>
 <a id="how-to-implement-a-customized-stream-parser" class="anchor" href="#how-to-implement-a-customized-stream-parser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to implement a customized stream parser</h3>
 <p>If user needs to implement a customized stream parser to convert a specific InternalRow to Object[], it needs to implement <code>initialize</code> method and <code>parserRow</code> method of interface <code>CarbonStreamParser</code>, for example:</p>
-<div class="highlight highlight-source-scala"><pre> <span class="pl-k">package</span> <span class="pl-en">org.XXX.XXX.streaming.parser</span>
+<div class="highlight highlight-source-scala"><pre> <span class="pl-k">package</span> <span class="pl-en">org</span>.<span class="pl-en">XXX</span>.<span class="pl-en">XXX</span>.<span class="pl-en">streaming</span>.<span class="pl-en">parser</span>
  
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.hadoop.conf.</span><span class="pl-smi">Configuration</span>
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.catalyst.</span><span class="pl-smi">InternalRow</span>
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.types.</span><span class="pl-smi">StructType</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">hadoop</span>.<span class="pl-en">conf</span>.<span class="pl-en">Configuration</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">catalyst</span>.<span class="pl-en">InternalRow</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">types</span>.<span class="pl-en">StructType</span>
  
  <span class="pl-k">class</span> <span class="pl-en">XXXStreamParserImp</span> <span class="pl-k">extends</span> <span class="pl-e">CarbonStreamParser</span> {
  

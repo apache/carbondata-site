@@ -190,16 +190,16 @@
 <p>Package carbon jar, and copy assembly/target/scala-2.11/carbondata_2.11-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar to $SPARK_HOME/jars</p>
 <div class="highlight highlight-source-shell"><pre>mvn clean package -DskipTests -Pspark-2.2</pre></div>
 <p>Start spark-shell in new terminal, type :paste, then copy and run the following code.</p>
-<div class="highlight highlight-source-scala"><pre> <span class="pl-k">import</span> <span class="pl-smi">java.io.</span><span class="pl-smi">File</span>
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.</span>{<span class="pl-smi">CarbonEnv</span>, <span class="pl-smi">SparkSession</span>}
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.CarbonSession.</span><span class="pl-smi">_</span>
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.streaming.</span>{<span class="pl-smi">ProcessingTime</span>, <span class="pl-smi">StreamingQuery</span>}
- <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.util.path.</span><span class="pl-smi">CarbonStorePath</span>
+<div class="highlight highlight-source-scala"><pre> <span class="pl-k">import</span> <span class="pl-en">java</span>.<span class="pl-en">io</span>.<span class="pl-en">File</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.{<span class="pl-en">CarbonEnv</span>, <span class="pl-en">SparkSession</span>}
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">CarbonSession</span>.<span class="pl-en">_</span>
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">streaming</span>.{<span class="pl-en">ProcessingTime</span>, <span class="pl-en">StreamingQuery</span>}
+ <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">carbondata</span>.<span class="pl-en">core</span>.<span class="pl-en">util</span>.<span class="pl-en">path</span>.<span class="pl-en">CarbonStorePath</span>
  
- <span class="pl-k">val</span> <span class="pl-en">warehouse</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./warehouse<span class="pl-pds">"</span></span>).getCanonicalPath
- <span class="pl-k">val</span> <span class="pl-en">metastore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./metastore<span class="pl-pds">"</span></span>).getCanonicalPath
+ <span class="pl-k">val</span> <span class="pl-smi">warehouse</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./warehouse<span class="pl-pds">"</span></span>).getCanonicalPath
+ <span class="pl-k">val</span> <span class="pl-smi">metastore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">File</span>(<span class="pl-s"><span class="pl-pds">"</span>./metastore<span class="pl-pds">"</span></span>).getCanonicalPath
  
- <span class="pl-k">val</span> <span class="pl-en">spark</span> <span class="pl-k">=</span> <span class="pl-en">SparkSession</span>
+ <span class="pl-k">val</span> <span class="pl-smi">spark</span> <span class="pl-k">=</span> <span class="pl-en">SparkSession</span>
    .builder()
    .master(<span class="pl-s"><span class="pl-pds">"</span>local<span class="pl-pds">"</span></span>)
    .appName(<span class="pl-s"><span class="pl-pds">"</span>preAggregateExample<span class="pl-pds">"</span></span>)
@@ -236,16 +236,16 @@
 <span class="pl-s">      | GROUP BY country</span>
 <span class="pl-s">    <span class="pl-pds">"""</span></span>.stripMargin)
       
-  <span class="pl-k">import</span> <span class="pl-smi">spark.implicits.</span><span class="pl-smi">_</span>
-  <span class="pl-k">import</span> <span class="pl-smi">org.apache.spark.sql.</span><span class="pl-smi">SaveMode</span>
-  <span class="pl-k">import</span> <span class="pl-smi">scala.util.</span><span class="pl-smi">Random</span>
+  <span class="pl-k">import</span> <span class="pl-en">spark</span>.<span class="pl-en">implicits</span>.<span class="pl-en">_</span>
+  <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">SaveMode</span>
+  <span class="pl-k">import</span> <span class="pl-en">scala</span>.<span class="pl-en">util</span>.<span class="pl-en">Random</span>
  
   <span class="pl-c"><span class="pl-c">//</span> Load data to the main table, it will also</span>
   <span class="pl-c"><span class="pl-c">//</span> trigger immediate load to pre-aggregate table.</span>
   <span class="pl-c"><span class="pl-c">//</span> These two loading operation is carried out in a</span>
   <span class="pl-c"><span class="pl-c">//</span> transactional manner, meaning that the whole </span>
   <span class="pl-c"><span class="pl-c">//</span> operation will fail if one of the loading fails</span>
-  <span class="pl-k">val</span> <span class="pl-en">r</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Random</span>()
+  <span class="pl-k">val</span> <span class="pl-smi">r</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Random</span>()
   spark.sparkContext.parallelize(<span class="pl-c1">1</span> to <span class="pl-c1">10</span>)
    .map(x <span class="pl-k">=&gt;</span> (<span class="pl-s"><span class="pl-pds">"</span>ID.<span class="pl-pds">"</span></span> <span class="pl-k">+</span> r.nextInt(<span class="pl-c1">100000</span>), <span class="pl-s"><span class="pl-pds">"</span>country<span class="pl-pds">"</span></span> <span class="pl-k">+</span> x <span class="pl-k">%</span> <span class="pl-c1">8</span>, x <span class="pl-k">%</span> <span class="pl-c1">50</span>, x <span class="pl-k">%</span> <span class="pl-c1">60</span>))
    .toDF(<span class="pl-s"><span class="pl-pds">"</span>user_id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>country<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>quantity<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>price<span class="pl-pds">"</span></span>)
@@ -276,7 +276,10 @@ AS
 <p>The string followed by USING is called DataMap Provider, in this version CarbonData supports two
 kinds of DataMap:</p>
 <ol>
-<li>preaggregate, for pre-aggregate table. No DMPROPERTY is required for this DataMap</li>
+<li>preaggregate, for pre-aggregate table. Pre-Aggregate table supports two values for DMPROPERTIES.
+a. 'path' is used to specify the store location of the datamap.('path'='/location/').
+b. 'partitioning' when set to false enables user to disable partitioning of the datamap.
+Default value is true for this property.</li>
 <li>timeseries, for timeseries roll-up table. Please refer to <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/timeseries-datamap-guide.html" target=_blank>Timeseries DataMap</a>
 </li>
 </ol>
