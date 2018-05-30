@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
+                                   target="_blank">Apache CarbonData 1.4.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
                             <li>
@@ -589,6 +592,11 @@
 <td>carbon.scheduler.minregisteredresourcesratio</td>
 <td>0.8</td>
 <td>Specifies the minimum resource (executor) ratio needed for starting the block distribution. The default value is 0.8, which indicates 80% of the requested resource is allocated for starting block distribution.  The minimum value is 0.1 min and the maximum value is 1.0.</td>
+</tr>
+<tr>
+<td>carbon.search.enabled</td>
+<td>false</td>
+<td>If set to true, it will use CarbonReader to do distributed scan directly instead of using compute framework like spark, thus avoiding limitation of compute framework like SQL optimizer and task scheduling overhead.</td>
 </tr>
 </tbody>
 </table>

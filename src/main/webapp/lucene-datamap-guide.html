@@ -176,54 +176,149 @@
                         <div id="viewpage" name="viewpage">
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
-                                    <div>
-<h1>
-<a id="data-types" class="anchor" href="#data-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Types</h1>
+                                    <div><h1>
+<a id="carbondata-lucene-datamap-alpha-feature-in-140" class="anchor" href="#carbondata-lucene-datamap-alpha-feature-in-140" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Lucene DataMap (Alpha feature in 1.4.0)</h1>
+<ul>
+<li><a href="#datamap-management">DataMap Management</a></li>
+<li><a href="#lucene-datamap-introduction">Lucene Datamap</a></li>
+<li><a href="#loading-data">Loading Data</a></li>
+<li><a href="#querying-data">Querying Data</a></li>
+<li><a href="#data-management-with-lucene-datamap">Data Management</a></li>
+</ul>
 <h4>
-<a id="carbondata-supports-the-following-data-types" class="anchor" href="#carbondata-supports-the-following-data-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData supports the following data types:</h4>
-<ul>
+<a id="datamap-management" class="anchor" href="#datamap-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMap Management</h4>
+<p>Lucene DataMap can be created using following DDL</p>
+<pre><code>CREATE DATAMAP [IF NOT EXISTS] datamap_name
+ON TABLE main_table
+USING 'lucene'
+DMPROPERTIES ('index_columns'='city, name', ...)
+</code></pre>
+<p>DataMap can be dropped using following DDL:</p>
+<pre><code>DROP DATAMAP [IF EXISTS] datamap_name
+ON TABLE main_table
+</code></pre>
+<p>To show all DataMaps created, use:</p>
+<pre><code>SHOW DATAMAP 
+ON TABLE main_table
+</code></pre>
+<p>It will show all DataMaps created on main table.</p>
+<h2>
+<a id="lucene-datamap-introduction" class="anchor" href="#lucene-datamap-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Lucene DataMap Introduction</h2>
+<p>Lucene is a high performance, full featured text search engine. Lucene is integrated to carbon as
+an index datamap and managed along with main tables by CarbonData.User can create lucene datamap
+to improve query performance on string columns which has content of more length. So, user can
+search tokenized word or pattern of it using lucene query on text content.</p>
+<p>For instance, main table called <strong>datamap_test</strong> which is defined as:</p>
+<pre><code>CREATE TABLE datamap_test (
+  name string,
+  age int,
+  city string,
+  country string)
+STORED BY 'carbondata'
+</code></pre>
+<p>User can create Lucene datamap using the Create DataMap DDL:</p>
+<pre><code>CREATE DATAMAP dm
+ON TABLE datamap_test
+USING 'lucene'
+DMPROPERTIES ('INDEX_COLUMNS' = 'name, country',)
+</code></pre>
+<p><strong>DMProperties</strong></p>
+<ol>
+<li>INDEX_COLUMNS: The list of string columns on which lucene creates indexes.</li>
+<li>FLUSH_CACHE: size of the cache to maintain in Lucene writer, if specified then it tries to
+aggregate the unique data till the cache limit and flush to Lucene. It is best suitable for low
+cardinality dimensions.</li>
+<li>SPLIT_BLOCKLET: when made as true then store the data in blocklet wise in lucene , it means new
+folder will be created for each blocklet, thus, it eliminates storing blockletid in lucene and
+also it makes lucene small chunks of data.</li>
+</ol>
+<h2>
+<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data</h2>
+<p>When loading data to main table, lucene index files will be generated for all the
+index_columns(String Columns) given in DMProperties which contains information about the data
+location of index_columns. These index files will be written inside a folder named with datamap name
+inside each segment folders.</p>
+<p>A system level configuration carbon.lucene.compression.mode can be added for best compression of
+lucene index files. The default value is speed, where the index writing speed will be more. If the
+value is compression, the index file size will be compressed.</p>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data</h2>
+<p>As a technique for query acceleration, Lucene indexes cannot be queried directly.
+Queries are to be made on main table. when a query with TEXT_MATCH('name:c10') or
+TEXT_MATCH_WITH_LIMIT('name:n10',10)[the second parameter represents the number of result to be
+returned, if user does not specify this value, all results will be returned without any limit] is
+fired, two jobs are fired.The first job writes the temporary files in folder created at table level
+which contains lucene's seach results and these files will be read in second job to give faster
+results. These temporary files will be cleared once the query finishes.</p>
+<p>User can verify whether a query can leverage Lucene datamap or not by executing <code>EXPLAIN</code>
+command, which will show the transformed logical plan, and thus user can check whether TEXT_MATCH()
+filter is applied on query or not.</p>
+<p><strong>Note:</strong></p>
+<ol>
 <li>
-<p>Numeric Types</p>
-<ul>
-<li>SMALLINT</li>
-<li>INT/INTEGER</li>
-<li>BIGINT</li>
-<li>DOUBLE</li>
-<li>DECIMAL</li>
-</ul>
+<p>The filter columns in TEXT_MATCH or TEXT_MATCH_WITH_LIMIT must be always in lower case and
+filter condition like 'AND','OR' must be in upper case.</p>
+<p>Ex:</p>
+<pre><code>select * from datamap_test where TEXT_MATCH('name:*10 AND name:*n*')
+</code></pre>
 </li>
 <li>
-<p>Date/Time Types</p>
-<ul>
-<li>TIMESTAMP</li>
-<li>DATE</li>
-</ul>
+<p>Query supports only one TEXT_MATCH udf for filter condition and not multiple udfs.</p>
+<p>The following query is supported:</p>
+<pre><code>select * from datamap_test where TEXT_MATCH('name:*10 AND name:*n*')
+</code></pre>
+<p>The following query is not supported:</p>
+<pre><code>select * from datamap_test where TEXT_MATCH('name:*10) AND TEXT_MATCH(name:*n*')
+</code></pre>
 </li>
-<li>
-<p>String Types</p>
-<ul>
-<li>STRING</li>
-<li>CHAR</li>
-<li>VARCHAR</li>
-</ul>
-</li>
-<li>
-<p>Complex Types</p>
-<ul>
-<li>arrays: ARRAY<code>&lt;data_type&gt;</code>
-</li>
-<li>structs: STRUCT<code>&lt;col_name : data_type COMMENT col_comment, ...&gt;</code>
-</li>
-</ul>
-<p><strong>NOTE</strong>: Only 2 level complex type schema is supported for now.</p>
-</li>
-<li>
-<p>Other Types</p>
-<ul>
-<li>BOOLEAN</li>
-</ul>
-</li>
-</ul>
+</ol>
+<p>Below like queries can be converted to text_match queries as following:</p>
+<pre><code>select * from datamap_test where name='n10'
+
+select * from datamap_test where name like 'n1%'
+
+select * from datamap_test where name like '%10'
+
+select * from datamap_test where name like '%n%'
+
+select * from datamap_test where name like '%10' and name not like '%n%'
+</code></pre>
+<p>Lucene TEXT_MATCH Queries:</p>
+<pre><code>select * from datamap_test where TEXT_MATCH('name:n10')
+
+select * from datamap_test where TEXT_MATCH('name:n1*')
+
+select * from datamap_test where TEXT_MATCH('name:*10')
+
+select * from datamap_test where TEXT_MATCH('name:*n*')
+
+select * from datamap_test where TEXT_MATCH('name:*10 -name:*n*')
+</code></pre>
+<p><strong>Note:</strong> For lucene queries and syntax, refer to <a href="www.lucenetutorial.com/lucene-query-syntax.html">lucene-syntax</a></p>
+<h2>
+<a id="data-management-with-lucene-datamap" class="anchor" href="#data-management-with-lucene-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management with lucene datamap</h2>
+<p>Once there is lucene datamap is created on the main table, following command on the main
+table
+is not supported:</p>
+<ol>
+<li>Data management command: <code>UPDATE/DELETE</code>.</li>
+<li>Schema management command: <code>ALTER TABLE DROP COLUMN</code>, <code>ALTER TABLE CHANGE DATATYPE</code>,
+<code>ALTER TABLE RENAME</code>.</li>
+</ol>
+<p><strong>Note</strong>: Adding a new column is supported, and for dropping columns and change datatype
+command, CarbonData will check whether it will impact the lucene datamap, if not, the operation
+is allowed, otherwise operation will be rejected by throwing exception.</p>
+<ol start="3">
+<li>Partition management command: <code>ALTER TABLE ADD/DROP PARTITION</code>.</li>
+</ol>
+<p>However, there is still way to support these operations on main table, in current CarbonData
+release, user can do as following:</p>
+<ol>
+<li>Remove the lucene datamap by <code>DROP DATAMAP</code> command.</li>
+<li>Carry out the data management operation on main table.</li>
+<li>Create the lucene datamap again by <code>CREATE DATAMAP</code> command.
+Basically, user can manually trigger the operation by re-building the datamap.</li>
+</ol>
 </div>
 </div>
 </div>
