@@ -176,54 +176,118 @@
                         <div id="viewpage" name="viewpage">
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
-                                    <div>
-<h1>
-<a id="data-types" class="anchor" href="#data-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Types</h1>
+                                    <div><h1>
+<a id="carbondata-bloomfilter-datamap-alpha-feature-in-140" class="anchor" href="#carbondata-bloomfilter-datamap-alpha-feature-in-140" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData BloomFilter DataMap (Alpha feature in 1.4.0)</h1>
+<ul>
+<li><a href="#datamap-management">DataMap Management</a></li>
+<li><a href="#bloomfilter-datamap-introduction">BloomFilter Datamap Introduction</a></li>
+<li><a href="#loading-data">Loading Data</a></li>
+<li><a href="#querying-data">Querying Data</a></li>
+<li><a href="#data-management-with-bloomfilter-datamap">Data Management</a></li>
+</ul>
 <h4>
-<a id="carbondata-supports-the-following-data-types" class="anchor" href="#carbondata-supports-the-following-data-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData supports the following data types:</h4>
-<ul>
-<li>
-<p>Numeric Types</p>
-<ul>
-<li>SMALLINT</li>
-<li>INT/INTEGER</li>
-<li>BIGINT</li>
-<li>DOUBLE</li>
-<li>DECIMAL</li>
-</ul>
-</li>
-<li>
-<p>Date/Time Types</p>
-<ul>
-<li>TIMESTAMP</li>
-<li>DATE</li>
-</ul>
-</li>
-<li>
-<p>String Types</p>
-<ul>
-<li>STRING</li>
-<li>CHAR</li>
-<li>VARCHAR</li>
-</ul>
-</li>
-<li>
-<p>Complex Types</p>
-<ul>
-<li>arrays: ARRAY<code>&lt;data_type&gt;</code>
-</li>
-<li>structs: STRUCT<code>&lt;col_name : data_type COMMENT col_comment, ...&gt;</code>
-</li>
-</ul>
-<p><strong>NOTE</strong>: Only 2 level complex type schema is supported for now.</p>
-</li>
-<li>
-<p>Other Types</p>
-<ul>
-<li>BOOLEAN</li>
-</ul>
-</li>
-</ul>
+<a id="datamap-management" class="anchor" href="#datamap-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMap Management</h4>
+<p>Creating BloomFilter DataMap</p>
+<pre><code>CREATE DATAMAP [IF NOT EXISTS] datamap_name
+ON TABLE main_table
+USING 'bloomfilter'
+DMPROPERTIES ('index_columns'='city, name', 'BLOOM_SIZE'='640000', 'BLOOM_FPP'='0.00001')
+</code></pre>
+<p>Dropping specified datamap</p>
+<pre><code>DROP DATAMAP [IF EXISTS] datamap_name
+ON TABLE main_table
+</code></pre>
+<p>Showing all DataMaps on this table</p>
+<pre><code>SHOW DATAMAP
+ON TABLE main_table
+</code></pre>
+<p>It will show all DataMaps created on main table.</p>
+<h2>
+<a id="bloomfilter-datamap-introduction" class="anchor" href="#bloomfilter-datamap-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BloomFilter DataMap Introduction</h2>
+<p>A Bloom filter is a space-efficient probabilistic data structure that is used to test whether an element is a member of a set.
+Carbondata introduce BloomFilter as an index datamap to enhance the performance of querying with precise value.
+It is well suitable for queries that do precise match on high cardinality columns(such as Name/ID).
+Internally, CarbonData maintains a BloomFilter per blocklet for each index column to indicate that whether a value of the column is in this blocklet.
+Just like the other datamaps, BloomFilter datamap is managed ablong with main tables by CarbonData.
+User can create BloomFilter datamap on specified columns with specified BloomFilter configurations such as size and probability.</p>
+<p>For instance, main table called <strong>datamap_test</strong> which is defined as:</p>
+<pre><code>CREATE TABLE datamap_test (
+  id string,
+  name string,
+  age int,
+  city string,
+  country string)
+STORED BY 'carbondata'
+TBLPROPERTIES('SORT_COLUMNS'='id')
+</code></pre>
+<p>In the above example, <code>id</code> and <code>name</code> are high cardinality columns
+and we always query on <code>id</code> and <code>name</code> with precise value.
+since <code>id</code> is in the sort_columns and it is orderd,
+query on it will be fast because CarbonData can skip all the irrelative blocklets.
+But queries on <code>name</code> may be bad since the blocklet minmax may not help,
+because in each blocklet the range of the value of <code>name</code> may be the same -- all from A<em>~z</em>.
+In this case, user can create a BloomFilter datamap on column <code>name</code>.
+Moreover, user can also create a BloomFilter datamap on the sort_columns.
+This is useful if user has too many segments and the range of the value of sort_columns are almost the same.</p>
+<p>User can create BloomFilter datamap using the Create DataMap DDL:</p>
+<pre><code>CREATE DATAMAP dm
+ON TABLE datamap_test
+USING 'bloomfilter'
+DMPROPERTIES ('INDEX_COLUMNS' = 'name,id', 'BLOOM_SIZE'='640000', 'BLOOM_FPP'='0.00001', 'BLOOM_COMPRESS'='true')
+</code></pre>
+<p><strong>Properties for BloomFilter DataMap</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Is Required</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INDEX_COLUMNS</td>
+<td>YES</td>
+<td></td>
+<td>Carbondata will generate BloomFilter index on these columns. Queries on there columns are usually like 'COL = VAL'.</td>
+</tr>
+<tr>
+<td>BLOOM_SIZE</td>
+<td>NO</td>
+<td>32000</td>
+<td>This value is internally used by BloomFilter as the number of expected insertions, it will affects the size of BloomFilter index. Since each blocklet has a BloomFilter here, so the value is the approximate records in a blocklet. In another word, the value 32000 * #noOfPagesInBlocklet. The value should be an integer.</td>
+</tr>
+<tr>
+<td>BLOOM_FPP</td>
+<td>NO</td>
+<td>0.01</td>
+<td>This value is internally used by BloomFilter as the False-Positive Probability, it will affects the size of bloomfilter index as well as the number of hash functions for the BloomFilter. The value should be in range (0, 1).</td>
+</tr>
+<tr>
+<td>BLOOM_COMPRESS</td>
+<td>NO</td>
+<td>true</td>
+<td>Whether to compress the BloomFilter index files.</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data</h2>
+<p>When loading data to main table, BloomFilter files will be generated for all the
+index_columns given in DMProperties which contains the blockletId and a BloomFilter for each index column.
+These index files will be written inside a folder named with datamap name
+inside each segment folders.</p>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying Data</h2>
+<p>A system level configuration <code>carbon.query.datamap.bloom.cache.size</code> can used to enhance query performance with BloomFilter datamap by providing a cache for the bloomfilter index files.
+The default value is <code>512</code> and its unit is <code>MB</code>. Internally the cache will be expired after it's idle for 2 hours.</p>
+<p>User can verify whether a query can leverage BloomFilter datamap by executing <code>EXPLAIN</code> command,
+which will show the transformed logical plan, and thus user can check whether the BloomFilter datamap can skip blocklets during the scan.
+If the datamap does not prune blocklets well, you can try to increase the value of property <code>BLOOM_SIZE</code> and decrease the value of property <code>BLOOM_FPP</code>.</p>
+<h2>
+<a id="data-management-with-bloomfilter-datamap" class="anchor" href="#data-management-with-bloomfilter-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management With BloomFilter DataMap</h2>
+<p>Data management with BloomFilter datamap has no difference with that on Lucene datamap. You can refer to the corresponding section in <code>CarbonData BloomFilter DataMap</code>.</p>
 </div>
 </div>
 </div>

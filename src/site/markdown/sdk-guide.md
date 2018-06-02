@@ -1,5 +1,6 @@
-# SDK Writer Guide
-In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar.
+# SDK Guide
+In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.
+# SDK Writer
 This SDK writer, writes carbondata file and carbonindex file at a given path.
 External client can make use of this writer to convert other format data or live data to create carbondata and index files.
 These SDK writer output contains just a carbondata and carbonindex files. No metadata folder will be present.
@@ -13,29 +14,37 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
  
  import org.apache.carbondata.common.exceptions.sql.InvalidLoadOptionException;
  import org.apache.carbondata.core.metadata.datatype.DataTypes;
+ import org.apache.carbondata.core.util.CarbonProperties;
  import org.apache.carbondata.sdk.file.CarbonWriter;
  import org.apache.carbondata.sdk.file.CarbonWriterBuilder;
  import org.apache.carbondata.sdk.file.Field;
  import org.apache.carbondata.sdk.file.Schema;
  
  public class TestSdk {
- 
+
+   // pass true or false while executing the main to use offheap memory or not
    public static void main(String[] args) throws IOException, InvalidLoadOptionException {
-     testSdkWriter();
+     if (args.length > 0 && args[0] != null) {
+       testSdkWriter(args[0]);
+     } else {
+       testSdkWriter("true");
+     }
    }
  
-   public static void testSdkWriter() throws IOException, InvalidLoadOptionException {
-     String path = "/home/root1/Documents/ab/temp";
+   public static void testSdkWriter(String enableOffheap) throws IOException, InvalidLoadOptionException {
+     String path = "./target/testCSVSdkWriter";
  
      Field[] fields = new Field[2];
      fields[0] = new Field("name", DataTypes.STRING);
      fields[1] = new Field("age", DataTypes.INT);
  
      Schema schema = new Schema(fields);
+
+     CarbonProperties.getInstance().addProperty("enable.offheap.sort", enableOffheap);
  
-     CarbonWriterBuilder builder = CarbonWriter.builder().withSchema(schema).outputPath(path);
+     CarbonWriterBuilder builder = CarbonWriter.builder().outputPath(path);
  
-     CarbonWriter writer = builder.buildWriterForCSVInput();
+     CarbonWriter writer = builder.buildWriterForCSVInput(schema);
  
      int rows = 5;
      for (int i = 0; i < rows; i++) {
@@ -87,15 +96,10 @@ public class TestSdkAvro {
     GenericData.Record record = converter.convertToGenericDataRecord(
         json.getBytes(CharEncoding.UTF_8), new org.apache.avro.Schema.Parser().parse(avroSchema));
 
-    // prepare carbon schema from avro schema 
-    org.apache.carbondata.sdk.file.Schema carbonSchema =
-            AvroCarbonWriter.getCarbonSchemaFromAvroSchema(avroSchema);
-
     try {
       CarbonWriter writer = CarbonWriter.builder()
-          .withSchema(carbonSchema)
           .outputPath(path)
-          .buildWriterForAvroInput();
+          .buildWriterForAvroInput(new org.apache.avro.Schema.Parser().parse(avroSchema));
 
       for (int i = 0; i < 100; i++) {
         writer.write(record);
@@ -128,16 +132,6 @@ Each of SQL data types are mapped into data types of SDK. Following are the mapp
 ## API List
 
 ### Class org.apache.carbondata.sdk.file.CarbonWriterBuilder
-```
-/**
-* prepares the builder with the schema provided
-* @param schema is instance of Schema
-*        This method must be called when building CarbonWriterBuilder
-* @return updated CarbonWriterBuilder
-*/
-public CarbonWriterBuilder withSchema(Schema schema);
-```
-
 ```
 /**
 * Sets the output path of the writer builder
@@ -259,6 +253,7 @@ public CarbonWriterBuilder withLoadOptions(Map<String, String> options);
 ```
 /**
 * Build a {@link CarbonWriter}, which accepts row in CSV format object
+* @param schema carbon Schema object {org.apache.carbondata.sdk.file.Schema}
 * @return CSVCarbonWriter
 * @throws IOException
 * @throws InvalidLoadOptionException
@@ -269,6 +264,7 @@ public CarbonWriter buildWriterForCSVInput() throws IOException, InvalidLoadOpti
 ```  
 /**
 * Build a {@link CarbonWriter}, which accepts Avro format object
+* @param avroSchema avro Schema object {org.apache.avro.Schema}
 * @return AvroCarbonWriter 
 * @throws IOException
 * @throws InvalidLoadOptionException
@@ -301,7 +297,7 @@ public abstract void close() throws IOException;
 * Create a {@link CarbonWriterBuilder} to build a {@link CarbonWriter}
 */
 public static CarbonWriterBuilder builder() {
-return new CarbonWriterBuilder();
+    return new CarbonWriterBuilder();
 }
 ```
 
@@ -347,6 +343,52 @@ public Schema(Field[] fields);
 public static Schema parseJson(String json);
 ```
 
+### Class org.apache.carbondata.core.util.CarbonProperties
+
+```
+/**
+* This method will be responsible to get the instance of CarbonProperties class
+*
+* @return carbon properties instance
+*/
+public static CarbonProperties getInstance();
+```
+
+```
+/**
+* This method will be used to add a new property
+*
+* @param key is a property name to set for carbon.
+* @param value is valid parameter corresponding to property.
+* @return CarbonProperties object
+*/
+public CarbonProperties addProperty(String key, String value);
+```
+
+```
+/**
+* This method will be used to get the property value. If property is not
+* present, then it will return the default value.
+*
+* @param key is a property name to get user specified value.
+* @return properties value for corresponding key. If not set, then returns null.
+*/
+public String getProperty(String key);
+```
+
+```
+/**
+* This method will be used to get the property value. If property is not
+* present, then it will return the default value.
+*
+* @param key is a property name to get user specified value..
+* @param defaultValue used to be returned by function if corrosponding key not set.
+* @return properties value for corresponding key. If not set, then returns specified defaultValue.
+*/
+public String getProperty(String key, String defaultValue);
+```
+Reference : [list of carbon properties](http://carbondata.apache.org/configuration-parameters.html)
+
 ### Class org.apache.carbondata.sdk.file.AvroCarbonWriter
 ```
 /**
@@ -357,3 +399,282 @@ public static Schema parseJson(String json);
 */
 public static org.apache.carbondata.sdk.file.Schema getCarbonSchemaFromAvroSchema(String avroSchemaString);
 ```
+# SDK Reader
+This SDK reader reads CarbonData file and carbonindex file at a given path.
+External client can make use of this reader to read CarbonData files without CarbonSession.
+## Quick example
+```
+    // 1. Create carbon reader
+    String path = "./testWriteFiles";
+    CarbonReader reader = CarbonReader
+        .builder(path, "_temp")
+        .projection(new String[]{"name", "age"})
+        .build();
+
+    // 2. Read data
+    int i = 0;
+    while (reader.hasNext()) {
+      Object[] row = (Object[]) reader.readNextRow();
+      System.out.println(row[0] + "\t" + row[1]);
+      i++;
+    }
+    
+    // 3. Close this reader
+    reader.close();
+```
+
+Find example code at [CarbonReaderExample](https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/CarbonReaderExample.java) in the CarbonData repo.
+
+## API List
+
+### Class org.apache.carbondata.sdk.file.CarbonReader
+```
+ /**
+  * Return a new CarbonReaderBuilder instance
+  */
+  public static CarbonReaderBuilder builder(String tablePath, String tableName);
+```
+
+```
+  /**
+   * Return true if has next row
+   */
+  public boolean hasNext();
+```
+
+```
+  /**
+   * Read and return next row object
+   */
+  public T readNextRow();
+```
+
+```
+  /**
+   * Close reader
+   */
+  public void close();
+```
+
+### Class org.apache.carbondata.sdk.file.CarbonReaderBuilder
+```
+  /**
+   * Construct a CarbonReaderBuilder with table path and table name
+   *
+   * @param tablePath table path
+   * @param tableName table name
+   */
+  CarbonReaderBuilder(String tablePath, String tableName);
+```
+
+```
+  /**
+   * Configure the projection column names of carbon reader
+   *
+   * @param projectionColumnNames projection column names
+   * @return CarbonReaderBuilder object
+   */
+  public CarbonReaderBuilder projection(String[] projectionColumnNames);
+```
+
+```
+  /**
+   * Project all Columns for carbon reader
+   *
+   * @return CarbonReaderBuilder object
+   * @throws IOException
+   */
+  public CarbonReaderBuilder projectAllColumns();
+```
+
+```
+  /**
+   * Configure the transactional status of table
+   * If set to false, then reads the carbondata and carbonindex files from a flat folder structure.
+   * If set to true, then reads the carbondata and carbonindex files from segment folder structure.
+   * Default value is false
+   *
+   * @param isTransactionalTable whether is transactional table or not
+   * @return CarbonReaderBuilder object
+   */
+  public CarbonReaderBuilder isTransactionalTable(boolean isTransactionalTable);
+```
+
+```
+ /**
+  * Configure the filter expression for carbon reader
+  *
+  * @param filterExpression filter expression
+  * @return CarbonReaderBuilder object
+  */
+  public CarbonReaderBuilder filter(Expression filterExpression);
+```
+
+```
+  /**
+   * Set the access key for S3
+   *
+   * @param key   the string of access key for different S3 type,like: fs.s3a.access.key
+   * @param value the value of access key
+   * @return CarbonWriterBuilder
+   */
+  public CarbonReaderBuilder setAccessKey(String key, String value);
+```
+
+```
+  /**
+   * Set the access key for S3.
+   *
+   * @param value the value of access key
+   * @return CarbonWriterBuilder object
+   */
+  public CarbonReaderBuilder setAccessKey(String value);
+```
+
+```
+  /**
+   * Set the secret key for S3
+   *
+   * @param key   the string of secret key for different S3 type,like: fs.s3a.secret.key
+   * @param value the value of secret key
+   * @return CarbonWriterBuilder object
+   */
+  public CarbonReaderBuilder setSecretKey(String key, String value);
+```
+
+```
+  /**
+   * Set the secret key for S3
+   *
+   * @param value the value of secret key
+   * @return CarbonWriterBuilder object
+   */
+  public CarbonReaderBuilder setSecretKey(String value);
+```
+
+```
+ /**
+   * Set the endpoint for S3
+   *
+   * @param key   the string of endpoint for different S3 type,like: fs.s3a.endpoint
+   * @param value the value of endpoint
+   * @return CarbonWriterBuilder object
+   */
+  public CarbonReaderBuilder setEndPoint(String key, String value);
+```
+
+``` 
+  /**
+   * Set the endpoint for S3
+   *
+   * @param value the value of endpoint
+   * @return CarbonWriterBuilder object
+   */
+  public CarbonReaderBuilder setEndPoint(String value);
+```
+
+```
+ /**
+   * Build CarbonReader
+   *
+   * @param <T>
+   * @return CarbonReader
+   * @throws IOException
+   * @throws InterruptedException
+   */
+  public <T> CarbonReader<T> build();
+```
+### Class org.apache.carbondata.sdk.file.CarbonSchemaReader
+```
+  /**
+   * Read schema file and return the schema
+   *
+   * @param schemaFilePath complete path including schema file name
+   * @return schema object
+   * @throws IOException
+   */
+  public static Schema readSchemaInSchemaFile(String schemaFilePath);
+```
+
+```
+  /**
+   * Read carbondata file and return the schema
+   *
+   * @param dataFilePath complete path including carbondata file name
+   * @return Schema object
+   * @throws IOException
+   */
+  public static Schema readSchemaInDataFile(String dataFilePath);
+```
+
+```
+  /**
+   * Read carbonindex file and return the schema
+   *
+   * @param indexFilePath complete path including index file name
+   * @return schema object
+   * @throws IOException
+   */
+  public static Schema readSchemaInIndexFile(String indexFilePath);
+```
+
+### Class org.apache.carbondata.sdk.file.Schema
+```
+  /**
+   * construct a schema with fields
+   * @param fields
+   */
+  public Schema(Field[] fields);
+```
+
+```
+  /**
+   * construct a schema with List<ColumnSchema>
+   *
+   * @param columnSchemaList column schema list
+   */
+  public Schema(List<ColumnSchema> columnSchemaList);
+```
+
+```
+  /**
+   * Create a Schema using JSON string, for example:
+   * [
+   *   {"name":"string"},
+   *   {"age":"int"}
+   * ]
+   * @param json specified as string
+   * @return Schema
+   */
+  public static Schema parseJson(String json);
+```
+
+```
+  /**
+   * Sort the schema order as original order
+   *
+   * @return Schema object
+   */
+  public Schema asOriginOrder();
+```
+
+### Class org.apache.carbondata.sdk.file.Field
+```
+  /**
+   * Field Constructor
+   * @param name name of the field
+   * @param type datatype of field, specified in strings.
+   */
+  public Field(String name, String type);
+```
+
+```
+  /**
+   * Construct Field from ColumnSchema
+   *
+   * @param columnSchema ColumnSchema, Store the information about the column meta data
+   */
+  public Field(ColumnSchema columnSchema);
+```
+
+Find S3 example code at [SDKS3Example](https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/SDKS3Example.java) in the CarbonData repo.
