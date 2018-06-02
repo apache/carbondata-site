@@ -128,7 +128,14 @@ Each of SQL data types are mapped into data types of SDK. Following are the mapp
 | STRING | DataTypes.STRING |
 | DECIMAL | DataTypes.createDecimalType(precision, scale) |
 
+## Run SQL on files directly
+Instead of creating table and query it, you can also query that file directly with SQL.
 
+### Example
+```
+SELECT * FROM carbonfile.`$Path`
+```
+Find example code at [DirectSQLExample](https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/DirectSQLExample.scala) in the CarbonData repo.
 ## API List
 
 ### Class org.apache.carbondata.sdk.file.CarbonWriterBuilder
@@ -408,17 +415,22 @@ External client can make use of this reader to read CarbonData files without Car
     String path = "./testWriteFiles";
     CarbonReader reader = CarbonReader
         .builder(path, "_temp")
-        .projection(new String[]{"name", "age"})
+        .projection(new String[]{"stringField", "shortField", "intField", "longField", 
+                "doubleField", "boolField", "dateField", "timeField", "decimalField"})
         .build();
 
     // 2. Read data
+    long day = 24L * 3600 * 1000;
     int i = 0;
     while (reader.hasNext()) {
-      Object[] row = (Object[]) reader.readNextRow();
-      System.out.println(row[0] + "\t" + row[1]);
-      i++;
+        Object[] row = (Object[]) reader.readNextRow();
+        System.out.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+            i, row[0], row[1], row[2], row[3], row[4], row[5],
+            new Date((day * ((int) row[6]))), new Timestamp((long) row[7] / 1000), row[8]
+        ));
+        i++;
     }
-    
+
     // 3. Close this reader
     reader.close();
 ```
@@ -429,10 +441,25 @@ Find example code at [CarbonReaderExample](https://github.com/apache/carbondata/
 
 ### Class org.apache.carbondata.sdk.file.CarbonReader
 ```
- /**
-  * Return a new CarbonReaderBuilder instance
-  */
+   /**
+    * Return a new {@link CarbonReaderBuilder} instance
+    *
+    * @param tablePath table store path
+    * @param tableName table name
+    * @return CarbonReaderBuilder object
+    */
   public static CarbonReaderBuilder builder(String tablePath, String tableName);
+```
+
+```
+  /**
+   * Return a new CarbonReaderBuilder instance
+   * Default value of table name is table + tablePath + time
+   *
+   * @param tablePath table path
+   * @return CarbonReaderBuilder object
+   */
+  public static CarbonReaderBuilder builder(String tablePath);
 ```
 
 ```

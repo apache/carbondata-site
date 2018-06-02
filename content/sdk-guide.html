@@ -340,6 +340,14 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 </tbody>
 </table>
 <h2>
+<a id="run-sql-on-files-directly" class="anchor" href="#run-sql-on-files-directly" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run SQL on files directly</h2>
+<p>Instead of creating table and query it, you can also query that file directly with SQL.</p>
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
+<pre><code>SELECT * FROM carbonfile.`$Path`
+</code></pre>
+<p>Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/DirectSQLExample.scala" target=_blank>DirectSQLExample</a> in the CarbonData repo.</p>
+<h2>
 <a id="api-list" class="anchor" href="#api-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonwriterbuilder" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonwriterbuilder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonWriterBuilder</h3>
@@ -578,17 +586,22 @@ External client can make use of this reader to read CarbonData files without Car
     String path = "./testWriteFiles";
     CarbonReader reader = CarbonReader
         .builder(path, "_temp")
-        .projection(new String[]{"name", "age"})
+        .projection(new String[]{"stringField", "shortField", "intField", "longField", 
+                "doubleField", "boolField", "dateField", "timeField", "decimalField"})
         .build();
 
     // 2. Read data
+    long day = 24L * 3600 * 1000;
     int i = 0;
     while (reader.hasNext()) {
-      Object[] row = (Object[]) reader.readNextRow();
-      System.out.println(row[0] + "\t" + row[1]);
-      i++;
+        Object[] row = (Object[]) reader.readNextRow();
+        System.out.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+            i, row[0], row[1], row[2], row[3], row[4], row[5],
+            new Date((day * ((int) row[6]))), new Timestamp((long) row[7] / 1000), row[8]
+        ));
+        i++;
     }
-    
+
     // 3. Close this reader
     reader.close();
 </code></pre>
@@ -597,10 +610,23 @@ External client can make use of this reader to read CarbonData files without Car
 <a id="api-list-1" class="anchor" href="#api-list-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonreader" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonreader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonReader</h3>
-<pre><code> /**
-  * Return a new CarbonReaderBuilder instance
-  */
+<pre><code>   /**
+    * Return a new {@link CarbonReaderBuilder} instance
+    *
+    * @param tablePath table store path
+    * @param tableName table name
+    * @return CarbonReaderBuilder object
+    */
   public static CarbonReaderBuilder builder(String tablePath, String tableName);
+</code></pre>
+<pre><code>  /**
+   * Return a new CarbonReaderBuilder instance
+   * Default value of table name is table + tablePath + time
+   *
+   * @param tablePath table path
+   * @return CarbonReaderBuilder object
+   */
+  public static CarbonReaderBuilder builder(String tablePath);
 </code></pre>
 <pre><code>  /**
    * Return true if has next row
