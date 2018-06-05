@@ -529,44 +529,6 @@ public Schema(Field[] fields);
 public static Schema parseJson(String json);
 </code></pre>
 <h3>
-<a id="class-orgapachecarbondatacoreutilcarbonproperties" class="anchor" href="#class-orgapachecarbondatacoreutilcarbonproperties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.core.util.CarbonProperties</h3>
-<pre><code>/**
-* This method will be responsible to get the instance of CarbonProperties class
-*
-* @return carbon properties instance
-*/
-public static CarbonProperties getInstance();
-</code></pre>
-<pre><code>/**
-* This method will be used to add a new property
-*
-* @param key is a property name to set for carbon.
-* @param value is valid parameter corresponding to property.
-* @return CarbonProperties object
-*/
-public CarbonProperties addProperty(String key, String value);
-</code></pre>
-<pre><code>/**
-* This method will be used to get the property value. If property is not
-* present, then it will return the default value.
-*
-* @param key is a property name to get user specified value.
-* @return properties value for corresponding key. If not set, then returns null.
-*/
-public String getProperty(String key);
-</code></pre>
-<pre><code>/**
-* This method will be used to get the property value. If property is not
-* present, then it will return the default value.
-*
-* @param key is a property name to get user specified value..
-* @param defaultValue used to be returned by function if corrosponding key not set.
-* @return properties value for corresponding key. If not set, then returns specified defaultValue.
-*/
-public String getProperty(String key, String defaultValue);
-</code></pre>
-<p>Reference : <a href="http://carbondata.apache.org/configuration-parameters.html" target=_blank rel="nofollow">list of carbon properties</a></p>
-<h3>
 <a id="class-orgapachecarbondatasdkfileavrocarbonwriter" class="anchor" href="#class-orgapachecarbondatasdkfileavrocarbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.AvroCarbonWriter</h3>
 <pre><code>/**
 * converts avro schema to carbon schema, required by carbonWriter
@@ -828,6 +790,46 @@ External client can make use of this reader to read CarbonData files without Car
   public Field(ColumnSchema columnSchema);
 </code></pre>
 <p>Find S3 example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/SDKS3Example.java" target=_blank>SDKS3Example</a> in the CarbonData repo.</p>
+<h1>
+<a id="common-api-list-for-carbonreader-and-carbonwriter" class="anchor" href="#common-api-list-for-carbonreader-and-carbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common API List for CarbonReader and CarbonWriter</h1>
+<h3>
+<a id="class-orgapachecarbondatacoreutilcarbonproperties" class="anchor" href="#class-orgapachecarbondatacoreutilcarbonproperties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.core.util.CarbonProperties</h3>
+<pre><code>/**
+* This method will be responsible to get the instance of CarbonProperties class
+*
+* @return carbon properties instance
+*/
+public static CarbonProperties getInstance();
+</code></pre>
+<pre><code>/**
+* This method will be used to add a new property
+*
+* @param key is a property name to set for carbon.
+* @param value is valid parameter corresponding to property.
+* @return CarbonProperties object
+*/
+public CarbonProperties addProperty(String key, String value);
+</code></pre>
+<pre><code>/**
+* This method will be used to get the property value. If property is not
+* present, then it will return the default value.
+*
+* @param key is a property name to get user specified value.
+* @return properties value for corresponding key. If not set, then returns null.
+*/
+public String getProperty(String key);
+</code></pre>
+<pre><code>/**
+* This method will be used to get the property value. If property is not
+* present, then it will return the default value.
+*
+* @param key is a property name to get user specified value..
+* @param defaultValue used to be returned by function if corrosponding key not set.
+* @return properties value for corresponding key. If not set, then returns specified defaultValue.
+*/
+public String getProperty(String key, String defaultValue);
+</code></pre>
+<p>Reference : <a href="http://carbondata.apache.org/configuration-parameters.html" target=_blank rel="nofollow">list of carbon properties</a></p>
 </div>
 </div>
 </div>

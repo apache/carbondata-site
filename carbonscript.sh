@@ -6,4 +6,4 @@ mvn pdf:pdf
 
 mvn install
 
-# mvn exec:java -Dexec.mainClass=CleanUp
+mvn exec:java -Dexec.mainClass=CleanUp
