@@ -159,140 +159,68 @@
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
-<h1>
-<a id="carbondata-timeseries-datamap" class="anchor" href="#carbondata-timeseries-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Timeseries DataMap</h1>
-<ul>
-<li><a href="#timeseries-datamap-intoduction">Timeseries DataMap Introduction</a></li>
-<li><a href="#compacting-pre-aggregate-tables">Compaction</a></li>
-<li><a href="#data-management-with-pre-aggregate-tables">Data Management</a></li>
-</ul>
-<h2>
-<a id="timeseries-datamap-introduction-alpha-feature" class="anchor" href="#timeseries-datamap-introduction-alpha-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Timeseries DataMap Introduction (Alpha Feature)</h2>
-<p>Timeseries DataMap a pre-aggregate table implementation based on 'pre-aggregate' DataMap.
-Difference is that Timeseries DataMap has built-in understanding of time hierarchy and
-levels: year, month, day, hour, minute, so that it supports automatic roll-up in time dimension
-for query.</p>
-<p>The data loading, querying, compaction command and its behavior is the same as preaggregate DataMap.
-Please refer to <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/preaggregate-datamap-guide.html" target=_blank>Pre-aggregate DataMap</a>
-for more information.</p>
-<p>To use this datamap, user can create multiple timeseries datamap on the main table which has
-a <em>event_time</em> column, one datamap for one time granularity. Then Carbondata can do automatic
-roll-up for queries on the main table.</p>
-<p>For example, below statement effectively create multiple pre-aggregate tables  on main table called
-<strong>timeseries</strong></p>
-<pre><code>CREATE DATAMAP agg_year
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'year_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
-  
-CREATE DATAMAP agg_month
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'month_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
-  
-CREATE DATAMAP agg_day
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'day_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
-      
-CREATE DATAMAP agg_sales_hour
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'hour_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
-
-CREATE DATAMAP agg_minute
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'minute_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
-  
-CREATE DATAMAP agg_minute
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'minute_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
+<p>#S3 Guide (Alpha Feature 1.4.1)</p>
+<p>Object storage is the recommended storage format in cloud as it can support storing large data
+files. S3 APIs are widely used for accessing object stores. This can be
+used to store or retrieve data on Amazon cloud, Huawei Cloud(OBS) or on any other object
+stores conforming to S3 API.
+Storing data in cloud is advantageous as there are no restrictions on the size of
+data and the data can be accessed from anywhere at any time.
+Carbondata can support any Object Storage that conforms to Amazon S3 API.
+Carbondata relies on Hadoop provided S3 filesystem APIs to access Object stores.</p>
+<p>#Writing to Object Storage</p>
+<p>To store carbondata files onto Object Store, <code>carbon.storelocation</code> property will have
+to be configured with Object Store path in CarbonProperties file.</p>
+<p>For example:</p>
+<pre><code>carbon.storelocation=s3a://mybucket/carbonstore.
 </code></pre>
-<p>For querying timeseries data, Carbondata has builtin support for following time related UDF
-to enable automatically roll-up to the desired aggregation level</p>
-<pre><code>timeseries(timeseries column name, 'aggregation level')
+<p>If the existing store location cannot be changed or only specific tables need to be stored
+onto cloud object store, it can be done so by specifying the <code>location</code> option in the create
+table DDL command.</p>
+<p>For example:</p>
+<pre><code>CREATE TABLE IF NOT EXISTS db1.table1(col1 string, col2 int) STORED AS carbondata LOCATION 's3a://mybucket/carbonstore'
 </code></pre>
-<pre><code>SELECT timeseries(order_time, 'hour'), sum(quantity) FROM sales GROUP BY timeseries(order_time,
-'hour')
+<p>For more details on create table, Refer <a href="./data-management-on-carbondata.html#create-table">data-management-on-carbondata</a></p>
+<p>#Authentication</p>
+<p>Authentication properties will have to be configured to store the carbondata files on to S3 location.</p>
+<p>Authentication properties can be set in any of the following ways:</p>
+<ol>
+<li>
+<p>Set authentication properties in core-site.xml, refer
+<a href="https://hadoop.apache.org/docs/stable/hadoop-aws/tools/hadoop-aws/index.html#Authentication_properties" rel="nofollow">hadoop authentication document</a></p>
+</li>
+<li>
+<p>Set authentication properties in spark-defaults.conf.</p>
+</li>
+</ol>
+<p>Example</p>
+<pre><code>spark.hadoop.fs.s3a.secret.key=123
+spark.hadoop.fs.s3a.access.key=456
 </code></pre>
-<p>It is <strong>not necessary</strong> to create pre-aggregate tables for each granularity unless required for
-query. Carbondata can roll-up the data and fetch it.</p>
-<p>For Example: For main table <strong>sales</strong> , if following timeseries datamaps were created for day
-level and hour level pre-aggregate</p>
-<pre><code>  CREATE DATAMAP agg_day
-  ON TABLE sales
-  USING "timeseries"
-  DMPROPERTIES (
-    'event_time'='order_time',
-    'day_granularity'='1',
-  ) AS
-  SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
-   avg(price) FROM sales GROUP BY order_time, country, sex
-        
-  CREATE DATAMAP agg_sales_hour
-  ON TABLE sales
-  USING "timeseries"
-  DMPROPERTIES (
-    'event_time'='order_time',
-    'hour_granularity'='1',
-  ) AS
-  SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
-   avg(price) FROM sales GROUP BY order_time, country, sex
+<ol start="3">
+<li>Pass authentication properties with spark-submit as configuration.</li>
+</ol>
+<p>Example:</p>
+<pre><code>./bin/spark-submit --master yarn --conf spark.hadoop.fs.s3a.secret.key=123 --conf spark.hadoop.fs
+.s3a.access.key=456 --class=
 </code></pre>
-<p>Queries like below will be rolled-up and hit the timeseries datamaps</p>
-<pre><code>Select timeseries(order_time, 'month'), sum(quantity) from sales group by timeseries(order_time,
-  'month')
-  
-Select timeseries(order_time, 'year'), sum(quantity) from sales group by timeseries(order_time,
-  'year')
+<ol start="4">
+<li>Set authentication properties to hadoop configuration object in sparkContext.</li>
+</ol>
+<p>Example:</p>
+<pre><code>sparkSession.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", "123")
+sparkSession.sparkContext.hadoopConfiguration.set("fs.s3a.access.key","456")
 </code></pre>
-<p>NOTE (<b>RESTRICTION</b>):</p>
-<ul>
-<li>Only value of 1 is supported for hierarchy levels. Other hierarchy levels will be supported in
-the future CarbonData release.</li>
-<li>timeseries datamap for the desired levels needs to be created one after the other</li>
-<li>timeseries datamaps created for each level needs to be dropped separately</li>
-</ul>
-<h2>
-<a id="compacting-timeseries-datamp" class="anchor" href="#compacting-timeseries-datamp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting timeseries datamp</h2>
-<p>Refer to Compaction section in <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/preaggregate-datamap-guide.html" target=_blank>preaggregation datamap</a>.
-Same applies to timeseries datamap.</p>
-<h2>
-<a id="data-management-on-timeseries-datamap" class="anchor" href="#data-management-on-timeseries-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management on timeseries datamap</h2>
-<p>Refer to Data Management section in <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/preaggregate-datamap-guide.html" target=_blank>preaggregation datamap</a>.
-Same applies to timeseries datamap.</p>
+<p>#Recommendations</p>
+<ol>
+<li>Object Storage like S3 does not support file leasing mechanism(supported by HDFS) that is
+required to take locks which ensure consistency between concurrent operations therefore, it is
+recommended to set the configurable lock path property(<a href="https://github.com/apache/carbondata/blob/master/docs/configuration-parameters.html#miscellaneous-configuration">carbon.lock.path</a>)
+to a HDFS directory.</li>
+<li>Concurrent data manipulation operations are not supported. Object stores follow eventual
+consistency semantics, i.e., any put request might take some time to reflect when trying to list
+.This behaviour causes not to ensure the data read is always consistent or latest.</li>
+</ol>
 </div>
 </div>
 </div>

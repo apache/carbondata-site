@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
+                                   target="_blank">Apache CarbonData 1.4.1</a></li>
+							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
@@ -59,27 +62,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
                                    target="_blank">Apache CarbonData 1.3.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.2.0/"
-                                   target="_blank">Apache CarbonData 1.2.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
-                                   target="_blank">Apache CarbonData 1.1.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.0/"
-                                   target="_blank">Apache CarbonData 1.1.0</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/1.0.0-incubating/"
-                                   target="_blank">Apache CarbonData 1.0.0</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.2.0-incubating/"
-                                   target="_blank">Apache CarbonData 0.2.0</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.1-incubating/"
-                                   target="_blank">Apache CarbonData 0.1.1</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.0-incubating/"
-                                   target="_blank">Apache CarbonData 0.1.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -176,7 +158,8 @@
                         <div id="viewpage" name="viewpage">
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
-                                    <div><h1>
+                                    <div>
+<h1>
 <a id="sdk-guide" class="anchor" href="#sdk-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SDK Guide</h1>
 <p>In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.</p>
 <h1>
@@ -286,6 +269,47 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
     }
   }
 }</pre></div>
+<h3>
+<a id="example-with-json-format" class="anchor" href="#example-with-json-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example with Json format</h3>
+<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">java.io.IOException</span>;
+ 
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.common.exceptions.sql.InvalidLoadOptionException</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.metadata.datatype.DataTypes</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.util.CarbonProperties</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriter</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriterBuilder</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Field</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Schema</span>;
+ 
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestSdkJson</span> {
+
+   <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) <span class="pl-k">throws</span> <span class="pl-smi">InvalidLoadOptionException</span> {
+       testJsonSdkWriter();
+   }
+   
+   <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">testJsonSdkWriter</span>() <span class="pl-k">throws</span> <span class="pl-smi">InvalidLoadOptionException</span> {
+    <span class="pl-smi">String</span> path <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>./target/testJsonSdkWriter<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">Field</span>[] fields <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Field</span>[<span class="pl-c1">2</span>];
+    fields[<span class="pl-c1">0</span>] <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Field</span>(<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, <span class="pl-smi">DataTypes</span><span class="pl-c1"><span class="pl-k">.</span>STRING</span>);
+    fields[<span class="pl-c1">1</span>] <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Field</span>(<span class="pl-s"><span class="pl-pds">"</span>age<span class="pl-pds">"</span></span>, <span class="pl-smi">DataTypes</span><span class="pl-c1"><span class="pl-k">.</span>INT</span>);
+
+    <span class="pl-smi">Schema</span> <span class="pl-smi">CarbonSchema</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Schema</span>(fields);
+
+    <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path);
+
+    <span class="pl-c"><span class="pl-c">//</span> initialize json writer with carbon schema</span>
+    <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>buildWriterForJsonInput(<span class="pl-smi">CarbonSchema</span>);
+    <span class="pl-c"><span class="pl-c">//</span> one row of json Data as String</span>
+    <span class="pl-smi">String</span>  <span class="pl-smi">JsonRow</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>{<span class="pl-cce">\"</span>name<span class="pl-cce">\"</span>:<span class="pl-cce">\"</span>abcd<span class="pl-cce">\"</span>, <span class="pl-cce">\"</span>age<span class="pl-cce">\"</span>:10}<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">int</span> rows <span class="pl-k">=</span> <span class="pl-c1">5</span>;
+    <span class="pl-k">for</span> (<span class="pl-k">int</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> rows; i<span class="pl-k">++</span>) {
+      writer<span class="pl-k">.</span>write(<span class="pl-smi">JsonRow</span>);
+    }
+    writer<span class="pl-k">.</span>close();
+  }
+} </pre></div>
 <h2>
 <a id="datatypes-mapping" class="anchor" href="#datatypes-mapping" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Datatypes Mapping</h2>
 <p>Each of SQL data types are mapped into data types of SDK. Following are the mapping:</p>
@@ -339,6 +363,20 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 </tr>
 </tbody>
 </table>
+<p><strong>NOTE:</strong>
+Carbon Supports below logical types of AVRO.
+a. Date
+The date logical type represents a date within the calendar, with no reference to a particular time zone or time of day.
+A date logical type annotates an Avro int, where the int stores the number of days from the unix epoch, 1 January 1970 (ISO calendar).
+b. Timestamp (millisecond precision)
+The timestamp-millis logical type represents an instant on the global timeline, independent of a particular time zone or calendar, with a precision of one millisecond.
+A timestamp-millis logical type annotates an Avro long, where the long stores the number of milliseconds from the unix epoch, 1 January 1970 00:00:00.000 UTC.
+c. Timestamp (microsecond precision)
+The timestamp-micros logical type represents an instant on the global timeline, independent of a particular time zone or calendar, with a precision of one microsecond.
+A timestamp-micros logical type annotates an Avro long, where the long stores the number of microseconds from the unix epoch, 1 January 1970 00:00:00.000000 UTC.</p>
+<pre><code>Currently the values of logical types are not validated by carbon. 
+Expect that avro record passed by the user is already validated by avro record generator tools.   
+</code></pre>
 <h2>
 <a id="run-sql-on-files-directly" class="anchor" href="#run-sql-on-files-directly" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run SQL on files directly</h2>
 <p>Instead of creating table and query it, you can also query that file directly with SQL.</p>
@@ -396,6 +434,18 @@ public CarbonWriterBuilder withBlockSize(int blockSize);
 public CarbonWriterBuilder withBlockletSize(int blockletSize);
 </code></pre>
 <pre><code>/**
+   * @param enableLocalDictionary enable local dictionary  , default is false
+   * @return updated CarbonWriterBuilder
+   */
+public CarbonWriterBuilder enableLocalDictionary(boolean enableLocalDictionary);
+</code></pre>
+<pre><code>/**
+   * @param localDictionaryThreshold is localDictionaryThreshold,default is 10000
+   * @return updated CarbonWriterBuilder
+   */
+public CarbonWriterBuilder localDictionaryThreshold(int localDictionaryThreshold) ;
+</code></pre>
+<pre><code>/**
 * sets the list of columns that needs to be in sorted order
 * @param sortColumns is a string array of columns that needs to be sorted.
 *                    If it is null or by default all dimensions are selected for sorting
@@ -419,7 +469,7 @@ public CarbonWriterBuilder persistSchemaFile(boolean persist);
 *               by default it is system time in nano seconds.
 * @return updated CarbonWriterBuilder
 */
-public CarbonWriterBuilder taskNo(String taskNo);
+public CarbonWriterBuilder taskNo(long taskNo);
 </code></pre>
 <pre><code>/**
 * To support the load options for sdk writer
@@ -458,7 +508,7 @@ public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
 * @throws IOException
 * @throws InvalidLoadOptionException
 */
-public CarbonWriter buildWriterForCSVInput() throws IOException, InvalidLoadOptionException;
+public CarbonWriter buildWriterForCSVInput(org.apache.carbondata.sdk.file.Schema schema) throws IOException, InvalidLoadOptionException;
 </code></pre>
 <pre><code>/**
 * Build a {@link CarbonWriter}, which accepts Avro format object
@@ -467,14 +517,25 @@ public CarbonWriter buildWriterForCSVInput() throws IOException, InvalidLoadOpti
 * @throws IOException
 * @throws InvalidLoadOptionException
 */
-public CarbonWriter buildWriterForAvroInput() throws IOException, InvalidLoadOptionException;
+public CarbonWriter buildWriterForAvroInput(org.apache.avro.Schema schema) throws IOException, InvalidLoadOptionException;
+</code></pre>
+<pre><code>/**
+* Build a {@link CarbonWriter}, which accepts Json object
+* @param carbonSchema carbon Schema object
+* @return JsonCarbonWriter
+* @throws IOException
+* @throws InvalidLoadOptionException
+*/
+public JsonCarbonWriter buildWriterForJsonInput(Schema carbonSchema);
 </code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonwriter" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonWriter</h3>
 <pre><code>/**
 * Write an object to the file, the format of the object depends on the implementation
-* If AvroCarbonWriter, object is of type org.apache.avro.generic.GenericData.Record 
-* If CSVCarbonWriter, object is of type String[]
+* If AvroCarbonWriter, object is of type org.apache.avro.generic.GenericData.Record, 
+*                      which is one row of data.
+* If CSVCarbonWriter, object is of type String[], which is one row of data
+* If JsonCarbonWriter, object is of type String, which is one row of json
 * Note: This API is not thread safe
 * @param object
 * @throws IOException
@@ -622,14 +683,6 @@ External client can make use of this reader to read CarbonData files without Car
    * @return CarbonReaderBuilder object
    */
   public CarbonReaderBuilder projection(String[] projectionColumnNames);
-</code></pre>
-<pre><code>  /**
-   * Project all Columns for carbon reader
-   *
-   * @return CarbonReaderBuilder object
-   * @throws IOException
-   */
-  public CarbonReaderBuilder projectAllColumns();
 </code></pre>
 <pre><code>  /**
    * Configure the transactional status of table
