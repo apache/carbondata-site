@@ -1,3 +1,20 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more 
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership. 
+    The ASF licenses this file to you under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with 
+    the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software 
+    distributed under the License is distributed on an "AS IS" BASIS, 
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and 
+    limitations under the License.
+-->
+
 # SDK Guide
 In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.
 # SDK Writer
@@ -112,6 +129,49 @@ public class TestSdkAvro {
 }
 ```
 
+### Example with Json format
+```java
+import java.io.IOException;
+ 
+import org.apache.carbondata.common.exceptions.sql.InvalidLoadOptionException;
+import org.apache.carbondata.core.metadata.datatype.DataTypes;
+import org.apache.carbondata.core.util.CarbonProperties;
+import org.apache.carbondata.sdk.file.CarbonWriter;
+import org.apache.carbondata.sdk.file.CarbonWriterBuilder;
+import org.apache.carbondata.sdk.file.Field;
+import org.apache.carbondata.sdk.file.Schema;
+ 
+public class TestSdkJson {
+
+   public static void main(String[] args) throws InvalidLoadOptionException {
+       testJsonSdkWriter();
+   }
+   
+   public static void testJsonSdkWriter() throws InvalidLoadOptionException {
+    String path = "./target/testJsonSdkWriter";
+
+    Field[] fields = new Field[2];
+    fields[0] = new Field("name", DataTypes.STRING);
+    fields[1] = new Field("age", DataTypes.INT);
+
+    Schema CarbonSchema = new Schema(fields);
+
+    CarbonWriterBuilder builder = CarbonWriter.builder().outputPath(path);
+
+    // initialize json writer with carbon schema
+    CarbonWriter writer = builder.buildWriterForJsonInput(CarbonSchema);
+    // one row of json Data as String
+    String  JsonRow = "{\"name\":\"abcd\", \"age\":10}";
+
+    int rows = 5;
+    for (int i = 0; i < rows; i++) {
+      writer.write(JsonRow);
+    }
+    writer.close();
+  }
+} 
+```
+
 ## Datatypes Mapping
 Each of SQL data types are mapped into data types of SDK. Following are the mapping:
 
@@ -127,6 +187,21 @@ Each of SQL data types are mapped into data types of SDK. Following are the mapp
 | TIMESTAMP | DataTypes.TIMESTAMP |
 | STRING | DataTypes.STRING |
 | DECIMAL | DataTypes.createDecimalType(precision, scale) |
+
+**NOTE:**
+ Carbon Supports below logical types of AVRO.
+ a. Date
+    The date logical type represents a date within the calendar, with no reference to a particular time zone or time of day.
+    A date logical type annotates an Avro int, where the int stores the number of days from the unix epoch, 1 January 1970 (ISO calendar). 
+ b. Timestamp (millisecond precision)
+    The timestamp-millis logical type represents an instant on the global timeline, independent of a particular time zone or calendar, with a precision of one millisecond.
+    A timestamp-millis logical type annotates an Avro long, where the long stores the number of milliseconds from the unix epoch, 1 January 1970 00:00:00.000 UTC.
+ c. Timestamp (microsecond precision)
+    The timestamp-micros logical type represents an instant on the global timeline, independent of a particular time zone or calendar, with a precision of one microsecond.
+    A timestamp-micros logical type annotates an Avro long, where the long stores the number of microseconds from the unix epoch, 1 January 1970 00:00:00.000000 UTC.
+    
+    Currently the values of logical types are not validated by carbon. 
+    Expect that avro record passed by the user is already validated by avro record generator tools.   
 
 ## Run SQL on files directly
 Instead of creating table and query it, you can also query that file directly with SQL.
@@ -195,6 +270,23 @@ public CarbonWriterBuilder withBlockletSize(int blockletSize);
 
 ```
 /**
+   * @param enableLocalDictionary enable local dictionary  , default is false
+   * @return updated CarbonWriterBuilder
+   */
+public CarbonWriterBuilder enableLocalDictionary(boolean enableLocalDictionary);
+```
+
+```
+/**
+   * @param localDictionaryThreshold is localDictionaryThreshold,default is 10000
+   * @return updated CarbonWriterBuilder
+   */
+public CarbonWriterBuilder localDictionaryThreshold(int localDictionaryThreshold) ;
+```
+
+
+```
+/**
 * sets the list of columns that needs to be in sorted order
 * @param sortColumns is a string array of columns that needs to be sorted.
 *                    If it is null or by default all dimensions are selected for sorting
@@ -222,7 +314,7 @@ public CarbonWriterBuilder persistSchemaFile(boolean persist);
 *               by default it is system time in nano seconds.
 * @return updated CarbonWriterBuilder
 */
-public CarbonWriterBuilder taskNo(String taskNo);
+public CarbonWriterBuilder taskNo(long taskNo);
 ```
 
 ```
@@ -265,7 +357,7 @@ public CarbonWriterBuilder withLoadOptions(Map<String, String> options);
 * @throws IOException
 * @throws InvalidLoadOptionException
 */
-public CarbonWriter buildWriterForCSVInput() throws IOException, InvalidLoadOptionException;
+public CarbonWriter buildWriterForCSVInput(org.apache.carbondata.sdk.file.Schema schema) throws IOException, InvalidLoadOptionException;
 ```
 
 ```  
@@ -276,15 +368,28 @@ public CarbonWriter buildWriterForCSVInput() throws IOException, InvalidLoadOpti
 * @throws IOException
 * @throws InvalidLoadOptionException
 */
-public CarbonWriter buildWriterForAvroInput() throws IOException, InvalidLoadOptionException;
+public CarbonWriter buildWriterForAvroInput(org.apache.avro.Schema schema) throws IOException, InvalidLoadOptionException;
+```
+
+```
+/**
+* Build a {@link CarbonWriter}, which accepts Json object
+* @param carbonSchema carbon Schema object
+* @return JsonCarbonWriter
+* @throws IOException
+* @throws InvalidLoadOptionException
+*/
+public JsonCarbonWriter buildWriterForJsonInput(Schema carbonSchema);
 ```
 
 ### Class org.apache.carbondata.sdk.file.CarbonWriter
 ```
 /**
 * Write an object to the file, the format of the object depends on the implementation
-* If AvroCarbonWriter, object is of type org.apache.avro.generic.GenericData.Record 
-* If CSVCarbonWriter, object is of type String[]
+* If AvroCarbonWriter, object is of type org.apache.avro.generic.GenericData.Record, 
+*                      which is one row of data.
+* If CSVCarbonWriter, object is of type String[], which is one row of data
+* If JsonCarbonWriter, object is of type String, which is one row of json
 * Note: This API is not thread safe
 * @param object
 * @throws IOException
@@ -456,16 +561,6 @@ Find example code at [CarbonReaderExample](https://github.com/apache/carbondata/
    * @return CarbonReaderBuilder object
    */
   public CarbonReaderBuilder projection(String[] projectionColumnNames);
-```
-
-```
-  /**
-   * Project all Columns for carbon reader
-   *
-   * @return CarbonReaderBuilder object
-   * @throws IOException
-   */
-  public CarbonReaderBuilder projectAllColumns();
 ```
 
 ```

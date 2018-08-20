@@ -17,9 +17,11 @@
         <item name="Configuring CarbonData" ref='configuration-parameters.md'/>
         <item name="Streaming Guide" ref='streaming-guide.md'/>
         <item name="SDK Guide" ref='sdk-guide.md'/>
+        <item name="S3 Guide (Alpha Feature)" ref='s3-guide.md'/>
         <item name="DataMap Developer Guide" ref='datamap-developer-guide.md'/>
-        <item name="CarbonData BloomFilter DataMap (Alpha feature in 1.4.0)" ref='bloomfilter-datamap-guide.md'/>
-        <item name="CarbonData Lucene DataMap (Alpha feature in 1.4.0)" ref='lucene-datamap-guide.md'/>
+        <item name="CarbonData DataMap Management" ref='datamap-management.md'/>
+        <item name="CarbonData BloomFilter DataMap (Alpha Feature)" ref='bloomfilter-datamap-guide.md'/>
+        <item name="CarbonData Lucene DataMap (Alpha Feature)" ref='lucene-datamap-guide.md'/>
         <item name="CarbonData Pre-aggregate DataMap" ref='preaggregate-datamap-guide.md'/>
         <item name="CarbonData Timeseries DataMap" ref='timeseries-datamap-guide.md'/>
         <item name="FAQs" ref='faq.md'/>
@@ -32,7 +34,7 @@
     <companyLogo>../../src/site/projectLogo/ApacheLogo.png</companyLogo>
     <projectLogo>../../src/site/projectLogo/CarbonDataLogo.png</projectLogo>
     <coverTitle>Apache CarbonData</coverTitle>
-    <coverSubTitle>Ver 1.4.0 </coverSubTitle>
+    <coverSubTitle>Ver 1.4.1 </coverSubTitle>
     <coverType>Documentation</coverType>
     <projectName>Apache CarbonData</projectName>
     <companyName>The Apache Software Foundation</companyName>

@@ -51,6 +51,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
+                                   target="_blank">Apache CarbonData 1.4.1</a></li>
+							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
@@ -59,27 +62,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
                                    target="_blank">Apache CarbonData 1.3.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.2.0/"
-                                   target="_blank">Apache CarbonData 1.2.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.1/"
-                                   target="_blank">Apache CarbonData 1.1.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.1.0/"
-                                   target="_blank">Apache CarbonData 1.1.0</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/1.0.0-incubating/"
-                                   target="_blank">Apache CarbonData 1.0.0</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.2.0-incubating/"
-                                   target="_blank">Apache CarbonData 0.2.0</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.1-incubating/"
-                                   target="_blank">Apache CarbonData 0.1.1</a></li>
-                            <li>
-                                <a href="http://archive.apache.org/dist/incubator/carbondata/0.1.0-incubating/"
-                                   target="_blank">Apache CarbonData 0.1.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -180,7 +162,7 @@
 <h1>
 <a id="useful-tips" class="anchor" href="#useful-tips" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Useful Tips</h1>
 <p>This tutorial guides you to create CarbonData Tables and optimize performance.
-The following sections will elaborate on the above topics :</p>
+The following sections will elaborate on the below topics :</p>
 <ul>
 <li><a href="#suggestions-to-create-carbondata-table">Suggestions to create CarbonData Table</a></li>
 <li><a href="#configuration-for-optimizing-data-loading-performance-for-massive-data">Configuration for Optimizing Data Loading performance for Massive Data</a></li>
@@ -326,6 +308,10 @@ Incremental values are efficient in using min/max index. The create table comman
   )STORED BY 'carbondata'
   TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>BloomFilter can be created to enhance performance for queries with precise equal/in conditions. You can find more information about it in BloomFilter datamap <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/bloomfilter-datamap-guide.html" target=_blank>document</a>.</li>
+</ul>
 <h2>
 <a id="configuration-for-optimizing-data-loading-performance-for-massive-data" class="anchor" href="#configuration-for-optimizing-data-loading-performance-for-massive-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration for Optimizing Data Loading performance for Massive Data</h2>
 <p>CarbonData supports large data load, in this process sorting data while loading consumes a lot of memory and disk IO and
@@ -457,7 +443,7 @@ scenarios. After the completion of POC, some of the configurations impacting the
 <td>spark/carbonlib/carbon.properties</td>
 <td>Data loading</td>
 <td>Specify the name of compressor to compress the intermediate sort temporary files during sort procedure in data loading.</td>
-<td>The optional values are 'SNAPPY','GZIP','BZIP2','LZ4' and empty. By default, empty means that Carbondata will not compress the sort temp files. This parameter will be useful if you encounter disk bottleneck.</td>
+<td>The optional values are 'SNAPPY','GZIP','BZIP2','LZ4','ZSTD' and empty. By default, empty means that Carbondata will not compress the sort temp files. This parameter will be useful if you encounter disk bottleneck.</td>
 </tr>
 <tr>
 <td>carbon.load.skewedDataOptimization.enabled</td>
@@ -465,6 +451,13 @@ scenarios. After the completion of POC, some of the configurations impacting the
 <td>Data loading</td>
 <td>Whether to enable size based block allocation strategy for data loading.</td>
 <td>When loading, carbondata will use file size based block allocation strategy for task distribution. It will make sure that all the executors process the same size of data -- It's useful if the size of your input data files varies widely, say 1MB~1GB.</td>
+</tr>
+<tr>
+<td>carbon.load.min.size.enabled</td>
+<td>spark/carbonlib/carbon.properties</td>
+<td>Data loading</td>
+<td>Whether to enable node minumun input data size allocation strategy for data loading.</td>
+<td>When loading, carbondata will use node minumun input data size allocation strategy for task distribution. It will make sure the node load the minimum amount of data -- It's useful if the size of your input data files very small, say 1MB~256MB,Avoid generating a large number of small files.</td>
 </tr>
 </tbody>
 </table>
