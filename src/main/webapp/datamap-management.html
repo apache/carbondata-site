@@ -22,6 +22,7 @@
     <![endif]-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="active">Documentation</a></li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -152,7 +153,57 @@
 <section><!-- Dashboard nav -->
     <div class="container-fluid q">
         <div class="col-sm-12  col-md-12 maindashboard">
-            <div class="row">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
                 <section>
                     <div style="padding:10px 15px;">
                         <div id="viewpage" name="viewpage">
@@ -161,6 +212,21 @@
                                     <div>
 <h1>
 <a id="carbondata-datamap-management" class="anchor" href="#carbondata-datamap-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData DataMap Management</h1>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#datamap-management">DataMap Management</a></li>
+<li><a href="#automatic-refresh">Automatic Refresh</a></li>
+<li><a href="#manual-refresh">Manual Refresh</a></li>
+<li><a href="#datamap-catalog">DataMap Catalog</a></li>
+<li>
+<a href="#datamap-related-commands">DataMap Related Commands</a>
+<ul>
+<li><a href="#explain">Explain</a></li>
+<li><a href="#show-datamap">Show DataMap</a></li>
+<li><a href="#compaction-on-datamap">Compaction on DataMap</a></li>
+</ul>
+</li>
+</ul>
 <h2>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 <p>DataMap can be created using following DDL</p>
@@ -192,7 +258,7 @@
 <tr>
 <td>timeseries</td>
 <td>time dimension rollup table</td>
-<td>event_time, xx_granularity, please refer to <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/timeseries-datamap-guide.html" target=_blank>Timeseries DataMap</a>
+<td>event_time, xx_granularity, please refer to <a href="./timeseries-datamap-guide.html">Timeseries DataMap</a>
 </td>
 <td>Automatic</td>
 </tr>
@@ -224,7 +290,6 @@
 <li>Manual Refresh: Create datamap with <code>WITH DEFERRED REBUILD</code> in the statement</li>
 </ol>
 <p><strong>CAUTION:</strong>
-Manual refresh currently only works fine for MV, it has some bugs with other types of datamap in Carbondata 1.4.1, so we block this option for them in this version.
 If user create MV datamap without specifying <code>WITH DEFERRED REBUILD</code>, carbondata will give a warning and treat the datamap as deferred rebuild.</p>
 <h3>
 <a id="automatic-refresh" class="anchor" href="#automatic-refresh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Automatic Refresh</h3>
@@ -293,6 +358,17 @@ Scan Table: default.datamap1_table
 <p>This feature applies for preaggregate datamap only</p>
 <p>Running Compaction command (<code>ALTER TABLE COMPACT</code>) on main table will <strong>not automatically</strong> compact the pre-aggregate tables created on the main table. User need to run Compaction command separately on each pre-aggregate table to compact them.</p>
 <p>Compaction is an optional operation for pre-aggregate table. If compaction is performed on main table but not performed on pre-aggregate table, all queries still can benefit from pre-aggregate tables. To further improve the query performance, compaction on pre-aggregate tables can be triggered to merge the segments and files in the pre-aggregate tables.</p>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__datamap').addClass('selected');
+  
+  if (!$('.b-nav__datamap').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display datamap subnav items
+    $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script>
 </div>
 </div>
 </div>

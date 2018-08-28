@@ -22,6 +22,7 @@
     <![endif]-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="active">Documentation</a></li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -152,7 +153,57 @@
 <section><!-- Dashboard nav -->
     <div class="container-fluid q">
         <div class="col-sm-12  col-md-12 maindashboard">
-            <div class="row">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
                 <section>
                     <div style="padding:10px 15px;">
                         <div id="viewpage" name="viewpage">
@@ -161,12 +212,12 @@
                                     <div>
 <h1>
 <a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h1>
-<p>This tutorial provides a quick introduction to using CarbonData.</p>
+<p>This tutorial provides a quick introduction to using CarbonData.To follow along with this guide, first download a packaged release of CarbonData from the <a href="https://dist.apache.org/repos/dist/release/carbondata/" target=_blank rel="nofollow">CarbonData website</a>.Alternatively it can be created following <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a> steps.</p>
 <h2>
 <a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
 <ul>
 <li>
-<p><a href="https://github.com/apache/carbondata/blob/master/build" target=_blank>Installation and building CarbonData</a>.</p>
+<p>Spark 2.2.1 version is installed and running.CarbonData supports Spark versions upto 2.2.1.Please follow steps described in <a href="https://spark.apache.org/docs/latest" target=_blank rel="nofollow">Spark docs website</a> for installing and running Spark.</p>
 </li>
 <li>
 <p>Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData.</p>
@@ -181,14 +232,29 @@ EOF
 </li>
 </ul>
 <h2>
-<a id="interactive-analysis-with-spark-shell-version-21" class="anchor" href="#interactive-analysis-with-spark-shell-version-21" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Analysis with Spark Shell Version 2.1</h2>
+<a id="deployment-modes" class="anchor" href="#deployment-modes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployment modes</h2>
+<p>CarbonData can be integrated with Spark and Presto Execution Engines.The below documentation guides on Installing and Configuring with these execution engines.</p>
+<h3>
+<a id="spark" class="anchor" href="#spark" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark</h3>
+<p><a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Installing and Configuring CarbonData to run locally with Spark Shell</a></p>
+<p><a href="#installing-and-configuring-carbondata-on-standalone-spark-cluster">Installing and Configuring CarbonData on Standalone Spark Cluster</a></p>
+<p><a href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster">Installing and Configuring CarbonData on Spark on YARN Cluster</a></p>
+<h3>
+<a id="presto" class="anchor" href="#presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Presto</h3>
+<p><a href="#installing-and-configuring-carbondata-on-presto">Installing and Configuring CarbonData on Presto</a></p>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying Data</h2>
+<p><a href="#query-execution-using-carbondata-thrift-server">Query Execution using CarbonData Thrift Server</a></p>
+<h2></h2>
+<h2>
+<a id="installing-and-configuring-carbondata-to-run-locally-with-spark-shell" class="anchor" href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData to run locally with Spark Shell</h2>
 <p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">Apache Spark Documentation</a> for more details on Spark shell.</p>
 <h4>
 <a id="basics" class="anchor" href="#basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basics</h4>
 <p>Start Spark shell by running the following command in the Spark directory:</p>
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
-<p><strong>NOTE</strong>: Assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
+<p><strong>NOTE</strong>: Path where packaged release of CarbonData was downloaded or assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code></p>
 <p>In this shell, SparkSession is readily available as <code>spark</code> and Spark context is readily available as <code>sc</code>.</p>
 <p>In order to create a CarbonSession we will have to configure it explicitly in the following manner :</p>
 <ul>
@@ -203,7 +269,7 @@ import org.apache.spark.sql.CarbonSession._
 <pre><code>val carbon = SparkSession.builder().config(sc.getConf)
              .getOrCreateCarbonSession("&lt;hdfs store path&gt;")
 </code></pre>
-<p><strong>NOTE</strong>: By default metastore location is pointed to <code>../carbon.metastore</code>, user can provide own metastore location to CarbonSession like <code>SparkSession.builder().config(sc.getConf) .getOrCreateCarbonSession("&lt;hdfs store path&gt;", "&lt;local metastore path&gt;")</code></p>
+<p><strong>NOTE</strong>: By default metastore location points to <code>../carbon.metastore</code>, user can provide own metastore location to CarbonSession like <code>SparkSession.builder().config(sc.getConf) .getOrCreateCarbonSession("&lt;hdfs store path&gt;", "&lt;local metastore path&gt;")</code></p>
 <h4>
 <a id="executing-queries" class="anchor" href="#executing-queries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Queries</h4>
 <h6>
@@ -222,7 +288,7 @@ import org.apache.spark.sql.CarbonSession._
                   INTO TABLE test_table")
 </code></pre>
 <p><strong>NOTE</strong>: Please provide the real file path of <code>sample.csv</code> for the above script.
-If you get "tablestatus.lock" issue, please refer to <a href="troubleshooting.html">troubleshooting</a></p>
+If you get "tablestatus.lock" issue, please refer to <a href="faq.html">FAQ</a></p>
 <h6>
 <a id="query-data-from-a-table" class="anchor" href="#query-data-from-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data from a Table</h6>
 <pre><code>scala&gt;carbon.sql("SELECT * FROM test_table").show()
@@ -231,6 +297,398 @@ scala&gt;carbon.sql("SELECT city, avg(age), sum(age)
                   FROM test_table
                   GROUP BY city").show()
 </code></pre>
+<h2>
+<a id="installing-and-configuring-carbondata-on-standalone-spark-cluster" class="anchor" href="#installing-and-configuring-carbondata-on-standalone-spark-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Standalone Spark Cluster</h2>
+<h3>
+<a id="prerequisites-1" class="anchor" href="#prerequisites-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h3>
+<ul>
+<li>Hadoop HDFS and Yarn should be installed and running.</li>
+<li>Spark should be installed and running on all the cluster nodes.</li>
+<li>CarbonData user should have permission to access HDFS.</li>
+</ul>
+<h3>
+<a id="procedure" class="anchor" href="#procedure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
+<ol>
+<li>
+<p><a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code>.</p>
+</li>
+<li>
+<p>Copy <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> to <code>$SPARK_HOME/carbonlib</code> folder.</p>
+<p><strong>NOTE</strong>: Create the carbonlib folder if it does not exist inside <code>$SPARK_HOME</code> path.</p>
+</li>
+<li>
+<p>Add the carbonlib folder path in the Spark classpath. (Edit <code>$SPARK_HOME/conf/spark-env.sh</code> file and modify the value of <code>SPARK_CLASSPATH</code> by appending <code>$SPARK_HOME/carbonlib/*</code> to the existing value)</p>
+</li>
+<li>
+<p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p>
+</li>
+<li>
+<p>Repeat Step 2 to Step 5 in all the nodes of the cluster.</p>
+</li>
+<li>
+<p>In Spark node[master], configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spark.driver.extraJavaOptions</td>
+<td><code>-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties</code></td>
+<td>A string of extra JVM options to pass to the driver. For instance, GC settings or other logging.</td>
+</tr>
+<tr>
+<td>spark.executor.extraJavaOptions</td>
+<td><code>-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties</code></td>
+<td>A string of extra JVM options to pass to executors. For instance, GC settings or other logging. <strong>NOTE</strong>: You can enter multiple values separated by space.</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code> file:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.storelocation</td>
+<td>NO</td>
+<td>Location where data CarbonData will create the store and write the data in its own format. If not specified then it takes spark.sql.warehouse.dir path.</td>
+<td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
+<td>Propose to set HDFS directory</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Verify the installation. For example:</li>
+</ol>
+<pre><code>./spark-shell --master spark://HOSTNAME:PORT --total-executor-cores 2
+--executor-memory 2G
+</code></pre>
+<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
+<h2>
+<a id="installing-and-configuring-carbondata-on-spark-on-yarn-cluster" class="anchor" href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Spark on YARN Cluster</h2>
+<p>This section provides the procedure to install CarbonData on "Spark on YARN" cluster.</p>
+<h3>
+<a id="prerequisites-2" class="anchor" href="#prerequisites-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h3>
+<ul>
+<li>Hadoop HDFS and Yarn should be installed and running.</li>
+<li>Spark should be installed and running in all the clients.</li>
+<li>CarbonData user should have permission to access HDFS.</li>
+</ul>
+<h3>
+<a id="procedure-1" class="anchor" href="#procedure-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
+<p>The following steps are only for Driver Nodes. (Driver nodes are the one which starts the spark context.)</p>
+<ol>
+<li>
+<p><a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
+<p><strong>NOTE</strong>: Create the carbonlib folder if it does not exists inside <code>$SPARK_HOME</code> path.</p>
+</li>
+<li>
+<p>Copy the <code>./conf/carbon.properties.template</code> file from CarbonData repository to <code>$SPARK_HOME/conf/</code> folder and rename the file to <code>carbon.properties</code>.</p>
+</li>
+<li>
+<p>Create <code>tar.gz</code> file of carbonlib folder and move it inside the carbonlib folder.</p>
+</li>
+</ol>
+<pre><code>cd $SPARK_HOME
+tar -zcvf carbondata.tar.gz carbonlib/
+mv carbondata.tar.gz carbonlib/
+</code></pre>
+<ol>
+<li>Configure the properties mentioned in the following table in <code>$SPARK_HOME/conf/spark-defaults.conf</code> file.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spark.master</td>
+<td>Set this value to run the Spark in yarn cluster mode.</td>
+<td>Set yarn-client to run the Spark in yarn cluster mode.</td>
+</tr>
+<tr>
+<td>spark.yarn.dist.files</td>
+<td>Comma-separated list of files to be placed in the working directory of each executor.</td>
+<td><code>$SPARK_HOME/conf/carbon.properties</code></td>
+</tr>
+<tr>
+<td>spark.yarn.dist.archives</td>
+<td>Comma-separated list of archives to be extracted into the working directory of each executor.</td>
+<td><code>$SPARK_HOME/carbonlib/carbondata.tar.gz</code></td>
+</tr>
+<tr>
+<td>spark.executor.extraJavaOptions</td>
+<td>A string of extra JVM options to pass to executors. For instance  <strong>NOTE</strong>: You can enter multiple values separated by space.</td>
+<td><code>-Dcarbon.properties.filepath = carbon.properties</code></td>
+</tr>
+<tr>
+<td>spark.executor.extraClassPath</td>
+<td>Extra classpath entries to prepend to the classpath of executors. <strong>NOTE</strong>: If SPARK_CLASSPATH is defined in spark-env.sh, then comment it and append the values in below parameter spark.driver.extraClassPath</td>
+<td><code>carbondata.tar.gz/carbonlib/*</code></td>
+</tr>
+<tr>
+<td>spark.driver.extraClassPath</td>
+<td>Extra classpath entries to prepend to the classpath of the driver. <strong>NOTE</strong>: If SPARK_CLASSPATH is defined in spark-env.sh, then comment it and append the value in below parameter spark.driver.extraClassPath.</td>
+<td><code>$SPARK_HOME/carbonlib/*</code></td>
+</tr>
+<tr>
+<td>spark.driver.extraJavaOptions</td>
+<td>A string of extra JVM options to pass to the driver. For instance, GC settings or other logging.</td>
+<td><code>-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties</code></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Add the following properties in <code>$SPARK_HOME/conf/carbon.properties</code>:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.storelocation</td>
+<td>NO</td>
+<td>Location where CarbonData will create the store and write the data in its own format. If not specified then it takes spark.sql.warehouse.dir path.</td>
+<td>hdfs://HOSTNAME:PORT/Opt/CarbonStore</td>
+<td>Propose to set HDFS directory</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Verify the installation.</li>
+</ol>
+<pre><code> ./bin/spark-shell --master yarn-client --driver-memory 1g
+ --executor-cores 2 --executor-memory 2G
+</code></pre>
+<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
+<h2>
+<a id="query-execution-using-carbondata-thrift-server" class="anchor" href="#query-execution-using-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Execution Using CarbonData Thrift Server</h2>
+<h3>
+<a id="starting-carbondata-thrift-server" class="anchor" href="#starting-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting CarbonData Thrift Server.</h3>
+<p>a. cd <code>$SPARK_HOME</code></p>
+<p>b. Run the following command to start the CarbonData thrift server.</p>
+<pre><code>./bin/spark-submit
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer
+$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARBON_ASSEMBLY_JAR</td>
+<td>CarbonData assembly jar name present in the <code>$SPARK_HOME/carbonlib/</code> folder.</td>
+<td>carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar</td>
+</tr>
+<tr>
+<td>carbon_store_path</td>
+<td>This is a parameter to the CarbonThriftServer class. This a HDFS path where CarbonData files will be kept. Strongly Recommended to put same as carbon.storelocation parameter of carbon.properties. If not specified then it takes spark.sql.warehouse.dir path.</td>
+<td><code>hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE</strong>: From Spark 1.6, by default the Thrift server runs in multi-session mode. Which means each JDBC/ODBC connection owns a copy of their own SQL configuration and temporary function registry. Cached tables are still shared though. If you prefer to run the Thrift server in single-session mode and share all SQL configuration and temporary function registry, please set option <code>spark.sql.hive.thriftServer.singleSession</code> to <code>true</code>. You may either add this option to <code>spark-defaults.conf</code>, or pass it to <code>spark-submit.sh</code> via <code>--conf</code>:</p>
+<pre><code>./bin/spark-submit
+--conf spark.sql.hive.thriftServer.singleSession=true
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer
+$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR &lt;carbon_store_path&gt;
+</code></pre>
+<p><strong>But</strong> in single-session mode, if one user changes the database from one connection, the database of the other connections will be changed too.</p>
+<p><strong>Examples</strong></p>
+<ul>
+<li>Start with default memory and executors.</li>
+</ul>
+<pre><code>./bin/spark-submit
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
+$SPARK_HOME/carbonlib
+/carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar
+hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
+</code></pre>
+<ul>
+<li>Start with Fixed executors and resources.</li>
+</ul>
+<pre><code>./bin/spark-submit
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer 
+--num-executors 3 --driver-memory 20g --executor-memory 250g 
+--executor-cores 32 
+/srv/OSCON/BigData/HACluster/install/spark/sparkJdbc/lib
+/carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar
+hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
+</code></pre>
+<h3>
+<a id="connecting-to-carbondata-thrift-server-using-beeline" class="anchor" href="#connecting-to-carbondata-thrift-server-using-beeline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting to CarbonData Thrift Server Using Beeline.</h3>
+<pre><code>     cd $SPARK_HOME
+     ./sbin/start-thriftserver.sh
+     ./bin/beeline -u jdbc:hive2://&lt;thriftserver_host&gt;:port
+
+     Example
+     ./bin/beeline -u jdbc:hive2://10.10.10.10:10000
+</code></pre>
+<h2>
+<a id="installing-and-configuring-carbondata-on-presto" class="anchor" href="#installing-and-configuring-carbondata-on-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Presto</h2>
+<ul>
+<li>
+<h3>
+<a id="installing-presto" class="anchor" href="#installing-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Presto</h3>
+</li>
+</ul>
+<ol>
+<li>
+<p>Download the 0.187 version of Presto using:
+<code>wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.187/presto-server-0.187.tar.gz</code></p>
+</li>
+<li>
+<p>Extract Presto tar file: <code>tar zxvf presto-server-0.187.tar.gz</code>.</p>
+</li>
+<li>
+<p>Download the Presto CLI for the coordinator and name it presto.</p>
+</li>
+</ol>
+<pre><code>  wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.187/presto-cli-0.187-executable.jar
+
+  mv presto-cli-0.187-executable.jar presto
+
+  chmod +x presto
+</code></pre>
+<h3>
+<a id="create-configuration-files" class="anchor" href="#create-configuration-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Configuration Files</h3>
+<ol>
+<li>
+<p>Create <code>etc</code> folder in presto-server-0.187 directory.</p>
+</li>
+<li>
+<p>Create <code>config.properties</code>, <code>jvm.config</code>, <code>log.properties</code>, and <code>node.properties</code> files.</p>
+</li>
+<li>
+<p>Install uuid to generate a node.id.</p>
+<pre><code>sudo apt-get install uuid
+
+uuid
+</code></pre>
+</li>
+</ol>
+<h5>
+<a id="contents-of-your-nodeproperties-file" class="anchor" href="#contents-of-your-nodeproperties-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your node.properties file</h5>
+<pre><code>node.environment=production
+node.id=&lt;generated uuid&gt;
+node.data-dir=/home/ubuntu/data
+</code></pre>
+<h5>
+<a id="contents-of-your-jvmconfig-file" class="anchor" href="#contents-of-your-jvmconfig-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your jvm.config file</h5>
+<pre><code>-server
+-Xmx16G
+-XX:+UseG1GC
+-XX:G1HeapRegionSize=32M
+-XX:+UseGCOverheadLimit
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:OnOutOfMemoryError=kill -9 %p
+</code></pre>
+<h5>
+<a id="contents-of-your-logproperties-file" class="anchor" href="#contents-of-your-logproperties-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your log.properties file</h5>
+<pre><code>com.facebook.presto=INFO
+</code></pre>
+<p>The default minimum level is <code>INFO</code>. There are four levels: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code> and <code>ERROR</code>.</p>
+<h3>
+<a id="coordinator-configurations" class="anchor" href="#coordinator-configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coordinator Configurations</h3>
+<h5>
+<a id="contents-of-your-configproperties" class="anchor" href="#contents-of-your-configproperties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your config.properties</h5>
+<pre><code>coordinator=true
+node-scheduler.include-coordinator=false
+http-server.http.port=8086
+query.max-memory=50GB
+query.max-memory-per-node=2GB
+discovery-server.enabled=true
+discovery.uri=&lt;coordinator_ip&gt;:8086
+</code></pre>
+<p>The options <code>node-scheduler.include-coordinator=false</code> and <code>coordinator=true</code> indicate that the node is the coordinator and tells the coordinator not to do any of the computation work itself and to use the workers.</p>
+<p><strong>Note</strong>: It is recommended to set <code>query.max-memory-per-node</code> to half of the JVM config max memory, though the workload is highly concurrent, lower value for <code>query.max-memory-per-node</code> is to be used.</p>
+<p>Also relation between below two configuration-properties should be like:
+If, <code>query.max-memory-per-node=30GB</code>
+Then, <code>query.max-memory=&lt;30GB * number of nodes&gt;</code>.</p>
+<h3>
+<a id="worker-configurations" class="anchor" href="#worker-configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Worker Configurations</h3>
+<h5>
+<a id="contents-of-your-configproperties-1" class="anchor" href="#contents-of-your-configproperties-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your config.properties</h5>
+<pre><code>coordinator=false
+http-server.http.port=8086
+query.max-memory=50GB
+query.max-memory-per-node=2GB
+discovery.uri=&lt;coordinator_ip&gt;:8086
+</code></pre>
+<p><strong>Note</strong>: <code>jvm.config</code> and <code>node.properties</code> files are same for all the nodes (worker + coordinator). All the nodes should have different <code>node.id</code>.(generated by uuid command).</p>
+<h3>
+<a id="catalog-configurations" class="anchor" href="#catalog-configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Catalog Configurations</h3>
+<ol>
+<li>Create a folder named <code>catalog</code> in etc directory of presto on all the nodes of the cluster including the coordinator.</li>
+</ol>
+<h5>
+<a id="configuring-carbondata-in-presto" class="anchor" href="#configuring-carbondata-in-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring Carbondata in Presto</h5>
+<ol>
+<li>Create a file named <code>carbondata.properties</code> in the <code>catalog</code> folder and set the required properties on all the nodes.</li>
+</ol>
+<h3>
+<a id="add-plugins" class="anchor" href="#add-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add Plugins</h3>
+<ol>
+<li>Create a directory named <code>carbondata</code> in plugin directory of presto.</li>
+<li>Copy <code>carbondata</code> jars to <code>plugin/carbondata</code> directory on all nodes.</li>
+</ol>
+<h3>
+<a id="start-presto-server-on-all-nodes" class="anchor" href="#start-presto-server-on-all-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Presto Server on all nodes</h3>
+<pre><code>./presto-server-0.187/bin/launcher start
+</code></pre>
+<p>To run it as a background process.</p>
+<pre><code>./presto-server-0.187/bin/launcher run
+</code></pre>
+<p>To run it in foreground.</p>
+<h3>
+<a id="start-presto-cli" class="anchor" href="#start-presto-cli" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Presto CLI</h3>
+<pre><code>./presto
+</code></pre>
+<p>To connect to carbondata catalog use the following command:</p>
+<pre><code>./presto --server &lt;coordinator_ip&gt;:8086 --catalog carbondata --schema &lt;schema_name&gt;
+</code></pre>
+<p>Execute the following command to ensure the workers are connected.</p>
+<pre><code>select * from system.runtime.nodes;
+</code></pre>
+<p>Now you can use the Presto CLI on the coordinator to query data sources in the catalog using the Presto workers.</p>
+<p><strong>Note :</strong> Create Tables and data loads should be done before executing queries as we can not create carbon table from this interface.</p>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__quickstart').addClass('selected'); });
+</script>
 </div>
 </div>
 </div>

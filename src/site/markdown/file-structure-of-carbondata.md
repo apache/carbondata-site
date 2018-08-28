@@ -38,3 +38,16 @@ The file footer can be read once to build the indices in memory, which can be ut
 * Data Page: Contains the encoded data of a column of columns.
 * Row ID Page (optional): Contains the row ID mappings used when the data page is stored as an inverted index.
 * RLE Page (optional): Contains additional metadata used when the data page is RLE coded.
+
+
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__docs').addClass('selected');
+
+  // Display docs subnav items
+  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
+    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script>

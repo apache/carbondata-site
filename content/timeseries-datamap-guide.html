@@ -22,6 +22,7 @@
     <![endif]-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="active">Documentation</a></li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -152,7 +153,57 @@
 <section><!-- Dashboard nav -->
     <div class="container-fluid q">
         <div class="col-sm-12  col-md-12 maindashboard">
-            <div class="row">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
                 <section>
                     <div style="padding:10px 15px;">
                         <div id="viewpage" name="viewpage">
@@ -168,16 +219,16 @@
 </ul>
 <h2>
 <a id="timeseries-datamap-introduction-alpha-feature" class="anchor" href="#timeseries-datamap-introduction-alpha-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Timeseries DataMap Introduction (Alpha Feature)</h2>
-<p>Timeseries DataMap a pre-aggregate table implementation based on 'pre-aggregate' DataMap.
+<p>Timeseries DataMap is a pre-aggregate table implementation based on 'pre-aggregate' DataMap.
 Difference is that Timeseries DataMap has built-in understanding of time hierarchy and
 levels: year, month, day, hour, minute, so that it supports automatic roll-up in time dimension
 for query.</p>
+<p><strong>CAUTION:</strong> Current version of CarbonData does not support roll-up.It will be implemented in future versions.</p>
 <p>The data loading, querying, compaction command and its behavior is the same as preaggregate DataMap.
-Please refer to <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/preaggregate-datamap-guide.html" target=_blank>Pre-aggregate DataMap</a>
+Please refer to <a href="./preaggregate-datamap-guide.html">Pre-aggregate DataMap</a>
 for more information.</p>
 <p>To use this datamap, user can create multiple timeseries datamap on the main table which has
-a <em>event_time</em> column, one datamap for one time granularity. Then Carbondata can do automatic
-roll-up for queries on the main table.</p>
+a <em>event_time</em> column, one datamap for one time granularity.</p>
 <p>For example, below statement effectively create multiple pre-aggregate tables  on main table called
 <strong>timeseries</strong></p>
 <pre><code>CREATE DATAMAP agg_year
@@ -229,26 +280,15 @@ DMPROPERTIES (
 ) AS
 SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
  avg(price) FROM sales GROUP BY order_time, country, sex
-  
-CREATE DATAMAP agg_minute
-ON TABLE sales
-USING "timeseries"
-DMPROPERTIES (
-  'event_time'='order_time',
-  'minute_granularity'='1',
-) AS
-SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
- avg(price) FROM sales GROUP BY order_time, country, sex
 </code></pre>
-<p>For querying timeseries data, Carbondata has builtin support for following time related UDF
-to enable automatically roll-up to the desired aggregation level</p>
+<p>For querying timeseries data, Carbondata has builtin support for following time related UDF</p>
 <pre><code>timeseries(timeseries column name, 'aggregation level')
 </code></pre>
 <pre><code>SELECT timeseries(order_time, 'hour'), sum(quantity) FROM sales GROUP BY timeseries(order_time,
 'hour')
 </code></pre>
 <p>It is <strong>not necessary</strong> to create pre-aggregate tables for each granularity unless required for
-query. Carbondata can roll-up the data and fetch it.</p>
+query.</p>
 <p>For Example: For main table <strong>sales</strong> , if following timeseries datamaps were created for day
 level and hour level pre-aggregate</p>
 <pre><code>  CREATE DATAMAP agg_day
@@ -271,7 +311,7 @@ level and hour level pre-aggregate</p>
   SELECT order_time, country, sex, sum(quantity), max(quantity), count(user_id), sum(price),
    avg(price) FROM sales GROUP BY order_time, country, sex
 </code></pre>
-<p>Queries like below will be rolled-up and hit the timeseries datamaps</p>
+<p>Queries like below will not be rolled-up and hit the main table</p>
 <pre><code>Select timeseries(order_time, 'month'), sum(quantity) from sales group by timeseries(order_time,
   'month')
   
@@ -287,12 +327,23 @@ the future CarbonData release.</li>
 </ul>
 <h2>
 <a id="compacting-timeseries-datamp" class="anchor" href="#compacting-timeseries-datamp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting timeseries datamp</h2>
-<p>Refer to Compaction section in <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/preaggregate-datamap-guide.html" target=_blank>preaggregation datamap</a>.
+<p>Refer to Compaction section in <a href="./preaggregate-datamap-guide.html">preaggregation datamap</a>.
 Same applies to timeseries datamap.</p>
 <h2>
 <a id="data-management-on-timeseries-datamap" class="anchor" href="#data-management-on-timeseries-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management on timeseries datamap</h2>
-<p>Refer to Data Management section in <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/preaggregate-datamap-guide.html" target=_blank>preaggregation datamap</a>.
+<p>Refer to Data Management section in <a href="./preaggregate-datamap-guide.html">preaggregation datamap</a>.
 Same applies to timeseries datamap.</p>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__datamap').addClass('selected');
+  
+  if (!$('.b-nav__datamap').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display datamap subnav items
+    $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script>
 </div>
 </div>
 </div>

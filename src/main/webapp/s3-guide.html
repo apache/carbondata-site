@@ -22,6 +22,7 @@
     <![endif]-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="active">Documentation</a></li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -152,14 +153,65 @@
 <section><!-- Dashboard nav -->
     <div class="container-fluid q">
         <div class="col-sm-12  col-md-12 maindashboard">
-            <div class="row">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
                 <section>
                     <div style="padding:10px 15px;">
                         <div id="viewpage" name="viewpage">
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
-<p>#S3 Guide (Alpha Feature 1.4.1)</p>
+<h1>
+<a id="s3-guide-alpha-feature-141" class="anchor" href="#s3-guide-alpha-feature-141" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3 Guide (Alpha Feature 1.4.1)</h1>
 <p>Object storage is the recommended storage format in cloud as it can support storing large data
 files. S3 APIs are widely used for accessing object stores. This can be
 used to store or retrieve data on Amazon cloud, Huawei Cloud(OBS) or on any other object
@@ -168,7 +220,8 @@ Storing data in cloud is advantageous as there are no restrictions on the size o
 data and the data can be accessed from anywhere at any time.
 Carbondata can support any Object Storage that conforms to Amazon S3 API.
 Carbondata relies on Hadoop provided S3 filesystem APIs to access Object stores.</p>
-<p>#Writing to Object Storage</p>
+<h1>
+<a id="writing-to-object-storage" class="anchor" href="#writing-to-object-storage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Writing to Object Storage</h1>
 <p>To store carbondata files onto Object Store, <code>carbon.storelocation</code> property will have
 to be configured with Object Store path in CarbonProperties file.</p>
 <p>For example:</p>
@@ -180,8 +233,9 @@ table DDL command.</p>
 <p>For example:</p>
 <pre><code>CREATE TABLE IF NOT EXISTS db1.table1(col1 string, col2 int) STORED AS carbondata LOCATION 's3a://mybucket/carbonstore'
 </code></pre>
-<p>For more details on create table, Refer <a href="./data-management-on-carbondata.html#create-table">data-management-on-carbondata</a></p>
-<p>#Authentication</p>
+<p>For more details on create table, Refer <a href="ddl-of-carbondata.html#create-table">DDL of CarbonData</a></p>
+<h1>
+<a id="authentication" class="anchor" href="#authentication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authentication</h1>
 <p>Authentication properties will have to be configured to store the carbondata files on to S3 location.</p>
 <p>Authentication properties can be set in any of the following ways:</p>
 <ol>
@@ -211,16 +265,19 @@ spark.hadoop.fs.s3a.access.key=456
 <pre><code>sparkSession.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", "123")
 sparkSession.sparkContext.hadoopConfiguration.set("fs.s3a.access.key","456")
 </code></pre>
-<p>#Recommendations</p>
+<h1>
+<a id="recommendations" class="anchor" href="#recommendations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recommendations</h1>
 <ol>
 <li>Object Storage like S3 does not support file leasing mechanism(supported by HDFS) that is
 required to take locks which ensure consistency between concurrent operations therefore, it is
-recommended to set the configurable lock path property(<a href="https://github.com/apache/carbondata/blob/master/docs/configuration-parameters.html#miscellaneous-configuration">carbon.lock.path</a>)
+recommended to set the configurable lock path property(<a href="./configuration-parameters.html#system-configuration">carbon.lock.path</a>)
 to a HDFS directory.</li>
-<li>Concurrent data manipulation operations are not supported. Object stores follow eventual
-consistency semantics, i.e., any put request might take some time to reflect when trying to list
-.This behaviour causes not to ensure the data read is always consistent or latest.</li>
+<li>Concurrent data manipulation operations are not supported. Object stores follow eventual consistency semantics, i.e., any put request might take some time to reflect when trying to list. This behaviour causes the data read is always not consistent or not the latest.</li>
 </ol>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__s3').addClass('selected'); });
+</script>
 </div>
 </div>
 </div>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
+                                   target="_blank">Apache CarbonData 1.4.1</a></li>
+							<li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
+                                   target="_blank">Apache CarbonData 1.4.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
+                                   target="_blank">Apache CarbonData 1.3.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
+                                   target="_blank">Apache CarbonData 1.3.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div><h2>
+<a id="what-is-carbondata" class="anchor" href="#what-is-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is CarbonData</h2>
+<p>CarbonData is a fully indexed columnar and Hadoop native data-store for processing heavy analytical workloads and detailed queries on big data with Spark SQL. CarbonData allows faster interactive queries over PetaBytes of data.</p>
+<h2>
+<a id="what-does-this-mean" class="anchor" href="#what-does-this-mean" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What does this mean</h2>
+<p>CarbonData has specially engineered optimizations like multi level indexing, compression and encoding techniques targeted to improve performance of analytical queries which can include filters, aggregation and distinct counts where users expect sub second response time for queries on TB level data on commodity hardware clusters with just a few nodes.</p>
+<p>CarbonData has</p>
+<ul>
+<li>
+<p><strong>Unique data organisation</strong> for faster retrievals and minimise amount of data retrieved</p>
+</li>
+<li>
+<p><strong>Advanced push down optimisations</strong> for deep integration with Spark so as to improvise the Spark DataSource API and other experimental features thereby ensure computing is performed close to the data to minimise amount of data read, processed, converted and transmitted(shuffled)</p>
+</li>
+<li>
+<p><strong>Multi level indexing</strong> to efficiently prune the files and data to be scanned and hence reduce I/O scans and CPU processing</p>
+</li>
+</ul>
+<h2>
+<a id="architecture" class="anchor" href="#architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Architecture</h2>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_architecture.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_architecture.png" alt="" style="max-width:100%;"></a></p>
+<h4>
+<a id="spark-interface-layer" class="anchor" href="#spark-interface-layer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark Interface Layer:</h4>
+<p>CarbonData has deep integration with Apache Spark.CarbonData integrates custom Parser,Strategies,Optimization rules into Spark to take advantage of computing performed closer to data.</p>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_spark_integration.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_spark_integration.png" alt="" style="max-width:100%;"></a></p>
+<ol>
+<li>
+<strong>Carbon parser</strong> Enhances Spark?s SQL parser to support Carbon specific DDL and DML commands to create carbon table, create aggregate tables, manage data loading, data retention and cleanup.</li>
+<li>
+<strong>Carbon Strategies</strong>:- Modify Spark SQL?s physical query execution plan to push down possible operations to Carbon for example:- Grouping, Distinct Count, Top N etc.. for improving query performance.</li>
+<li>
+<strong>Carbon Data RDD</strong>:- Makes the data present in Carbon tables visible to Spark as a RDD which enables spark to perform distributed computation on Carbon tables.</li>
+</ol>
+<h4>
+<a id="carbon-processor" class="anchor" href="#carbon-processor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Carbon Processor:</h4>
+<p>Receives a query execution fragment from spark and executes the same on the Carbon storage. This involves Scanning the carbon store files for matching record, using the indices to directly locate the row sets and even the rows that may containing the data being searched for. The Carbon processor also performs all pushed down operations such as</p>
+<p>Aggregation/Group By</p>
+<p>Distinct Count</p>
+<p>Top N</p>
+<p>Expression Evaluation</p>
+<p>And many more?</p>
+<h4>
+<a id="carbon-storage" class="anchor" href="#carbon-storage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Carbon Storage:</h4>
+<p>Custom columnar data store which is heavily compressed, binary, dictionary encoded and heavily indexed.Usaually stored in HDFS.</p>
+<h2>
+<a id="carbondata-features" class="anchor" href="#carbondata-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Features</h2>
+<p>CarbonData has rich set of featues to support various use cases in Big Data analytics.</p>
+<h2>
+<a id="design" class="anchor" href="#design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design</h2>
+<ul>
+<li>
+<h3>
+<a id="dictionary-encoding" class="anchor" href="#dictionary-encoding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dictionary Encoding</h3>
+</li>
+</ul>
+<p>CarbonData supports encoding of data with suggogate values to reduce storage space and speed up processing.Most databases and big data SQL data stores adopt dictionary encoding(integer surrogate numbers) to achieve data compression.Unlike other column store databases where the dictionary is local to each data block, CarbonData maintains a global dictionary which provides opportunity for lazy conversion to actual values enabling all computation to be performed on the lightweight surrogate values.</p>
+<h5>
+<a id="dictionary-generation" class="anchor" href="#dictionary-generation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dictionary generation</h5>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_dict_encoding.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_dict_encoding.png" alt="" style="max-width:100%;"></a></p>
+<h5>
+<a id=.htmlk-indexing" class="anchor" href=".htmlk-indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MDK Indexing</h5>
+<p>All the surrogate keys are byte packed to generate an MDK (Multi Dimensional Key) Index.</p>
+<p>Any non surrogate columns of String data types are compressed using one of the configured compression algorithms and stored.For those numeric columns where surrogates are not generated, such data is stored as it is after compression.</p>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk.png" alt="image-20180903212418381" style="max-width:100%;"></a></p>
+<h5>
+<a id="sorted.htmlk" class="anchor" href="#sorted.htmlk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sorted MDK</h5>
+<p>The data is sorted based on the MDK Index.Sorting helps for logical grouping of similar data and there by aids in faster look up during query.</p>
+<h4>
+<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk_sort.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk_sort.png" alt="image-20180903212525214" style="max-width:100%;"></a>
+</h4>
+<h5>
+<a id="custom-columnar-encoding" class="anchor" href="#custom-columnar-encoding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Columnar Encoding</h5>
+<p>The Sorted MDK Index is split into each column.Unlike other stores where the column is compressed and stored as it is, CarbonData sorts this column data so that Binary Search can be performed on individual column data based on the filter conditions.This aids in magnitude increase in query performance and also in better compression.Since the individual column's data gets sorted, it is necessary to maintain the row mapping with the sorted MDK Index data in order to retrieve data from other columns which are not participating in filter.This row mapping is termed as <strong>Inverted Index</strong> and is stored along with the column data.The below picture depicts the logical column view.User has the option to <strong>turn off</strong> Inverted Index for such columns where filters are never applied or is very rare.In such cases, scanning would be sequential, but can aid in reducing the storage size(occupied due to inverted index data).</p>
+<h4>
+<a id="-1" class="anchor" href="#-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_blocklet_view.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_blocklet_view.png" alt="" style="max-width:100%;"></a>
+</h4>
+<ul>
+<li>
+<h3>
+<a id="carbondata-storage-format" class="anchor" href="#carbondata-storage-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Storage Format</h3>
+<p>CarbonData has a unique storage structure which aids in efficient storage and retrieval of data.Please refer to <a href="#./file-structure-of-carbondata.html">File Structure of CarbonData</a> for detailed information on the format.</p>
+</li>
+<li>
+<h3>
+<a id="indexing" class="anchor" href="#indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Indexing</h3>
+<p>CarbonData maintains multiple indexes at multiple levels to assist in efficient pruning of unwanted data from scan during query.Also CarbonData has support for plugging in external indexing solutions to speed up the query process.</p>
+<h5>
+<a id="min-max-indexing" class="anchor" href="#min-max-indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Min-Max Indexing</h5>
+<p>Storing data along with index significantly accelerates query performance and reduces the I/O scans and CPU resources in case of filters in the query. CarbonData index consists of multiple levels of indices, a processing framework can leverage this index to reduce the number of tasks it needs to schedule and process. It can also do skip scan in more fine grained units (called blocklet) in task side scanning instead of scanning the whole file.  <strong>CarbonData maintains Min-Max Index for all the columns.</strong></p>
+<p>CarbonData maintains a separate index file which contains the footer information for efficient IO reads.</p>
+<p>Using the Min-Max info in these index files, two levels of filtering can be achieved.</p>
+<p>Min-Max at the carbondata file level,to efficiently prune the files when the filter condition doesn't fall in the range.This information when maintained at the Spark Driver, will help to efficiently schedule the tasks for scanning</p>
+<p>Min-Max at the blocklet level, to efficiently prune the blocklets when the filter condition doesn't fall in the range.This information when maintained at the executor can significantly reduce the amount unnecessary data processed by the executor tasks.</p>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-minmax-blocklet.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-minmax-blocklet.png" alt="" style="max-width:100%;"></a></p>
+</li>
+<li>
+<h4>
+<a id="datamaps" class="anchor" href="#datamaps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMaps</h4>
+<p>DataMap is a framework for indexing and also for statistics that can be used to add primary index (Blocklet Index) , secondary index type and statistical type to CarbonData.</p>
+<p>DataMap is a standardized general interface which CarbonData uses to prune data blocks for scanning.</p>
+<p>DataMaps are of 2 types:</p>
+<p><strong>CG(Coarse Grained) DataMaps</strong> Can prune data to the blocklet or to Page level.ie., Holds information for deciding which blocks/blocklets to be scanned.This DataMap is used in Spark Driver to decide the number of tasks to be scheduled.</p>
+<p><strong>FG(Fine Grained) DataMaps</strong> Can prune data to row level.This DataMap is used in Spark executor for scanning an fetching the data much faster.</p>
+<p>Since DataMap interfaces are generalised, We can write a thin adaptor called as <strong>DataMap Providers</strong> to interface between CarbonData and other external Indexing engines. For eg., Lucene, Solr,ES,...</p>
+<p>CarbonData has its own DSL to create and manage DataMaps.Please refer to <a href="#./datamap/datamap-management.html#overview">CarbonData DSL</a> for more information.</p>
+<p>The below diagram explains about the DataMap execution in CarbonData.</p>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-datamap.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-datamap.png" alt="" style="max-width:100%;"></a></p>
+</li>
+<li>
+<h4>
+<a id="update--delete" class="anchor" href="#update--delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update &amp; Delete</h4>
+</li>
+</ul>
+<p>CarbonData supports Update and delete operations over big data.This functionality is not targetted for OLTP scenarios where high concurrent update/delete are required.Following are the assumptions considered when this feature is designed.</p>
+<ol>
+<li>Updates or Deletes are periodic and in Bulk</li>
+<li>Updates or Deletes are atomic</li>
+<li>Data is immediately visible</li>
+<li>Concurrent query to be allowed during an update or delete operation</li>
+<li>Single statement auto-commit support (not OLTP-style transaction)</li>
+</ol>
+<p>Since data stored in HDFS are immutable,data blocks cannot be updated in-place.Re-write of entire data block is not efficient for IO and also is a slow process.</p>
+<p>To over come these limitations, CarbonData adopts methodology of writing a delta file containing the rows to be deleted and another delta file containing the values to be updated with.During processing, These two delta files are merged with the main carbondata file and the correct result is returned for the query.</p>
+<p>The below diagram describes the process.</p>
+<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_update_delete.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_update_delete.png" alt="" style="max-width:100%;"></a></p>
+<h2>
+<a id="integration-with-big-data-ecosystem" class="anchor" href="#integration-with-big-data-ecosystem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration with Big Data ecosystem</h2>
+<p>Refer to Integration with <a href="#./quick-start-guide.html#spark">Spark</a>, <a href="#./quick-start-guide.html#presto">Presto</a> for detailed information on integrating CarbonData with these execution engines.</p>
+<h2>
+<a id="scenarios-where-carbondata-is-suitable" class="anchor" href="#scenarios-where-carbondata-is-suitable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenarios where CarbonData is suitable</h2>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__intro').addClass('selected'); });
+</script>
+</div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
