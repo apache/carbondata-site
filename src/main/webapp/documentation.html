@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -215,13 +215,13 @@
 <p>Apache CarbonData is a new big data file format for faster interactive query using advanced columnar storage, index, compression and encoding techniques to improve computing efficiency, which helps in speeding up queries by an order of magnitude faster over PetaBytes of data.</p>
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
-<p><strong>File Format Concepts:</strong> Start with the basics of understanding the <a href="./file-structure-of-carbondata.html#carbondata-file-structure">CarbonData file format</a> and its storage structure.This will help to understand other parts of the documentation, incuding deployment, programming and usage guides.</p>
+<p><strong>File Format Concepts:</strong> Start with the basics of understanding the <a href="./file-structure-of-carbondata.html#carbondata-file-format">CarbonData file format</a> and its <a href="./file-structure-of-carbondata.html">storage structure</a>.This will help to understand other parts of the documentation, including deployment, programming and usage guides.</p>
 <p><strong>Quick Start:</strong> <a href="./quick-start-guide.html#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Run an example program</a> on your local machine or <a href="https://github.com/apache/carbondata/tree/master/examples/spark2/src/main/scala/org/apache/carbondata/examples" target=_blank>study some examples</a>.</p>
 <p><strong>CarbonData SQL Language Reference:</strong> CarbonData extends the Spark SQL language and adds several <a href="./ddl-of-carbondata.html">DDL</a> and <a href="./dml-of-carbondata.html">DML</a> statements to support operations on it.Refer to the <a href="./language-manual.html">Reference Manual</a> to understand the supported features and functions.</p>
 <p><strong>Programming Guides:</strong> You can read our guides about <a href="./sdk-guide.html">APIs supported</a> to learn how to integrate CarbonData with your applications.</p>
 <h2>
-<a id="deployment" class="anchor" href="#deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployment</h2>
-<p>CarbonData can be integrated with popular Execution engines like <a href="./quick-start-guide.html#spark">Spark</a> and <a href="./quick-start-guide.html#presto">Presto</a>.Refer to the <a href="./quick-start-guide.html##deployment-modes">Installation and Configuration</a> section to understand all modes of Integrating CarbonData.</p>
+<a id="integration" class="anchor" href="#integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration</h2>
+<p>CarbonData can be integrated with popular Execution engines like <a href="./quick-start-guide.html#spark">Spark</a> and <a href="./quick-start-guide.html#presto">Presto</a>.Refer to the <a href="./quick-start-guide.html#integration">Installation and Configuration</a> section to understand all modes of Integrating CarbonData.</p>
 <h2>
 <a id="contributing-to-carbondata" class="anchor" href="#contributing-to-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing to CarbonData</h2>
 <p>The Apache CarbonData community welcomes all kinds of contributions from anyone with a passion for
@@ -234,10 +234,6 @@ faster data format.Contributing to CarbonData doesn?t just mean writing code. He
 <p><strong>Blogs:</strong> Blogs by external users can be found <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=67635497" rel="nofollow">here</a>.</p>
 <p><strong>Performance reports:</strong> TPC-H performance reports can be found <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Performance+-+TPCH+Report+of+CarbonData+%281.2+version%29+and+Parquet+on+Spark+Execution+Engine" rel="nofollow">here</a>.</p>
 <p><strong>Trainings:</strong> Training records on design and code flows can be found <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Training+Materials" rel="nofollow">here</a>.</p>
-<script>
-// Show selected style on nav item
-$(function() { $('.b-nav__intro').addClass('selected'); });
-</script>
 </div>
 </div>
 </div>

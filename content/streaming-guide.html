@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -212,6 +212,37 @@
                                     <div>
 <h1>
 <a id="carbondata-streaming-ingestion" class="anchor" href="#carbondata-streaming-ingestion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Streaming Ingestion</h1>
+<ul>
+<li>
+<a href="#quick-example">Streaming Table Management</a>
+<ul>
+<li><a href="#create-table-with-streaming-property">Create table with streaming property</a></li>
+<li><a href="#alter-streaming-property">Alter streaming property</a></li>
+<li><a href="#acquire-streaming-lock">Acquire streaming lock</a></li>
+<li><a href="#create-streaming-segment">Create streaming segment</a></li>
+<li><a href="#change-segment-status">Change Stream segment status</a></li>
+<li><a href="#handoff-streaming-finish-segment-to-columnar-segment">Handoff "streaming finish" segment to columnar segment</a></li>
+<li><a href="#auto-handoff-streaming-segment">Auto handoff streaming segment</a></li>
+<li><a href="#stream-data-parser">Stream data parser</a></li>
+<li><a href="#close-streaming-table">Close streaming table</a></li>
+<li><a href="#constraint">Constraints</a></li>
+</ul>
+</li>
+<li>
+<a href="#streamsql">StreamSQL</a>
+<ul>
+<li><a href="#streaming-table">Defining Streaming Table</a></li>
+<li>
+<a href="#streaming-job-management">Streaming Job Management</a>
+<ul>
+<li><a href="#start-stream">START STREAM</a></li>
+<li><a href="#stop-stream">STOP STREAM</a></li>
+<li><a href="#show-streams">SHOW STREAMS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2>
 <a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
 <p>Download and unzip spark-2.2.0-bin-hadoop2.7.tgz, and export $SPARK_HOME</p>
@@ -255,7 +286,7 @@
 <span class="pl-s">      | col1 INT,</span>
 <span class="pl-s">      | col2 STRING</span>
 <span class="pl-s">      | )</span>
-<span class="pl-s">      | STORED BY 'carbondata'</span>
+<span class="pl-s">      | STORED AS carbondata</span>
 <span class="pl-s">      | TBLPROPERTIES('streaming'='true')<span class="pl-pds">"""</span></span>.stripMargin)
 
  <span class="pl-k">val</span> <span class="pl-smi">carbonTable</span> <span class="pl-k">=</span> <span class="pl-en">CarbonEnv</span>.getCarbonTable(<span class="pl-en">Some</span>(<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span>), <span class="pl-s"><span class="pl-pds">"</span>carbon_table<span class="pl-pds">"</span></span>)(spark)
@@ -300,7 +331,7 @@ streaming table using following DDL.</p>
   col1 <span class="pl-k">INT</span>,
   col2 STRING
  )
- STORED BY <span class="pl-s"><span class="pl-pds">'</span>carbondata<span class="pl-pds">'</span></span>
+ STORED <span class="pl-k">AS</span> carbondata
  TBLPROPERTIES(<span class="pl-s"><span class="pl-pds">'</span>streaming<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>)</pre></div>
 <table>
 <thead>
@@ -483,6 +514,145 @@ streaming table using following DDL.</p>
 <li>block delete "streaming" segment while the streaming ingestion is running.</li>
 <li>block drop the streaming table while the streaming ingestion is running.</li>
 </ol>
+<h2>
+<a id="streamsql" class="anchor" href="#streamsql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>StreamSQL</h2>
+<h3>
+<a id="streaming-table" class="anchor" href="#streaming-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Streaming Table</h3>
+<p><strong>Example</strong></p>
+<p>Following example shows how to start a streaming ingest job</p>
+<pre><code>    sql(
+      s"""
+         |CREATE TABLE source(
+         | id INT,
+         | name STRING,
+         | city STRING,
+         | salary FLOAT,
+         | tax DECIMAL(8,2),
+         | percent double,
+         | birthday DATE,
+         | register TIMESTAMP,
+         | updated TIMESTAMP
+         |)
+         |STORED BY carbondata
+         |TBLPROPERTIES (
+         | 'format'='csv',
+         | 'path'='$csvDataDir'
+         |)
+      """.stripMargin)
+
+    sql(
+      s"""
+         |CREATE TABLE sink(
+         | id INT,
+         | name STRING,
+         | city STRING,
+         | salary FLOAT,
+         | tax DECIMAL(8,2),
+         | percent double,
+         | birthday DATE,
+         | register TIMESTAMP,
+         | updated TIMESTAMP
+         |)
+         |STORED BY carbondata
+         |TBLPROPERTIES (
+         |  'streaming'='true'
+         |)
+      """.stripMargin)
+
+    sql(
+      """
+        |START STREAM job123 ON TABLE sink
+        |STMPROPERTIES(
+        |  'trigger'='ProcessingTime',
+        |  'interval'='1 seconds')
+        |AS
+        |  SELECT *
+        |  FROM source
+        |  WHERE id % 2 = 1
+      """.stripMargin)
+
+    sql("STOP STREAM job123")
+
+    sql("SHOW STREAMS [ON TABLE tableName]")
+</code></pre>
+<p>In above example, two table is created: source and sink. The <code>source</code> table's format is <code>csv</code> and <code>sink</code> table format is <code>carbon</code>. Then a streaming job is created to stream data from source table to sink table.</p>
+<p>These two tables are normal carbon table, they can be queried independently.</p>
+<h3>
+<a id="streaming-job-management" class="anchor" href="#streaming-job-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Streaming Job Management</h3>
+<p>As above example shown:</p>
+<ul>
+<li>
+<code>START STREAM jobName ON TABLE tableName</code> is used to start a streaming ingest job.</li>
+<li>
+<code>STOP STREAM jobName</code> is used to stop a streaming job by its name</li>
+<li>
+<code>SHOW STREAMS [ON TABLE tableName]</code> is used to print streaming job information</li>
+</ul>
+<h5>
+<a id="start-stream" class="anchor" href="#start-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>START STREAM</h5>
+<p>When this is issued, carbon will start a structured streaming job to do the streaming ingestion. Before launching the job, system will validate:</p>
+<ul>
+<li>
+<p>The format of table specified in CTAS FROM clause must be one of: csv, json, text, parquet, kafka, socket.  These are formats supported by spark 2.2.0 structured streaming</p>
+</li>
+<li>
+<p>User should pass the options of the streaming source table in its TBLPROPERTIES when creating it. StreamSQL will pass them transparently to spark when creating the streaming job. For example:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">source</span>(
+  name STRING,
+  age <span class="pl-k">INT</span>
+)
+STORED BY carbondata
+TBLPROPERTIES(
+  <span class="pl-s"><span class="pl-pds">'</span>format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>socket<span class="pl-pds">'</span></span>,
+  <span class="pl-s"><span class="pl-pds">'</span>host<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>localhost<span class="pl-pds">'</span></span>,
+  <span class="pl-s"><span class="pl-pds">'</span>port<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>8888<span class="pl-pds">'</span></span>
+)</pre></div>
+<p>will translate to</p>
+<div class="highlight highlight-source-scala"><pre>spark.readStream
+	 .schema(tableSchema)
+	 .format(<span class="pl-s"><span class="pl-pds">"</span>socket<span class="pl-pds">"</span></span>)
+	 .option(<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>)
+	 .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>8888<span class="pl-pds">"</span></span>)</pre></div>
+</li>
+<li>
+<p>The sink table should have a TBLPROPERTY <code>'streaming'</code> equal to <code>true</code>, indicating it is a streaming table.</p>
+</li>
+<li>
+<p>In the given STMPROPERTIES, user must specify <code>'trigger'</code>, its value must be <code>ProcessingTime</code> (In future, other value will be supported). User should also specify interval value for the streaming job.</p>
+</li>
+<li>
+<p>If the schema specifid in sink table is different from CTAS, the streaming job will fail</p>
+</li>
+</ul>
+<h5>
+<a id="stop-stream" class="anchor" href="#stop-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STOP STREAM</h5>
+<p>When this is issued, the streaming job will be stopped immediately. It will fail if the jobName specified is not exist.</p>
+<h5>
+<a id="show-streams" class="anchor" href="#show-streams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW STREAMS</h5>
+<p><code>SHOW STREAMS ON TABLE tableName</code> command will print the streaming job information as following</p>
+<table>
+<thead>
+<tr>
+<th>Job name</th>
+<th>status</th>
+<th>Source</th>
+<th>Sink</th>
+<th>start time</th>
+<th>time elapsed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>job123</td>
+<td>Started</td>
+<td>device</td>
+<td>fact</td>
+<td>2018-02-03 14:32:42</td>
+<td>10d2h32m</td>
+</tr>
+</tbody>
+</table>
+<p><code>SHOW STREAMS</code> command will show all stream jobs in the system.</p>
 <script>
 $(function() {
   // Show selected style on nav item
@@ -493,8 +663,7 @@ $(function() {
     $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
   }
 });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

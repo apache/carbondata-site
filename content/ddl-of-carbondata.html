@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -296,11 +296,101 @@ STORED AS carbondata
 <p><strong>NOTE:</strong> CarbonData also supports "STORED AS carbondata" and "USING carbondata". Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/CarbonSessionExample.scala" target=_blank>CarbonSessionExample</a> in the CarbonData repo.</p>
 <h3>
 <a id="usage-guidelines" class="anchor" href="#usage-guidelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Guidelines</h3>
-<p><strong>Supported properties:</strong> <a href="#dictionary-encoding-configuration">DICTIONARY_INCLUDE</a>,<a href="#inverted-index-configuration">NO_INVERTED_INDEX</a>,<a href="#sort-columns-configuration">SORT_COLUMNS</a>,<a href="#sort-scope-configuration">SORT_SCOPE</a>,<a href="#table-block-size-configuration">TABLE_BLOCKSIZE</a>,<a href="#table-compaction-configuration">MAJOR_COMPACTION_SIZE</a>,</p>
-<p><a href="#table-compaction-configuration">AUTO_LOAD_MERGE</a>,<a href="#table-compaction-configuration">COMPACTION_LEVEL_THRESHOLD</a>,<a href="#table-compaction-configuration">COMPACTION_PRESERVE_SEGMENTS</a>,<a href="#table-compaction-configuration">ALLOWED_COMPACTION_DAYS</a>,</p>
-<p><a href="#streaming">streaming</a>,<a href="#local-dictionary-configuration">LOCAL_DICTIONARY_ENABLE</a>,<a href="#local-dictionary-configuration">LOCAL_DICTIONARY_THRESHOLD</a>,<a href="#local-dictionary-configuration">LOCAL_DICTIONARY_INCLUDE</a>,</p>
-<p><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_EXCLUDE</a>,<a href="#caching-minmax-value-for-required-columns">COLUMN_META_CACHE</a>,<a href="#caching-at-block-or-blocklet-level">CACHE_LEVEL</a>,<a href="#support-flat-folder-same-as-hiveparquet">flat_folder</a>,<a href="#string-longer-than-32000-characters">LONG_STRING_COLUMNS</a>,<a href="#bucketing">BUCKETNUMBER</a>,</p>
-<p><a href="#bucketing">BUCKETCOLUMNS</a></p>
+<p><strong>Supported properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#dictionary-encoding-configuration">DICTIONARY_INCLUDE</a></td>
+<td>Columns for which dictionary needs to be generated</td>
+</tr>
+<tr>
+<td><a href="#inverted-index-configuration">NO_INVERTED_INDEX</a></td>
+<td>Columns to exclude from inverted index generation</td>
+</tr>
+<tr>
+<td><a href="#sort-columns-configuration">SORT_COLUMNS</a></td>
+<td>Columns to include in sort and its order of sort</td>
+</tr>
+<tr>
+<td><a href="#sort-scope-configuration">SORT_SCOPE</a></td>
+<td>Sort scope of the load.Options include no sort, local sort ,batch sort and global sort</td>
+</tr>
+<tr>
+<td><a href="#table-block-size-configuration">TABLE_BLOCKSIZE</a></td>
+<td>Size of blocks to write onto hdfs</td>
+</tr>
+<tr>
+<td><a href="#table-compaction-configuration">MAJOR_COMPACTION_SIZE</a></td>
+<td>Size upto which the segments can be combined into one</td>
+</tr>
+<tr>
+<td><a href="#table-compaction-configuration">AUTO_LOAD_MERGE</a></td>
+<td>Whether to auto compact the segments</td>
+</tr>
+<tr>
+<td><a href="#table-compaction-configuration">COMPACTION_LEVEL_THRESHOLD</a></td>
+<td>Number of segments to compact into one segment</td>
+</tr>
+<tr>
+<td><a href="#table-compaction-configuration">COMPACTION_PRESERVE_SEGMENTS</a></td>
+<td>Number of latest segments that needs to be excluded from compaction</td>
+</tr>
+<tr>
+<td><a href="#table-compaction-configuration">ALLOWED_COMPACTION_DAYS</a></td>
+<td>Segments generated within the configured time limit in days will be compacted, skipping others</td>
+</tr>
+<tr>
+<td><a href="#streaming">streaming</a></td>
+<td>Whether the table is a streaming table</td>
+</tr>
+<tr>
+<td><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_ENABLE</a></td>
+<td>Enable local dictionary generation</td>
+</tr>
+<tr>
+<td><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_THRESHOLD</a></td>
+<td>Cardinality upto which the local dictionary can be generated</td>
+</tr>
+<tr>
+<td><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_INCLUDE</a></td>
+<td>Columns for which local dictionary needs to be generated.Useful when local dictionary need not be generated for all string/varchar/char columns</td>
+</tr>
+<tr>
+<td><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_EXCLUDE</a></td>
+<td>Columns for which local dictionary generation should be skipped.Useful when local dictionary need not be generated for few string/varchar/char columns</td>
+</tr>
+<tr>
+<td><a href="#caching-minmax-value-for-required-columns">COLUMN_META_CACHE</a></td>
+<td>Columns whose metadata can be cached in Driver for efficient pruning and improved query performance</td>
+</tr>
+<tr>
+<td><a href="#caching-at-block-or-blocklet-level">CACHE_LEVEL</a></td>
+<td>Column metadata caching level.Whether to cache column metadata of block or blocklet</td>
+</tr>
+<tr>
+<td><a href="#support-flat-folder-same-as-hiveparquet">flat_folder</a></td>
+<td>Whether to write all the carbondata files in a single folder.Not writing segments folder during incremental load</td>
+</tr>
+<tr>
+<td><a href="#string-longer-than-32000-characters">LONG_STRING_COLUMNS</a></td>
+<td>Columns which are greater than 32K characters</td>
+</tr>
+<tr>
+<td><a href="#bucketing">BUCKETNUMBER</a></td>
+<td>Number of buckets to be created</td>
+</tr>
+<tr>
+<td><a href="#bucketing">BUCKETCOLUMNS</a></td>
+<td>Columns which are to be placed in buckets</td>
+</tr>
+</tbody>
+</table>
 <p>Following are the guidelines for TBLPROPERTIES, CarbonData's additional table options can be set via carbon.properties.</p>
 <ul>
 <li>
@@ -356,15 +446,15 @@ And if you care about loading resources isolation strictly, because the system u
 <pre><code>### Example:
 </code></pre>
 <pre><code> CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
-                                productNumber INT,
-                                productName STRING,
-                                storeCity STRING,
-                                storeProvince STRING,
-                                productCategory STRING,
-                                productBatch STRING,
-                                saleQuantity INT,
-                                revenue INT)
- STORED BY 'carbondata'
+   productNumber INT,
+   productName STRING,
+   storeCity STRING,
+   storeProvince STRING,
+   productCategory STRING,
+   productBatch STRING,
+   saleQuantity INT,
+   revenue INT)
+ STORED AS carbondata
  TBLPROPERTIES ('SORT_COLUMNS'='productName,storeCity',
                 'SORT_SCOPE'='NO_SORT')
 </code></pre>
@@ -458,7 +548,7 @@ Following are 5 configurations:</p>
 <tr>
 <td>LOCAL_DICTIONARY_ENABLE</td>
 <td>false</td>
-<td>Whether to enable local dictionary generation. <strong>NOTE:</strong> If this property is defined, it will override the value configured at system level by 'carbon.local.dictionary.enable'</td>
+<td>Whether to enable local dictionary generation. <strong>NOTE:</strong> If this property is defined, it will override the value configured at system level by '<em><strong>carbon.local.dictionary.enable</strong></em>'.Local dictionary will be generated for all string/varchar/char columns unless LOCAL_DICTIONARY_INCLUDE, LOCAL_DICTIONARY_EXCLUDE is configured.</td>
 </tr>
 <tr>
 <td>LOCAL_DICTIONARY_THRESHOLD</td>
@@ -468,12 +558,12 @@ Following are 5 configurations:</p>
 <tr>
 <td>LOCAL_DICTIONARY_INCLUDE</td>
 <td>string/varchar/char columns</td>
-<td>Columns for which Local Dictionary has to be generated.<strong>NOTE:</strong> Those string/varchar/char columns which are added into DICTIONARY_INCLUDE option will not be considered for local dictionary generation.</td>
+<td>Columns for which Local Dictionary has to be generated.<strong>NOTE:</strong> Those string/varchar/char columns which are added into DICTIONARY_INCLUDE option will not be considered for local dictionary generation.This property needs to be configured only when local dictionary needs to be generated for few columns, skipping others.This property takes effect only when <strong>LOCAL_DICTIONARY_ENABLE</strong> is true or <strong>carbon.local.dictionary.enable</strong> is true</td>
 </tr>
 <tr>
 <td>LOCAL_DICTIONARY_EXCLUDE</td>
 <td>none</td>
-<td>Columns for which Local Dictionary need not be generated.</td>
+<td>Columns for which Local Dictionary need not be generated.This property needs to be configured only when local dictionary needs to be skipped for few columns, generating for others.This property takes effect only when <strong>LOCAL_DICTIONARY_ENABLE</strong> is true or <strong>carbon.local.dictionary.enable</strong> is true</td>
 </tr>
 </tbody>
 </table>
@@ -502,7 +592,7 @@ Following are 5 configurations:</p>
           
             column3 LONG )
           
-  STORED BY 'carbondata'
+  STORED AS carbondata
   TBLPROPERTIES('LOCAL_DICTIONARY_ENABLE'='true','LOCAL_DICTIONARY_THRESHOLD'='1000',
   'LOCAL_DICTIONARY_INCLUDE'='column1','LOCAL_DICTIONARY_EXCLUDE'='column2')
 </code></pre>
@@ -613,7 +703,7 @@ You can refer to SDKwriterTestCase for example.</p>
 <a id="create-table-as-select" class="anchor" href="#create-table-as-select" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE AS SELECT</h2>
 <p>This function allows user to create a Carbon table from any of the Parquet/Hive/Carbon table. This is beneficial when the user wants to create Carbon table from any other Parquet/Hive table and use the Carbon query engine to query and achieve better query results for cases where Carbon is faster than other file formats. Also this feature can be used for backing up the data.</p>
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name 
-STORED BY 'carbondata' 
+STORED AS carbondata 
 [TBLPROPERTIES (key1=val1, key2=val2, ...)] 
 AS select_statement;
 </code></pre>
@@ -629,7 +719,7 @@ carbon.sql("INSERT INTO source_table SELECT 1,'bob','shenzhen',27")
 carbon.sql("INSERT INTO source_table SELECT 2,'david','shenzhen',31")
 
 carbon.sql("CREATE TABLE target_table
-            STORED BY 'carbondata'
+            STORED AS carbondata
             AS SELECT city,avg(age) FROM source_table GROUP BY city")
             
 carbon.sql("SELECT * FROM target_table").show
@@ -645,21 +735,21 @@ carbon.sql("SELECT * FROM target_table").show
 <a id="create-external-table" class="anchor" href="#create-external-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE EXTERNAL TABLE</h2>
 <p>This function allows user to create external table by specifying location.</p>
 <pre><code>CREATE EXTERNAL TABLE [IF NOT EXISTS] [db_name.]table_name 
-STORED BY 'carbondata' LOCATION ?$FilesPath?
+STORED AS carbondata LOCATION ?$FilesPath?
 </code></pre>
 <h3>
 <a id="create-external-table-on-managed-table-data-location" class="anchor" href="#create-external-table-on-managed-table-data-location" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create external table on managed table data location.</h3>
 <p>Managed table data location provided will have both FACT and Metadata folder.
 This data can be generated by creating a normal carbon table and use this path as $FilesPath in the above syntax.</p>
 <p><strong>Example:</strong></p>
-<pre><code>sql("CREATE TABLE origin(key INT, value STRING) STORED BY 'carbondata'")
+<pre><code>sql("CREATE TABLE origin(key INT, value STRING) STORED AS carbondata")
 sql("INSERT INTO origin select 100,'spark'")
 sql("INSERT INTO origin select 200,'hive'")
 // creates a table in $storeLocation/origin
 
 sql(s"""
 |CREATE EXTERNAL TABLE source
-|STORED BY 'carbondata'
+|STORED AS carbondata
 |LOCATION '$storeLocation/origin'
 """.stripMargin)
 checkAnswer(sql("SELECT count(*) from source"), sql("SELECT count(*) from origin"))
@@ -670,7 +760,7 @@ checkAnswer(sql("SELECT count(*) from source"), sql("SELECT count(*) from origin
 Our SDK module currently support writing data in this format.</p>
 <p><strong>Example:</strong></p>
 <pre><code>sql(
-s"""CREATE EXTERNAL TABLE sdkOutputTable STORED BY 'carbondata' LOCATION
+s"""CREATE EXTERNAL TABLE sdkOutputTable STORED AS carbondata LOCATION
 |'$writerPath' """.stripMargin)
 </code></pre>
 <p>Here writer path will have carbondata and index files.
@@ -839,14 +929,14 @@ This can be achieved by using the alter table set command.</p>
 You can see the column comment of an existing table using describe formatted command.</p>
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name[(col_name data_type [COMMENT col_comment], ...)]
   [COMMENT table_comment]
-STORED BY 'carbondata'
+STORED AS carbondata
 [TBLPROPERTIES (property_name=property_value, ...)]
 </code></pre>
 <p>Example:</p>
 <pre><code>CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
                               productNumber Int COMMENT 'unique serial number for product')
 COMMENT ?This is table comment?
- STORED BY 'carbondata'
+ STORED AS carbondata
  TBLPROPERTIES ('DICTIONARY_INCLUDE'='productNumber')
 </code></pre>
 <p>You can also SET and UNSET table comment using ALTER command.</p>
@@ -880,7 +970,7 @@ COMMENT ?This is table comment?
                               saleQuantity INT,
                               revenue INT)
 PARTITIONED BY (productCategory STRING, productBatch STRING)
-STORED BY 'carbondata'
+STORED AS carbondata
 </code></pre>
 <p>NOTE: Hive partition is not supported on complex datatype columns.</p>
 <h4>
@@ -918,7 +1008,7 @@ WHERE au.country = 'US';
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
                   [(col_name data_type , ...)]
 PARTITIONED BY (partition_col_name data_type)
-STORED BY 'carbondata'
+STORED AS carbondata
 [TBLPROPERTIES ('PARTITION_TYPE'='HASH',
                 'NUM_PARTITIONS'='N' ...)]
 </code></pre>
@@ -931,7 +1021,7 @@ STORED BY 'carbondata'
     col_D DECIMAL(10,2),
     col_F TIMESTAMP
 ) PARTITIONED BY (col_E LONG)
-STORED BY 'carbondata' TBLPROPERTIES('PARTITION_TYPE'='HASH','NUM_PARTITIONS'='9')
+STORED AS carbondata TBLPROPERTIES('PARTITION_TYPE'='HASH','NUM_PARTITIONS'='9')
 </code></pre>
 <h3>
 <a id="create-range-partition-table" class="anchor" href="#create-range-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Range Partition Table</h3>
@@ -939,7 +1029,7 @@ STORED BY 'carbondata' TBLPROPERTIES('PARTITION_TYPE'='HASH','NUM_PARTITIONS'='9
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
                   [(col_name data_type , ...)]
 PARTITIONED BY (partition_col_name data_type)
-STORED BY 'carbondata'
+STORED AS carbondata
 [TBLPROPERTIES ('PARTITION_TYPE'='RANGE',
                 'RANGE_INFO'='2014-01-01, 2015-01-01, 2016-01-01, ...')]
 </code></pre>
@@ -966,7 +1056,7 @@ STORED BY 'carbondata'
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
                   [(col_name data_type , ...)]
 PARTITIONED BY (partition_col_name data_type)
-STORED BY 'carbondata'
+STORED AS carbondata
 [TBLPROPERTIES ('PARTITION_TYPE'='LIST',
                 'LIST_INFO'='A, B, C, ...')]
 </code></pre>
@@ -979,7 +1069,7 @@ STORED BY 'carbondata'
     col_E LONG,
     col_F TIMESTAMP
  ) PARTITIONED BY (col_A STRING)
- STORED BY 'carbondata'
+ STORED AS carbondata
  TBLPROPERTIES('PARTITION_TYPE'='LIST',
  'LIST_INFO'='aaaa, bbbb, (cccc, dddd), eeee')
 </code></pre>
@@ -1027,7 +1117,7 @@ columns to be used for bucketing and the number of buckets. For the selection of
 of columns is used.</p>
 <pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name
                   [(col_name data_type, ...)]
-STORED BY 'carbondata'
+STORED AS carbondata
 TBLPROPERTIES('BUCKETNUMBER'='noOfBuckets',
 'BUCKETCOLUMNS'='columnname')
 </code></pre>
@@ -1038,15 +1128,15 @@ TBLPROPERTIES('BUCKETNUMBER'='noOfBuckets',
 </ul>
 <p>Example:</p>
 <pre><code>CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
-                              productNumber INT,
-                              saleQuantity INT,
-                              productName STRING,
-                              storeCity STRING,
-                              storeProvince STRING,
-                              productCategory STRING,
-                              productBatch STRING,
-                              revenue INT)
-STORED BY 'carbondata'
+  productNumber INT,
+  saleQuantity INT,
+  productName STRING,
+  storeCity STRING,
+  storeProvince STRING,
+  productCategory STRING,
+  productBatch STRING,
+  revenue INT)
+STORED AS carbondata
 TBLPROPERTIES ('BUCKETNUMBER'='4', 'BUCKETCOLUMNS'='productName')
 </code></pre>
 <script>
@@ -1059,8 +1149,7 @@ $(function() {
     $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
   }
 });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

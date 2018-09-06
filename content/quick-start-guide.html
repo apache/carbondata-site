@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -217,10 +217,10 @@
 <a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
 <ul>
 <li>
-<p>Spark 2.2.1 version is installed and running.CarbonData supports Spark versions upto 2.2.1.Please follow steps described in <a href="https://spark.apache.org/docs/latest" target=_blank rel="nofollow">Spark docs website</a> for installing and running Spark.</p>
+<p>CarbonData supports Spark versions upto 2.2.1.Please download Spark package from <a href="https://spark.apache.org/downloads.html" target=_blank rel="nofollow">Spark website</a></p>
 </li>
 <li>
-<p>Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData.</p>
+<p>Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData</p>
 <pre><code>cd carbondata
 cat &gt; sample.csv &lt;&lt; EOF
 id,name,city,age
@@ -232,20 +232,17 @@ EOF
 </li>
 </ul>
 <h2>
-<a id="deployment-modes" class="anchor" href="#deployment-modes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployment modes</h2>
+<a id="integration" class="anchor" href="#integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration</h2>
 <p>CarbonData can be integrated with Spark and Presto Execution Engines.The below documentation guides on Installing and Configuring with these execution engines.</p>
 <h3>
 <a id="spark" class="anchor" href="#spark" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark</h3>
 <p><a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Installing and Configuring CarbonData to run locally with Spark Shell</a></p>
 <p><a href="#installing-and-configuring-carbondata-on-standalone-spark-cluster">Installing and Configuring CarbonData on Standalone Spark Cluster</a></p>
 <p><a href="#installing-and-configuring-carbondata-on-spark-on-yarn-cluster">Installing and Configuring CarbonData on Spark on YARN Cluster</a></p>
+<p><a href="#query-execution-using-carbondata-thrift-server">Installing and Configuring CarbonData Thrift Server for Query Execution</a></p>
 <h3>
 <a id="presto" class="anchor" href="#presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Presto</h3>
 <p><a href="#installing-and-configuring-carbondata-on-presto">Installing and Configuring CarbonData on Presto</a></p>
-<h2>
-<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying Data</h2>
-<p><a href="#query-execution-using-carbondata-thrift-server">Query Execution using CarbonData Thrift Server</a></p>
-<h2></h2>
 <h2>
 <a id="installing-and-configuring-carbondata-to-run-locally-with-spark-shell" class="anchor" href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData to run locally with Spark Shell</h2>
 <p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">Apache Spark Documentation</a> for more details on Spark shell.</p>
@@ -275,12 +272,12 @@ import org.apache.spark.sql.CarbonSession._
 <h6>
 <a id="creating-a-table" class="anchor" href="#creating-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Table</h6>
 <pre><code>scala&gt;carbon.sql("CREATE TABLE
-                        IF NOT EXISTS test_table(
-                                  id string,
-                                  name string,
-                                  city string,
-                                  age Int)
-                       STORED BY 'carbondata'")
+                    IF NOT EXISTS test_table(
+                    id string,
+                    name string,
+                    city string,
+                    age Int)
+                  STORED AS carbondata")
 </code></pre>
 <h6>
 <a id="loading-data-to-a-table" class="anchor" href="#loading-data-to-a-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data to a Table</h6>
@@ -558,12 +555,11 @@ hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 </code></pre>
 <h2>
 <a id="installing-and-configuring-carbondata-on-presto" class="anchor" href="#installing-and-configuring-carbondata-on-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Presto</h2>
-<ul>
-<li>
+<p><strong>NOTE:</strong> <strong>CarbonData tables cannot be created nor loaded from Presto.User need to create CarbonData Table and load data into it
+either with <a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Spark</a> or <a href="./sdk-guide.html">SDK</a>.
+Once the table is created,it can be queried from Presto.</strong></p>
 <h3>
 <a id="installing-presto" class="anchor" href="#installing-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Presto</h3>
-</li>
-</ul>
 <ol>
 <li>
 <p>Download the 0.187 version of Presto using:
@@ -684,12 +680,23 @@ discovery.uri=&lt;coordinator_ip&gt;:8086
 <pre><code>select * from system.runtime.nodes;
 </code></pre>
 <p>Now you can use the Presto CLI on the coordinator to query data sources in the catalog using the Presto workers.</p>
+<p>List the schemas(databases) available</p>
+<pre><code>show schemas;
+</code></pre>
+<p>Selected the schema where CarbonData table resides</p>
+<pre><code>use carbonschema;
+</code></pre>
+<p>List the available tables</p>
+<pre><code>show tables;
+</code></pre>
+<p>Query from the available tables</p>
+<pre><code>select * from carbon_table;
+</code></pre>
 <p><strong>Note :</strong> Create Tables and data loads should be done before executing queries as we can not create carbon table from this interface.</p>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__quickstart').addClass('selected'); });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

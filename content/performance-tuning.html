@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -218,6 +218,7 @@ The following sections will elaborate on the below topics :</p>
 <li><a href="#suggestions-to-create-carbondata-table">Suggestions to create CarbonData Table</a></li>
 <li><a href="#configuration-for-optimizing-data-loading-performance-for-massive-data">Configuration for Optimizing Data Loading performance for Massive Data</a></li>
 <li><a href="#configurations-for-optimizing-carbondata-performance">Optimizing Query Performance</a></li>
+<li><a href="#compaction-configurations-for-optimizing-carbondata-query-performance">Compaction Configurations for Optimizing CarbonData Query Performance</a></li>
 </ul>
 <h2>
 <a id="suggestions-to-create-carbondata-table" class="anchor" href="#suggestions-to-create-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Suggestions to Create CarbonData Table</h2>
@@ -299,7 +300,7 @@ The create table command can be modified as suggested below :</p>
   counter_1, Decimal
   ...
   
-  )STORED BY 'carbondata'
+  )STORED AS carbondata
   TBLPROPERTIES ('SORT_COLUMNS'='msisdn, Dime_1')
 </code></pre>
 <p>Now the query with MSISDN in the filter will be more efficient.</p>
@@ -320,7 +321,7 @@ The create table command can be modified as suggested below :</p>
     counter_1, Decimal
     ...
     
-    )STORED BY 'carbondata'
+    )STORED AS carbondata
     TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
 <ul>
@@ -337,7 +338,7 @@ The create table command can be modified as below :</p>
     counter_1 decimal,
     counter_2 double,
     ...
-    )STORED BY 'carbondata'
+    )STORED AS carbondata
     TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
 <p>The result of performance analysis of test-case shows reduction in query execution time from 15 to 3 seconds, thereby improving performance by nearly 5 times.</p>
@@ -356,12 +357,12 @@ Incremental values are efficient in using min/max index. The create table comman
   END_TIME bigint,
   ...
   counter_100 double
-  )STORED BY 'carbondata'
+  )STORED AS carbondata
   TBLPROPERTIES ('SORT_COLUMNS'='Dime_1, HOST, MSISDN')
 </code></pre>
 <p><strong>NOTE:</strong></p>
 <ul>
-<li>BloomFilter can be created to enhance performance for queries with precise equal/in conditions. You can find more information about it in BloomFilter datamap <a href="https://github.com/apache/carbondata/blob/master/docs/datamap/bloomfilter-datamap-guide.html" target=_blank>document</a>.</li>
+<li>BloomFilter can be created to enhance performance for queries with precise equal/in conditions. You can find more information about it in BloomFilter datamap <a href="./bloomfilter-datamap-guide.html">document</a>.</li>
 </ul>
 <h2>
 <a id="configuration-for-optimizing-data-loading-performance-for-massive-data" class="anchor" href="#configuration-for-optimizing-data-loading-performance-for-massive-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration for Optimizing Data Loading performance for Massive Data</h2>
@@ -507,11 +508,72 @@ scenarios. After the completion of POC, some of the configurations impacting the
 </tbody>
 </table>
 <p>Note: If your CarbonData instance is provided only for query, you may specify the property 'spark.speculation=true' which is in conf directory of spark.</p>
+<h2>
+<a id="compaction-configurations-for-optimizing-carbondata-query-performance" class="anchor" href="#compaction-configurations-for-optimizing-carbondata-query-performance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compaction Configurations for Optimizing CarbonData Query Performance</h2>
+<p>CarbonData provides many configurations to tune the compaction behavior so that query peformance is improved.</p>
+<p>Based on the number of cores available in the node, it is recommended to tune the configuration 	<em><strong>carbon.number.of.cores.while.compacting</strong></em> appropriately.Configuring a higher value will improve the overall compaction performance.</p>
+<p> </p>
+<table>
+<tbody>
+<tr>
+<td>No</td>
+<td> Data Loading frequency</td>
+<td>Data Size of each load</td>
+<td>Minor Compaction configuration</td>
+<td> Major compaction configuration</td>
+</tr>
+<tr>
+<td>1</td>
+<td> Batch(Once is several Hours)</td>
+<td>Big</td>
+<td> Not Suggested</td>
+<td>Configure Major Compaction size of 3-4 load size.Perform Major compaction once in a day</td>
+</tr>
+<tr>
+<td rowspan="2">2</td>
+<td rowspan="2"> Batch(Once in few minutes) </td>
+<td>Big </td>
+<td>
+<p> Minor compaction (2,2).</p>
+<p>Enable Auto compaction, if high rate data loading speed is not required or the time between loads is sufficient to run the compaction</p>
+</td>
+<td>Major compaction size of 10 load size.Perform Major compaction once in a day</td>
+</tr>
+<tr>
+<td>Small</td>
+<td>
+<p>Minor compaction (6,6).</p>
+<p>Enable Auto compaction, if high rate data loading speed is not required or the time between loads is sufficient to run the compaction</p>
+</td>
+<td>Major compaction size of 10 load size.Perform Major compaction once in a day</td>
+</tr>
+<tr>
+<td>3</td>
+<td> History data loaded as single load,incremental loads matches (1) or (2)</td>
+<td>Big</td>
+<td>
+<p> Configure ALLOWED_COMPACTION_DAYS to exclude the History load.</p>
+<p>Configure Minor compaction configuration based condition (1) or (2)</p>
+</td>
+<td> Configure Major compaction size smaller than the history load size.</td>
+</tr>
+<tr>
+<td>4</td>
+<td> There can be error in recent data loaded.Need reload sometimes</td>
+<td> (1) or (2)</td>
+<td>
+<p> Configure COMPACTION_PRESERVE_SEGMENTS</p>
+<p>to exclude the recent few segments from compacting.</p>
+<p>Configure Minor compaction configuration based condition (1) or (2)</p>
+</td>
+<td>Same as (1) or (2) </td>
+</tr>
+</tbody>
+</table>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__perf').addClass('selected'); });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

@@ -25,7 +25,7 @@ Apache CarbonData is a new big data file format for faster interactive query usi
 
 ## Getting Started
 
-**File Format Concepts:** Start with the basics of understanding the [CarbonData file format](./file-structure-of-carbondata.md#carbondata-file-structure) and its storage structure.This will help to understand other parts of the documentation, incuding deployment, programming and usage guides. 
+**File Format Concepts:** Start with the basics of understanding the [CarbonData file format](./file-structure-of-carbondata.md#carbondata-file-format) and its [storage structure](./file-structure-of-carbondata.md).This will help to understand other parts of the documentation, including deployment, programming and usage guides. 
 
 **Quick Start:** [Run an example program](./quick-start-guide.md#installing-and-configuring-carbondata-to-run-locally-with-spark-shell) on your local machine or [study some examples](https://github.com/apache/carbondata/tree/master/examples/spark2/src/main/scala/org/apache/carbondata/examples).
 
@@ -35,9 +35,9 @@ Apache CarbonData is a new big data file format for faster interactive query usi
 
 
 
-## Deployment
+## Integration
 
-CarbonData can be integrated with popular Execution engines like [Spark](./quick-start-guide.md#spark) and [Presto](./quick-start-guide.md#presto).Refer to the [Installation and Configuration](./quick-start-guide.md##deployment-modes) section to understand all modes of Integrating CarbonData.
+CarbonData can be integrated with popular Execution engines like [Spark](./quick-start-guide.md#spark) and [Presto](./quick-start-guide.md#presto).Refer to the [Installation and Configuration](./quick-start-guide.md#integration) section to understand all modes of Integrating CarbonData.
 
 
 
@@ -64,7 +64,3 @@ faster data format.Contributing to CarbonData doesn’t just mean writing code. 
 
 **Trainings:** Training records on design and code flows can be found [here](https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Training+Materials).
 
-<script>
-// Show selected style on nav item
-$(function() { $('.b-nav__intro').addClass('selected'); });
-</script>

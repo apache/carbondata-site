@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -222,19 +222,19 @@
 <li><a href="#how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</a></li>
 <li><a href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios">How Carbon will behave when execute insert operation in abnormal scenarios?</a></li>
 <li><a href="#why-aggregate-query-is-not-fetching-data-from-aggregate-table">Why aggregate query is not fetching data from aggregate table?</a></li>
-<li><a href="#Why-all-executors-are-showing-success-in-Spark-UI-even-after-Dataload-command-failed-at-driver-side">Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</a></li>
-<li><a href="#Why-different-time-zone-result-for-select-query-output-when-query-SDK-writer-output">Why different time zone result for select query output when query SDK writer output?</a></li>
+<li><a href="#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side">Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</a></li>
+<li><a href="#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output">Why different time zone result for select query output when query SDK writer output?</a></li>
 </ul>
 <h1>
 <a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TroubleShooting</h1>
 <ul>
-<li><a href="#Getting-tablestatus.lock-issues-When-loading-data">Getting tablestatus.lock issues When loading data</a></li>
+<li><a href="#getting-tablestatuslock-issues-when-loading-data">Getting tablestatus.lock issues When loading data</a></li>
 <li><a href="#failed-to-load-thrift-libraries">Failed to load thrift libraries</a></li>
 <li><a href="#failed-to-launch-the-spark-shell">Failed to launch the Spark Shell</a></li>
 <li><a href="#failed-to-execute-load-query-on-cluster">Failed to execute load query on cluster</a></li>
 <li><a href="#failed-to-execute-insert-query-on-cluster">Failed to execute insert query on cluster</a></li>
 <li><a href="#failed-to-connect-to-hiveuser-with-thrift">Failed to connect to hiveuser with thrift</a></li>
-<li><a href="#failed-to-read-the-metastore-db-during-table">Failed to read the metastore db during table</a></li>
+<li><a href="#failed-to-read-the-metastore-db-during-table-creation">Failed to read the metastore db during table creation</a></li>
 <li><a href="#failed-to-load-data-on-the-cluster">Failed to load data on the cluster</a></li>
 <li><a href="#failed-to-insert-data-on-the-cluster">Failed to insert data on the cluster</a></li>
 <li><a href="#failed-to-execute-concurrent-operations-on-table-by-multiple-workers">Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers</a></li>
@@ -292,7 +292,7 @@ The property carbon.lock.type configuration specifies the type of lock to be acq
 <p>In order to build CarbonData project it is necessary to specify the spark profile. The spark profile sets the Spark Version. You need to specify the <code>spark version</code> while using Maven to build project.</p>
 <h2>
 <a id="how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" class="anchor" href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How Carbon will behave when execute insert operation in abnormal scenarios?</h2>
-<p>Carbon support insert operation, you can refer to the syntax mentioned in <a href="dml-operation-on-carbondata.html">DML Operations on CarbonData</a>.
+<p>Carbon support insert operation, you can refer to the syntax mentioned in <a href="./dml-of-carbondata.html">DML Operations on CarbonData</a>.
 First, create a source table in spark-sql and load data into this created table.</p>
 <pre><code>CREATE TABLE source_table(
 id String,
@@ -312,7 +312,7 @@ id  name    city
 id String,
 city String,
 name String)
-STORED BY 'carbondata';
+STORED AS carbondata;
 </code></pre>
 <pre><code>INSERT INTO TABLE carbon_table SELECT * FROM source_table;
 </code></pre>
@@ -341,7 +341,7 @@ id  city    name
 When SubQuery predicate is present in the query.</li>
 </ul>
 <p>Example:</p>
-<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored by 'carbondata';
+<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
 create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
 select ctry from pop1 where ctry in (select cntry from gdp21 group by cntry);
 </code></pre>
@@ -351,7 +351,7 @@ select ctry from pop1 where ctry in (select cntry from gdp21 group by cntry);
 When aggregate function along with 'in' filter.</li>
 </ul>
 <p>Example:</p>
-<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored by 'carbondata';
+<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
 create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
 select cntry, sum(gdp) from gdp21 where cntry in (select ctry from pop1) group by cntry;
 </code></pre>
@@ -361,7 +361,7 @@ select cntry, sum(gdp) from gdp21 where cntry in (select ctry from pop1) group b
 When aggregate function having 'join' with equal filter.</li>
 </ul>
 <p>Example:</p>
-<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored by 'carbondata';
+<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
 create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
 select cntry,sum(gdp) from gdp21,pop1 where cntry=ctry group by cntry;
 </code></pre>
@@ -566,8 +566,7 @@ For example, you can use scp to copy this file to all the nodes.</p>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__faq').addClass('selected'); });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

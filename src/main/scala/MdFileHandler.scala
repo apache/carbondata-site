@@ -18,13 +18,17 @@ class MdFileHandler @Inject()(confService: ConfService, fileService: FileService
   def convertMdExtensions(input: String): String = {
     val modifyContentPattern: Regex = new Regex("id=\"user-content-")
     val modifyMdPattern: Regex = new Regex(".md")
+    val modifyDatamapPattern: Regex = new Regex("./datamap/")
     val modifyImagePattern: Regex = new Regex("<img src=\"../docs")
     val modifyHttpsFileLink: Regex ="""(<a href=\"https)://([a-zA-Z0-9-/.]+)(\")""".r
     val modifyHttpFileLink: Regex ="""(<a href=\"http)://([a-zA-Z0-9-/.]+)(\")""".r
     val replacingImageContent: String = "<img src=\"https://github.com/apache/carbondata/blob/master/docs"
     val contentAfterRemovingUserContent: String = modifyContentPattern replaceAllIn(input, "id=\"")
     val contentAfterReplacingId: String = modifyMdPattern replaceAllIn(contentAfterRemovingUserContent, ".html")
-    val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingId,replacingImageContent)
+
+    val contentAfterReplacingDatamap: String = modifyDatamapPattern replaceAllIn(contentAfterReplacingId, "./")
+
+    val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingDatamap,replacingImageContent)
     val contentAfterReplacingHttpsFileLink: String = modifyHttpsFileLink replaceAllIn(contentAfterReplacingImage, "$1://$2$3 target=_blank")
     val contentAfterReplacingFileLink: String = modifyHttpFileLink replaceAllIn(contentAfterReplacingHttpsFileLink, "$1://$2$3 target=_blank")
     contentAfterReplacingFileLink

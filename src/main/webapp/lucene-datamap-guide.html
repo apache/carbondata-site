@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -248,7 +248,7 @@ search tokenized word or pattern of it using lucene query on text content.</p>
   age int,
   city string,
   country string)
-STORED BY 'carbondata'
+STORED AS carbondata
 </code></pre>
 <p>User can create Lucene datamap using the Create DataMap DDL:</p>
 <pre><code>CREATE DATAMAP dm
@@ -328,7 +328,7 @@ select * from datamap_test where TEXT_MATCH('name:*n*')
 
 select * from datamap_test where TEXT_MATCH('name:*10 -name:*n*')
 </code></pre>
-<p><strong>Note:</strong> For lucene queries and syntax, refer to <a href="www.lucenetutorial.com/lucene-query-syntax.html">lucene-syntax</a></p>
+<p><strong>Note:</strong> For lucene queries and syntax, refer to <a href="http://www.lucenetutorial.com/lucene-query-syntax.html" target=_blank rel="nofollow">lucene-syntax</a></p>
 <h2>
 <a id="data-management-with-lucene-datamap" class="anchor" href="#data-management-with-lucene-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management with lucene datamap</h2>
 <p>Once there is lucene datamap is created on the main table, following command on the main
@@ -363,8 +363,7 @@ $(function() {
     $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
   }
 });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

@@ -159,7 +159,7 @@
                         <div class="nav__inner">
                             <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
                             <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
-                            <a class="b-nav__uses nav__item" href="./usescases.html">use cases</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
 
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
@@ -179,9 +179,9 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Support</a>
                             <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -194,9 +194,9 @@
                         <div class="b-nav__uses navindicator__item"></div>
                         <div class="b-nav__docs navindicator__item"></div>
                         <div class="b-nav__datamap navindicator__item"></div>
-                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -228,122 +228,128 @@
 </li>
 </ul>
 <h2>
-<a id="architecture" class="anchor" href="#architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Architecture</h2>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_architecture.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_architecture.png" alt="" style="max-width:100%;"></a></p>
-<h4>
-<a id="spark-interface-layer" class="anchor" href="#spark-interface-layer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark Interface Layer:</h4>
-<p>CarbonData has deep integration with Apache Spark.CarbonData integrates custom Parser,Strategies,Optimization rules into Spark to take advantage of computing performed closer to data.</p>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_spark_integration.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_spark_integration.png" alt="" style="max-width:100%;"></a></p>
-<ol>
-<li>
-<strong>Carbon parser</strong> Enhances Spark?s SQL parser to support Carbon specific DDL and DML commands to create carbon table, create aggregate tables, manage data loading, data retention and cleanup.</li>
-<li>
-<strong>Carbon Strategies</strong>:- Modify Spark SQL?s physical query execution plan to push down possible operations to Carbon for example:- Grouping, Distinct Count, Top N etc.. for improving query performance.</li>
-<li>
-<strong>Carbon Data RDD</strong>:- Makes the data present in Carbon tables visible to Spark as a RDD which enables spark to perform distributed computation on Carbon tables.</li>
-</ol>
-<h4>
-<a id="carbon-processor" class="anchor" href="#carbon-processor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Carbon Processor:</h4>
-<p>Receives a query execution fragment from spark and executes the same on the Carbon storage. This involves Scanning the carbon store files for matching record, using the indices to directly locate the row sets and even the rows that may containing the data being searched for. The Carbon processor also performs all pushed down operations such as</p>
-<p>Aggregation/Group By</p>
-<p>Distinct Count</p>
-<p>Top N</p>
-<p>Expression Evaluation</p>
-<p>And many more?</p>
-<h4>
-<a id="carbon-storage" class="anchor" href="#carbon-storage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Carbon Storage:</h4>
-<p>Custom columnar data store which is heavily compressed, binary, dictionary encoded and heavily indexed.Usaually stored in HDFS.</p>
-<h2>
-<a id="carbondata-features" class="anchor" href="#carbondata-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Features</h2>
-<p>CarbonData has rich set of featues to support various use cases in Big Data analytics.</p>
-<h2>
-<a id="design" class="anchor" href="#design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design</h2>
+<a id="carbondata-features--functions" class="anchor" href="#carbondata-features--functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Features &amp; Functions</h2>
+<p>CarbonData has rich set of featues to support various use cases in Big Data analytics.The below table lists the major features supported by CarbonData.</p>
+<h3>
+<a id="table-management" class="anchor" href="#table-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table Management</h3>
 <ul>
 <li>
-<h3>
-<a id="dictionary-encoding" class="anchor" href="#dictionary-encoding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dictionary Encoding</h3>
+<h5>
+<a id="ddl-create-alterdropctas" class="anchor" href="#ddl-create-alterdropctas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DDL (Create, Alter,Drop,CTAS)</h5>
 </li>
 </ul>
-<p>CarbonData supports encoding of data with suggogate values to reduce storage space and speed up processing.Most databases and big data SQL data stores adopt dictionary encoding(integer surrogate numbers) to achieve data compression.Unlike other column store databases where the dictionary is local to each data block, CarbonData maintains a global dictionary which provides opportunity for lazy conversion to actual values enabling all computation to be performed on the lightweight surrogate values.</p>
-<h5>
-<a id="dictionary-generation" class="anchor" href="#dictionary-generation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dictionary generation</h5>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_dict_encoding.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_dict_encoding.png" alt="" style="max-width:100%;"></a></p>
-<h5>
-<a id=.htmlk-indexing" class="anchor" href=".htmlk-indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MDK Indexing</h5>
-<p>All the surrogate keys are byte packed to generate an MDK (Multi Dimensional Key) Index.</p>
-<p>Any non surrogate columns of String data types are compressed using one of the configured compression algorithms and stored.For those numeric columns where surrogates are not generated, such data is stored as it is after compression.</p>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk.png" alt="image-20180903212418381" style="max-width:100%;"></a></p>
-<h5>
-<a id="sorted.htmlk" class="anchor" href="#sorted.htmlk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sorted MDK</h5>
-<p>The data is sorted based on the MDK Index.Sorting helps for logical grouping of similar data and there by aids in faster look up during query.</p>
-<h4>
-<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk_sort.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata.htmlk_sort.png" alt="image-20180903212525214" style="max-width:100%;"></a>
-</h4>
-<h5>
-<a id="custom-columnar-encoding" class="anchor" href="#custom-columnar-encoding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Columnar Encoding</h5>
-<p>The Sorted MDK Index is split into each column.Unlike other stores where the column is compressed and stored as it is, CarbonData sorts this column data so that Binary Search can be performed on individual column data based on the filter conditions.This aids in magnitude increase in query performance and also in better compression.Since the individual column's data gets sorted, it is necessary to maintain the row mapping with the sorted MDK Index data in order to retrieve data from other columns which are not participating in filter.This row mapping is termed as <strong>Inverted Index</strong> and is stored along with the column data.The below picture depicts the logical column view.User has the option to <strong>turn off</strong> Inverted Index for such columns where filters are never applied or is very rare.In such cases, scanning would be sequential, but can aid in reducing the storage size(occupied due to inverted index data).</p>
-<h4>
-<a id="-1" class="anchor" href="#-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_blocklet_view.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_blocklet_view.png" alt="" style="max-width:100%;"></a>
-</h4>
+<p>?	CarbonData provides its own DDL to create and manage carbondata tables.These DDL conform to 			Hive,Spark SQL format and support additional properties and configuration to take advantages of CarbonData functionalities.</p>
 <ul>
 <li>
-<h3>
-<a id="carbondata-storage-format" class="anchor" href="#carbondata-storage-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Storage Format</h3>
-<p>CarbonData has a unique storage structure which aids in efficient storage and retrieval of data.Please refer to <a href="#./file-structure-of-carbondata.html">File Structure of CarbonData</a> for detailed information on the format.</p>
-</li>
-<li>
-<h3>
-<a id="indexing" class="anchor" href="#indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Indexing</h3>
-<p>CarbonData maintains multiple indexes at multiple levels to assist in efficient pruning of unwanted data from scan during query.Also CarbonData has support for plugging in external indexing solutions to speed up the query process.</p>
 <h5>
-<a id="min-max-indexing" class="anchor" href="#min-max-indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Min-Max Indexing</h5>
-<p>Storing data along with index significantly accelerates query performance and reduces the I/O scans and CPU resources in case of filters in the query. CarbonData index consists of multiple levels of indices, a processing framework can leverage this index to reduce the number of tasks it needs to schedule and process. It can also do skip scan in more fine grained units (called blocklet) in task side scanning instead of scanning the whole file.  <strong>CarbonData maintains Min-Max Index for all the columns.</strong></p>
-<p>CarbonData maintains a separate index file which contains the footer information for efficient IO reads.</p>
-<p>Using the Min-Max info in these index files, two levels of filtering can be achieved.</p>
-<p>Min-Max at the carbondata file level,to efficiently prune the files when the filter condition doesn't fall in the range.This information when maintained at the Spark Driver, will help to efficiently schedule the tasks for scanning</p>
-<p>Min-Max at the blocklet level, to efficiently prune the blocklets when the filter condition doesn't fall in the range.This information when maintained at the executor can significantly reduce the amount unnecessary data processed by the executor tasks.</p>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-minmax-blocklet.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-minmax-blocklet.png" alt="" style="max-width:100%;"></a></p>
+<a id="dmlloadinsert" class="anchor" href="#dmlloadinsert" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DML(Load,Insert)</h5>
+<p>CarbonData provides its own DML to manage data in carbondata tables.It adds many customizations through configurations to completely customize the behavior as per user requirement scenarios.</p>
 </li>
 <li>
-<h4>
-<a id="datamaps" class="anchor" href="#datamaps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMaps</h4>
-<p>DataMap is a framework for indexing and also for statistics that can be used to add primary index (Blocklet Index) , secondary index type and statistical type to CarbonData.</p>
-<p>DataMap is a standardized general interface which CarbonData uses to prune data blocks for scanning.</p>
-<p>DataMaps are of 2 types:</p>
-<p><strong>CG(Coarse Grained) DataMaps</strong> Can prune data to the blocklet or to Page level.ie., Holds information for deciding which blocks/blocklets to be scanned.This DataMap is used in Spark Driver to decide the number of tasks to be scheduled.</p>
-<p><strong>FG(Fine Grained) DataMaps</strong> Can prune data to row level.This DataMap is used in Spark executor for scanning an fetching the data much faster.</p>
-<p>Since DataMap interfaces are generalised, We can write a thin adaptor called as <strong>DataMap Providers</strong> to interface between CarbonData and other external Indexing engines. For eg., Lucene, Solr,ES,...</p>
-<p>CarbonData has its own DSL to create and manage DataMaps.Please refer to <a href="#./datamap/datamap-management.html#overview">CarbonData DSL</a> for more information.</p>
-<p>The below diagram explains about the DataMap execution in CarbonData.</p>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-datamap.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata-datamap.png" alt="" style="max-width:100%;"></a></p>
+<h5>
+<a id="update-and-delete" class="anchor" href="#update-and-delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update and Delete</h5>
+<p>CarbonData supports Update and Delete on Big Data.CarbonData provides the syntax similar to Hive to support IUD operations on CarbonData tables.</p>
 </li>
 <li>
-<h4>
-<a id="update--delete" class="anchor" href="#update--delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update &amp; Delete</h4>
+<h5>
+<a id="segment-management" class="anchor" href="#segment-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Segment Management</h5>
+<p>CarbonData has unique concept of segments to manage incremental loads to CarbonData tables effectively.Segment management helps to easily control the table, perform easy retention, and is also used to provide transaction capability for operations being performed.</p>
+</li>
+<li>
+<h5>
+<a id="partition" class="anchor" href="#partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Partition</h5>
+<p>CarbonData supports 2 kinds of partitions.1.partition similar to hive partition.2.CarbonData partition supporting hash,list,range partitioning.</p>
+</li>
+<li>
+<h5>
+<a id="compaction" class="anchor" href="#compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compaction</h5>
+<p>CarbonData manages incremental loads as segments.Compaction help to compact the growing number of segments and also to improve query filter pruning.</p>
+</li>
+<li>
+<h5>
+<a id="external-tables" class="anchor" href="#external-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>External Tables</h5>
+<p>CarbonData can read any carbondata file and automatically infer schema from the file and provide a relational table view to perform sql queries using Spark or any other applicaion.</p>
 </li>
 </ul>
-<p>CarbonData supports Update and delete operations over big data.This functionality is not targetted for OLTP scenarios where high concurrent update/delete are required.Following are the assumptions considered when this feature is designed.</p>
-<ol>
-<li>Updates or Deletes are periodic and in Bulk</li>
-<li>Updates or Deletes are atomic</li>
-<li>Data is immediately visible</li>
-<li>Concurrent query to be allowed during an update or delete operation</li>
-<li>Single statement auto-commit support (not OLTP-style transaction)</li>
-</ol>
-<p>Since data stored in HDFS are immutable,data blocks cannot be updated in-place.Re-write of entire data block is not efficient for IO and also is a slow process.</p>
-<p>To over come these limitations, CarbonData adopts methodology of writing a delta file containing the rows to be deleted and another delta file containing the values to be updated with.During processing, These two delta files are merged with the main carbondata file and the correct result is returned for the query.</p>
-<p>The below diagram describes the process.</p>
-<p><a href="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_update_delete.png" target="_blank" rel="noopener noreferrer"><img src="/Users/aditi_advith/Documents/code/carbondata/docs/images/carbondata_update_delete.png" alt="" style="max-width:100%;"></a></p>
+<h3>
+<a id="datamaps" class="anchor" href="#datamaps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMaps</h3>
+<ul>
+<li>
+<h5>
+<a id="pre-aggregate" class="anchor" href="#pre-aggregate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-Aggregate</h5>
+<p>CarbonData has concept of datamaps to assist in pruning of data while querying so that performance is faster.Pre Aggregate tables are kind of datamaps which can improve the query performance by order of magnitude.CarbonData will automatically pre-aggregae the incremental data and re-write the query to automatically fetch from the most appropriate pre-aggregate table to serve the query faster.</p>
+</li>
+<li>
+<h5>
+<a id="time-series" class="anchor" href="#time-series" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time Series</h5>
+<p>CarbonData has built in understanding of time order(Year, month,day,hour, minute,second).Time series is a pre-aggregate table which can automatically roll-up the data to the desired level during incremental load and serve the query from the most appropriate pre-aggregate table.</p>
+</li>
+<li>
+<h5>
+<a id="bloom-filter" class="anchor" href="#bloom-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bloom filter</h5>
+<p>CarbonData supports bloom filter as a datamap in order to quickly and efficiently prune the data for scanning and acheive faster query performance.</p>
+</li>
+<li>
+<h5>
+<a id="lucene" class="anchor" href="#lucene" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Lucene</h5>
+<p>Lucene is popular for indexing text data which are long.CarbonData provides a lucene datamap so that text columns can be indexed using lucene and use the index result for efficient pruning of data to be retrieved during query.</p>
+</li>
+<li>
+<h5>
+<a id="mv-materialized-views" class="anchor" href="#mv-materialized-views" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MV (Materialized Views)</h5>
+<p>MVs are kind of pre-aggregate tables which can support efficent query re-write and processing.CarbonData provides MV which can rewrite query to fetch from any table(including non-carbondata tables).Typical usecase is to store the aggregated data of a non-carbondata fact table into carbondata and use mv to rewrite the query to fetch from carbondata.</p>
+</li>
+</ul>
+<h3>
+<a id="streaming" class="anchor" href="#streaming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Streaming</h3>
+<ul>
+<li>
+<h5>
+<a id="spark-streaming" class="anchor" href="#spark-streaming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark Streaming</h5>
+<p>CarbonData supports streaming of data into carbondata in near-realtime and make it immediately available for query.CarbonData provides a DSL to create source and sink tables easily without the need for the user to write his application.</p>
+</li>
+</ul>
+<h3>
+<a id="sdk" class="anchor" href="#sdk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SDK</h3>
+<ul>
+<li>
+<h5>
+<a id="carbondata-writer" class="anchor" href="#carbondata-writer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData writer</h5>
+<p>CarbonData supports writing data from non-spark application using SDK.Users can use SDK to generate carbondata files from custom applications.Typical usecase is to write the streaming application plugged in to kafka and use carbondata as sink(target) table for storing.</p>
+</li>
+<li>
+<h5>
+<a id="carbondata-reader" class="anchor" href="#carbondata-reader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData reader</h5>
+<p>CarbonData supports reading of data from non-spark application using SDK.Users can use the SDK to read the carbondata files from their application and do custom processing.</p>
+</li>
+</ul>
+<h3>
+<a id="storage" class="anchor" href="#storage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Storage</h3>
+<ul>
+<li>
+<h5>
+<a id="s3" class="anchor" href="#s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3</h5>
+<p>CarbonData can write to S3, OBS or any cloud storage confirming to S3 protocol.CarbonData uses the HDFS api to write to cloud object stores.</p>
+</li>
+<li>
+<h5>
+<a id="hdfs" class="anchor" href="#hdfs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HDFS</h5>
+<p>CarbonData uses HDFS api to write and read data from HDFS.CarbonData can take advantage of the locality information to efficiently suggest spark to run tasks near to the data.</p>
+</li>
+</ul>
 <h2>
 <a id="integration-with-big-data-ecosystem" class="anchor" href="#integration-with-big-data-ecosystem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration with Big Data ecosystem</h2>
-<p>Refer to Integration with <a href="#./quick-start-guide.html#spark">Spark</a>, <a href="#./quick-start-guide.html#presto">Presto</a> for detailed information on integrating CarbonData with these execution engines.</p>
+<p>Refer to Integration with <a href="./quick-start-guide.html#spark">Spark</a>, <a href="./quick-start-guide.html#presto">Presto</a> for detailed information on integrating CarbonData with these execution engines.</p>
 <h2>
 <a id="scenarios-where-carbondata-is-suitable" class="anchor" href="#scenarios-where-carbondata-is-suitable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenarios where CarbonData is suitable</h2>
+<p>CarbonData is useful in various analytical work loads.Some of the most typical usecases where CarbonData is being used is <a href="./usecases.html">documented here</a>.</p>
+<h2>
+<a id="performance-results" class="anchor" href="#performance-results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Performance Results</h2>
+<p><a href="../docs/images/carbondata-performance.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/carbondata-performance.png?raw=true" alt="Performance Results" style="max-width:100%;"></a></p>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__intro').addClass('selected'); });
-</script>
-</div>
+</script></div>
 </div>
 </div>
 </div>

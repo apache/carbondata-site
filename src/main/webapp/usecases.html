@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
+                                   target="_blank">Apache CarbonData 1.4.1</a></li>
+							<li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
+                                   target="_blank">Apache CarbonData 1.4.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
+                                   target="_blank">Apache CarbonData 1.3.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
+                                   target="_blank">Apache CarbonData 1.3.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div><h1>
+<a id="use-cases" class="anchor" href="#use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use Cases</h1>
+<p>CarbonData is useful in various analytical work loads.Some of the most typical usecases where CarbonData is being used is documented here.</p>
+<p>CarbonData is used for but not limited to</p>
+<ul>
+<li>
+<h3>
+<a id="bank" class="anchor" href="#bank" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bank</h3>
+<ul>
+<li>fraud detection analysis</li>
+<li>risk profile analysis</li>
+<li>As a zip table to update the daily balance of customers</li>
+</ul>
+</li>
+<li>
+<h3>
+<a id="telecom" class="anchor" href="#telecom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Telecom</h3>
+<ul>
+<li>Detection of signal anamolies for VIP customers for providing improved customer experience</li>
+<li>Analysis of MR,CHR records of GSM data to determine the tower load at a particular time period and rebalance the tower configuration</li>
+<li>Analysis of access sites, video, screen size, streaming bandwidth, quality to determine the network quality,routing configuration</li>
+</ul>
+</li>
+<li>
+<h3>
+<a id="webinternet" class="anchor" href="#webinternet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Web/Internet</h3>
+<ul>
+<li>Analysis of page or video being accessed,server loads, streaming quality, screen size</li>
+</ul>
+</li>
+<li>
+<h3>
+<a id="smart-city" class="anchor" href="#smart-city" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Smart City</h3>
+<ul>
+<li>Vehicle tracking analysis</li>
+<li>Unusual behaviour analysis</li>
+</ul>
+</li>
+</ul>
+<p>These use cases can be broadly classified into below categories:</p>
+<ul>
+<li>Full scan/Detailed/Interactive queries</li>
+<li>Aggregation/OLAP BI queries</li>
+<li>Real time Ingestion(Streaming) and queries</li>
+</ul>
+<h2>
+<a id="detailed-queries-in-the-telecom-scenario" class="anchor" href="#detailed-queries-in-the-telecom-scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Detailed Queries in the Telecom scenario</h2>
+<h3>
+<a id="scenario" class="anchor" href="#scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario</h3>
+<p>User wants to analyse all the CHR(Call History Record) and MR(Measurement Records) of the mobile subscribers in order to identify the service failures within 10 secs.Also user wants to run machine learning models on the data to fairly estimate the reasons and time of probable failures and take action ahead to meet the SLA(Service Level Agreements) of VIP customers.</p>
+<h3>
+<a id="challenges" class="anchor" href="#challenges" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
+<ul>
+<li>Data incoming rate might vary based on the user concentration at a particular period of time.Hence higher data load speeds are required</li>
+<li>Cluster needs to be well utilised and share the cluster among various applications for better resource consumption and savings</li>
+<li>Queries needs to be interactive.ie., the queries fetch small data and need to be returned in seconds</li>
+<li>Data Loaded into the system every few minutes.</li>
+</ul>
+<h3>
+<a id="solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h3>
+<p>Setup a Hadoop + Spark + CarbonData cluster managed by YARN.</p>
+<p>Proposed the following configurations for CarbonData.(These tunings were proposed before CarbonData introduced SORT_COLUMNS parameter using which the sort order and schema order could be different.)</p>
+<p>Add the frequently used columns to the left of the table definition.Add it in the increasing order of cardinality.It was suggested to keep msisdn,imsi columns in the beginning of the schema.With latest CarbonData, SORT_COLUMNS needs to be configured msisdn,imsi in the beginning.</p>
+<p>Add timestamp column to the right of the schema as it is naturally increasing.</p>
+<p>Create two separate YARN queues for Query and Data Loading.</p>
+<p>Apart from these, the following CarbonData configuration was suggested to be configured in the cluster.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration for</th>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Loading</td>
+<td>carbon.graph.rowset.size</td>
+<td>100000</td>
+<td>Based on the size of each row, this determines the memory required during data loading.Higher value leads to increased memory foot print</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.number.of.cores.while.loading</td>
+<td>12</td>
+<td>More cores can improve data loading speed</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.sort.size</td>
+<td>100000</td>
+<td>Number of records to sort at a time.More number of records configured will lead to increased memory foot print</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>table_blocksize</td>
+<td>256</td>
+<td>To efficiently schedule multiple tasks during query</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.sort.intermediate.files.limit</td>
+<td>100</td>
+<td>Increased to 100 as number of cores are more.Can perform merging in backgorund.If less number of files to merge, sort threads would be idle</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.use.local.dir</td>
+<td>TRUE</td>
+<td>yarn application directory will be usually on a single disk.YARN would be configured with multiple disks to be used as temp or to assign randomly to applications.Using the yarn temp directory will allow carbon to use multiple disks and improve IO performance</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.use.multiple.temp.dir</td>
+<td>TRUE</td>
+<td>multiple disks to write sort files will lead to better IO and reduce the IO bottleneck</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.compaction.level.threshold</td>
+<td>6,6</td>
+<td>Since frequent small loads, compacting more segments will give better query results</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.enable.auto.load.merge</td>
+<td>true</td>
+<td>Since data loading is small,auto compacting keeps the number of segments less and also compaction can complete in  time</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.number.of.cores.while.compacting</td>
+<td>4</td>
+<td>Higher number of cores can improve the compaction speed</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.major.compaction.size</td>
+<td>921600</td>
+<td>Sum of several loads to combine into single segment</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="results-achieved" class="anchor" href="#results-achieved" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results Achieved</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Results</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query</td>
+<td>&lt; 3 Sec</td>
+</tr>
+<tr>
+<td>Data Loading Speed</td>
+<td>40 MB/s Per Node</td>
+</tr>
+<tr>
+<td>Concurrent query performance (20 queries)</td>
+<td>&lt; 10 Sec</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="detailed-queries-in-the-smart-city-scenario" class="anchor" href="#detailed-queries-in-the-smart-city-scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Detailed Queries in the Smart City scenario</h2>
+<h3>
+<a id="scenario-1" class="anchor" href="#scenario-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario</h3>
+<p>User wants to analyse the person/vehicle movement and behavior during a certain time period.This output data needs to be joined with a external table for Human details extraction.The query will be run with different time period as filter to identify potential behavior mismatch.</p>
+<h3>
+<a id="challenges-1" class="anchor" href="#challenges-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
+<p>Data generated per day is very huge.Data needs to be loaded multiple times per day to accomodate the incoming data size.</p>
+<p>Data Loading done once in 6 hours.</p>
+<h3>
+<a id="solution-1" class="anchor" href="#solution-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h3>
+<p>Setup a Hadoop + Spark + CarbonData cluster managed by YARN.</p>
+<p>Since data needs to be queried for a time period, it was recommended to keep the time column at the beginning of schema.</p>
+<p>Use table block size as 512MB.</p>
+<p>Use local sort mode.</p>
+<p>Apart from these, the following CarbonData configuration was suggested to be configured in the cluster.</p>
+<p>Use all columns are no-dictionary as the cardinality is high.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration for</th>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Loading</td>
+<td>carbon.graph.rowset.size</td>
+<td>100000</td>
+<td>Based on the size of each row, this determines the memory required during data loading.Higher value leads to increased memory foot print</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>enable.unsafe.sort</td>
+<td>TRUE</td>
+<td>Temporary data generated during sort is huge which causes GC bottlenecks.Using unsafe reduces the pressure on GC</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>enable.offheap.sort</td>
+<td>TRUE</td>
+<td>Temporary data generated during sort is huge which causes GC bottlenecks.Using offheap reduces the pressure on GC.offheap can be accessed through java unsafe.hence enable.unsafe.sort needs to be true</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>offheap.sort.chunk.size.in.mb</td>
+<td>128</td>
+<td>Size of memory to allocate for sorting.Can increase this based on the memory available</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.number.of.cores.while.loading</td>
+<td>12</td>
+<td>Higher cores can improve data loading speed</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.sort.size</td>
+<td>100000</td>
+<td>Number of records to sort at a time.More number of records configured will lead to increased memory foot print</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>table_blocksize</td>
+<td>512</td>
+<td>To efficiently schedule multiple tasks during query.This size depends on data scenario.If data is such that the filters would select less number of blocklets to scan, keeping higher number works well.If the number blocklets to scan is more, better to reduce the size as more tasks can be scheduled in parallel.</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.sort.intermediate.files.limit</td>
+<td>100</td>
+<td>Increased to 100 as number of cores are more.Can perform merging in backgorund.If less number of files to merge, sort threads would be idle</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.use.local.dir</td>
+<td>TRUE</td>
+<td>yarn application directory will be usually on a single disk.YARN would be configured with multiple disks to be used as temp or to assign randomly to applications.Using the yarn temp directory will allow carbon to use multiple disks and improve IO performance</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>carbon.use.multiple.temp.dir</td>
+<td>TRUE</td>
+<td>multiple disks to write sort files will lead to better IO and reduce the IO bottleneck</td>
+</tr>
+<tr>
+<td>Data Loading</td>
+<td>sort.inmemory.size.in.mb</td>
+<td>92160</td>
+<td>Memory allocated to do inmemory sorting.When more memory is available in the node, configuring this will retain more sort blocks in memory so that the merge sort is faster due to no/very less IO</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.major.compaction.size</td>
+<td>921600</td>
+<td>Sum of several loads to combine into single segment</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.number.of.cores.while.compacting</td>
+<td>12</td>
+<td>Higher number of cores can improve the compaction speed.Data size is huge.Compaction need to use more threads to speed up the process</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>carbon.enable.auto.load.merge</td>
+<td>FALSE</td>
+<td>Doing auto minor compaction is costly process as data size is huge.Perform manual compaction when  the cluster is less loaded</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>carbon.enable.vector.reader</td>
+<td>true</td>
+<td>To fetch results faster, supporting spark vector processing will speed up the query</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>enable.unsafe.in.query.procressing</td>
+<td>true</td>
+<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects.This cause pressure of GC.using unsafe and offheap will reduce the GC overhead</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>use.offheap.in.query.processing</td>
+<td>true</td>
+<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects.This cause pressure of GC.using unsafe and offheap will reduce the GC overhead.offheap can be accessed through java unsafe.hence enable.unsafe.in.query.procressing needs to be true</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>enable.unsafe.columnpage</td>
+<td>TRUE</td>
+<td>Keep the column pages in offheap memory so that the memory overhead due to java object is less and also reduces GC pressure.</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>carbon.unsafe.working.memory.in.mb</td>
+<td>10240</td>
+<td>Amount of memory to use for offheap operations.Can increase this memory based on the data size</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="results-achieved-1" class="anchor" href="#results-achieved-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results Achieved</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Results</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query (Time Period spanning 1 segment)</td>
+<td>&lt; 10 Sec</td>
+</tr>
+<tr>
+<td>Data Loading Speed</td>
+<td>45 MB/s Per Node</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="olapbi-queries-in-the-webinternet-scenario" class="anchor" href="#olapbi-queries-in-the-webinternet-scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OLAP/BI Queries in the web/Internet scenario</h2>
+<h3>
+<a id="scenario-2" class="anchor" href="#scenario-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario</h3>
+<p>An Internet company wants to analyze the average download speed, kind of handsets used in a particular region/area,kind of Apps being used, what kind of videos are trending in a particular region to enable them to identify the appropriate resolution size of videos to speed up transfer, and perform many more analysis to serve th customers better.</p>
+<h3>
+<a id="challenges-2" class="anchor" href="#challenges-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
+<p>Since data is being queried by a BI tool, all the queries contain group by, which means CarbonData need to return more records as limit cannot be pushed down to carbondata layer.</p>
+<p>Results have to be returned faster as the BI tool would not respond till the data is fetched, causing bad user experience.</p>
+<p>Data might be loaded less frequently(once or twice in a day), but raw data size is huge, which causes the group by queries to run slower.</p>
+<p>Concurrent queries can be more due to the BI dashboard</p>
+<h3>
+<a id="goal" class="anchor" href="#goal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Goal</h3>
+<ol>
+<li>Aggregation queries are faster</li>
+<li>Concurrency is high(Number of concurrent queries supported)</li>
+</ol>
+<h3>
+<a id="solution-2" class="anchor" href="#solution-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h3>
+<ul>
+<li>Use table block size as 128MB so that pruning is more effective</li>
+<li>Use global sort mode so that the data to be fetched are grouped together</li>
+<li>Create pre-aggregate tables for non timestamp based group by queries</li>
+<li>For queries containing group by date, create timeseries based Datamap(pre-aggregate) tables so that the data is rolled up during creation and fetch is faster</li>
+<li>Reduce the Spark shuffle partitions.(In our configuration on 14 node cluster, it was reduced to 35 from default of 200)</li>
+<li>Enable global dictionary for columns which have less cardinalities.Aggregation can be done on encoded data, there by improving the performance</li>
+<li>For columns whose cardinality is high,enable the local dictionary so that store size is less and can take dictionary benefit for scan</li>
+</ul>
+<h2>
+<a id="handling-near-realtime-data-ingestion-scenario" class="anchor" href="#handling-near-realtime-data-ingestion-scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handling near realtime data ingestion scenario</h2>
+<h3>
+<a id="scenario-3" class="anchor" href="#scenario-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario</h3>
+<p>Need to support storing of continously arriving data and make it available immediately for query.</p>
+<h3>
+<a id="challenges-3" class="anchor" href="#challenges-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
+<p>When the data ingestion is near real time and the data needs to be available for query immediately, usual scenario is to do data loading in micro batches.But this causes the problem of generating many small files.This poses two problems:</p>
+<ol>
+<li>Small file handling in HDFS is inefficient</li>
+<li>CarbonData will suffer in query performance as all the small files will have to be queried when filter is on non time column</li>
+</ol>
+<p>CarbonData will suffer in query performance as all the small files will have to be queried when filter is on non time column.</p>
+<p>Since data is continouly arriving, allocating resources for compaction might not be feasible.</p>
+<h3>
+<a id="goal-1" class="anchor" href="#goal-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Goal</h3>
+<ol>
+<li>Data is available in near real time for query as it arrives</li>
+<li>CarbonData doesnt suffer from small files problem</li>
+</ol>
+<h3>
+<a id="solution-3" class="anchor" href="#solution-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h3>
+<ul>
+<li>Use Streaming tables support of CarbonData</li>
+<li>Configure the carbon.streaming.segment.max.size property to higher value(default is 1GB) if a bit slower query performance is not a concern</li>
+<li>Configure carbon.streaming.auto.handoff.enabled to true so that after the  carbon.streaming.segment.max.size is reached, the segment is converted into format optimized for query</li>
+<li>Disable auto compaction.Manually trigger the minor compaction with default 4,3 when the cluster is not busy</li>
+<li>Manually trigger Major compaction based on the size of segments and the frequency with which the segments are being created</li>
+<li>Enable local dictionary</li>
+</ul>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__uses').addClass('selected'); });
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

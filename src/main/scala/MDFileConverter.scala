@@ -12,6 +12,7 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
   val outputFileExtension: String = ".html"
   val headerContent: String = fileService.readFromFile(confService.readString("headerPath"))
   val footerContent: String = fileService.readFromFile(confService.readString("footerPath"))
+  val scriptsPath: String = confService.readString("scriptsPath")
   val location: String = confService.readString("outputFileLocation")
   val fileReadObject: MdFileHandler = new MdFileHandler(confService, fileService)
   val failMessage: String = "failure"
@@ -84,8 +85,11 @@ class MDFileConverter @Inject()(fileService: FileService, confService: ConfServi
     getFileData match {
       case Some(data: String) => val fileData = fileReadObject.convertMdExtensions(data)
         logger.info(s"Begin writing [ $fileName outputFileExtension ] at $location")
+
+        val scriptsContent: String = fileService.readFromFile(scriptsPath + fileName)
+
         val statusHtmlFile = fileService
-          .writeToFile(outputPath, headerContent + fileData + footerContent)
+          .writeToFile(outputPath, headerContent + fileData + scriptsContent + footerContent)
         saveMdFilesForPDF(dirStatus, fileURLContent, fileName)
         if (imageFileList.contains(fileName)) {
           saveMdFilesForPDF(dirStatus, changeImageLink(fileURLContent), fileName)
