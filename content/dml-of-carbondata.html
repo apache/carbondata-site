@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
+                                   target="_blank">Apache CarbonData 1.4.1</a></li>
+							<li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
+                                   target="_blank">Apache CarbonData 1.4.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
+                                   target="_blank">Apache CarbonData 1.3.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
+                                   target="_blank">Apache CarbonData 1.3.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/How-to-contribute-to-Apache-CarbonData.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="carbondata-data-manipulation-language" class="anchor" href="#carbondata-data-manipulation-language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Data Manipulation Language</h1>
+<p>CarbonData DML statements are documented here,which includes:</p>
+<ul>
+<li><a href="#load-data">LOAD DATA</a></li>
+<li><a href="#insert-data-into-carbondata-table">INSERT DATA</a></li>
+<li><a href="#load-data-using-static-partition">Load Data Using Static Partition</a></li>
+<li><a href="#load-data-using-dynamic-partition">Load Data Using Dynamic Partition</a></li>
+<li><a href="#update-and-delete">UPDATE AND DELETE</a></li>
+<li><a href="#compaction">COMPACTION</a></li>
+<li><a href="./segment-management-on-carbondata.html">SEGMENT MANAGEMENT</a></li>
+</ul>
+<h2>
+<a id="load-data" class="anchor" href="#load-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD DATA</h2>
+<h3>
+<a id="load-files-to-carbondata-table" class="anchor" href="#load-files-to-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD FILES TO CARBONDATA TABLE</h3>
+<p>This command is used to load csv files to carbondata, OPTIONS are not mandatory for data loading process.</p>
+<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+INTO TABLE [db_name.]table_name 
+OPTIONS(property_name=property_value, ...)
+</code></pre>
+<p><strong>Supported Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#delimiter">DELIMITER</a></td>
+<td>Character used to separate the data in the input csv file</td>
+</tr>
+<tr>
+<td><a href="#quotechar">QUOTECHAR</a></td>
+<td>Character used to quote the data in the input csv file</td>
+</tr>
+<tr>
+<td><a href="#commentchar">COMMENTCHAR</a></td>
+<td>Character used to comment the rows in the input csv file.Those rows will be skipped from processing</td>
+</tr>
+<tr>
+<td><a href="#header">HEADER</a></td>
+<td>Whether the input csv files have header row</td>
+</tr>
+<tr>
+<td><a href="#fileheader">FILEHEADER</a></td>
+<td>If header is not present in the input csv, what is the column names to be used for data read from input csv</td>
+</tr>
+<tr>
+<td><a href="#multiline">MULTILINE</a></td>
+<td>Whether a row data can span across multiple lines.</td>
+</tr>
+<tr>
+<td><a href="#escapechar">ESCAPECHAR</a></td>
+<td>Escape character used to excape the data in input csv file.For eg.,\ is a standard escape character</td>
+</tr>
+<tr>
+<td><a href="#skip_empty_line">SKIP_EMPTY_LINE</a></td>
+<td>Whether empty lines in input csv file should be skipped or loaded as null row</td>
+</tr>
+<tr>
+<td><a href="#complex_delimiter_level_1">COMPLEX_DELIMITER_LEVEL_1</a></td>
+<td>Starting delimiter for complex type data in input csv file</td>
+</tr>
+<tr>
+<td><a href="#complex_delimiter_level_2">COMPLEX_DELIMITER_LEVEL_2</a></td>
+<td>Ending delimiter for complex type data in input csv file</td>
+</tr>
+<tr>
+<td><a href="#all_dictionary_path">ALL_DICTIONARY_PATH</a></td>
+<td>Path to read the dictionary data from all columns</td>
+</tr>
+<tr>
+<td><a href="#columndict">COLUMNDICT</a></td>
+<td>Path to read the dictionary data from for particular column</td>
+</tr>
+<tr>
+<td><a href="#dateformat">DATEFORMAT</a></td>
+<td>Format of date in the input csv file</td>
+</tr>
+<tr>
+<td><a href="#timestampformat">TIMESTAMPFORMAT</a></td>
+<td>Format of timestamp in the input csv file</td>
+</tr>
+<tr>
+<td><a href="#sort-column-bounds">SORT_COLUMN_BOUNDS</a></td>
+<td>How to parititon the sort columns to make the evenly distributed</td>
+</tr>
+<tr>
+<td><a href="#single_pass">SINGLE_PASS</a></td>
+<td>When to enable single pass data loading</td>
+</tr>
+<tr>
+<td><a href="#bad-records-handling">BAD_RECORDS_LOGGER_ENABLE</a></td>
+<td>Whether to enable bad records logging</td>
+</tr>
+<tr>
+<td><a href="#bad-records-handling">BAD_RECORD_PATH</a></td>
+<td>Bad records logging path.Useful when bad record logging is enabled</td>
+</tr>
+<tr>
+<td><a href="#bad-records-handling">BAD_RECORDS_ACTION</a></td>
+<td>Behavior of data loading when bad record is found</td>
+</tr>
+<tr>
+<td><a href="#bad-records-handling">IS_EMPTY_DATA_BAD_RECORD</a></td>
+<td>Whether empty data of a column to be considered as bad record or not</td>
+</tr>
+<tr>
+<td><a href="#global_sort_partitions">GLOBAL_SORT_PARTITIONS</a></td>
+<td>Number of partition to use for shuffling of data during sorting</td>
+</tr>
+</tbody>
+</table>
+<p>You can use the following options to load data:</p>
+<ul>
+<li>
+<h5>
+<a id="delimiter" class="anchor" href="#delimiter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELIMITER:</h5>
+<p>Delimiters can be provided in the load command.</p>
+<pre><code>OPTIONS('DELIMITER'=',')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="quotechar" class="anchor" href="#quotechar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QUOTECHAR:</h5>
+<p>Quote Characters can be provided in the load command.</p>
+<pre><code>OPTIONS('QUOTECHAR'='"')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="commentchar" class="anchor" href="#commentchar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMMENTCHAR:</h5>
+<p>Comment Characters can be provided in the load command if user want to comment lines.</p>
+<pre><code>OPTIONS('COMMENTCHAR'='#')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="header" class="anchor" href="#header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HEADER:</h5>
+<p>When you load the CSV file without the file header and the file header is the same with the table schema, then add 'HEADER'='false' to load data SQL as user need not provide the file header. By default the value is 'true'.
+false: CSV file is without file header.
+true: CSV file is with file header.</p>
+<pre><code>OPTIONS('HEADER'='false') 
+</code></pre>
+<p><strong>NOTE:</strong> If the HEADER option exist and is set to 'true', then the FILEHEADER option is not required.</p>
+</li>
+<li>
+<h5>
+<a id="fileheader" class="anchor" href="#fileheader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FILEHEADER:</h5>
+<p>Headers can be provided in the LOAD DATA command if headers are missing in the source files.</p>
+<pre><code>OPTIONS('FILEHEADER'='column1,column2') 
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="multiline" class="anchor" href="#multiline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MULTILINE:</h5>
+<p>CSV with new line character in quotes.</p>
+<pre><code>OPTIONS('MULTILINE'='true') 
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="escapechar" class="anchor" href="#escapechar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ESCAPECHAR:</h5>
+<p>Escape char can be provided if user want strict validation of escape character in CSV files.</p>
+<pre><code>OPTIONS('ESCAPECHAR'='\') 
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="skip_empty_line" class="anchor" href="#skip_empty_line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SKIP_EMPTY_LINE:</h5>
+<p>This option will ignore the empty line in the CSV file during the data load.</p>
+<pre><code>OPTIONS('SKIP_EMPTY_LINE'='TRUE/FALSE') 
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="complex_delimiter_level_1" class="anchor" href="#complex_delimiter_level_1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPLEX_DELIMITER_LEVEL_1:</h5>
+<p>Split the complex type data column in a row (eg., a$b$c --&gt; Array = {a,b,c}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='$') 
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="complex_delimiter_level_2" class="anchor" href="#complex_delimiter_level_2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPLEX_DELIMITER_LEVEL_2:</h5>
+<p>Split the complex type nested data column in a row. Applies level_1 delimiter &amp; applies level_2 based on complex data type (eg., a:b$c:d --&gt; Array&gt; = {{a,b},{c,d}}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="all_dictionary_path" class="anchor" href="#all_dictionary_path" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ALL_DICTIONARY_PATH:</h5>
+<p>All dictionary files path.</p>
+<pre><code>OPTIONS('ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="columndict" class="anchor" href="#columndict" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COLUMNDICT:</h5>
+<p>Dictionary file path for specified column.</p>
+<pre><code>OPTIONS('COLUMNDICT'='column1:dictionaryFilePath1,column2:dictionaryFilePath2')
+</code></pre>
+<p><strong>NOTE:</strong> ALL_DICTIONARY_PATH and COLUMNDICT can't be used together.</p>
+</li>
+<li>
+<h5>
+<a id="dateformattimestampformat" class="anchor" href="#dateformattimestampformat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DATEFORMAT/TIMESTAMPFORMAT:</h5>
+<p>Date and Timestamp format for specified column.</p>
+<pre><code>OPTIONS('DATEFORMAT' = 'yyyy-MM-dd','TIMESTAMPFORMAT'='yyyy-MM-dd HH:mm:ss')
+</code></pre>
+<p><strong>NOTE:</strong> Date formats are specified by date pattern strings. The date pattern letters in CarbonData are same as in JAVA. Refer to <a href="http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html" target=_blank rel="nofollow">SimpleDateFormat</a>.</p>
+</li>
+<li>
+<h5>
+<a id="sort-column-bounds" class="anchor" href="#sort-column-bounds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SORT COLUMN BOUNDS:</h5>
+<p>Range bounds for sort columns.</p>
+<p>Suppose the table is created with 'SORT_COLUMNS'='name,id' and the range for name is aaa<del>zzz, the value range for id is 0</del>1000. Then during data loading, we can specify the following option to enhance data loading performance.</p>
+<pre><code>OPTIONS('SORT_COLUMN_BOUNDS'='f,250;l,500;r,750')
+</code></pre>
+<p>Each bound is separated by ';' and each field value in bound is separated by ','. In the example above, we provide 3 bounds to distribute records to 4 partitions. The values 'f','l','r' can evenly distribute the records. Inside carbondata, for a record we compare the value of sort columns with that of the bounds and decide which partition the record will be forwarded to.</p>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>SORT_COLUMN_BOUNDS will be used only when the SORT_SCOPE is 'local_sort'.</li>
+<li>Carbondata will use these bounds as ranges to process data concurrently during the final sort percedure. The records will be sorted and written out inside each partition. Since the partition is sorted, all records will be sorted.</li>
+<li>Since the actual order and literal order of the dictionary column are not necessarily the same, we do not recommend you to use this feature if the first sort column is 'dictionary_include'.</li>
+<li>The option works better if your CPU usage during loading is low. If your system is already CPU tense, better not to use this option. Besides, it depends on the user to specify the bounds. If user does not know the exactly bounds to make the data distributed evenly among the bounds, loading performance will still be better than before or at least the same as before.</li>
+<li>Users can find more information about this option in the description of PR1953.</li>
+</ul>
+</li>
+<li>
+<h5>
+<a id="single_pass" class="anchor" href="#single_pass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SINGLE_PASS:</h5>
+<p>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.</p>
+</li>
+</ul>
+<p>This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.</p>
+<pre><code> OPTIONS('SINGLE_PASS'='TRUE')
+</code></pre>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>If this option is set to TRUE then data loading will take less time.</li>
+<li>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</li>
+</ul>
+<p>Example:</p>
+<pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
+options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
+'HEADER'='false',
+'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
+workgroupcategoryname,deptno,deptname,projectcode,
+projectjoindate,projectenddate,attendance,utilization,salary',
+'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$',
+'COMPLEX_DELIMITER_LEVEL_2'=':',
+'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
+'SINGLE_PASS'='TRUE')
+</code></pre>
+<ul>
+<li>
+<h5>
+<a id="bad-records-handling" class="anchor" href="#bad-records-handling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BAD RECORDS HANDLING:</h5>
+<p>Methods of handling bad records are as follows:</p>
+<ul>
+<li>Load all of the data before dealing with the errors.</li>
+<li>Clean or delete bad records before loading data or stop the loading when bad records are found.</li>
+</ul>
+<pre><code>OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true', 'BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon', 'BAD_RECORDS_ACTION'='REDIRECT', 'IS_EMPTY_DATA_BAD_RECORD'='false')
+</code></pre>
+</li>
+</ul>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>BAD_RECORDS_ACTION property can have four type of actions for bad records FORCE, REDIRECT, IGNORE and FAIL.</li>
+<li>FAIL option is its Default value. If the FAIL option is used, then data loading fails if any bad records are found.</li>
+<li>If the REDIRECT option is used, CarbonData will add all bad records in to a separate CSV file. However, this file must not be used for subsequent data loading because the content may not exactly match the source record. You are advised to cleanse the original source record for further data ingestion. This option is used to remind you which records are bad records.</li>
+<li>If the FORCE option is used, then it auto-converts the data by storing the bad records as NULL before Loading data.</li>
+<li>If the IGNORE option is used, then bad records are neither loaded nor written to the separate CSV file.</li>
+<li>In loaded data, if all records are bad records, the BAD_RECORDS_ACTION is invalid and the load operation fails.</li>
+<li>The default maximum number of characters per column is 32000. If there are more than 32000 characters in a column, please refer to <em>String longer than 32000 characters</em> section.</li>
+<li>Since Bad Records Path can be specified in create, load and carbon properties.
+Therefore, value specified in load will have the highest priority, and value specified in carbon properties will have the least priority.</li>
+</ul>
+<p><strong>Bad Records Path:</strong>
+This property is used to specify the location where bad records would be written.</p>
+<pre><code>TBLPROPERTIES('BAD_RECORDS_PATH'='/opt/badrecords'')
+</code></pre>
+<p>Example:</p>
+<pre><code>LOAD DATA INPATH 'filepath.csv' INTO TABLE tablename
+OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true','BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon',
+'BAD_RECORDS_ACTION'='REDIRECT','IS_EMPTY_DATA_BAD_RECORD'='false')
+</code></pre>
+<ul>
+<li>
+<h5>
+<a id="global_sort_partitions" class="anchor" href="#global_sort_partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GLOBAL_SORT_PARTITIONS:</h5>
+<p>If the SORT_SCOPE is defined as GLOBAL_SORT, then user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map task as reduce task. It is recommended that each reduce task deal with 512MB-1GB data.</p>
+</li>
+</ul>
+<pre><code>OPTIONS('GLOBAL_SORT_PARTITIONS'='2')
+</code></pre>
+<p>NOTE:</p>
+<ul>
+<li>GLOBAL_SORT_PARTITIONS should be Integer type, the range is [1,Integer.MaxValue].</li>
+<li>It is only used when the SORT_SCOPE is GLOBAL_SORT.</li>
+</ul>
+<h3>
+<a id="insert-data-into-carbondata-table" class="anchor" href="#insert-data-into-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO CARBONDATA TABLE</h3>
+<p>This command inserts data into a CarbonData table, it is defined as a combination of two queries Insert and Select query respectively.
+It inserts records from a source table into a target CarbonData table, the source table can be a Hive table, Parquet table or a CarbonData table itself.
+It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p>
+<pre><code>INSERT INTO TABLE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>You can also omit the <code>table</code> keyword and write your query as:</p>
+<pre><code>INSERT INTO &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>Overwrite insert data:</p>
+<pre><code>INSERT OVERWRITE TABLE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>The source table and the CarbonData table must have the same table schema.</li>
+<li>The data type of source and destination table columns should be same</li>
+<li>INSERT INTO command does not support partial success if bad records are found, it will fail.</li>
+<li>Data cannot be loaded or updated in source table while insert from source table to target table is in progress.</li>
+</ul>
+<p>Examples</p>
+<pre><code>INSERT INTO table1 SELECT item1, sum(item2 + 1000) as result FROM table2 group by item1
+</code></pre>
+<pre><code>INSERT INTO table1 SELECT item1, item2, item3 FROM table2 where item2='xyz'
+</code></pre>
+<pre><code>INSERT OVERWRITE TABLE table1 SELECT * FROM TABLE2
+</code></pre>
+<h3>
+<a id="load-data-using-static-partition" class="anchor" href="#load-data-using-static-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Static Partition</h3>
+<p>This command allows you to load data using static partition.</p>
+<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+INTO TABLE [db_name.]table_name PARTITION (partition_spec) 
+OPTIONS(property_name=property_value, ...)    
+INSERT INTO INTO TABLE [db_name.]table_name PARTITION (partition_spec) &lt;SELECT STATEMENT&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.csv'
+INTO TABLE locationTable
+PARTITION (country = 'US', state = 'CA')  
+INSERT INTO TABLE locationTable
+PARTITION (country = 'US', state = 'AL')
+SELECT &lt;columns list excluding partition columns&gt; FROM another_user
+</code></pre>
+<h3>
+<a id="load-data-using-dynamic-partition" class="anchor" href="#load-data-using-dynamic-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Dynamic Partition</h3>
+<p>This command allows you to load data using dynamic partition. If partition spec is not specified, then the partition is considered as dynamic.</p>
+<p>Example:</p>
+<pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.csv'
+INTO TABLE locationTable          
+INSERT INTO TABLE locationTable
+SELECT &lt;columns list excluding partition columns&gt; FROM another_user
+</code></pre>
+<h2>
+<a id="update-and-delete" class="anchor" href="#update-and-delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UPDATE AND DELETE</h2>
+<h3>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UPDATE</h3>
+<p>This command will allow to update the CarbonData table based on the column expression and optional filter conditions.</p>
+<pre><code>UPDATE &lt;table_name&gt; 
+SET (column_name1, column_name2, ... column_name n) = (column1_expression , column2_expression, ... column n_expression )
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p>alternatively the following command can also be used for updating the CarbonData Table :</p>
+<pre><code>UPDATE &lt;table_name&gt;
+SET (column_name1, column_name2) =(select sourceColumn1, sourceColumn2 from sourceTable [ WHERE { &lt;filter_condition&gt; } ] )
+[ WHERE { &lt;filter_condition&gt; } ]
+</code></pre>
+<p><strong>NOTE:</strong> The update command fails if multiple input rows in source table are matched with single row in destination table.</p>
+<p>Examples:</p>
+<pre><code>UPDATE t3 SET (t3_salary) = (t3_salary + 9) WHERE t3_name = 'aaa1'
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_date, t3_country) = ('2017-11-18', 'india') WHERE t3_salary &lt; 15003
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_country, t3_name) = (SELECT t5_country, t5_name FROM t5 WHERE t5_id = 5) WHERE t3_id &lt; 5
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_date, t3_serialname, t3_salary) = (SELECT '2099-09-09', t5_serialname, '9999' FROM t5 WHERE t5_id = 5) WHERE t3_id &lt; 5
+</code></pre>
+<pre><code>UPDATE t3 SET (t3_country, t3_salary) = (SELECT t5_country, t5_salary FROM t5 FULL JOIN t3 u WHERE u.t3_id = t5_id and t5_id=6) WHERE t3_id &gt;6
+</code></pre>
+<p>NOTE: Update Complex datatype columns is not supported.</p>
+<h3>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE</h3>
+<p>This command allows us to delete records from CarbonData table.</p>
+<pre><code>DELETE FROM table_name [WHERE expression]
+</code></pre>
+<p>Examples:</p>
+<pre><code>DELETE FROM carbontable WHERE column1  = 'china'
+</code></pre>
+<pre><code>DELETE FROM carbontable WHERE column1 IN ('china', 'USA')
+</code></pre>
+<pre><code>DELETE FROM carbontable WHERE column1 IN (SELECT column11 FROM sourceTable2)
+</code></pre>
+<pre><code>DELETE FROM carbontable WHERE column1 IN (SELECT column11 FROM sourceTable2 WHERE column1 = 'USA')
+</code></pre>
+<h2>
+<a id="compaction" class="anchor" href="#compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPACTION</h2>
+<p>Compaction improves the query performance significantly.</p>
+<p>There are several types of compaction.</p>
+<pre><code>ALTER TABLE [db_name.]table_name COMPACT 'MINOR/MAJOR/CUSTOM'
+</code></pre>
+<ul>
+<li><strong>Minor Compaction</strong></li>
+</ul>
+<p>In Minor compaction, user can specify the number of loads to be merged.
+Minor compaction triggers for every data load if the parameter carbon.enable.auto.load.merge is set to true.
+If any segments are available to be merged, then compaction will run parallel with data load, there are 2 levels in minor compaction:</p>
+<ul>
+<li>Level 1: Merging of the segments which are not yet compacted.</li>
+<li>Level 2: Merging of the compacted segments again to form a larger segment.</li>
+</ul>
+<pre><code>ALTER TABLE table_name COMPACT 'MINOR'
+</code></pre>
+<ul>
+<li><strong>Major Compaction</strong></li>
+</ul>
+<p>In Major compaction, multiple segments can be merged into one large segment.
+User will specify the compaction size until which segments can be merged, Major compaction is usually done during the off-peak time.
+Configure the property carbon.major.compaction.size with appropriate value in MB.</p>
+<p>This command merges the specified number of segments into one segment:</p>
+<pre><code>ALTER TABLE table_name COMPACT 'MAJOR'
+</code></pre>
+<ul>
+<li><strong>Custom Compaction</strong></li>
+</ul>
+<p>In Custom compaction, user can directly specify segment ids to be merged into one large segment.
+All specified segment ids should exist and be valid, otherwise compaction will fail.
+Custom compaction is usually done during the off-peak time.</p>
+<pre><code>ALTER TABLE table_name COMPACT 'CUSTOM' WHERE SEGMENT.ID IN (2,3,4)
+</code></pre>
+<p>NOTE: Compaction is unsupported for table containing Complex columns.</p>
+<ul>
+<li><strong>CLEAN SEGMENTS AFTER Compaction</strong></li>
+</ul>
+<p>Clean the segments which are compacted:</p>
+<pre><code>CLEAN FILES FOR TABLE carbon_table
+</code></pre>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__docs').addClass('selected');
+
+  // Display docs subnav items
+  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
+    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

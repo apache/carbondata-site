@@ -22,6 +22,7 @@
     <![endif]-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
                                    target="_blank">Release Archive</a></li>
                         </ul>
                     </li>
-                    <li><a href="mainpage.html" class="active">Documentation</a></li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Community <span class="caret"></span></a>
@@ -152,7 +153,57 @@
 <section><!-- Dashboard nav -->
     <div class="container-fluid q">
         <div class="col-sm-12  col-md-12 maindashboard">
-            <div class="row">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                            </div>
+
+                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
                 <section>
                     <div style="padding:10px 15px;">
                         <div id="viewpage" name="viewpage">
@@ -161,9 +212,14 @@
                                     <div>
 <h1>
 <a id="sdk-guide" class="anchor" href="#sdk-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SDK Guide</h1>
-<p>In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.</p>
+<p>CarbonData provides SDK to facilitate</p>
+<ol>
+<li><a href="#sdk-writer">Writing carbondata files from other application which does not use Spark</a></li>
+<li><a href="#sdk-reader">Reading carbondata files from other application which does not use Spark</a></li>
+</ol>
 <h1>
 <a id="sdk-writer" class="anchor" href="#sdk-writer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SDK Writer</h1>
+<p>In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.</p>
 <p>This SDK writer, writes carbondata file and carbonindex file at a given path.
 External client can make use of this writer to convert other format data or live data to create carbondata and index files.
 These SDK writer output contains just a carbondata and carbonindex files. No metadata folder will be present.</p>
@@ -502,6 +558,22 @@ public CarbonWriterBuilder taskNo(long taskNo);
 public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
 </code></pre>
 <pre><code>/**
+ * To support the table properties for sdk writer
+ *
+ * @param options key,value pair of create table properties.
+ * supported keys values are
+ * a. blocksize -- [1-2048] values in MB. Default value is 1024
+ * b. blockletsize -- values in MB. Default value is 64 MB
+ * c. localDictionaryThreshold -- positive value, default is 10000
+ * d. enableLocalDictionary -- true / false. Default is false
+ * e. sortcolumns -- comma separated column. "c1,c2". Default all dimensions are sorted.
+ *
+ * @return updated CarbonWriterBuilder
+ */
+public CarbonWriterBuilder withTableProperties(Map&lt;String, String&gt; options);
+</code></pre>
+<pre><code>/**
+* this writer is not thread safe, use buildThreadSafeWriterForCSVInput in multi thread environment
 * Build a {@link CarbonWriter}, which accepts row in CSV format object
 * @param schema carbon Schema object {org.apache.carbondata.sdk.file.Schema}
 * @return CSVCarbonWriter
@@ -511,6 +583,19 @@ public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
 public CarbonWriter buildWriterForCSVInput(org.apache.carbondata.sdk.file.Schema schema) throws IOException, InvalidLoadOptionException;
 </code></pre>
 <pre><code>/**
+* Can use this writer in multi-thread instance.
+* Build a {@link CarbonWriter}, which accepts row in CSV format
+* @param schema carbon Schema object {org.apache.carbondata.sdk.file.Schema}
+* @param numOfThreads number of threads() in which .write will be called.              
+* @return CSVCarbonWriter
+* @throws IOException
+* @throws InvalidLoadOptionException
+*/
+public CarbonWriter buildThreadSafeWriterForCSVInput(Schema schema, short numOfThreads)
+  throws IOException, InvalidLoadOptionException;
+</code></pre>
+<pre><code>/**
+* this writer is not thread safe, use buildThreadSafeWriterForAvroInput in multi thread environment
 * Build a {@link CarbonWriter}, which accepts Avro format object
 * @param avroSchema avro Schema object {org.apache.avro.Schema}
 * @return AvroCarbonWriter 
@@ -520,6 +605,19 @@ public CarbonWriter buildWriterForCSVInput(org.apache.carbondata.sdk.file.Schema
 public CarbonWriter buildWriterForAvroInput(org.apache.avro.Schema schema) throws IOException, InvalidLoadOptionException;
 </code></pre>
 <pre><code>/**
+* Can use this writer in multi-thread instance.
+* Build a {@link CarbonWriter}, which accepts Avro object
+* @param avroSchema avro Schema object {org.apache.avro.Schema}
+* @param numOfThreads number of threads() in which .write will be called.
+* @return AvroCarbonWriter
+* @throws IOException
+* @throws InvalidLoadOptionException
+*/
+public CarbonWriter buildThreadSafeWriterForAvroInput(org.apache.avro.Schema avroSchema, short numOfThreads)
+  throws IOException, InvalidLoadOptionException
+</code></pre>
+<pre><code>/**
+* this writer is not thread safe, use buildThreadSafeWriterForJsonInput in multi thread environment
 * Build a {@link CarbonWriter}, which accepts Json object
 * @param carbonSchema carbon Schema object
 * @return JsonCarbonWriter
@@ -527,6 +625,17 @@ public CarbonWriter buildWriterForAvroInput(org.apache.avro.Schema schema) throw
 * @throws InvalidLoadOptionException
 */
 public JsonCarbonWriter buildWriterForJsonInput(Schema carbonSchema);
+</code></pre>
+<pre><code>/**
+* Can use this writer in multi-thread instance.
+* Build a {@link CarbonWriter}, which accepts Json object
+* @param carbonSchema carbon Schema object
+* @param numOfThreads number of threads() in which .write will be called.
+* @return JsonCarbonWriter
+* @throws IOException
+* @throws InvalidLoadOptionException
+*/
+public JsonCarbonWriter buildThreadSafeWriterForJsonInput(Schema carbonSchema, short numOfThreads)
 </code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonwriter" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonWriter</h3>
@@ -536,7 +645,7 @@ public JsonCarbonWriter buildWriterForJsonInput(Schema carbonSchema);
 *                      which is one row of data.
 * If CSVCarbonWriter, object is of type String[], which is one row of data
 * If JsonCarbonWriter, object is of type String, which is one row of json
-* Note: This API is not thread safe
+* Note: This API is not thread safe if writer is not built with number of threads argument.
 * @param object
 * @throws IOException
 */
@@ -780,7 +889,6 @@ External client can make use of this reader to read CarbonData files without Car
    *
    * @param dataFilePath complete path including carbondata file name
    * @return Schema object
-   * @throws IOException
    */
   public static Schema readSchemaInDataFile(String dataFilePath);
 </code></pre>
@@ -882,8 +990,11 @@ public String getProperty(String key);
 */
 public String getProperty(String key, String defaultValue);
 </code></pre>
-<p>Reference : <a href="http://carbondata.apache.org/configuration-parameters.html" target=_blank rel="nofollow">list of carbon properties</a></p>
-</div>
+<p>Reference : <a href="./configuration-parameters.html">list of carbon properties</a></p>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__api').addClass('selected'); });
+</script></div>
 </div>
 </div>
 </div>
