@@ -16,7 +16,7 @@
 -->
 
 # Quick Start
-This tutorial provides a quick introduction to using CarbonData.To follow along with this guide, first download a packaged release of CarbonData from the [CarbonData website](https://dist.apache.org/repos/dist/release/carbondata/).Alternatively it can be created following [Building CarbonData](https://github.com/apache/carbondata/tree/master/build) steps.
+This tutorial provides a quick introduction to using CarbonData. To follow along with this guide, first download a packaged release of CarbonData from the [CarbonData website](https://dist.apache.org/repos/dist/release/carbondata/).Alternatively it can be created following [Building CarbonData](https://github.com/apache/carbondata/tree/master/build) steps.
 
 ##  Prerequisites
 * CarbonData supports Spark versions upto 2.2.1.Please download Spark package from [Spark website](https://spark.apache.org/downloads.html)
@@ -35,7 +35,7 @@ This tutorial provides a quick introduction to using CarbonData.To follow along 
 
 ## Integration
 
-CarbonData can be integrated with Spark and Presto Execution Engines.The below documentation guides on Installing and Configuring with these execution engines.
+CarbonData can be integrated with Spark and Presto Execution Engines. The below documentation guides on Installing and Configuring with these execution engines.
 
 ### Spark
 
@@ -293,31 +293,31 @@ hdfs://<host_name>:port/user/hive/warehouse/carbon.store
 
 ## Installing and Configuring CarbonData on Presto
 
-**NOTE:** **CarbonData tables cannot be created nor loaded from Presto.User need to create CarbonData Table and load data into it
+**NOTE:** **CarbonData tables cannot be created nor loaded from Presto. User need to create CarbonData Table and load data into it
 either with [Spark](#installing-and-configuring-carbondata-to-run-locally-with-spark-shell) or [SDK](./sdk-guide.md).
 Once the table is created,it can be queried from Presto.**
 
 
 ### Installing Presto
 
- 1. Download the 0.187 version of Presto using:
-    `wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.187/presto-server-0.187.tar.gz`
+ 1. Download the 0.210 version of Presto using:
+    `wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.210/presto-server-0.210.tar.gz`
 
- 2. Extract Presto tar file: `tar zxvf presto-server-0.187.tar.gz`.
+ 2. Extract Presto tar file: `tar zxvf presto-server-0.210.tar.gz`.
 
  3. Download the Presto CLI for the coordinator and name it presto.
 
   ```
-    wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.187/presto-cli-0.187-executable.jar
+    wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.210/presto-cli-0.210-executable.jar
 
-    mv presto-cli-0.187-executable.jar presto
+    mv presto-cli-0.210-executable.jar presto
 
     chmod +x presto
   ```
 
 ### Create Configuration Files
 
-  1. Create `etc` folder in presto-server-0.187 directory.
+  1. Create `etc` folder in presto-server-0.210 directory.
   2. Create `config.properties`, `jvm.config`, `log.properties`, and `node.properties` files.
   3. Install uuid to generate a node.id.
 
@@ -363,10 +363,15 @@ Once the table is created,it can be queried from Presto.**
   coordinator=true
   node-scheduler.include-coordinator=false
   http-server.http.port=8086
-  query.max-memory=50GB
-  query.max-memory-per-node=2GB
+  query.max-memory=5GB
+  query.max-total-memory-per-node=5GB
+  query.max-memory-per-node=3GB
+  memory.heap-headroom-per-node=1GB
   discovery-server.enabled=true
-  discovery.uri=<coordinator_ip>:8086
+  discovery.uri=http://localhost:8086
+  task.max-worker-threads=4
+  optimizer.dictionary-aggregation=true
+  optimizer.optimize-hash-generation = false
   ```
 The options `node-scheduler.include-coordinator=false` and `coordinator=true` indicate that the node is the coordinator and tells the coordinator not to do any of the computation work itself and to use the workers.
 
@@ -383,7 +388,7 @@ Then, `query.max-memory=<30GB * number of nodes>`.
   ```
   coordinator=false
   http-server.http.port=8086
-  query.max-memory=50GB
+  query.max-memory=5GB
   query.max-memory-per-node=2GB
   discovery.uri=<coordinator_ip>:8086
   ```
@@ -405,12 +410,12 @@ Then, `query.max-memory=<30GB * number of nodes>`.
 ### Start Presto Server on all nodes
 
 ```
-./presto-server-0.187/bin/launcher start
+./presto-server-0.210/bin/launcher start
 ```
 To run it as a background process.
 
 ```
-./presto-server-0.187/bin/launcher run
+./presto-server-0.210/bin/launcher run
 ```
 To run it in foreground.
 

@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -215,7 +223,7 @@
 <p>Apache CarbonData is a new big data file format for faster interactive query using advanced columnar storage, index, compression and encoding techniques to improve computing efficiency, which helps in speeding up queries by an order of magnitude faster over PetaBytes of data.</p>
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
-<p><strong>File Format Concepts:</strong> Start with the basics of understanding the <a href="./file-structure-of-carbondata.html#carbondata-file-format">CarbonData file format</a> and its <a href="./file-structure-of-carbondata.html">storage structure</a>.This will help to understand other parts of the documentation, including deployment, programming and usage guides.</p>
+<p><strong>File Format Concepts:</strong> Start with the basics of understanding the <a href="./file-structure-of-carbondata.html#carbondata-file-format">CarbonData file format</a> and its <a href="./file-structure-of-carbondata.html">storage structure</a>. This will help to understand other parts of the documentation, including deployment, programming and usage guides.</p>
 <p><strong>Quick Start:</strong> <a href="./quick-start-guide.html#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Run an example program</a> on your local machine or <a href="https://github.com/apache/carbondata/tree/master/examples/spark2/src/main/scala/org/apache/carbondata/examples" target=_blank>study some examples</a>.</p>
 <p><strong>CarbonData SQL Language Reference:</strong> CarbonData extends the Spark SQL language and adds several <a href="./ddl-of-carbondata.html">DDL</a> and <a href="./dml-of-carbondata.html">DML</a> statements to support operations on it.Refer to the <a href="./language-manual.html">Reference Manual</a> to understand the supported features and functions.</p>
 <p><strong>Programming Guides:</strong> You can read our guides about <a href="./sdk-guide.html">APIs supported</a> to learn how to integrate CarbonData with your applications.</p>

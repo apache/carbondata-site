@@ -25,6 +25,10 @@
     * BIGINT
     * DOUBLE
     * DECIMAL
+    * FLOAT
+    * BYTE
+    
+    **NOTE**: Float and Bytes are only supported for SDK and FileFormat.
 
   * Date/Time Types
     * TIMESTAMP
@@ -41,6 +45,7 @@
   * Complex Types
     * arrays: ARRAY``<data_type>``
     * structs: STRUCT``<col_name : data_type COMMENT col_comment, ...>``
+    * maps: MAP``<primitive_type, data_type>``
     
     **NOTE**: Only 2 level complex type schema is supported for now.
 

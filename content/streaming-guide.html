@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -360,7 +368,7 @@ streaming table using following DDL.</p>
 <p>At the begin of streaming ingestion, the system will try to acquire the table level lock of streaming.lock file. If the system isn't able to acquire the lock of this table, it will throw an InterruptedException.</p>
 <h2>
 <a id="create-streaming-segment" class="anchor" href="#create-streaming-segment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create streaming segment</h2>
-<p>The input data of streaming will be ingested into a segment of the CarbonData table, the status of this segment is streaming. CarbonData call it a streaming segment. The "tablestatus" file will record the segment status and data size. The user can use ?SHOW SEGMENTS FOR TABLE tableName? to check segment status.</p>
+<p>The streaming data will be ingested into a separate segment of carbondata table, this segment is termed as streaming segment. The status of this segment will be recorded as "streaming" in "tablestatus" file along with its data size. You can use "SHOW SEGMENTS FOR TABLE tableName" to check segment status.</p>
 <p>After the streaming segment reaches the max size, CarbonData will change the segment status to "streaming finish" from "streaming", and create new "streaming" segment to continue to ingest streaming data.</p>
 <table>
 <thead>
@@ -533,8 +541,9 @@ streaming table using following DDL.</p>
          | register TIMESTAMP,
          | updated TIMESTAMP
          |)
-         |STORED BY carbondata
+         |STORED AS carbondata
          |TBLPROPERTIES (
+         | 'streaming'='source',
          | 'format'='csv',
          | 'path'='$csvDataDir'
          |)
@@ -553,7 +562,7 @@ streaming table using following DDL.</p>
          | register TIMESTAMP,
          | updated TIMESTAMP
          |)
-         |STORED BY carbondata
+         |STORED AS carbondata
          |TBLPROPERTIES (
          |  'streaming'='true'
          |)
@@ -576,7 +585,7 @@ streaming table using following DDL.</p>
     sql("SHOW STREAMS [ON TABLE tableName]")
 </code></pre>
 <p>In above example, two table is created: source and sink. The <code>source</code> table's format is <code>csv</code> and <code>sink</code> table format is <code>carbon</code>. Then a streaming job is created to stream data from source table to sink table.</p>
-<p>These two tables are normal carbon table, they can be queried independently.</p>
+<p>These two tables are normal carbon tables, they can be queried independently.</p>
 <h3>
 <a id="streaming-job-management" class="anchor" href="#streaming-job-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Streaming Job Management</h3>
 <p>As above example shown:</p>
@@ -601,18 +610,22 @@ streaming table using following DDL.</p>
   name STRING,
   age <span class="pl-k">INT</span>
 )
-STORED BY carbondata
+STORED <span class="pl-k">AS</span> carbondata
 TBLPROPERTIES(
-  <span class="pl-s"><span class="pl-pds">'</span>format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>socket<span class="pl-pds">'</span></span>,
-  <span class="pl-s"><span class="pl-pds">'</span>host<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>localhost<span class="pl-pds">'</span></span>,
-  <span class="pl-s"><span class="pl-pds">'</span>port<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>8888<span class="pl-pds">'</span></span>
+ <span class="pl-s"><span class="pl-pds">'</span>streaming<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>source<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>socket<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>host<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>localhost<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>port<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>8888<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>record_format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>csv<span class="pl-pds">'</span></span>, <span class="pl-k">//</span> can be csv <span class="pl-k">or</span> json, default is csv
+ <span class="pl-s"><span class="pl-pds">'</span>delimiter<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>|<span class="pl-pds">'</span></span>
 )</pre></div>
 <p>will translate to</p>
 <div class="highlight highlight-source-scala"><pre>spark.readStream
 	 .schema(tableSchema)
 	 .format(<span class="pl-s"><span class="pl-pds">"</span>socket<span class="pl-pds">"</span></span>)
 	 .option(<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>)
-	 .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>8888<span class="pl-pds">"</span></span>)</pre></div>
+	 .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>8888<span class="pl-pds">"</span></span>)
+	 .option(<span class="pl-s"><span class="pl-pds">"</span>delimiter<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>|<span class="pl-pds">"</span></span>)</pre></div>
 </li>
 <li>
 <p>The sink table should have a TBLPROPERTY <code>'streaming'</code> equal to <code>true</code>, indicating it is a streaming table.</p>
@@ -621,9 +634,23 @@ TBLPROPERTIES(
 <p>In the given STMPROPERTIES, user must specify <code>'trigger'</code>, its value must be <code>ProcessingTime</code> (In future, other value will be supported). User should also specify interval value for the streaming job.</p>
 </li>
 <li>
-<p>If the schema specifid in sink table is different from CTAS, the streaming job will fail</p>
+<p>If the schema specified in sink table is different from CTAS, the streaming job will fail</p>
 </li>
 </ul>
+<p>For Kafka data source, create the source table by:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">source</span>(
+  name STRING,
+  age <span class="pl-k">INT</span>
+)
+STORED <span class="pl-k">AS</span> carbondata
+TBLPROPERTIES(
+ <span class="pl-s"><span class="pl-pds">'</span>streaming<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>source<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>kafka<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>kafka.bootstrap.servers<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>kafkaserver:9092<span class="pl-pds">'</span></span>,
+ <span class="pl-s"><span class="pl-pds">'</span>subscribe<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>test<span class="pl-pds">'</span></span>
+ <span class="pl-s"><span class="pl-pds">'</span>record_format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>csv<span class="pl-pds">'</span></span>, <span class="pl-k">//</span> can be csv <span class="pl-k">or</span> json, default is csv
+ <span class="pl-s"><span class="pl-pds">'</span>delimiter<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>|<span class="pl-pds">'</span></span>
+)</pre></div>
 <h5>
 <a id="stop-stream" class="anchor" href="#stop-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STOP STREAM</h5>
 <p>When this is issued, the streaming job will be stopped immediately. It will fail if the jobName specified is not exist.</p>

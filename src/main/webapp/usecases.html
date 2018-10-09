@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -258,7 +266,7 @@
 <a id="detailed-queries-in-the-telecom-scenario" class="anchor" href="#detailed-queries-in-the-telecom-scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Detailed Queries in the Telecom scenario</h2>
 <h3>
 <a id="scenario" class="anchor" href="#scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario</h3>
-<p>User wants to analyse all the CHR(Call History Record) and MR(Measurement Records) of the mobile subscribers in order to identify the service failures within 10 secs.Also user wants to run machine learning models on the data to fairly estimate the reasons and time of probable failures and take action ahead to meet the SLA(Service Level Agreements) of VIP customers.</p>
+<p>User wants to analyse all the CHR(Call History Record) and MR(Measurement Records) of the mobile subscribers in order to identify the service failures within 10 secs. Also user wants to run machine learning models on the data to fairly estimate the reasons and time of probable failures and take action ahead to meet the SLA(Service Level Agreements) of VIP customers.</p>
 <h3>
 <a id="challenges" class="anchor" href="#challenges" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
 <ul>
@@ -271,7 +279,7 @@
 <a id="solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h3>
 <p>Setup a Hadoop + Spark + CarbonData cluster managed by YARN.</p>
 <p>Proposed the following configurations for CarbonData.(These tunings were proposed before CarbonData introduced SORT_COLUMNS parameter using which the sort order and schema order could be different.)</p>
-<p>Add the frequently used columns to the left of the table definition.Add it in the increasing order of cardinality.It was suggested to keep msisdn,imsi columns in the beginning of the schema.With latest CarbonData, SORT_COLUMNS needs to be configured msisdn,imsi in the beginning.</p>
+<p>Add the frequently used columns to the left of the table definition. Add it in the increasing order of cardinality. It was suggested to keep msisdn,imsi columns in the beginning of the schema. With latest CarbonData, SORT_COLUMNS needs to be configured msisdn,imsi in the beginning.</p>
 <p>Add timestamp column to the right of the schema as it is naturally increasing.</p>
 <p>Create two separate YARN queues for Query and Data Loading.</p>
 <p>Apart from these, the following CarbonData configuration was suggested to be configured in the cluster.</p>
@@ -319,7 +327,7 @@
 <td>Data Loading</td>
 <td>carbon.use.local.dir</td>
 <td>TRUE</td>
-<td>yarn application directory will be usually on a single disk.YARN would be configured with multiple disks to be used as temp or to assign randomly to applications.Using the yarn temp directory will allow carbon to use multiple disks and improve IO performance</td>
+<td>yarn application directory will be usually on a single disk.YARN would be configured with multiple disks to be used as temp or to assign randomly to applications. Using the yarn temp directory will allow carbon to use multiple disks and improve IO performance</td>
 </tr>
 <tr>
 <td>Data Loading</td>
@@ -381,7 +389,7 @@
 <a id="detailed-queries-in-the-smart-city-scenario" class="anchor" href="#detailed-queries-in-the-smart-city-scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Detailed Queries in the Smart City scenario</h2>
 <h3>
 <a id="scenario-1" class="anchor" href="#scenario-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario</h3>
-<p>User wants to analyse the person/vehicle movement and behavior during a certain time period.This output data needs to be joined with a external table for Human details extraction.The query will be run with different time period as filter to identify potential behavior mismatch.</p>
+<p>User wants to analyse the person/vehicle movement and behavior during a certain time period. This output data needs to be joined with a external table for Human details extraction. The query will be run with different time period as filter to identify potential behavior mismatch.</p>
 <h3>
 <a id="challenges-1" class="anchor" href="#challenges-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
 <p>Data generated per day is very huge.Data needs to be loaded multiple times per day to accomodate the incoming data size.</p>
@@ -414,13 +422,13 @@
 <td>Data Loading</td>
 <td>enable.unsafe.sort</td>
 <td>TRUE</td>
-<td>Temporary data generated during sort is huge which causes GC bottlenecks.Using unsafe reduces the pressure on GC</td>
+<td>Temporary data generated during sort is huge which causes GC bottlenecks. Using unsafe reduces the pressure on GC</td>
 </tr>
 <tr>
 <td>Data Loading</td>
 <td>enable.offheap.sort</td>
 <td>TRUE</td>
-<td>Temporary data generated during sort is huge which causes GC bottlenecks.Using offheap reduces the pressure on GC.offheap can be accessed through java unsafe.hence enable.unsafe.sort needs to be true</td>
+<td>Temporary data generated during sort is huge which causes GC bottlenecks. Using offheap reduces the pressure on GC.offheap can be accessed through java unsafe.hence enable.unsafe.sort needs to be true</td>
 </tr>
 <tr>
 <td>Data Loading</td>
@@ -444,7 +452,7 @@
 <td>Data Loading</td>
 <td>table_blocksize</td>
 <td>512</td>
-<td>To efficiently schedule multiple tasks during query.This size depends on data scenario.If data is such that the filters would select less number of blocklets to scan, keeping higher number works well.If the number blocklets to scan is more, better to reduce the size as more tasks can be scheduled in parallel.</td>
+<td>To efficiently schedule multiple tasks during query. This size depends on data scenario.If data is such that the filters would select less number of blocklets to scan, keeping higher number works well.If the number blocklets to scan is more, better to reduce the size as more tasks can be scheduled in parallel.</td>
 </tr>
 <tr>
 <td>Data Loading</td>
@@ -456,7 +464,7 @@
 <td>Data Loading</td>
 <td>carbon.use.local.dir</td>
 <td>TRUE</td>
-<td>yarn application directory will be usually on a single disk.YARN would be configured with multiple disks to be used as temp or to assign randomly to applications.Using the yarn temp directory will allow carbon to use multiple disks and improve IO performance</td>
+<td>yarn application directory will be usually on a single disk.YARN would be configured with multiple disks to be used as temp or to assign randomly to applications. Using the yarn temp directory will allow carbon to use multiple disks and improve IO performance</td>
 </tr>
 <tr>
 <td>Data Loading</td>
@@ -468,7 +476,7 @@
 <td>Data Loading</td>
 <td>sort.inmemory.size.in.mb</td>
 <td>92160</td>
-<td>Memory allocated to do inmemory sorting.When more memory is available in the node, configuring this will retain more sort blocks in memory so that the merge sort is faster due to no/very less IO</td>
+<td>Memory allocated to do inmemory sorting. When more memory is available in the node, configuring this will retain more sort blocks in memory so that the merge sort is faster due to no/very less IO</td>
 </tr>
 <tr>
 <td>Compaction</td>
@@ -486,7 +494,7 @@
 <td>Compaction</td>
 <td>carbon.enable.auto.load.merge</td>
 <td>FALSE</td>
-<td>Doing auto minor compaction is costly process as data size is huge.Perform manual compaction when  the cluster is less loaded</td>
+<td>Doing auto minor compaction is costly process as data size is huge.Perform manual compaction when the cluster is less loaded</td>
 </tr>
 <tr>
 <td>Query</td>
@@ -498,13 +506,13 @@
 <td>Query</td>
 <td>enable.unsafe.in.query.procressing</td>
 <td>true</td>
-<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects.This cause pressure of GC.using unsafe and offheap will reduce the GC overhead</td>
+<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects. This cause pressure of GC.using unsafe and offheap will reduce the GC overhead</td>
 </tr>
 <tr>
 <td>Query</td>
 <td>use.offheap.in.query.processing</td>
 <td>true</td>
-<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects.This cause pressure of GC.using unsafe and offheap will reduce the GC overhead.offheap can be accessed through java unsafe.hence enable.unsafe.in.query.procressing needs to be true</td>
+<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects. This cause pressure of GC.using unsafe and offheap will reduce the GC overhead.offheap can be accessed through java unsafe.hence enable.unsafe.in.query.procressing needs to be true</td>
 </tr>
 <tr>
 <td>Query</td>
@@ -516,7 +524,7 @@
 <td>Query</td>
 <td>carbon.unsafe.working.memory.in.mb</td>
 <td>10240</td>
-<td>Amount of memory to use for offheap operations.Can increase this memory based on the data size</td>
+<td>Amount of memory to use for offheap operations, you can increase this memory based on the data size</td>
 </tr>
 </tbody>
 </table>
@@ -565,7 +573,7 @@
 <li>Create pre-aggregate tables for non timestamp based group by queries</li>
 <li>For queries containing group by date, create timeseries based Datamap(pre-aggregate) tables so that the data is rolled up during creation and fetch is faster</li>
 <li>Reduce the Spark shuffle partitions.(In our configuration on 14 node cluster, it was reduced to 35 from default of 200)</li>
-<li>Enable global dictionary for columns which have less cardinalities.Aggregation can be done on encoded data, there by improving the performance</li>
+<li>Enable global dictionary for columns which have less cardinalities. Aggregation can be done on encoded data, there by improving the performance</li>
 <li>For columns whose cardinality is high,enable the local dictionary so that store size is less and can take dictionary benefit for scan</li>
 </ul>
 <h2>
@@ -575,13 +583,13 @@
 <p>Need to support storing of continously arriving data and make it available immediately for query.</p>
 <h3>
 <a id="challenges-3" class="anchor" href="#challenges-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
-<p>When the data ingestion is near real time and the data needs to be available for query immediately, usual scenario is to do data loading in micro batches.But this causes the problem of generating many small files.This poses two problems:</p>
+<p>When the data ingestion is near real time and the data needs to be available for query immediately, usual scenario is to do data loading in micro batches.But this causes the problem of generating many small files. This poses two problems:</p>
 <ol>
 <li>Small file handling in HDFS is inefficient</li>
 <li>CarbonData will suffer in query performance as all the small files will have to be queried when filter is on non time column</li>
 </ol>
 <p>CarbonData will suffer in query performance as all the small files will have to be queried when filter is on non time column.</p>
-<p>Since data is continouly arriving, allocating resources for compaction might not be feasible.</p>
+<p>Since data is continously arriving, allocating resources for compaction might not be feasible.</p>
 <h3>
 <a id="goal-1" class="anchor" href="#goal-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Goal</h3>
 <ol>

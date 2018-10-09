@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -229,17 +237,15 @@
 </ul>
 <h2>
 <a id="carbondata-features--functions" class="anchor" href="#carbondata-features--functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Features &amp; Functions</h2>
-<p>CarbonData has rich set of featues to support various use cases in Big Data analytics.The below table lists the major features supported by CarbonData.</p>
+<p>CarbonData has rich set of features to support various use cases in Big Data analytics. The below table lists the major features supported by CarbonData.</p>
 <h3>
 <a id="table-management" class="anchor" href="#table-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table Management</h3>
 <ul>
 <li>
 <h5>
 <a id="ddl-create-alterdropctas" class="anchor" href="#ddl-create-alterdropctas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DDL (Create, Alter,Drop,CTAS)</h5>
+<p>CarbonData provides its own DDL to create and manage carbondata tables. These DDL conform to Hive,Spark SQL format and support additional properties and configuration to take advantages of CarbonData functionalities.</p>
 </li>
-</ul>
-<p>?	CarbonData provides its own DDL to create and manage carbondata tables.These DDL conform to 			Hive,Spark SQL format and support additional properties and configuration to take advantages of CarbonData functionalities.</p>
-<ul>
 <li>
 <h5>
 <a id="dmlloadinsert" class="anchor" href="#dmlloadinsert" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DML(Load,Insert)</h5>
@@ -263,7 +269,7 @@
 <li>
 <h5>
 <a id="compaction" class="anchor" href="#compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compaction</h5>
-<p>CarbonData manages incremental loads as segments.Compaction help to compact the growing number of segments and also to improve query filter pruning.</p>
+<p>CarbonData manages incremental loads as segments. Compaction helps to compact the growing number of segments and also to improve query filter pruning.</p>
 </li>
 <li>
 <h5>
@@ -277,12 +283,12 @@
 <li>
 <h5>
 <a id="pre-aggregate" class="anchor" href="#pre-aggregate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-Aggregate</h5>
-<p>CarbonData has concept of datamaps to assist in pruning of data while querying so that performance is faster.Pre Aggregate tables are kind of datamaps which can improve the query performance by order of magnitude.CarbonData will automatically pre-aggregae the incremental data and re-write the query to automatically fetch from the most appropriate pre-aggregate table to serve the query faster.</p>
+<p>CarbonData has concept of datamaps to assist in pruning of data while querying so that performance is faster.Pre Aggregate tables are kind of datamaps which can improve the query performance by order of magnitude.CarbonData will automatically pre-aggregate the incremental data and re-write the query to automatically fetch from the most appropriate pre-aggregate table to serve the query faster.</p>
 </li>
 <li>
 <h5>
 <a id="time-series" class="anchor" href="#time-series" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time Series</h5>
-<p>CarbonData has built in understanding of time order(Year, month,day,hour, minute,second).Time series is a pre-aggregate table which can automatically roll-up the data to the desired level during incremental load and serve the query from the most appropriate pre-aggregate table.</p>
+<p>CarbonData has built in understanding of time order(Year, month,day,hour, minute,second). Time series is a pre-aggregate table which can automatically roll-up the data to the desired level during incremental load and serve the query from the most appropriate pre-aggregate table.</p>
 </li>
 <li>
 <h5>
@@ -297,7 +303,7 @@
 <li>
 <h5>
 <a id="mv-materialized-views" class="anchor" href="#mv-materialized-views" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MV (Materialized Views)</h5>
-<p>MVs are kind of pre-aggregate tables which can support efficent query re-write and processing.CarbonData provides MV which can rewrite query to fetch from any table(including non-carbondata tables).Typical usecase is to store the aggregated data of a non-carbondata fact table into carbondata and use mv to rewrite the query to fetch from carbondata.</p>
+<p>MVs are kind of pre-aggregate tables which can support efficent query re-write and processing.CarbonData provides MV which can rewrite query to fetch from any table(including non-carbondata tables). Typical usecase is to store the aggregated data of a non-carbondata fact table into carbondata and use mv to rewrite the query to fetch from carbondata.</p>
 </li>
 </ul>
 <h3>
@@ -315,12 +321,12 @@
 <li>
 <h5>
 <a id="carbondata-writer" class="anchor" href="#carbondata-writer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData writer</h5>
-<p>CarbonData supports writing data from non-spark application using SDK.Users can use SDK to generate carbondata files from custom applications.Typical usecase is to write the streaming application plugged in to kafka and use carbondata as sink(target) table for storing.</p>
+<p>CarbonData supports writing data from non-spark application using SDK.Users can use SDK to generate carbondata files from custom applications. Typical usecase is to write the streaming application plugged in to kafka and use carbondata as sink(target) table for storing.</p>
 </li>
 <li>
 <h5>
 <a id="carbondata-reader" class="anchor" href="#carbondata-reader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData reader</h5>
-<p>CarbonData supports reading of data from non-spark application using SDK.Users can use the SDK to read the carbondata files from their application and do custom processing.</p>
+<p>CarbonData supports reading of data from non-spark application using SDK. Users can use the SDK to read the carbondata files from their application and do custom processing.</p>
 </li>
 </ul>
 <h3>
@@ -329,7 +335,7 @@
 <li>
 <h5>
 <a id="s3" class="anchor" href="#s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3</h5>
-<p>CarbonData can write to S3, OBS or any cloud storage confirming to S3 protocol.CarbonData uses the HDFS api to write to cloud object stores.</p>
+<p>CarbonData can write to S3, OBS or any cloud storage confirming to S3 protocol. CarbonData uses the HDFS api to write to cloud object stores.</p>
 </li>
 <li>
 <h5>

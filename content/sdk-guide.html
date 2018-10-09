@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -259,9 +267,9 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 
      <span class="pl-smi">CarbonProperties</span><span class="pl-k">.</span>getInstance()<span class="pl-k">.</span>addProperty(<span class="pl-s"><span class="pl-pds">"</span>enable.offheap.sort<span class="pl-pds">"</span></span>, enableOffheap);
  
-     <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path);
+     <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path)<span class="pl-k">.</span>withCsvInput(schema);
  
-     <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>buildWriterForCSVInput(schema);
+     <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>build();
  
      <span class="pl-k">int</span> rows <span class="pl-k">=</span> <span class="pl-c1">5</span>;
      <span class="pl-k">for</span> (<span class="pl-k">int</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> rows; i<span class="pl-k">++</span>) {
@@ -314,7 +322,7 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
     <span class="pl-k">try</span> {
       <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()
           .outputPath(path)
-          .buildWriterForAvroInput(<span class="pl-k">new</span> <span class="pl-smi">org.apache.avro<span class="pl-k">.</span>Schema</span>.<span class="pl-smi">Parser</span>()<span class="pl-k">.</span>parse(avroSchema));
+          .withAvroInput(<span class="pl-k">new</span> <span class="pl-smi">org.apache.avro<span class="pl-k">.</span>Schema</span>.<span class="pl-smi">Parser</span>()<span class="pl-k">.</span>parse(avroSchema))<span class="pl-k">.</span>build();
 
       <span class="pl-k">for</span> (<span class="pl-k">int</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-c1">100</span>; i<span class="pl-k">++</span>) {
         writer<span class="pl-k">.</span>write(record);
@@ -352,10 +360,10 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 
     <span class="pl-smi">Schema</span> <span class="pl-smi">CarbonSchema</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Schema</span>(fields);
 
-    <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path);
+    <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path)<span class="pl-k">.</span>withJsonInput(<span class="pl-smi">CarbonSchema</span>);
 
     <span class="pl-c"><span class="pl-c">//</span> initialize json writer with carbon schema</span>
-    <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>buildWriterForJsonInput(<span class="pl-smi">CarbonSchema</span>);
+    <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>build();
     <span class="pl-c"><span class="pl-c">//</span> one row of json Data as String</span>
     <span class="pl-smi">String</span>  <span class="pl-smi">JsonRow</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>{<span class="pl-cce">\"</span>name<span class="pl-cce">\"</span>:<span class="pl-cce">\"</span>abcd<span class="pl-cce">\"</span>, <span class="pl-cce">\"</span>age<span class="pl-cce">\"</span>:10}<span class="pl-pds">"</span></span>;
 
@@ -368,59 +376,127 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 } </pre></div>
 <h2>
 <a id="datatypes-mapping" class="anchor" href="#datatypes-mapping" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Datatypes Mapping</h2>
-<p>Each of SQL data types are mapped into data types of SDK. Following are the mapping:</p>
+<p>Each of SQL data types and Avro Data Types are mapped into data types of SDK. Following are the mapping:</p>
 <table>
 <thead>
 <tr>
 <th>SQL DataTypes</th>
+<th>Avro DataTypes</th>
 <th>Mapped SDK DataTypes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>BOOLEAN</td>
+<td>BOOLEAN</td>
 <td>DataTypes.BOOLEAN</td>
 </tr>
 <tr>
 <td>SMALLINT</td>
+<td>-</td>
 <td>DataTypes.SHORT</td>
 </tr>
 <tr>
+<td>INTEGER</td>
 <td>INTEGER</td>
 <td>DataTypes.INT</td>
 </tr>
 <tr>
 <td>BIGINT</td>
+<td>LONG</td>
 <td>DataTypes.LONG</td>
 </tr>
 <tr>
+<td>DOUBLE</td>
 <td>DOUBLE</td>
 <td>DataTypes.DOUBLE</td>
 </tr>
 <tr>
 <td>VARCHAR</td>
+<td>-</td>
 <td>DataTypes.STRING</td>
 </tr>
 <tr>
+<td>FLOAT</td>
+<td>FLOAT</td>
+<td>DataTypes.FLOAT</td>
+</tr>
+<tr>
+<td>BYTE</td>
+<td>-</td>
+<td>DataTypes.BYTE</td>
+</tr>
+<tr>
+<td>DATE</td>
 <td>DATE</td>
 <td>DataTypes.DATE</td>
 </tr>
 <tr>
 <td>TIMESTAMP</td>
+<td>-</td>
 <td>DataTypes.TIMESTAMP</td>
 </tr>
 <tr>
+<td>STRING</td>
 <td>STRING</td>
 <td>DataTypes.STRING</td>
 </tr>
 <tr>
 <td>DECIMAL</td>
+<td>DECIMAL</td>
 <td>DataTypes.createDecimalType(precision, scale)</td>
+</tr>
+<tr>
+<td>ARRAY</td>
+<td>ARRAY</td>
+<td>DataTypes.createArrayType(elementType)</td>
+</tr>
+<tr>
+<td>STRUCT</td>
+<td>RECORD</td>
+<td>DataTypes.createStructType(fields)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>ENUM</td>
+<td>DataTypes.STRING</td>
+</tr>
+<tr>
+<td>-</td>
+<td>UNION</td>
+<td>DataTypes.createStructType(types)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>MAP</td>
+<td>DataTypes.createMapType(keyType, valueType)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>TimeMillis</td>
+<td>DataTypes.INT</td>
+</tr>
+<tr>
+<td>-</td>
+<td>TimeMicros</td>
+<td>DataTypes.LONG</td>
+</tr>
+<tr>
+<td>-</td>
+<td>TimestampMillis</td>
+<td>DataTypes.TIMESTAMP</td>
+</tr>
+<tr>
+<td>-</td>
+<td>TimestampMicros</td>
+<td>DataTypes.TIMESTAMP</td>
 </tr>
 </tbody>
 </table>
-<p><strong>NOTE:</strong>
-Carbon Supports below logical types of AVRO.
+<p><strong>NOTE:</strong></p>
+<ol>
+<li>
+<p>Carbon Supports below logical types of AVRO.
 a. Date
 The date logical type represents a date within the calendar, with no reference to a particular time zone or time of day.
 A date logical type annotates an Avro int, where the int stores the number of days from the unix epoch, 1 January 1970 (ISO calendar).
@@ -429,10 +505,27 @@ The timestamp-millis logical type represents an instant on the global timeline, 
 A timestamp-millis logical type annotates an Avro long, where the long stores the number of milliseconds from the unix epoch, 1 January 1970 00:00:00.000 UTC.
 c. Timestamp (microsecond precision)
 The timestamp-micros logical type represents an instant on the global timeline, independent of a particular time zone or calendar, with a precision of one microsecond.
-A timestamp-micros logical type annotates an Avro long, where the long stores the number of microseconds from the unix epoch, 1 January 1970 00:00:00.000000 UTC.</p>
-<pre><code>Currently the values of logical types are not validated by carbon. 
-Expect that avro record passed by the user is already validated by avro record generator tools.   
-</code></pre>
+A timestamp-micros logical type annotates an Avro long, where the long stores the number of microseconds from the unix epoch, 1 January 1970 00:00:00.000000 UTC.
+d. Decimal
+The decimal logical type represents an arbitrary-precision signed decimal number of the form unscaled � 10-scale.
+A decimal logical type annotates Avro bytes or fixed types. The byte array must contain the two's-complement representation of the unscaled integer value in big-endian byte order. The scale is fixed, and is specified using an attribute.
+e. Time (millisecond precision)
+The time-millis logical type represents a time of day, with no reference to a particular calendar, time zone or date, with a precision of one millisecond.
+A time-millis logical type annotates an Avro int, where the int stores the number of milliseconds after midnight, 00:00:00.000.
+f. Time (microsecond precision)
+The time-micros logical type represents a time of day, with no reference to a particular calendar, time zone or date, with a precision of one microsecond.
+A time-micros logical type annotates an Avro long, where the long stores the number of microseconds after midnight, 00:00:00.000000.</p>
+<p>Currently the values of logical types are not validated by carbon.
+Expect that avro record passed by the user is already validated by avro record generator tools.</p>
+</li>
+<li>
+<p>If the string data is more than 32K in length, use withTableProperties() with "long_string_columns" property
+or directly use DataTypes.VARCHAR if it is carbon schema.</p>
+</li>
+<li>
+<p>Avro Bytes, Fixed and Duration data types are not yet supported.</p>
+</li>
+</ol>
 <h2>
 <a id="run-sql-on-files-directly" class="anchor" href="#run-sql-on-files-directly" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run SQL on files directly</h2>
 <p>Instead of creating table and query it, you can also query that file directly with SQL.</p>
@@ -452,18 +545,6 @@ Expect that avro record passed by the user is already validated by avro record g
 * @return updated CarbonWriterBuilder
 */
 public CarbonWriterBuilder outputPath(String path);
-</code></pre>
-<pre><code>/**
-* If set false, writes the carbondata and carbonindex files in a flat folder structure
-* @param isTransactionalTable is a boolelan value
-*             if set to false, then writes the carbondata and carbonindex files
-*                                                            in a flat folder structure.
-*             if set to true, then writes the carbondata and carbonindex files
-*                                                            in segment folder structure..
-*             By default set to false.
-* @return updated CarbonWriterBuilder
-*/
-public CarbonWriterBuilder isTransactionalTable(boolean isTransactionalTable);
 </code></pre>
 <pre><code>/**
 * to set the timestamp in the carbondata and carbonindex index files
@@ -511,14 +592,6 @@ public CarbonWriterBuilder localDictionaryThreshold(int localDictionaryThreshold
 public CarbonWriterBuilder sortBy(String[] sortColumns);
 </code></pre>
 <pre><code>/**
-* If set, create a schema file in metadata folder.
-* @param persist is a boolean value, If set to true, creates a schema file in metadata folder.
-*                By default set to false. will not create metadata folder
-* @return updated CarbonWriterBuilder
-*/
-public CarbonWriterBuilder persistSchemaFile(boolean persist);
-</code></pre>
-<pre><code>/**
 * sets the taskNo for the writer. SDKs concurrently running
 * will set taskNo in order to avoid conflicts in file's name during write.
 * @param taskNo is the TaskNo user wants to specify.
@@ -540,7 +613,7 @@ public CarbonWriterBuilder taskNo(long taskNo);
 *                g. complex_delimiter_level_2 -- value to Split the nested complexTypeData
 *                h. quotechar
 *                i. escapechar
-*
+*                
 *                Default values are as follows.
 *
 *                a. bad_records_logger_enable -- "false"
@@ -558,84 +631,76 @@ public CarbonWriterBuilder taskNo(long taskNo);
 public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
 </code></pre>
 <pre><code>/**
- * To support the table properties for sdk writer
- *
- * @param options key,value pair of create table properties.
- * supported keys values are
- * a. blocksize -- [1-2048] values in MB. Default value is 1024
- * b. blockletsize -- values in MB. Default value is 64 MB
- * c. localDictionaryThreshold -- positive value, default is 10000
- * d. enableLocalDictionary -- true / false. Default is false
- * e. sortcolumns -- comma separated column. "c1,c2". Default all dimensions are sorted.
- *
- * @return updated CarbonWriterBuilder
- */
+* To support the table properties for sdk writer
+*
+* @param options key,value pair of create table properties.
+* supported keys values are
+* a. table_blocksize -- [1-2048] values in MB. Default value is 1024
+* b. table_blocklet_size -- values in MB. Default value is 64 MB
+* c. local_dictionary_threshold -- positive value, default is 10000
+* d. local_dictionary_enable -- true / false. Default is false
+* e. sort_columns -- comma separated column. "c1,c2". Default all dimensions are sorted.
+                     If empty string "" is passed. No columns are sorted
+* j. sort_scope -- "local_sort", "no_sort", "batch_sort". default value is "local_sort"
+* k. long_string_columns -- comma separated string columns which are more than 32k length. 
+*                           default value is null.
+*
+* @return updated CarbonWriterBuilder
+*/
 public CarbonWriterBuilder withTableProperties(Map&lt;String, String&gt; options);
 </code></pre>
 <pre><code>/**
-* this writer is not thread safe, use buildThreadSafeWriterForCSVInput in multi thread environment
-* Build a {@link CarbonWriter}, which accepts row in CSV format object
+* To make sdk writer thread safe.
+*
+* @param numOfThreads should number of threads in which writer is called in multi-thread scenario
+*                     default sdk writer is not thread safe.
+*                     can use one writer instance in one thread only.
+* @return updated CarbonWriterBuilder
+*/
+public CarbonWriterBuilder withThreadSafe(short numOfThreads);
+</code></pre>
+<pre><code>/**
+* To support hadoop configuration
+*
+* @param conf hadoop configuration support, can set s3a AK,SK,end point and other conf with this
+* @return updated CarbonWriterBuilder
+*/
+public CarbonWriterBuilder withHadoopConf(Configuration conf)
+</code></pre>
+<pre><code>/**
+* to build a {@link CarbonWriter}, which accepts row in CSV format
+*
 * @param schema carbon Schema object {org.apache.carbondata.sdk.file.Schema}
-* @return CSVCarbonWriter
-* @throws IOException
-* @throws InvalidLoadOptionException
+* @return CarbonWriterBuilder
 */
-public CarbonWriter buildWriterForCSVInput(org.apache.carbondata.sdk.file.Schema schema) throws IOException, InvalidLoadOptionException;
+public CarbonWriterBuilder withCsvInput(Schema schema);
 </code></pre>
 <pre><code>/**
-* Can use this writer in multi-thread instance.
-* Build a {@link CarbonWriter}, which accepts row in CSV format
-* @param schema carbon Schema object {org.apache.carbondata.sdk.file.Schema}
-* @param numOfThreads number of threads() in which .write will be called.              
-* @return CSVCarbonWriter
-* @throws IOException
-* @throws InvalidLoadOptionException
-*/
-public CarbonWriter buildThreadSafeWriterForCSVInput(Schema schema, short numOfThreads)
-  throws IOException, InvalidLoadOptionException;
-</code></pre>
-<pre><code>/**
-* this writer is not thread safe, use buildThreadSafeWriterForAvroInput in multi thread environment
-* Build a {@link CarbonWriter}, which accepts Avro format object
+* to build a {@link CarbonWriter}, which accepts Avro object
+*
 * @param avroSchema avro Schema object {org.apache.avro.Schema}
-* @return AvroCarbonWriter 
-* @throws IOException
-* @throws InvalidLoadOptionException
+* @return CarbonWriterBuilder
 */
-public CarbonWriter buildWriterForAvroInput(org.apache.avro.Schema schema) throws IOException, InvalidLoadOptionException;
+public CarbonWriterBuilder withAvroInput(org.apache.avro.Schema avroSchema);
 </code></pre>
 <pre><code>/**
-* Can use this writer in multi-thread instance.
-* Build a {@link CarbonWriter}, which accepts Avro object
-* @param avroSchema avro Schema object {org.apache.avro.Schema}
-* @param numOfThreads number of threads() in which .write will be called.
-* @return AvroCarbonWriter
-* @throws IOException
-* @throws InvalidLoadOptionException
-*/
-public CarbonWriter buildThreadSafeWriterForAvroInput(org.apache.avro.Schema avroSchema, short numOfThreads)
-  throws IOException, InvalidLoadOptionException
-</code></pre>
-<pre><code>/**
-* this writer is not thread safe, use buildThreadSafeWriterForJsonInput in multi thread environment
-* Build a {@link CarbonWriter}, which accepts Json object
+* to build a {@link CarbonWriter}, which accepts Json object
+*
 * @param carbonSchema carbon Schema object
-* @return JsonCarbonWriter
-* @throws IOException
-* @throws InvalidLoadOptionException
+* @return CarbonWriterBuilder
 */
-public JsonCarbonWriter buildWriterForJsonInput(Schema carbonSchema);
+public CarbonWriterBuilder withJsonInput(Schema carbonSchema);
 </code></pre>
 <pre><code>/**
-* Can use this writer in multi-thread instance.
-* Build a {@link CarbonWriter}, which accepts Json object
-* @param carbonSchema carbon Schema object
-* @param numOfThreads number of threads() in which .write will be called.
-* @return JsonCarbonWriter
+* Build a {@link CarbonWriter}
+* This writer is not thread safe,
+* use withThreadSafe() configuration in multi thread environment
+* 
+* @return CarbonWriter {AvroCarbonWriter/CSVCarbonWriter/JsonCarbonWriter based on Input Type }
 * @throws IOException
 * @throws InvalidLoadOptionException
 */
-public JsonCarbonWriter buildThreadSafeWriterForJsonInput(Schema carbonSchema, short numOfThreads)
+public CarbonWriter build() throws IOException, InvalidLoadOptionException;
 </code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonwriter" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonWriter</h3>
@@ -645,7 +710,6 @@ public JsonCarbonWriter buildThreadSafeWriterForJsonInput(Schema carbonSchema, s
 *                      which is one row of data.
 * If CSVCarbonWriter, object is of type String[], which is one row of data
 * If JsonCarbonWriter, object is of type String, which is one row of json
-* Note: This API is not thread safe if writer is not built with number of threads argument.
 * @param object
 * @throws IOException
 */
@@ -793,17 +857,6 @@ External client can make use of this reader to read CarbonData files without Car
    */
   public CarbonReaderBuilder projection(String[] projectionColumnNames);
 </code></pre>
-<pre><code>  /**
-   * Configure the transactional status of table
-   * If set to false, then reads the carbondata and carbonindex files from a flat folder structure.
-   * If set to true, then reads the carbondata and carbonindex files from segment folder structure.
-   * Default value is false
-   *
-   * @param isTransactionalTable whether is transactional table or not
-   * @return CarbonReaderBuilder object
-   */
-  public CarbonReaderBuilder isTransactionalTable(boolean isTransactionalTable);
-</code></pre>
 <pre><code> /**
   * Configure the filter expression for carbon reader
   *
@@ -812,56 +865,13 @@ External client can make use of this reader to read CarbonData files without Car
   */
   public CarbonReaderBuilder filter(Expression filterExpression);
 </code></pre>
-<pre><code>  /**
-   * Set the access key for S3
-   *
-   * @param key   the string of access key for different S3 type,like: fs.s3a.access.key
-   * @param value the value of access key
-   * @return CarbonWriterBuilder
-   */
-  public CarbonReaderBuilder setAccessKey(String key, String value);
-</code></pre>
-<pre><code>  /**
-   * Set the access key for S3.
-   *
-   * @param value the value of access key
-   * @return CarbonWriterBuilder object
-   */
-  public CarbonReaderBuilder setAccessKey(String value);
-</code></pre>
-<pre><code>  /**
-   * Set the secret key for S3
-   *
-   * @param key   the string of secret key for different S3 type,like: fs.s3a.secret.key
-   * @param value the value of secret key
-   * @return CarbonWriterBuilder object
-   */
-  public CarbonReaderBuilder setSecretKey(String key, String value);
-</code></pre>
-<pre><code>  /**
-   * Set the secret key for S3
-   *
-   * @param value the value of secret key
-   * @return CarbonWriterBuilder object
-   */
-  public CarbonReaderBuilder setSecretKey(String value);
-</code></pre>
-<pre><code> /**
-   * Set the endpoint for S3
-   *
-   * @param key   the string of endpoint for different S3 type,like: fs.s3a.endpoint
-   * @param value the value of endpoint
-   * @return CarbonWriterBuilder object
-   */
-  public CarbonReaderBuilder setEndPoint(String key, String value);
-</code></pre>
-<pre><code>  /**
-   * Set the endpoint for S3
-   *
-   * @param value the value of endpoint
-   * @return CarbonWriterBuilder object
-   */
-  public CarbonReaderBuilder setEndPoint(String value);
+<pre><code>/**
+ * To support hadoop configuration
+ *
+ * @param conf hadoop configuration support, can set s3a AK,SK,end point and other conf with this
+ * @return updated CarbonReaderBuilder
+ */
+ public CarbonReaderBuilder withHadoopConf(Configuration conf);
 </code></pre>
 <pre><code> /**
    * Build CarbonReader
@@ -992,8 +1002,15 @@ public String getProperty(String key, String defaultValue);
 </code></pre>
 <p>Reference : <a href="./configuration-parameters.html">list of carbon properties</a></p>
 <script>
-// Show selected style on nav item
-$(function() { $('.b-nav__api').addClass('selected'); });
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__api').addClass('selected');
+
+  if (!$('.b-nav__api').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display api subnav items
+    $('.b-nav__api').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
 </script></div>
 </div>
 </div>

@@ -218,101 +218,190 @@
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
+<h1>
+<a id="csdk-guide" class="anchor" href="#csdk-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSDK Guide</h1>
+<p>CarbonData CSDK provides C++ interface to write and read carbon file.
+CSDK use JNI to invoke java SDK in C++ code.</p>
+<h1>
+<a id="csdk-reader" class="anchor" href="#csdk-reader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSDK Reader</h1>
+<p>This CSDK reader reads CarbonData file and carbonindex file at a given path.
+External client can make use of this reader to read CarbonData files in C++
+code and without CarbonSession.</p>
+<p>In the carbon jars package, there exist a carbondata-sdk.jar,
+including SDK reader for CSDK.</p>
 <h2>
-<a id="segment-management" class="anchor" href="#segment-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SEGMENT MANAGEMENT</h2>
-<p>Each load into CarbonData is written into a separate folder called Segment.Segments is a powerful
-concept which helps to maintain consistency of data and easy transaction management.CarbonData provides DML (Data Manipulation Language) commands to maintain the segments.</p>
-<ul>
-<li><a href="#show-segment">Show Segments</a></li>
-<li><a href="#delete-segment-by-id">Delete Segment by ID</a></li>
-<li><a href="#delete-segment-by-date">Delete Segment by Date</a></li>
-<li><a href="#query-data-with-specified-segments">Query Data with Specified Segments</a></li>
-</ul>
-<h3>
-<a id="show-segment" class="anchor" href="#show-segment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW SEGMENT</h3>
-<p>This command is used to list the segments of CarbonData table.</p>
-<pre><code>SHOW [HISTORY] SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
-</code></pre>
-<p>Example:
-Show visible segments</p>
-<pre><code>SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
-</code></pre>
-<p>Show all segments, include invisible segments</p>
-<pre><code>SHOW HISTORY SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
-</code></pre>
-<h3>
-<a id="delete-segment-by-id" class="anchor" href="#delete-segment-by-id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY ID</h3>
-<p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it.
-Using this segment ID, you can remove the segment.</p>
-<p>The following command will get the segmentID.</p>
-<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
-</code></pre>
-<p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
-<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.ID IN (segment_id1, segments_id2, ...)
-</code></pre>
-<p>Example:</p>
-<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0)
-DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0,5,8)
-</code></pre>
-<h3>
-<a id="delete-segment-by-date" class="anchor" href="#delete-segment-by-date" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY DATE</h3>
-<p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command.
-The segment created before the particular date will be removed from the specific stores.</p>
-<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.STARTTIME BEFORE DATE_VALUE
-</code></pre>
-<p>Example:</p>
-<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.STARTTIME BEFORE '2017-06-01 12:05:06' 
-</code></pre>
-<h3>
-<a id="query-data-with-specified-segments" class="anchor" href="#query-data-with-specified-segments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QUERY DATA WITH SPECIFIED SEGMENTS</h3>
-<p>This command is used to read data from specified segments during CarbonScan.</p>
-<p>Get the Segment ID:</p>
-<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
-</code></pre>
-<p>Set the segment IDs for table</p>
-<pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = &lt;list of segment IDs&gt;
-</code></pre>
-<p><strong>NOTE:</strong>
-carbon.input.segments: Specifies the segment IDs to be queried. This property allows you to query specified segments of the specified table. The CarbonScan will read data from specified segments only.</p>
-<p>If user wants to query with segments reading in multi threading mode, then CarbonSession. threadSet can be used instead of SET query.</p>
-<pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","&lt;list of segment IDs&gt;");
-</code></pre>
-<p>Reset the segment IDs</p>
-<pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = *;
-</code></pre>
-<p>If user wants to query with segments reading in multi threading mode, then CarbonSession. threadSet can be used instead of SET query.</p>
-<pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","*");
-</code></pre>
-<p><strong>Examples:</strong></p>
-<ul>
-<li>Example to show the list of segment IDs,segment status, and other required details and then specify the list of segments to be read.</li>
-</ul>
-<pre><code>SHOW SEGMENTS FOR carbontable1;
+<a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
+<pre><code>// 1. init JVM
+JavaVM *jvm;
+JNIEnv *initJVM() {
+    JNIEnv *env;
+    JavaVMInitArgs vm_args;
+    int parNum = 3;
+    int res;
+    JavaVMOption options[parNum];
 
-SET carbon.input.segments.db.carbontable1 = 1,3,9;
+    options[0].optionString = "-Djava.compiler=NONE";
+    options[1].optionString = "-Djava.class.path=../../sdk/target/carbondata-sdk.jar";
+    options[2].optionString = "-verbose:jni";
+    vm_args.version = JNI_VERSION_1_8;
+    vm_args.nOptions = parNum;
+    vm_args.options = options;
+    vm_args.ignoreUnrecognized = JNI_FALSE;
+
+    res = JNI_CreateJavaVM(&amp;jvm, (void **) &amp;env, &amp;vm_args);
+    if (res &lt; 0) {
+        fprintf(stderr, "\nCan't create Java VM\n");
+        exit(1);
+    }
+
+    return env;
+}
+
+// 2. create carbon reader and read data 
+// 2.1 read data from local disk
+/**
+ * test read data from local disk, without projection
+ *
+ * @param env  jni env
+ * @return
+ */
+bool readFromLocalWithoutProjection(JNIEnv *env) {
+
+    CarbonReader carbonReaderClass;
+    carbonReaderClass.builder(env, "../resources/carbondata", "test");
+    carbonReaderClass.build();
+
+    while (carbonReaderClass.hasNext()) {
+        jobjectArray row = carbonReaderClass.readNextRow();
+        jsize length = env-&gt;GetArrayLength(row);
+        int j = 0;
+        for (j = 0; j &lt; length; j++) {
+            jobject element = env-&gt;GetObjectArrayElement(row, j);
+            char *str = (char *) env-&gt;GetStringUTFChars((jstring) element, JNI_FALSE);
+            printf("%s\t", str);
+        }
+        printf("\n");
+    }
+    carbonReaderClass.close();
+}
+
+// 2.2 read data from S3
+
+/**
+ * read data from S3
+ * parameter is ak sk endpoint
+ *
+ * @param env jni env
+ * @param argv argument vector
+ * @return
+ */
+bool readFromS3(JNIEnv *env, char *argv[]) {
+    CarbonReader reader;
+
+    char *args[3];
+    // "your access key"
+    args[0] = argv[1];
+    // "your secret key"
+    args[1] = argv[2];
+    // "your endPoint"
+    args[2] = argv[3];
+
+    reader.builder(env, "s3a://sdk/WriterOutput", "test");
+    reader.withHadoopConf(3, args);
+    reader.build();
+    printf("\nRead data from S3:\n");
+    while (reader.hasNext()) {
+        jobjectArray row = reader.readNextRow();
+        jsize length = env-&gt;GetArrayLength(row);
+
+        int j = 0;
+        for (j = 0; j &lt; length; j++) {
+            jobject element = env-&gt;GetObjectArrayElement(row, j);
+            char *str = (char *) env-&gt;GetStringUTFChars((jstring) element, JNI_FALSE);
+            printf("%s\t", str);
+        }
+        printf("\n");
+    }
+
+    reader.close();
+}
+
+// 3. destory JVM
+    (jvm)-&gt;DestroyJavaVM();
 </code></pre>
-<ul>
-<li>Example to query with segments reading in multi threading mode:</li>
-</ul>
-<pre><code>CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1,3");
-</code></pre>
-<ul>
-<li>Example for threadset in multithread environment (following shows how it is used in Scala code):</li>
-</ul>
-<pre><code>def main(args: Array[String]) {
-Future {          
-  CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1")
-  spark.sql("select count(empno) from carbon.input.segments.db.carbontable_Multi_Thread").show();
-   }
- }
+<p>Find example code at main.cpp of CSDK module</p>
+<h2>
+<a id="api-list" class="anchor" href="#api-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
+<pre><code>    /**
+     * create a CarbonReaderBuilder object for building carbonReader,
+     * CarbonReaderBuilder object  can configure different parameter
+     *
+     * @param env JNIEnv
+     * @param path data store path
+     * @param tableName table name
+     * @return CarbonReaderBuilder object
+     */
+    jobject builder(JNIEnv *env, char *path, char *tableName);
+
+    /**
+     * Configure the projection column names of carbon reader
+     *
+     * @param argc argument counter
+     * @param argv argument vector
+     * @return CarbonReaderBuilder object
+     */
+    jobject projection(int argc, char *argv[]);
+
+    /**
+     *  build carbon reader with argument vector
+     *  it support multiple parameter
+     *  like: key=value
+     *  for example: fs.s3a.access.key=XXXX, XXXX is user's access key value
+     *
+     * @param argc argument counter
+     * @param argv argument vector
+     * @return CarbonReaderBuilder object
+     **/
+    jobject withHadoopConf(int argc, char *argv[]);
+
+    /**
+     * build carbonReader object for reading data
+     * it support read data from load disk
+     *
+     * @return carbonReader object
+     */
+    jobject build();
+
+    /**
+     * Whether it has next row data
+     *
+     * @return boolean value, if it has next row, return true. if it hasn't next row, return false.
+     */
+    jboolean hasNext();
+
+    /**
+     * read next row from data
+     *
+     * @return object array of one row
+     */
+    jobjectArray readNextRow();
+
+    /**
+     * close the carbon reader
+     *
+     * @return  boolean value
+     */
+    jboolean close();
+
 </code></pre>
 <script>
 $(function() {
   // Show selected style on nav item
-  $('.b-nav__docs').addClass('selected');
-  // Display docs subnav items
-  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
-    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  $('.b-nav__api').addClass('selected');
+
+  if (!$('.b-nav__api').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display api subnav items
+    $('.b-nav__api').parent().toggleClass('nav__item__with__subs--expanded');
   }
 });
 </script></div>

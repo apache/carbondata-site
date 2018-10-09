@@ -28,6 +28,7 @@
 * [Why aggregate query is not fetching data from aggregate table?](#why-aggregate-query-is-not-fetching-data-from-aggregate-table)
 * [Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?](#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side)
 * [Why different time zone result for select query output when query SDK writer output?](#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output)
+* [How to check LRU cache memory footprint?](#how-to-check-lru-cache-memory-footprint)
 
 # TroubleShooting
 
@@ -56,12 +57,12 @@ By default **carbon.badRecords.location** specifies the following location ``/op
 ## How to enable Bad Record Logging?
 While loading data we can specify the approach to handle Bad Records. In order to analyse the cause of the Bad Records the parameter ``BAD_RECORDS_LOGGER_ENABLE`` must be set to value ``TRUE``. There are multiple approaches to handle Bad Records which can be specified  by the parameter ``BAD_RECORDS_ACTION``.
 
-- To pad the incorrect values of the csv rows with NULL value and load the data in CarbonData, set the following in the query :
+- To pass the incorrect values of the csv rows with NULL value and load the data in CarbonData, set the following in the query :
 ```
 'BAD_RECORDS_ACTION'='FORCE'
 ```
 
-- To write the Bad Records without padding incorrect values with NULL in the raw csv (set in the parameter **carbon.badRecords.location**), set the following in the query :
+- To write the Bad Records without passing incorrect values with NULL in the raw csv (set in the parameter **carbon.badRecords.location**), set the following in the query :
 ```
 'BAD_RECORDS_ACTION'='REDIRECT'
 ```
@@ -198,7 +199,7 @@ select cntry,sum(gdp) from gdp21,pop1 where cntry=ctry group by cntry;
 ```
 
 ## Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?
-Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as “FAIL” will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.
+Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as "FAIL" will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.
 
 ## Why different time zone result for select query output when query SDK writer output? 
 SDK writer is an independent entity, hence SDK writer can generate carbondata files from a non-cluster machine that has different time zones. But at cluster when those files are read, it always takes cluster time-zone. Hence, the value of timestamp and date datatype fields are not original value.
@@ -212,7 +213,22 @@ cluster timezone is Asia/Shanghai
 TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"))
 ```
 
+## How to check LRU cache memory footprint?
+To observe the LRU cache memory footprint in the logs, configure the below properties in log4j.properties file.
+```
+log4j.logger.org.apache.carbondata.core.memory.UnsafeMemoryManager = DEBUG
+log4j.logger.org.apache.carbondata.core.cache.CarbonLRUCache = DEBUG
+```
+These properties will enable the DEBUG log for the CarbonLRUCache and UnsafeMemoryManager which will print the information of memory consumed using which the LRU cache size can be decided. **Note:** Enabling the DEBUG log will degrade the query performance.
 
+**Example:**
+```
+18/09/26 15:05:28 DEBUG UnsafeMemoryManager: pool-44-thread-1 Memory block (org.apache.carbondata.core.memory.MemoryBlock@21312095) is created with size 10. Total memory used 413Bytes, left 536870499Bytes
+18/09/26 15:05:29 DEBUG CarbonLRUCache: main Required size for entry /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge :: 181 Current cache size :: 0
+18/09/26 15:05:30 DEBUG UnsafeMemoryManager: main Freeing memory of size: 105available memory:  536870836
+18/09/26 15:05:30 DEBUG UnsafeMemoryManager: main Freeing memory of size: 76available memory:  536870912
+18/09/26 15:05:30 INFO CarbonLRUCache: main Removed entry from InMemory lru cache :: /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge
+```
 
 ## Getting tablestatus.lock issues When loading data
 

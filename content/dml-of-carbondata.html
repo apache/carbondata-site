@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -250,7 +258,7 @@ OPTIONS(property_name=property_value, ...)
 </tr>
 <tr>
 <td><a href="#commentchar">COMMENTCHAR</a></td>
-<td>Character used to comment the rows in the input csv file.Those rows will be skipped from processing</td>
+<td>Character used to comment the rows in the input csv file. Those rows will be skipped from processing</td>
 </tr>
 <tr>
 <td><a href="#header">HEADER</a></td>
@@ -289,11 +297,11 @@ OPTIONS(property_name=property_value, ...)
 <td>Path to read the dictionary data from for particular column</td>
 </tr>
 <tr>
-<td><a href="#dateformat">DATEFORMAT</a></td>
+<td><a href="#dateformattimestampformat">DATEFORMAT</a></td>
 <td>Format of date in the input csv file</td>
 </tr>
 <tr>
-<td><a href="#timestampformat">TIMESTAMPFORMAT</a></td>
+<td><a href="#dateformattimestampformat">TIMESTAMPFORMAT</a></td>
 <td>Format of timestamp in the input csv file</td>
 </tr>
 <tr>
@@ -310,7 +318,7 @@ OPTIONS(property_name=property_value, ...)
 </tr>
 <tr>
 <td><a href="#bad-records-handling">BAD_RECORD_PATH</a></td>
-<td>Bad records logging path.Useful when bad record logging is enabled</td>
+<td>Bad records logging path. Useful when bad record logging is enabled</td>
 </tr>
 <tr>
 <td><a href="#bad-records-handling">BAD_RECORDS_ACTION</a></td>
@@ -428,7 +436,7 @@ true: CSV file is with file header.</p>
 <h5>
 <a id="sort-column-bounds" class="anchor" href="#sort-column-bounds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SORT COLUMN BOUNDS:</h5>
 <p>Range bounds for sort columns.</p>
-<p>Suppose the table is created with 'SORT_COLUMNS'='name,id' and the range for name is aaa<del>zzz, the value range for id is 0</del>1000. Then during data loading, we can specify the following option to enhance data loading performance.</p>
+<p>Suppose the table is created with 'SORT_COLUMNS'='name,id' and the range for name is aaa to zzz, the value range for id is 0 to 1000. Then during data loading, we can specify the following option to enhance data loading performance.</p>
 <pre><code>OPTIONS('SORT_COLUMN_BOUNDS'='f,250;l,500;r,750')
 </code></pre>
 <p>Each bound is separated by ';' and each field value in bound is separated by ','. In the example above, we provide 3 bounds to distribute records to 4 partitions. The values 'f','l','r' can evenly distribute the records. Inside carbondata, for a record we compare the value of sort columns with that of the bounds and decide which partition the record will be forwarded to.</p>
@@ -437,7 +445,7 @@ true: CSV file is with file header.</p>
 <li>SORT_COLUMN_BOUNDS will be used only when the SORT_SCOPE is 'local_sort'.</li>
 <li>Carbondata will use these bounds as ranges to process data concurrently during the final sort percedure. The records will be sorted and written out inside each partition. Since the partition is sorted, all records will be sorted.</li>
 <li>Since the actual order and literal order of the dictionary column are not necessarily the same, we do not recommend you to use this feature if the first sort column is 'dictionary_include'.</li>
-<li>The option works better if your CPU usage during loading is low. If your system is already CPU tense, better not to use this option. Besides, it depends on the user to specify the bounds. If user does not know the exactly bounds to make the data distributed evenly among the bounds, loading performance will still be better than before or at least the same as before.</li>
+<li>The option works better if your CPU usage during loading is low. If your current system CPU usage is high, better not to use this option. Besides, it depends on the user to specify the bounds. If user does not know the exactly bounds to make the data distributed evenly among the bounds, loading performance will still be better than before or at least the same as before.</li>
 <li>Users can find more information about this option in the description of PR1953.</li>
 </ul>
 </li>
@@ -492,10 +500,6 @@ projectjoindate,projectenddate,attendance,utilization,salary',
 <li>Since Bad Records Path can be specified in create, load and carbon properties.
 Therefore, value specified in load will have the highest priority, and value specified in carbon properties will have the least priority.</li>
 </ul>
-<p><strong>Bad Records Path:</strong>
-This property is used to specify the location where bad records would be written.</p>
-<pre><code>TBLPROPERTIES('BAD_RECORDS_PATH'='/opt/badrecords'')
-</code></pre>
 <p>Example:</p>
 <pre><code>LOAD DATA INPATH 'filepath.csv' INTO TABLE tablename
 OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true','BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon',

@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -224,6 +232,7 @@
 <li><a href="#why-aggregate-query-is-not-fetching-data-from-aggregate-table">Why aggregate query is not fetching data from aggregate table?</a></li>
 <li><a href="#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side">Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</a></li>
 <li><a href="#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output">Why different time zone result for select query output when query SDK writer output?</a></li>
+<li><a href="#how-to-check-lru-cache-memory-footprint">How to check LRU cache memory footprint?</a></li>
 </ul>
 <h1>
 <a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TroubleShooting</h1>
@@ -252,12 +261,12 @@ By default <strong>carbon.badRecords.location</strong> specifies the following l
 <a id="how-to-enable-bad-record-logging" class="anchor" href="#how-to-enable-bad-record-logging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to enable Bad Record Logging?</h2>
 <p>While loading data we can specify the approach to handle Bad Records. In order to analyse the cause of the Bad Records the parameter <code>BAD_RECORDS_LOGGER_ENABLE</code> must be set to value <code>TRUE</code>. There are multiple approaches to handle Bad Records which can be specified  by the parameter <code>BAD_RECORDS_ACTION</code>.</p>
 <ul>
-<li>To pad the incorrect values of the csv rows with NULL value and load the data in CarbonData, set the following in the query :</li>
+<li>To pass the incorrect values of the csv rows with NULL value and load the data in CarbonData, set the following in the query :</li>
 </ul>
 <pre><code>'BAD_RECORDS_ACTION'='FORCE'
 </code></pre>
 <ul>
-<li>To write the Bad Records without padding incorrect values with NULL in the raw csv (set in the parameter <strong>carbon.badRecords.location</strong>), set the following in the query :</li>
+<li>To write the Bad Records without passing incorrect values with NULL in the raw csv (set in the parameter <strong>carbon.badRecords.location</strong>), set the following in the query :</li>
 </ul>
 <pre><code>'BAD_RECORDS_ACTION'='REDIRECT'
 </code></pre>
@@ -367,7 +376,7 @@ select cntry,sum(gdp) from gdp21,pop1 where cntry=ctry group by cntry;
 </code></pre>
 <h2>
 <a id="why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side" class="anchor" href="#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</h2>
-<p>Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as ?FAIL? will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.</p>
+<p>Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as "FAIL" will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.</p>
 <h2>
 <a id="why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output" class="anchor" href="#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why different time zone result for select query output when query SDK writer output?</h2>
 <p>SDK writer is an independent entity, hence SDK writer can generate carbondata files from a non-cluster machine that has different time zones. But at cluster when those files are read, it always takes cluster time-zone. Hence, the value of timestamp and date datatype fields are not original value.
@@ -377,6 +386,20 @@ If wanted to control timezone of data while writing, then set cluster's time-zon
 <p><strong>Example:</strong></p>
 <pre><code>cluster timezone is Asia/Shanghai
 TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"))
+</code></pre>
+<h2>
+<a id="how-to-check-lru-cache-memory-footprint" class="anchor" href="#how-to-check-lru-cache-memory-footprint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to check LRU cache memory footprint?</h2>
+<p>To observe the LRU cache memory footprint in the logs, configure the below properties in log4j.properties file.</p>
+<pre><code>log4j.logger.org.apache.carbondata.core.memory.UnsafeMemoryManager = DEBUG
+log4j.logger.org.apache.carbondata.core.cache.CarbonLRUCache = DEBUG
+</code></pre>
+<p>These properties will enable the DEBUG log for the CarbonLRUCache and UnsafeMemoryManager which will print the information of memory consumed using which the LRU cache size can be decided. <strong>Note:</strong> Enabling the DEBUG log will degrade the query performance.</p>
+<p><strong>Example:</strong></p>
+<pre><code>18/09/26 15:05:28 DEBUG UnsafeMemoryManager: pool-44-thread-1 Memory block (org.apache.carbondata.core.memory.MemoryBlock@21312095) is created with size 10. Total memory used 413Bytes, left 536870499Bytes
+18/09/26 15:05:29 DEBUG CarbonLRUCache: main Required size for entry /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge :: 181 Current cache size :: 0
+18/09/26 15:05:30 DEBUG UnsafeMemoryManager: main Freeing memory of size: 105available memory:  536870836
+18/09/26 15:05:30 DEBUG UnsafeMemoryManager: main Freeing memory of size: 76available memory:  536870912
+18/09/26 15:05:30 INFO CarbonLRUCache: main Removed entry from InMemory lru cache :: /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge
 </code></pre>
 <h2>
 <a id="getting-tablestatuslock-issues-when-loading-data" class="anchor" href="#getting-tablestatuslock-issues-when-loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting tablestatus.lock issues When loading data</h2>

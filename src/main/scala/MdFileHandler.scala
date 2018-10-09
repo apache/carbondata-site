@@ -28,7 +28,7 @@ class MdFileHandler @Inject()(confService: ConfService, fileService: FileService
 
     val contentAfterReplacingDatamap: String = modifyDatamapPattern replaceAllIn(contentAfterReplacingId, "./")
 
-    val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingDatamap,replacingImageContent)
+    val contentAfterReplacingImage: String = modifyImagePattern replaceAllIn(contentAfterReplacingDatamap, replacingImageContent)
     val contentAfterReplacingHttpsFileLink: String = modifyHttpsFileLink replaceAllIn(contentAfterReplacingImage, "$1://$2$3 target=_blank")
     val contentAfterReplacingFileLink: String = modifyHttpFileLink replaceAllIn(contentAfterReplacingHttpsFileLink, "$1://$2$3 target=_blank")
     contentAfterReplacingFileLink
