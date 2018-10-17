@@ -218,98 +218,114 @@
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
+<h1>
+<a id="carbondata-as-sparks-datasource" class="anchor" href="#carbondata-as-sparks-datasource" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData as Spark's Datasource</h1>
+<p>The CarbonData fileformat is now integrated as Spark datasource for read and write operation without using CarbonSession. This is useful for users who wants to use carbondata as spark's data source.</p>
+<p><strong>Note:</strong> You can only apply the functions/features supported by spark datasource APIs, functionalities supported would be similar to Parquet. The carbon session features are not supported.</p>
+<h1>
+<a id="create-table-with-ddl" class="anchor" href="#create-table-with-ddl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Table with DDL</h1>
+<p>Now you can create Carbon table using Spark's datasource DDL syntax.</p>
+<pre><code> CREATE [TEMPORARY] TABLE [IF NOT EXISTS] [db_name.]table_name
+     [(col_name1 col_type1 [COMMENT col_comment1], ...)]
+     USING CARBON
+     [OPTIONS (key1=val1, key2=val2, ...)]
+     [PARTITIONED BY (col_name1, col_name2, ...)]
+     [CLUSTERED BY (col_name3, col_name4, ...) INTO num_buckets BUCKETS]
+     [LOCATION path]
+     [COMMENT table_comment]
+     [TBLPROPERTIES (key1=val1, key2=val2, ...)]
+     [AS select_statement]
+</code></pre>
 <h2>
-<a id="segment-management" class="anchor" href="#segment-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SEGMENT MANAGEMENT</h2>
-<p>Each load into CarbonData is written into a separate folder called Segment.Segments is a powerful
-concept which helps to maintain consistency of data and easy transaction management.CarbonData provides DML (Data Manipulation Language) commands to maintain the segments.</p>
-<ul>
-<li><a href="#show-segment">Show Segments</a></li>
-<li><a href="#delete-segment-by-id">Delete Segment by ID</a></li>
-<li><a href="#delete-segment-by-date">Delete Segment by Date</a></li>
-<li><a href="#query-data-with-specified-segments">Query Data with Specified Segments</a></li>
-</ul>
-<h3>
-<a id="show-segment" class="anchor" href="#show-segment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW SEGMENT</h3>
-<p>This command is used to list the segments of CarbonData table.</p>
-<pre><code>SHOW [HISTORY] SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
+<a id="supported-options" class="anchor" href="#supported-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supported OPTIONS</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table_blocksize</td>
+<td>1024</td>
+<td>Size of blocks to write onto hdfs. For  more details, see <a href="./ddl-of-carbondata.html#table-block-size-configuration">Table Block Size Configuration</a>.</td>
+</tr>
+<tr>
+<td>table_blocklet_size</td>
+<td>64</td>
+<td>Size of blocklet to write.</td>
+</tr>
+<tr>
+<td>local_dictionary_threshold</td>
+<td>10000</td>
+<td>Cardinality upto which the local dictionary can be generated. For  more details, see <a href="./ddl-of-carbondata.html#local-dictionary-configuration">Local Dictionary Configuration</a>.</td>
+</tr>
+<tr>
+<td>local_dictionary_enable</td>
+<td>false</td>
+<td>Enable local dictionary generation. For  more details, see <a href="./ddl-of-carbondata.html#local-dictionary-configuration">Local Dictionary Configuration</a>.</td>
+</tr>
+<tr>
+<td>sort_columns</td>
+<td>all dimensions are sorted</td>
+<td>Columns to include in sort and its order of sort. For  more details, see <a href="./ddl-of-carbondata.html#sort-columns-configuration">Sort Columns Configuration</a>.</td>
+</tr>
+<tr>
+<td>sort_scope</td>
+<td>local_sort</td>
+<td>Sort scope of the load.Options include no sort, local sort, batch sort, and global sort. For  more details, see <a href="./ddl-of-carbondata.html#sort-scope-configuration">Sort Scope Configuration</a>.</td>
+</tr>
+<tr>
+<td>long_string_columns</td>
+<td>null</td>
+<td>Comma separated string/char/varchar columns which are more than 32k length. For  more details, see <a href="./ddl-of-carbondata.html#string-longer-than-32000-characters">String longer than 32000 characters</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
+<pre><code> CREATE TABLE CARBON_TABLE (NAME  STRING) USING CARBON OPTIONS('table_block_size'='256')
 </code></pre>
-<p>Example:
-Show visible segments</p>
-<pre><code>SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
+<h1>
+<a id="using-dataframe" class="anchor" href="#using-dataframe" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using DataFrame</h1>
+<p>Carbon format can be used in dataframe also. Following are the ways to use carbon format in dataframe.</p>
+<p>Write carbon using dataframe</p>
+<pre><code>df.write.format("carbon").save(path)
 </code></pre>
-<p>Show all segments, include invisible segments</p>
-<pre><code>SHOW HISTORY SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
+<p>Read carbon using dataframe</p>
+<pre><code>val df = spark.read.format("carbon").load(path)
 </code></pre>
-<h3>
-<a id="delete-segment-by-id" class="anchor" href="#delete-segment-by-id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY ID</h3>
-<p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it.
-Using this segment ID, you can remove the segment.</p>
-<p>The following command will get the segmentID.</p>
-<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
-</code></pre>
-<p>After you retrieve the segment ID of the segment that you want to delete, execute the following command to delete the selected segment.</p>
-<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.ID IN (segment_id1, segments_id2, ...)
-</code></pre>
-<p>Example:</p>
-<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0)
-DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.ID IN (0,5,8)
-</code></pre>
-<h3>
-<a id="delete-segment-by-date" class="anchor" href="#delete-segment-by-date" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY DATE</h3>
-<p>This command will allow to delete the CarbonData segment(s) from the store based on the date provided by the user in the DML command.
-The segment created before the particular date will be removed from the specific stores.</p>
-<pre><code>DELETE FROM TABLE [db_name.]table_name WHERE SEGMENT.STARTTIME BEFORE DATE_VALUE
-</code></pre>
-<p>Example:</p>
-<pre><code>DELETE FROM TABLE CarbonDatabase.CarbonTable WHERE SEGMENT.STARTTIME BEFORE '2017-06-01 12:05:06' 
-</code></pre>
-<h3>
-<a id="query-data-with-specified-segments" class="anchor" href="#query-data-with-specified-segments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QUERY DATA WITH SPECIFIED SEGMENTS</h3>
-<p>This command is used to read data from specified segments during CarbonScan.</p>
-<p>Get the Segment ID:</p>
-<pre><code>SHOW SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
-</code></pre>
-<p>Set the segment IDs for table</p>
-<pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = &lt;list of segment IDs&gt;
-</code></pre>
-<p><strong>NOTE:</strong>
-carbon.input.segments: Specifies the segment IDs to be queried. This property allows you to query specified segments of the specified table. The CarbonScan will read data from specified segments only.</p>
-<p>If user wants to query with segments reading in multi threading mode, then CarbonSession. threadSet can be used instead of SET query.</p>
-<pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","&lt;list of segment IDs&gt;");
-</code></pre>
-<p>Reset the segment IDs</p>
-<pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = *;
-</code></pre>
-<p>If user wants to query with segments reading in multi threading mode, then CarbonSession. threadSet can be used instead of SET query.</p>
-<pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","*");
-</code></pre>
-<p><strong>Examples:</strong></p>
-<ul>
-<li>Example to show the list of segment IDs,segment status, and other required details and then specify the list of segments to be read.</li>
-</ul>
-<pre><code>SHOW SEGMENTS FOR carbontable1;
+<h2>
+<a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
+<pre><code>import org.apache.spark.sql.SparkSession
 
-SET carbon.input.segments.db.carbontable1 = 1,3,9;
+val spark = SparkSession
+  .builder()
+  .appName("Spark SQL basic example")
+  .config("spark.some.config.option", "some-value")
+  .getOrCreate()
+
+// For implicit conversions like converting RDDs to DataFrames
+import spark.implicits._
+val df = spark.sparkContext.parallelize(1 to 10 * 10 * 1000)
+     .map(x =&gt; (r.nextInt(100000), "name" + x % 8, "city" + x % 50, BigDecimal.apply(x % 60)))
+      .toDF("ID", "name", "city", "age")
+      
+// Write to carbon format      
+df.write.format("carbon").save("/user/person_table")
+
+// Read carbon using dataframe
+val dfread = spark.read.format("carbon").load("/user/person_table")
+dfread.show()
 </code></pre>
-<ul>
-<li>Example to query with segments reading in multi threading mode:</li>
-</ul>
-<pre><code>CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1,3");
-</code></pre>
-<ul>
-<li>Example for threadset in multithread environment (following shows how it is used in Scala code):</li>
-</ul>
-<pre><code>def main(args: Array[String]) {
-Future {          
-  CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1")
-  spark.sql("select count(empno) from carbon.input.segments.db.carbontable_Multi_Thread").show();
-   }
- }
-</code></pre>
+<p>Reference : <a href="./configuration-parameters.html">list of carbon properties</a></p>
 <script>
 $(function() {
   // Show selected style on nav item
   $('.b-nav__docs').addClass('selected');
+
   // Display docs subnav items
   if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
     $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');

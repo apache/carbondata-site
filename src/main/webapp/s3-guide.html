@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -211,7 +219,7 @@
                                 <div class="col-sm-12  col-md-12">
                                     <div>
 <h1>
-<a id="s3-guide-alpha-feature-141" class="anchor" href="#s3-guide-alpha-feature-141" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3 Guide (Alpha Feature 1.4.1)</h1>
+<a id="s3-guide" class="anchor" href="#s3-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3 Guide</h1>
 <p>Object storage is the recommended storage format in cloud as it can support storing large data
 files. S3 APIs are widely used for accessing object stores. This can be
 used to store or retrieve data on Amazon cloud, Huawei Cloud(OBS) or on any other object

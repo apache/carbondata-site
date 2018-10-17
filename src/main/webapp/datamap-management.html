@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -294,8 +302,8 @@ If user create MV datamap without specifying <code>WITH DEFERRED REBUILD</code>,
 <h3>
 <a id="automatic-refresh" class="anchor" href="#automatic-refresh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Automatic Refresh</h3>
 <p>When user creates a datamap on the main table without using <code>WITH DEFERRED REBUILD</code> syntax, the datamap will be managed by system automatically.
-For every data load to the main table, system will immediately triger a load to the datamap automatically. These two data loading (to main table and datamap) is executed in a transactional manner, meaning that it will be either both success or neither success.</p>
-<p>The data loading to datamap is incremental based on Segment concept, avoiding a expesive total rebuild.</p>
+For every data load to the main table, system will immediately trigger a load to the datamap automatically. These two data loading (to main table and datamap) is executed in a transactional manner, meaning that it will be either both success or neither success.</p>
+<p>The data loading to datamap is incremental based on Segment concept, avoiding a expensive total rebuild.</p>
 <p>If user perform following command on the main table, system will return failure. (reject the operation)</p>
 <ol>
 <li>Data management command: <code>UPDATE/DELETE/DELETE SEGMENT</code>.</li>
@@ -310,7 +318,7 @@ not, the operation is allowed, otherwise operation will be rejected by throwing 
 <p>We do recommend you to use this management for index datamap.</p>
 <h3>
 <a id="manual-refresh" class="anchor" href="#manual-refresh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Manual Refresh</h3>
-<p>When user creates a datamap specifying maunal refresh semantic, the datamap is created with status <em>disabled</em> and query will NOT use this datamap until user can issue REBUILD DATAMAP command to build the datamap. For every REBUILD DATAMAP command, system will trigger a full rebuild of the datamap. After rebuild is done, system will change datamap status to <em>enabled</em>, so that it can be used in query rewrite.</p>
+<p>When user creates a datamap specifying manual refresh semantic, the datamap is created with status <em>disabled</em> and query will NOT use this datamap until user can issue REBUILD DATAMAP command to build the datamap. For every REBUILD DATAMAP command, system will trigger a full rebuild of the datamap. After rebuild is done, system will change datamap status to <em>enabled</em>, so that it can be used in query rewrite.</p>
 <p>For every new data loading, data update, delete, the related datamap will be made <em>disabled</em>,
 which means that the following queries will not benefit from the datamap before it becomes <em>enabled</em> again.</p>
 <p>If the main table is dropped by user, the related datamap will be dropped immediately.</p>
@@ -336,7 +344,7 @@ Manual refresh on this datamap will has no impact.</li>
 <h3>
 <a id="explain" class="anchor" href="#explain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explain</h3>
 <p>How can user know whether datamap is used in the query?</p>
-<p>User can use EXPLAIN command to know, it will print out something like</p>
+<p>User can set enable.query.statistics = true and use EXPLAIN command to know, it will print out something like</p>
 <pre lang="text"><code>== CarbonData Profiler ==
 Hit mv DataMap: datamap1
 Scan Table: default.datamap1_table

@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -212,7 +220,7 @@
                                     <div>
 <h1>
 <a id="configuring-carbondata" class="anchor" href="#configuring-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring CarbonData</h1>
-<p>This guide explains the configurations that can be used to tune CarbonData to achieve better performance.Most of the properties that control the internal settings have reasonable default values.They are listed along with the properties along with explanation.</p>
+<p>This guide explains the configurations that can be used to tune CarbonData to achieve better performance.Most of the properties that control the internal settings have reasonable default values. They are listed along with the properties along with explanation.</p>
 <ul>
 <li><a href="#system-configuration">System Configuration</a></li>
 <li><a href="#data-loading-configuration">Data Loading Configuration</a></li>
@@ -236,42 +244,42 @@
 <tr>
 <td>carbon.storelocation</td>
 <td>spark.sql.warehouse.dir property value</td>
-<td>Location where CarbonData will create the store, and write the data in its custom format. If not specified,the path defaults to spark.sql.warehouse.dir property. NOTE: Store location should be in HDFS.</td>
+<td>Location where CarbonData will create the store, and write the data in its custom format. If not specified,the path defaults to spark.sql.warehouse.dir property. <strong>NOTE:</strong> Store location should be in HDFS.</td>
 </tr>
 <tr>
 <td>carbon.ddl.base.hdfs.url</td>
 <td>(none)</td>
-<td>To simplify and shorten the path to be specified in DDL/DML commands, this property is supported.This property is used to configure the HDFS relative path, the path configured in carbon.ddl.base.hdfs.url will be appended to the HDFS path configured in fs.defaultFS of core-site.xml. If this path is configured, then user need not pass the complete path while dataload. For example: If absolute path of the csv file is hdfs://10.18.101.155:54310/data/cnbc/2016/xyz.csv, the path "hdfs://10.18.101.155:54310" will come from property fs.defaultFS and user can configure the /data/cnbc/ as carbon.ddl.base.hdfs.url. Now while dataload user can specify the csv path as /2016/xyz.csv.</td>
+<td>To simplify and shorten the path to be specified in DDL/DML commands, this property is supported. This property is used to configure the HDFS relative path, the path configured in carbon.ddl.base.hdfs.url will be appended to the HDFS path configured in fs.defaultFS of core-site.xml. If this path is configured, then user need not pass the complete path while dataload. For example: If absolute path of the csv file is hdfs://10.18.101.155:54310/data/cnbc/2016/xyz.csv, the path "hdfs://10.18.101.155:54310" will come from property fs.defaultFS and user can configure the /data/cnbc/ as carbon.ddl.base.hdfs.url. Now while dataload user can specify the csv path as /2016/xyz.csv.</td>
 </tr>
 <tr>
 <td>carbon.badRecords.location</td>
 <td>(none)</td>
-<td>CarbonData can detect the records not conforming to defined table schema and isolate them as bad records.This property is used to specify where to store such bad records.</td>
+<td>CarbonData can detect the records not conforming to defined table schema and isolate them as bad records. This property is used to specify where to store such bad records.</td>
 </tr>
 <tr>
 <td>carbon.streaming.auto.handoff.enabled</td>
 <td>true</td>
-<td>CarbonData supports storing of streaming data.To have high throughput for streaming, the data is written in Row format which is highly optimized for write, but performs poorly for query.When this property is true and when the streaming data size reaches <em><strong>carbon.streaming.segment.max.size</strong></em>, CabonData will automatically convert the data to columnar format and optimize it for faster querying.<strong>NOTE:</strong> It is not recommended to keep the default value which is true.</td>
+<td>CarbonData supports storing of streaming data. To have high throughput for streaming, the data is written in Row format which is highly optimized for write, but performs poorly for query. When this property is true and when the streaming data size reaches <em><strong>carbon.streaming.segment.max.size</strong></em>, CabonData will automatically convert the data to columnar format and optimize it for faster querying.<strong>NOTE:</strong> It is not recommended to keep the default value which is true.</td>
 </tr>
 <tr>
 <td>carbon.streaming.segment.max.size</td>
 <td>1024000000</td>
-<td>CarbonData writes streaming data in row format which is optimized for high write throughput.This property defines the maximum size of data to be held is row format, beyond which it will be converted to columnar format in order to support high performane query, provided <em><strong>carbon.streaming.auto.handoff.enabled</strong></em> is true. <strong>NOTE:</strong> Setting higher value will impact the streaming ingestion. The value has to be configured in bytes.</td>
+<td>CarbonData writes streaming data in row format which is optimized for high write throughput. This property defines the maximum size of data to be held is row format, beyond which it will be converted to columnar format in order to support high performance query, provided <em><strong>carbon.streaming.auto.handoff.enabled</strong></em> is true. <strong>NOTE:</strong> Setting higher value will impact the streaming ingestion. The value has to be configured in bytes.</td>
 </tr>
 <tr>
 <td>carbon.query.show.datamaps</td>
 <td>true</td>
-<td>CarbonData stores datamaps as independent tables so as to allow independent maintenance to some extent.When this property is true,which is by default, show tables command will list all the tables including datatmaps(eg: Preaggregate table), else datamaps will be excluded from the table list.<strong>NOTE:</strong>  It is generally not required for the user to do any maintenance operations on these tables and hence not required to be seen.But it is shown by default so that user or admin can get clear understanding of the system for capacity planning.</td>
+<td>CarbonData stores datamaps as independent tables so as to allow independent maintenance to some extent. When this property is true,which is by default, show tables command will list all the tables including datatmaps(eg: Preaggregate table), else datamaps will be excluded from the table list.<strong>NOTE:</strong>  It is generally not required for the user to do any maintenance operations on these tables and hence not required to be seen.But it is shown by default so that user or admin can get clear understanding of the system for capacity planning.</td>
 </tr>
 <tr>
 <td>carbon.segment.lock.files.preserve.hours</td>
 <td>48</td>
-<td>In order to support parallel data loading onto the same table, CarbonData sequences(locks) at the granularity of segments.Operations affecting the segment(like IUD, alter) are blocked from parallel operations.This property value indicates the number of hours the segment lock files will be preserved after dataload. These lock files will be deleted with the clean command after the configured number of hours.</td>
+<td>In order to support parallel data loading onto the same table, CarbonData sequences(locks) at the granularity of segments.Operations affecting the segment(like IUD, alter) are blocked from parallel operations. This property value indicates the number of hours the segment lock files will be preserved after dataload. These lock files will be deleted with the clean command after the configured number of hours.</td>
 </tr>
 <tr>
 <td>carbon.timestamp.format</td>
 <td>yyyy-MM-dd HH:mm:ss</td>
-<td>CarbonData can understand data of timestamp type and process it in special manner.It can be so that the format of Timestamp data is different from that understood by CarbonData by default.This configuration allows users to specify the format of Timestamp in their data.</td>
+<td>CarbonData can understand data of timestamp type and process it in special manner.It can be so that the format of Timestamp data is different from that understood by CarbonData by default. This configuration allows users to specify the format of Timestamp in their data.</td>
 </tr>
 <tr>
 <td>carbon.lock.type</td>
@@ -286,27 +294,32 @@
 <tr>
 <td>carbon.unsafe.working.memory.in.mb</td>
 <td>512</td>
-<td>CarbonData supports storing data in off-heap memory for certain operations during data loading and query.This helps to avoid the Java GC and thereby improve the overall performance.The Minimum value recommeded is 512MB.Any value below this is reset to default value of 512MB.<strong>NOTE:</strong> The below formulas explain how to arrive at the off-heap size required.Memory Required For Data Loading:(<em>carbon.number.of.cores.while.loading</em>) * (Number of tables to load in parallel) * (<em>offheap.sort.chunk.size.inmb</em> + <em>carbon.blockletgroup.size.in.mb</em> + <em>carbon.blockletgroup.size.in.mb</em>/3.5 ). Memory required for Query:SPARK_EXECUTOR_INSTANCES * (<em>carbon.blockletgroup.size.in.mb</em> + <em>carbon.blockletgroup.size.in.mb</em> * 3.5) * spark.executor.cores</td>
+<td>CarbonData supports storing data in off-heap memory for certain operations during data loading and query. This helps to avoid the Java GC and thereby improve the overall performance. The Minimum value recommeded is 512MB. Any value below this is reset to default value of 512MB. <strong>NOTE:</strong> The below formulas explain how to arrive at the off-heap size required.Memory Required For Data Loading:(<em>carbon.number.of.cores.while.loading</em>) * (Number of tables to load in parallel) * (<em>offheap.sort.chunk.size.inmb</em> + <em>carbon.blockletgroup.size.in.mb</em> + <em>carbon.blockletgroup.size.in.mb</em>/3.5 ). Memory required for Query:SPARK_EXECUTOR_INSTANCES * (<em>carbon.blockletgroup.size.in.mb</em> + <em>carbon.blockletgroup.size.in.mb</em> * 3.5) * spark.executor.cores</td>
+</tr>
+<tr>
+<td>carbon.unsafe.driver.working.memory.in.mb</td>
+<td>60% of JVM Heap Memory</td>
+<td>CarbonData supports storing data in unsafe on-heap memory in driver for certain operations like insert into, query for loading datamap cache. The Minimum value recommended is 512MB.</td>
 </tr>
 <tr>
 <td>carbon.update.sync.folder</td>
 <td>/tmp/carbondata</td>
-<td>CarbonData maintains last modification time entries in modifiedTime.htmlt to determine the schema changes and reload only when necessary.This configuration specifies the path where the file needs to be written.</td>
+<td>CarbonData maintains last modification time entries in modifiedTime.htmlt to determine the schema changes and reload only when necessary. This configuration specifies the path where the file needs to be written.</td>
 </tr>
 <tr>
 <td>carbon.invisible.segments.preserve.count</td>
 <td>200</td>
-<td>CarbonData maintains each data load entry in tablestatus file. The entries from this file are not deleted for those segments that are compacted or dropped, but are made invisible.If the number of data loads are very high, the size and number of entries in tablestatus file can become too many causing unnecessary reading of all data.This configuration specifies the number of segment entries to be maintained afte they are compacted or dropped.Beyond this, the entries are moved to a separate history tablestatus file.<strong>NOTE:</strong> The entries in tablestatus file help to identify the operations performed on CarbonData table and is also used for checkpointing during various data manupulation operations.This is similar to AUDIT file maintaining all the operations and its status.Hence the entries are never deleted but moved to a separate history file.</td>
+<td>CarbonData maintains each data load entry in tablestatus file. The entries from this file are not deleted for those segments that are compacted or dropped, but are made invisible. If the number of data loads are very high, the size and number of entries in tablestatus file can become too many causing unnecessary reading of all data. This configuration specifies the number of segment entries to be maintained afte they are compacted or dropped.Beyond this, the entries are moved to a separate history tablestatus file. <strong>NOTE:</strong> The entries in tablestatus file help to identify the operations performed on CarbonData table and is also used for checkpointing during various data manupulation operations. This is similar to AUDIT file maintaining all the operations and its status.Hence the entries are never deleted but moved to a separate history file.</td>
 </tr>
 <tr>
 <td>carbon.lock.retries</td>
 <td>3</td>
-<td>CarbonData ensures consistency of operations by blocking certain operations from running in parallel.In order to block the operations from running in parallel, lock is obtained on the table.This configuration specifies the maximum number of retries to obtain the lock for any operations other than load.<strong>NOTE:</strong> Data manupulation operations like Compaction,UPDATE,DELETE  or LOADING,UPDATE,DELETE are not allowed to run in parallel.How ever data loading can happen in parallel to compaction.</td>
+<td>CarbonData ensures consistency of operations by blocking certain operations from running in parallel. In order to block the operations from running in parallel, lock is obtained on the table. This configuration specifies the maximum number of retries to obtain the lock for any operations other than load. <strong>NOTE:</strong> Data manupulation operations like Compaction,UPDATE,DELETE  or LOADING,UPDATE,DELETE are not allowed to run in parallel.How ever data loading can happen in parallel to compaction.</td>
 </tr>
 <tr>
 <td>carbon.lock.retry.timeout.sec</td>
 <td>5</td>
-<td>Specifies the interval between the retries to obtain the lock for any operation other than load.<strong>NOTE:</strong> Refer to <em><strong>carbon.lock.retries</strong></em> for understanding why CarbonData uses locks for operations.</td>
+<td>Specifies the interval between the retries to obtain the lock for any operation other than load. <strong>NOTE:</strong> Refer to <em><strong>carbon.lock.retries</strong></em> for understanding why CarbonData uses locks for operations.</td>
 </tr>
 </tbody>
 </table>
@@ -324,7 +337,7 @@
 <tr>
 <td>carbon.number.of.cores.while.loading</td>
 <td>2</td>
-<td>Number of cores to be used while loading data.This also determines the number of threads to be used to read the input files (csv) in parallel.<strong>NOTE:</strong> This configured value is used in every data loading step to parallelize the operations. Configuring a higher value can lead to increased early thread pre-emption by OS and there by reduce the overall performance.</td>
+<td>Number of cores to be used while loading data. This also determines the number of threads to be used to read the input files (csv) in parallel.<strong>NOTE:</strong> This configured value is used in every data loading step to parallelize the operations. Configuring a higher value can lead to increased early thread pre-emption by OS and there by reduce the overall performance.</td>
 </tr>
 <tr>
 <td>carbon.sort.size</td>
@@ -344,12 +357,12 @@
 <tr>
 <td>carbon.options.bad.records.logger.enable</td>
 <td>false</td>
-<td>CarbonData can identify the records that are not conformant to schema and isolate them as bad records.Enabling this configuration will make CarbonData to log such bad records.<strong>NOTE:</strong> If the input data contains many bad records, logging them will slow down the over all data loading throughput.The data load operation status would depend on the configuration in <em><strong>carbon.bad.records.action</strong></em>.</td>
+<td>CarbonData can identify the records that are not conformant to schema and isolate them as bad records. Enabling this configuration will make CarbonData to log such bad records.<strong>NOTE:</strong> If the input data contains many bad records, logging them will slow down the over all data loading throughput. The data load operation status would depend on the configuration in <em><strong>carbon.bad.records.action</strong></em>.</td>
 </tr>
 <tr>
 <td>carbon.bad.records.action</td>
 <td>FAIL</td>
-<td>CarbonData in addition to identifying the bad records, can take certain actions on such data.This configuration can have four types of actions for bad records namely FORCE, REDIRECT, IGNORE and FAIL. If set to FORCE then it auto-corrects the data by storing the bad records as NULL. If set to REDIRECT then bad records are written to the raw CSV instead of being loaded. If set to IGNORE then bad records are neither loaded nor written to the raw CSV. If set to FAIL then data loading fails if any bad records are found.</td>
+<td>CarbonData in addition to identifying the bad records, can take certain actions on such data. This configuration can have four types of actions for bad records namely FORCE, REDIRECT, IGNORE and FAIL. If set to FORCE then it auto-corrects the data by storing the bad records as NULL. If set to REDIRECT then bad records are written to the raw CSV instead of being loaded. If set to IGNORE then bad records are neither loaded nor written to the raw CSV. If set to FAIL then data loading fails if any bad records are found.</td>
 </tr>
 <tr>
 <td>carbon.options.is.empty.data.bad.record</td>
@@ -364,48 +377,48 @@
 <tr>
 <td>carbon.blockletgroup.size.in.mb</td>
 <td>64</td>
-<td>Please refer to <a href="./file-structure-of-carbondata.html#carbondata-file-format">file-structure-of-carbondata</a> to understand the storage format of CarbonData.The data are read as a group of blocklets which are called blocklet groups. This parameter specifies the size of each blocklet group. Higher value results in better sequential IO access.The minimum value is 16MB, any value lesser than 16MB will reset to the default value (64MB).<strong>NOTE:</strong> Configuring a higher value might lead to poor performance as an entire blocklet group will have to read into memory before processing.For filter queries with limit, it is <strong>not advisable</strong> to have a bigger blocklet size.For Aggregation queries which need to return more number of rows,bigger blocklet size is advisable.</td>
+<td>Please refer to <a href="./file-structure-of-carbondata.html#carbondata-file-format">file-structure-of-carbondata</a> to understand the storage format of CarbonData. The data are read as a group of blocklets which are called blocklet groups. This parameter specifies the size of each blocklet group. Higher value results in better sequential IO access. The minimum value is 16MB, any value lesser than 16MB will reset to the default value (64MB).<strong>NOTE:</strong> Configuring a higher value might lead to poor performance as an entire blocklet group will have to read into memory before processing.For filter queries with limit, it is <strong>not advisable</strong> to have a bigger blocklet size. For Aggregation queries which need to return more number of rows,bigger blocklet size is advisable.</td>
 </tr>
 <tr>
 <td>carbon.sort.file.write.buffer.size</td>
 <td>16384</td>
-<td>CarbonData sorts and writes data to intermediate files to limit the memory usage.This configuration determines the buffer size to be used for reading and writing such files. <strong>NOTE:</strong> This configuration is useful to tune IO and derive optimal performance.Based on the OS and underlying harddisk type, these values can significantly affect the overall performance.It is ideal to tune the buffersize equivalent to the IO buffer size of the OS.Recommended range is between 10240 to 10485760 bytes.</td>
+<td>CarbonData sorts and writes data to intermediate files to limit the memory usage. This configuration determines the buffer size to be used for reading and writing such files. <strong>NOTE:</strong> This configuration is useful to tune IO and derive optimal performance.Based on the OS and underlying harddisk type, these values can significantly affect the overall performance.It is ideal to tune the buffersize equivalent to the IO buffer size of the OS.Recommended range is between 10240 to 10485760 bytes.</td>
 </tr>
 <tr>
 <td>carbon.sort.intermediate.files.limit</td>
 <td>20</td>
-<td>CarbonData sorts and writes data to intermediate files to limit the memory usage.Before writing the target carbondat file, the data in these intermediate files needs to be sorted again so as to ensure the entire data in the data load is sorted.This configuration determines the minimum number of intermediate files after which merged sort is applied on them sort the data.<strong>NOTE:</strong> Intermediate merging happens on a separate thread in the background.Number of threads used is determined by <em><strong>carbon.merge.sort.reader.thread</strong></em>.Configuring a low value will cause more time to be spent in merging these intermediate merged files which can cause more IO.Configuring a high value would cause not to use the idle threads to do intermediate sort merges.Range of recommended values are between 2 and 50</td>
+<td>CarbonData sorts and writes data to intermediate files to limit the memory usage. Before writing the target carbondat file, the data in these intermediate files needs to be sorted again so as to ensure the entire data in the data load is sorted. This configuration determines the minimum number of intermediate files after which merged sort is applied on them sort the data.<strong>NOTE:</strong> Intermediate merging happens on a separate thread in the background.Number of threads used is determined by <em><strong>carbon.merge.sort.reader.thread</strong></em>.Configuring a low value will cause more time to be spent in merging these intermediate merged files which can cause more IO.Configuring a high value would cause not to use the idle threads to do intermediate sort merges.Range of recommended values are between 2 and 50</td>
 </tr>
 <tr>
 <td>carbon.csv.read.buffersize.byte</td>
 <td>1048576</td>
-<td>CarbonData uses Hadoop InputFormat to read the csv files.This configuration value is used to pass buffer size as input for the Hadoop MR job when reading the csv files.This value is configured in bytes.<strong>NOTE:</strong> Refer to <em><strong>org.apache.hadoop.mapreduce.InputFormat</strong></em> documentation for additional information.</td>
+<td>CarbonData uses Hadoop InputFormat to read the csv files. This configuration value is used to pass buffer size as input for the Hadoop MR job when reading the csv files. This value is configured in bytes.<strong>NOTE:</strong> Refer to <em><strong>org.apache.hadoop.mapreduce.InputFormat</strong></em> documentation for additional information.</td>
 </tr>
 <tr>
 <td>carbon.merge.sort.reader.thread</td>
 <td>3</td>
-<td>CarbonData sorts and writes data to intermediate files to limit the memory usage.When the intermediate files reaches <em><strong>carbon.sort.intermediate.files.limit</strong></em> the files will be merged,the number of threads specified in this configuration will be used to read the intermediate files for performing merge sort.<strong>NOTE:</strong> Refer to <em><strong>carbon.sort.intermediate.files.limit</strong></em> for operation description.Configuring less  number of threads can cause merging to slow down over loading process where as configuring more number of threads can cause thread contention with threads in other data loading steps.Hence configure a fraction of <em><strong>carbon.number.of.cores.while.loading</strong></em>.</td>
+<td>CarbonData sorts and writes data to intermediate files to limit the memory usage. When the intermediate files reaches <em><strong>carbon.sort.intermediate.files.limit</strong></em> the files will be merged,the number of threads specified in this configuration will be used to read the intermediate files for performing merge sort.<strong>NOTE:</strong> Refer to <em><strong>carbon.sort.intermediate.files.limit</strong></em> for operation description.Configuring less  number of threads can cause merging to slow down over loading process where as configuring more number of threads can cause thread contention with threads in other data loading steps.Hence configure a fraction of <em><strong>carbon.number.of.cores.while.loading</strong></em>.</td>
 </tr>
 <tr>
 <td>carbon.concurrent.lock.retries</td>
 <td>100</td>
-<td>CarbonData supports concurrent data loading onto same table.To ensure the loading status is correctly updated into the system,locks are used to sequence the status updation step.This configuration specifies the maximum number of retries to obtain the lock for updating the load status.<strong>NOTE:</strong> This value is high as more number of concurrent loading happens,more the chances of not able to obtain the lock when tried.Adjust this value according to the number of concurrent loading to be supported by the system.</td>
+<td>CarbonData supports concurrent data loading onto same table. To ensure the loading status is correctly updated into the system,locks are used to sequence the status updation step. This configuration specifies the maximum number of retries to obtain the lock for updating the load status. <strong>NOTE:</strong> This value is high as more number of concurrent loading happens,more the chances of not able to obtain the lock when tried. Adjust this value according to the number of concurrent loading to be supported by the system.</td>
 </tr>
 <tr>
 <td>carbon.concurrent.lock.retry.timeout.sec</td>
 <td>1</td>
-<td>Specifies the interval between the retries to obtain the lock for concurrent operations.<strong>NOTE:</strong> Refer to <em><strong>carbon.concurrent.lock.retries</strong></em> for understanding why CarbonData uses locks during data loading operations.</td>
+<td>Specifies the interval between the retries to obtain the lock for concurrent operations. <strong>NOTE:</strong> Refer to <em><strong>carbon.concurrent.lock.retries</strong></em> for understanding why CarbonData uses locks during data loading operations.</td>
 </tr>
 <tr>
 <td>carbon.skip.empty.line</td>
 <td>false</td>
-<td>The csv files givent to CarbonData for loading can contain empty lines.Based on the business scenario, this empty line might have to be ignored or needs to be treated as NULL value for all columns.In order to define this business behavior, this configuration is provided.<strong>NOTE:</strong> In order to consider NULL values for non string columns and continue with data load, <em><strong>carbon.bad.records.action</strong></em> need to be set to <strong>FORCE</strong>;else data load will be failed as bad records encountered.</td>
+<td>The csv files givent to CarbonData for loading can contain empty lines. Based on the business scenario, this empty line might have to be ignored or needs to be treated as NULL value for all columns.In order to define this business behavior, this configuration is provided.<strong>NOTE:</strong> In order to consider NULL values for non string columns and continue with data load, <em><strong>carbon.bad.records.action</strong></em> need to be set to <strong>FORCE</strong>;else data load will be failed as bad records encountered.</td>
 </tr>
 <tr>
 <td>carbon.enable.calculate.size</td>
 <td>true</td>
 <td>
-<strong>For Load Operation</strong>: Setting this property calculates the size of the carbon data file (.carbondata) and carbon index file (.carbonindex) for every load and updates the table status file. <strong>For Describe Formatted</strong>: Setting this property calculates the total size of the carbon data files and carbon index files for the respective table and displays in describe formatted command.<strong>NOTE:</strong> This is useful to determine the overall size of the carbondata table and also get an idea of how the table is growing in order to take up other backup strategy decisions.</td>
+<strong>For Load Operation</strong>: Setting this property calculates the size of the carbon data file (.carbondata) and carbon index file (.carbonindex) for every load and updates the table status file. <strong>For Describe Formatted</strong>: Setting this property calculates the total size of the carbon data files and carbon index files for the respective table and displays in describe formatted command. <strong>NOTE:</strong> This is useful to determine the overall size of the carbondata table and also get an idea of how the table is growing in order to take up other backup strategy decisions.</td>
 </tr>
 <tr>
 <td>carbon.cutOffTimestamp</td>
@@ -415,118 +428,128 @@
 <tr>
 <td>carbon.timegranularity</td>
 <td>SECOND</td>
-<td>The configuration is used to specify the data granularity level such as DAY, HOUR, MINUTE, or SECOND.This helps to store more than 68 years of data into CarbonData.</td>
+<td>The configuration is used to specify the data granularity level such as DAY, HOUR, MINUTE, or SECOND. This helps to store more than 68 years of data into CarbonData.</td>
 </tr>
 <tr>
 <td>carbon.use.local.dir</td>
 <td>false</td>
-<td>CarbonData,during data loading, writes files to local temp directories before copying the files to HDFS.This configuration is used to specify whether CarbonData can write locally to tmp directory of the container or to the YARN application directory.</td>
+<td>CarbonData,during data loading, writes files to local temp directories before copying the files to HDFS. This configuration is used to specify whether CarbonData can write locally to tmp directory of the container or to the YARN application directory.</td>
 </tr>
 <tr>
 <td>carbon.use.multiple.temp.dir</td>
 <td>false</td>
-<td>When multiple disks are present in the system, YARN is generally configured with multiple disks to be used as temp directories for managing the containers.This configuration specifies whether to use multiple YARN local directories during data loading for disk IO load balancing.Enable <em><strong>carbon.use.local.dir</strong></em> for this configuration to take effect.<strong>NOTE:</strong> Data Loading is an IO intensive operation whose performance can be limited by the disk IO threshold, particularly during multi table concurrent data load.Configuring this parameter, balances the disk IO across multiple disks there by improving the over all load performance.</td>
+<td>When multiple disks are present in the system, YARN is generally configured with multiple disks to be used as temp directories for managing the containers. This configuration specifies whether to use multiple YARN local directories during data loading for disk IO load balancing.Enable <em><strong>carbon.use.local.dir</strong></em> for this configuration to take effect. <strong>NOTE:</strong> Data Loading is an IO intensive operation whose performance can be limited by the disk IO threshold, particularly during multi table concurrent data load.Configuring this parameter, balances the disk IO across multiple disks there by improving the over all load performance.</td>
 </tr>
 <tr>
 <td>carbon.sort.temp.compressor</td>
 <td>(none)</td>
-<td>CarbonData writes every <em><strong>carbon.sort.size</strong></em> number of records to intermediate temp files during data loading to ensure memory footprint is within limits.These temporary files cab be compressed and written in order to save the storage space.This configuration specifies the name of compressor to be used to compress the intermediate sort temp files during sort procedure in data loading.The valid values are 'SNAPPY','GZIP','BZIP2','LZ4','ZSTD' and empty. By default, empty means that Carbondata will not compress the sort temp files.<strong>NOTE:</strong> Compressor will be useful if you encounter disk bottleneck.Since the data needs to be compressed and decompressed,it involves additional CPU cycles,but is compensated by the high IO throughput due to less data to be written or read from the disks.</td>
+<td>CarbonData writes every <em><strong>carbon.sort.size</strong></em> number of records to intermediate temp files during data loading to ensure memory footprint is within limits. These temporary files can be compressed and written in order to save the storage space. This configuration specifies the name of compressor to be used to compress the intermediate sort temp files during sort procedure in data loading. The valid values are 'SNAPPY','GZIP','BZIP2','LZ4','ZSTD' and empty. By default, empty means that Carbondata will not compress the sort temp files. <strong>NOTE:</strong> Compressor will be useful if you encounter disk bottleneck.Since the data needs to be compressed and decompressed,it involves additional CPU cycles,but is compensated by the high IO throughput due to less data to be written or read from the disks.</td>
 </tr>
 <tr>
 <td>carbon.load.skewedDataOptimization.enabled</td>
 <td>false</td>
-<td>During data loading,CarbonData would divide the number of blocks equally so as to ensure all executors process same number of blocks.This mechanism satisfies most of the scenarios and ensures maximum parallel processing for optimal data loading performance.In some business scenarios, there might be scenarios where the size of blocks vary significantly and hence some executors would have to do more work if they get blocks containing more data. This configuration enables size based block allocation strategy for data loading.When loading, carbondata will use file size based block allocation strategy for task distribution. It will make sure that all the executors process the same size of data.<strong>NOTE:</strong> This configuration is useful if the size of your input data files varies widely, say 1MB~1GB.For this configuration to work effectively,knowing the data pattern and size is important and necessary.</td>
+<td>During data loading,CarbonData would divide the number of blocks equally so as to ensure all executors process same number of blocks. This mechanism satisfies most of the scenarios and ensures maximum parallel processing for optimal data loading performance.In some business scenarios, there might be scenarios where the size of blocks vary significantly and hence some executors would have to do more work if they get blocks containing more data. This configuration enables size based block allocation strategy for data loading. When loading, carbondata will use file size based block allocation strategy for task distribution. It will make sure that all the executors process the same size of data.<strong>NOTE:</strong> This configuration is useful if the size of your input data files varies widely, say 1MB to 1GB.For this configuration to work effectively,knowing the data pattern and size is important and necessary.</td>
 </tr>
 <tr>
 <td>carbon.load.min.size.enabled</td>
 <td>false</td>
-<td>During Data Loading, CarbonData would divide the number of files among the available executors to parallelize the loading operation.When the input data files are very small, this action causes to generate many small carbondata files.This configuration determines whether to enable node minumun input data size allocation strategy for data loading.It will make sure that the node load the minimum amount of data there by reducing number of carbondata files.<strong>NOTE:</strong> This configuration is useful if the size of the input data files are very small, like 1MB~256MB.Refer to <em><strong>load_min_size_inmb</strong></em> to configure the minimum size to be considered for splitting files among executors.</td>
+<td>During Data Loading, CarbonData would divide the number of files among the available executors to parallelize the loading operation. When the input data files are very small, this action causes to generate many small carbondata files. This configuration determines whether to enable node minumun input data size allocation strategy for data loading.It will make sure that the node load the minimum amount of data there by reducing number of carbondata files.<strong>NOTE:</strong> This configuration is useful if the size of the input data files are very small, like 1MB to 256MB.Refer to <em><strong>load_min_size_inmb</strong></em> to configure the minimum size to be considered for splitting files among executors.</td>
 </tr>
 <tr>
 <td>enable.data.loading.statistics</td>
 <td>false</td>
-<td>CarbonData has extensive logging which would be useful for debugging issues related to performance or hard to locate issues.This configuration when made <em><strong>true</strong></em> would log additional data loading statistics information to more accurately locate the issues being debugged.<strong>NOTE:</strong> Enabling this would log more debug information to log files, there by increasing the log files size significantly in short span of time.It is advised to configure the log files size, retention of log files parameters in log4j properties appropriately.Also extensive logging is an increased IO operation and hence over all data loading performance might get reduced.Therefore it is recommened to enable this configuration only for the duration of debugging.</td>
+<td>CarbonData has extensive logging which would be useful for debugging issues related to performance or hard to locate issues. This configuration when made <em><strong>true</strong></em> would log additional data loading statistics information to more accurately locate the issues being debugged. <strong>NOTE:</strong> Enabling this would log more debug information to log files, there by increasing the log files size significantly in short span of time.It is advised to configure the log files size, retention of log files parameters in log4j properties appropriately. Also extensive logging is an increased IO operation and hence over all data loading performance might get reduced. Therefore it is recommended to enable this configuration only for the duration of debugging.</td>
 </tr>
 <tr>
 <td>carbon.dictionary.chunk.size</td>
 <td>10000</td>
-<td>CarbonData generates dictionary keys and writes them to separate dictionary file during data loading.To optimize the IO, this configuration determines the number of dictionary keys to be persisted to dictionary file at a time.<strong>NOTE:</strong> Writing to file also serves as a commit point to the dictionary generated.Increasing more values in memory causes more data loss during system or application failure.It is advised to alter this configuration judiciously.</td>
+<td>CarbonData generates dictionary keys and writes them to separate dictionary file during data loading. To optimize the IO, this configuration determines the number of dictionary keys to be persisted to dictionary file at a time. <strong>NOTE:</strong> Writing to file also serves as a commit point to the dictionary generated.Increasing more values in memory causes more data loss during system or application failure.It is advised to alter this configuration judiciously.</td>
 </tr>
 <tr>
 <td>dictionary.worker.threads</td>
 <td>1</td>
-<td>CarbonData supports Optimized data loading by relying on a dictionary server.Dictionary server helps  to maintain dictionary values independent of the data loading and there by avoids reading the same input data multiples times.This configuration determines the number of concurrent dictionary generation or request that needs to be served by the dictionary server.<strong>NOTE:</strong> This configuration takes effect when <em><strong>carbon.options.single.pass</strong></em> is configured as true.Please refer to <em>carbon.options.single.pass</em>to understand how dictionary server optimizes data loading.</td>
+<td>CarbonData supports Optimized data loading by relying on a dictionary server. Dictionary server helps to maintain dictionary values independent of the data loading and there by avoids reading the same input data multiples times. This configuration determines the number of concurrent dictionary generation or request that needs to be served by the dictionary server. <strong>NOTE:</strong> This configuration takes effect when <em><strong>carbon.options.single.pass</strong></em> is configured as true.Please refer to <em>carbon.options.single.pass</em>to understand how dictionary server optimizes data loading.</td>
 </tr>
 <tr>
 <td>enable.unsafe.sort</td>
 <td>true</td>
-<td>CarbonData supports unsafe operations of Java to avoid GC overhead for certain operations.This configuration enables to use unsafe functions in CarbonData.<strong>NOTE:</strong> For operations like data loading, which generates more short lived Java objects, Java GC can be a bottle neck.Using unsafe can overcome the GC overhead and improve the overall performance.</td>
+<td>CarbonData supports unsafe operations of Java to avoid GC overhead for certain operations. This configuration enables to use unsafe functions in CarbonData. <strong>NOTE:</strong> For operations like data loading, which generates more short lived Java objects, Java GC can be a bottle neck. Using unsafe can overcome the GC overhead and improve the overall performance.</td>
 </tr>
 <tr>
 <td>enable.offheap.sort</td>
 <td>true</td>
-<td>CarbonData supports storing data in off-heap memory for certain operations during data loading and query.This helps to avoid the Java GC and thereby improve the overall performance.This configuration enables using off-heap memory for sorting of data during data loading.<strong>NOTE:</strong>  <em><strong>enable.unsafe.sort</strong></em> configuration needs to be configured to true for using off-heap</td>
+<td>CarbonData supports storing data in off-heap memory for certain operations during data loading and query. This helps to avoid the Java GC and thereby improve the overall performance. This configuration enables using off-heap memory for sorting of data during data loading.<strong>NOTE:</strong>  <em><strong>enable.unsafe.sort</strong></em> configuration needs to be configured to true for using off-heap</td>
 </tr>
 <tr>
 <td>enable.inmemory.merge.sort</td>
 <td>false</td>
-<td>CarbonData sorts and writes data to intermediate files to limit the memory usage.These intermediate files needs to be sorted again using merge sort before writing to the final carbondata file.Performing merge sort in memory would increase the sorting performance at the cost of increased memory footprint. This Configuration specifies to do in-memory merge sort or to do file based merge sort.</td>
+<td>CarbonData sorts and writes data to intermediate files to limit the memory usage. These intermediate files needs to be sorted again using merge sort before writing to the final carbondata file.Performing merge sort in memory would increase the sorting performance at the cost of increased memory footprint. This Configuration specifies to do in-memory merge sort or to do file based merge sort.</td>
 </tr>
 <tr>
 <td>carbon.load.sort.scope</td>
 <td>LOCAL_SORT</td>
-<td>CarbonData can support various sorting options to match the balance between load and query performance.LOCAL_SORT:All the data given to an executor in the single load is fully sorted and written to carondata files.Data loading performance is reduced a little as the entire data needs to be sorted in the executor.BATCH_SORT:Sorts the data in batches of configured size and writes to carbondata files.Data loading performance increases as the entire data need not be sorted.But query performance will get reduced due to false positives in block pruning and also due to more number of carbondata files written.Due to more number of carbondata files, if identified blocks &gt; cluster parallelism, query performance and concurrency will get reduced.GLOBAL SORT:Entire data in the data load is fully sorted and written to carbondata files.Data loading perfromance would get reduced as the entire data needs to be sorted.But the query performance increases significantly due to very less false positives and concurrency is also improved.<strong>NOTE:</strong> when BATCH_SORTis configured, it is recommended to keep <em><strong>carbon.load.batch.sort.size.inmb</strong></em> &gt; <em><strong>carbon.blockletgroup.size.in.mb</strong></em>
+<td>CarbonData can support various sorting options to match the balance between load and query performance. LOCAL_SORT:All the data given to an executor in the single load is fully sorted and written to carbondata files. Data loading performance is reduced a little as the entire data needs to be sorted in the executor. BATCH_SORT:Sorts the data in batches of configured size and writes to carbondata files. Data loading performance increases as the entire data need not be sorted.But query performance will get reduced due to false positives in block pruning and also due to more number of carbondata files written.Due to more number of carbondata files, if identified blocks &gt; cluster parallelism, query performance and concurrency will get reduced.GLOBAL SORT:Entire data in the data load is fully sorted and written to carbondata files. Data loading performance would get reduced as the entire data needs to be sorted.But the query performance increases significantly due to very less false positives and concurrency is also improved. <strong>NOTE:</strong> when BATCH_SORT is configured, it is recommended to keep <em><strong>carbon.load.batch.sort.size.inmb</strong></em> &gt; <em><strong>carbon.blockletgroup.size.in.mb</strong></em>
 </td>
 </tr>
 <tr>
 <td>carbon.load.batch.sort.size.inmb</td>
 <td>0</td>
-<td>When  <em><strong>carbon.load.sort.scope</strong></em> is configured as <em><strong>BATCH_SORT</strong></em>,This configuration needs to be added to specify the batch size for sorting and writing to carbondata files.<strong>NOTE:</strong> It is recommended to keep the value around 45% of <em><strong>carbon.sort.storage.inmemory.size.inmb</strong></em> to avoid spill to disk.Also it is recommended to keep the value higher than <em><strong>carbon.blockletgroup.size.in.mb</strong></em>. Refer to <em>carbon.load.sort.scope</em> for more information on sort options and the advantages/disadvantges of each option.</td>
+<td>When  <em><strong>carbon.load.sort.scope</strong></em> is configured as <em><strong>BATCH_SORT</strong></em>, this configuration needs to be added to specify the batch size for sorting and writing to carbondata files. <strong>NOTE:</strong> It is recommended to keep the value around 45% of <em><strong>carbon.sort.storage.inmemory.size.inmb</strong></em> to avoid spill to disk. Also it is recommended to keep the value higher than <em><strong>carbon.blockletgroup.size.in.mb</strong></em>. Refer to <em>carbon.load.sort.scope</em> for more information on sort options and the advantages/disadvantages of each option.</td>
 </tr>
 <tr>
 <td>carbon.dictionary.server.port</td>
 <td>2030</td>
-<td>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.Single pass loading can be enabled using the option <em><strong>carbon.options.single.pass</strong></em>.When this option is specified, a dictionary server will be internally started to handle the dictionary generation and query requests.This configuration specifies the port on which the server need to listen for incoming requests.Port value ranges between 0-65535</td>
+<td>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.Single pass loading can be enabled using the option <em><strong>carbon.options.single.pass</strong></em>. When this option is specified, a dictionary server will be internally started to handle the dictionary generation and query requests. This configuration specifies the port on which the server need to listen for incoming requests.Port value ranges between 0-65535</td>
 </tr>
 <tr>
 <td>carbon.merge.sort.prefetch</td>
 <td>true</td>
-<td>CarbonData writes every <em><strong>carbon.sort.size</strong></em> number of records to intermediate temp files during data loading to ensure memory footprint is within limits.These intermediate temp files will have to be sorted using merge sort before writing into CarbonData format.This configuration enables pre fetching of data from these temp files in order to optimize IO and speed up data loading process.</td>
+<td>CarbonData writes every <em><strong>carbon.sort.size</strong></em> number of records to intermediate temp files during data loading to ensure memory footprint is within limits. These intermediate temp files will have to be sorted using merge sort before writing into CarbonData format. This configuration enables pre fetching of data from these temp files in order to optimize IO and speed up data loading process.</td>
 </tr>
 <tr>
 <td>carbon.loading.prefetch</td>
 <td>false</td>
-<td>CarbonData uses univocity parser to read csv files.This configuration is used to inform the parser whether it can prefetch the data from csv files to speed up the reading.<strong>NOTE:</strong> Enabling prefetch improves the data loading performance, but needs higher memory to keep more records which are read ahead from disk.</td>
+<td>CarbonData uses univocity parser to read csv files. This configuration is used to inform the parser whether it can prefetch the data from csv files to speed up the reading.<strong>NOTE:</strong> Enabling prefetch improves the data loading performance, but needs higher memory to keep more records which are read ahead from disk.</td>
 </tr>
 <tr>
 <td>carbon.prefetch.buffersize</td>
 <td>1000</td>
-<td>When the configuration <em><strong>carbon.merge.sort.prefetch</strong></em> is configured to true, we need to set the number of records that can be prefetched.This configuration is used specify the number of records to be prefetched.**NOTE: **Configuring more number of records to be prefetched increases memory footprint as more records will have to be kept in memory.</td>
+<td>When the configuration <em><strong>carbon.merge.sort.prefetch</strong></em> is configured to true, we need to set the number of records that can be prefetched. This configuration is used specify the number of records to be prefetched.**NOTE: **Configuring more number of records to be prefetched increases memory footprint as more records will have to be kept in memory.</td>
 </tr>
 <tr>
 <td>load_min_size_inmb</td>
 <td>256</td>
-<td>This configuration is used along with <em><strong>carbon.load.min.size.enabled</strong></em>.This determines the minimum size of input files to be considered for distribution among executors while data loading.<strong>NOTE:</strong> Refer to <em><strong>carbon.load.min.size.enabled</strong></em> for understanding when this configuration needs to be used and its advantages and disadvantages.</td>
+<td>This configuration is used along with <em><strong>carbon.load.min.size.enabled</strong></em>. This determines the minimum size of input files to be considered for distribution among executors while data loading.<strong>NOTE:</strong> Refer to <em><strong>carbon.load.min.size.enabled</strong></em> for understanding when this configuration needs to be used and its advantages and disadvantages.</td>
 </tr>
 <tr>
 <td>carbon.load.sortmemory.spill.percentage</td>
 <td>0</td>
-<td>During data loading, some data pages are kept in memory upto memory configured in <em><strong>carbon.sort.storage.inmemory.size.inmb</strong></em> beyond which they are spilled to disk as intermediate temporary sort files.This configuration determines after what percentage data needs to be spilled to disk.<strong>NOTE:</strong> Without this configuration, when the data pages occupy upto configured memory, new data pages would be dumped to disk and old pages are still maintained in disk.</td>
+<td>During data loading, some data pages are kept in memory upto memory configured in <em><strong>carbon.sort.storage.inmemory.size.inmb</strong></em> beyond which they are spilled to disk as intermediate temporary sort files. This configuration determines after what percentage data needs to be spilled to disk. <strong>NOTE:</strong> Without this configuration, when the data pages occupy upto configured memory, new data pages would be dumped to disk and old pages are still maintained in disk.</td>
 </tr>
 <tr>
-<td>carbon.load.directWriteHdfs.enabled</td>
+<td>carbon.load.directWriteToStorePath.enabled</td>
 <td>false</td>
-<td>During data load all the carbondata files are written to local disk and finally copied to the target location in HDFS.Enabling this parameter will make carrbondata files to be written directly onto target HDFS location bypassing the local disk.<strong>NOTE:</strong> Writing directly to HDFS saves local disk IO(once for writing the files and again for copying to HDFS) there by improving the performance.But the drawback is when data loading fails or the application crashes, unwanted carbondata files will remain in the target HDFS location until it is cleared during next data load or by running <em>CLEAN FILES</em> DDL command</td>
+<td>During data load, all the carbondata files are written to local disk and finally copied to the target store location in HDFS/S3. Enabling this parameter will make carbondata files to be written directly onto target HDFS/S3 location bypassing the local disk.<strong>NOTE:</strong> Writing directly to HDFS/S3 saves local disk IO(once for writing the files and again for copying to HDFS/S3) there by improving the performance. But the drawback is when data loading fails or the application crashes, unwanted carbondata files will remain in the target HDFS/S3 location until it is cleared during next data load or by running <em>CLEAN FILES</em> DDL command</td>
 </tr>
 <tr>
 <td>carbon.options.serialization.null.format</td>
 <td>\N</td>
-<td>Based on the business scenarios, some columns might need to be loaded with null values.As null value cannot be written in csv files, some special characters might be adopted to specify null values.This configuration can be used to specify the null values format in the data being loaded.</td>
+<td>Based on the business scenarios, some columns might need to be loaded with null values. As null value cannot be written in csv files, some special characters might be adopted to specify null values. This configuration can be used to specify the null values format in the data being loaded.</td>
 </tr>
 <tr>
 <td>carbon.sort.storage.inmemory.size.inmb</td>
 <td>512</td>
-<td>CarbonData writes every <em><strong>carbon.sort.size</strong></em> number of records to intermediate temp files during data loading to ensure memory footprint is within limits.When <em><strong>enable.unsafe.sort</strong></em> configuration is enabled, instead of using <em><strong>carbon.sort.size</strong></em> which is based on rows count, size occupied in memory is used to determine when to flush data pages to intermediate temp files.This configuration determines the memory to be used for storing data pages in memory.<strong>NOTE:</strong> Configuring a higher values ensures more data is maintained in memory and hence increases data loading performance due to reduced or no IO.Based on the memory availability in the nodes of the cluster, configure the values accordingly.</td>
+<td>CarbonData writes every <em><strong>carbon.sort.size</strong></em> number of records to intermediate temp files during data loading to ensure memory footprint is within limits. When <em><strong>enable.unsafe.sort</strong></em> configuration is enabled, instead of using <em><strong>carbon.sort.size</strong></em> which is based on rows count, size occupied in memory is used to determine when to flush data pages to intermediate temp files. This configuration determines the memory to be used for storing data pages in memory. <strong>NOTE:</strong> Configuring a higher value ensures more data is maintained in memory and hence increases data loading performance due to reduced or no IO.Based on the memory availability in the nodes of the cluster, configure the values accordingly.</td>
+</tr>
+<tr>
+<td>carbon.column.compressor</td>
+<td>snappy</td>
+<td>CarbonData will compress the column values using the compressor specified by this configuration. Currently CarbonData supports 'snappy' and 'zstd' compressors.</td>
+</tr>
+<tr>
+<td>carbon.minmax.allowed.byte.count</td>
+<td>200</td>
+<td>CarbonData will write the min max values for string/varchar types column using the byte count specified by this configuration. Max value is 1000 bytes(500 characters) and Min value is 10 bytes(5 characters). <strong>NOTE:</strong> This property is useful for reducing the store size thereby improving the query performance but can lead to query degradation if value is not configured properly.</td>
 </tr>
 </tbody>
 </table>
@@ -544,22 +567,22 @@
 <tr>
 <td>carbon.number.of.cores.while.compacting</td>
 <td>2</td>
-<td>Number of cores to be used while compacting data.This also determines the number of threads to be used to read carbondata files in parallel.</td>
+<td>Number of cores to be used while compacting data. This also determines the number of threads to be used to read carbondata files in parallel.</td>
 </tr>
 <tr>
 <td>carbon.compaction.level.threshold</td>
 <td>4, 3</td>
-<td>Each CarbonData load will create one segment, if every load is small in size it will generate many small file over a period of time impacting the query performance.This configuration is for minor compaction which decides how many segments to be merged. Configuration is of the form (x,y). Compaction will be triggered for every x segments and form a single level 1 compacted segment.When the number of compacted level 1 segments reach y, compaction will be triggered again to merge them to form a single level 2 segment. For example: If it is set as 2, 3 then minor compaction will be triggered for every 2 segments. 3 is the number of level 1 compacted segments which is further compacted to new segment.<strong>NOTE:</strong> When <em><strong>carbon.enable.auto.load.merge</strong></em> is <strong>true</strong>, Configuring higher values cause overall data loading time to increase as compaction will be triggered after data loading is complete but status is not returned till compaction is complete. But compacting more number of segments can increase query performance.Hence optimal values needs to be configured based on the business scenario.Valid values are bwteen 0 to 100.</td>
+<td>Each CarbonData load will create one segment, if every load is small in size it will generate many small file over a period of time impacting the query performance. This configuration is for minor compaction which decides how many segments to be merged. Configuration is of the form (x,y). Compaction will be triggered for every x segments and form a single level 1 compacted segment. When the number of compacted level 1 segments reach y, compaction will be triggered again to merge them to form a single level 2 segment. For example: If it is set as 2, 3 then minor compaction will be triggered for every 2 segments. 3 is the number of level 1 compacted segments which is further compacted to new segment.<strong>NOTE:</strong> When <em><strong>carbon.enable.auto.load.merge</strong></em> is <strong>true</strong>, configuring higher values cause overall data loading time to increase as compaction will be triggered after data loading is complete but status is not returned till compaction is complete. But compacting more number of segments can increase query performance.Hence optimal values needs to be configured based on the business scenario. Valid values are between 0 to 100.</td>
 </tr>
 <tr>
 <td>carbon.major.compaction.size</td>
 <td>1024</td>
-<td>To improve query performance and All the segments can be merged and compacted to a single segment upto configured size.This Major compaction size can be configured using this parameter. Sum of the segments which is below this threshold will be merged. This value is expressed in MB.</td>
+<td>To improve query performance and all the segments can be merged and compacted to a single segment upto configured size. This Major compaction size can be configured using this parameter. Sum of the segments which is below this threshold will be merged. This value is expressed in MB.</td>
 </tr>
 <tr>
 <td>carbon.horizontal.compaction.enable</td>
 <td>true</td>
-<td>CarbonData supports DELETE/UPDATE functionality by creating delta data files for existing carbondata files.These delta files would grow as more number of DELETE/UPDATE operations are performed.Compaction of these delta files are termed as horizontal compaction.This configuration is used to turn ON/OFF horizontal compaction. After every DELETE and UPDATE statement, horizontal compaction may occur in case the delta (DELETE/ UPDATE) files becomes more than specified threshold.**NOTE: **Having many delta files will reduce the query performance as scan has to happen on all these files before the final state of data can be decided.Hence it is advisable to keep horizontal compaction enabled and configure reasonable values to <em><strong>carbon.horizontal.UPDATE.compaction.threshold</strong></em> and <em><strong>carbon.horizontal.DELETE.compaction.threshold</strong></em>
+<td>CarbonData supports DELETE/UPDATE functionality by creating delta data files for existing carbondata files. These delta files would grow as more number of DELETE/UPDATE operations are performed.Compaction of these delta files are termed as horizontal compaction. This configuration is used to turn ON/OFF horizontal compaction. After every DELETE and UPDATE statement, horizontal compaction may occur in case the delta (DELETE/ UPDATE) files becomes more than specified threshold.**NOTE: **Having many delta files will reduce the query performance as scan has to happen on all these files before the final state of data can be decided.Hence it is advisable to keep horizontal compaction enabled and configure reasonable values to <em><strong>carbon.horizontal.UPDATE.compaction.threshold</strong></em> and <em><strong>carbon.horizontal.DELETE.compaction.threshold</strong></em>
 </td>
 </tr>
 <tr>
@@ -575,7 +598,7 @@
 <tr>
 <td>carbon.update.segment.parallelism</td>
 <td>1</td>
-<td>CarbonData processes the UPDATE operations by grouping records belonging to a segment into a single executor task.When the amount of data to be updated is more, this behavior causes problems like restarting of executor due to low memory and data-spill related errors.This property specifies the parallelism for each segment during update.<strong>NOTE:</strong> It is recommended to set this value to a multiple of the number of executors for balance.Values range between 1 to 1000.</td>
+<td>CarbonData processes the UPDATE operations by grouping records belonging to a segment into a single executor task. When the amount of data to be updated is more, this behavior causes problems like restarting of executor due to low memory and data-spill related errors. This property specifies the parallelism for each segment during update.<strong>NOTE:</strong> It is recommended to set this value to a multiple of the number of executors for balance.Values range between 1 to 1000.</td>
 </tr>
 <tr>
 <td>carbon.numberof.preserve.segments</td>
@@ -585,32 +608,32 @@
 <tr>
 <td>carbon.allowed.compaction.days</td>
 <td>0</td>
-<td>This configuration is used to control on the number of recent segments that needs to be compacted, ignoring the older ones.This congifuration is in days.For Example: If the configuration is 2, then the segments which are loaded in the time frame of past 2 days only will get merged. Segments which are loaded earlier than 2 days will not be merged. This configuration is disabled by default.<strong>NOTE:</strong> This configuration is useful when a bulk of history data is loaded into the carbondata.Query on this data is less frequent.In such cases involving these segments also into compacation will affect the resource consumption, increases overall compaction time.</td>
+<td>This configuration is used to control on the number of recent segments that needs to be compacted, ignoring the older ones. This configuration is in days.For Example: If the configuration is 2, then the segments which are loaded in the time frame of past 2 days only will get merged. Segments which are loaded earlier than 2 days will not be merged. This configuration is disabled by default.<strong>NOTE:</strong> This configuration is useful when a bulk of history data is loaded into the carbondata.Query on this data is less frequent.In such cases involving these segments also into compaction will affect the resource consumption, increases overall compaction time.</td>
 </tr>
 <tr>
 <td>carbon.enable.auto.load.merge</td>
 <td>false</td>
-<td>Compaction can be automatically triggered once data load completes.This ensures that the segments are merged in time and thus query times doesnt increase with increase in segments.This configuration enables to do compaction along with data loading.**NOTE: **Compaction will be triggered once the data load completes.But the status of data load wait till the compaction is completed.Hence it might look like data loading time has increased, but thats not the case.Moreover failure of compaction will not affect the data loading status.If data load had completed successfully, the status would be updated and segments are committed.However, failure while data loading, will not trigger compaction and error is returned immediately.</td>
+<td>Compaction can be automatically triggered once data load completes. This ensures that the segments are merged in time and thus query times does not increase with increase in segments. This configuration enables to do compaction along with data loading.**NOTE: **Compaction will be triggered once the data load completes.But the status of data load wait till the compaction is completed.Hence it might look like data loading time has increased, but thats not the case.Moreover failure of compaction will not affect the data loading status.If data load had completed successfully, the status would be updated and segments are committed.However, failure while data loading, will not trigger compaction and error is returned immediately.</td>
 </tr>
 <tr>
 <td>carbon.enable.page.level.reader.in.compaction</td>
 <td>true</td>
-<td>Enabling page level reader for compaction reduces the memory usage while compacting more number of segments. It allows reading only page by page instead of reading whole blocklet to memory.<strong>NOTE:</strong> Please refer to <a href="./file-structure-of-carbondata.html#carbondata-file-format">file-structure-of-carbondata</a> to understand the storage format of CarbonData and concepts of pages.</td>
+<td>Enabling page level reader for compaction reduces the memory usage while compacting more number of segments. It allows reading only page by page instead of reading whole blocklet to memory. <strong>NOTE:</strong> Please refer to <a href="./file-structure-of-carbondata.html#carbondata-file-format">file-structure-of-carbondata</a> to understand the storage format of CarbonData and concepts of pages.</td>
 </tr>
 <tr>
 <td>carbon.concurrent.compaction</td>
 <td>true</td>
-<td>Compaction of different tables can be executed concurrently.This configuration determines whether to compact all qualifying tables in parallel or not.**NOTE: **Compacting concurrently is a resource demanding operation and needs more resouces there by affecting the query performance also.This configuration is <strong>deprecated</strong> and might be removed in future releases.</td>
+<td>Compaction of different tables can be executed concurrently. This configuration determines whether to compact all qualifying tables in parallel or not. **NOTE: **Compacting concurrently is a resource demanding operation and needs more resources there by affecting the query performance also. This configuration is <strong>deprecated</strong> and might be removed in future releases.</td>
 </tr>
 <tr>
 <td>carbon.compaction.prefetch.enable</td>
 <td>false</td>
-<td>Compaction operation is similar to Query + data load where in data from qualifying segments are queried and data loading performed to generate a new single segment.This configuration determines whether to query ahead data from segments and feed it for data loading.**NOTE: **This configuration is disabled by default as it needs extra resources for querying ahead extra data.Based on the memory availability on the cluster, user can enable it to improve compaction performance.</td>
+<td>Compaction operation is similar to Query + data load where in data from qualifying segments are queried and data loading performed to generate a new single segment. This configuration determines whether to query ahead data from segments and feed it for data loading. **NOTE: **This configuration is disabled by default as it needs extra resources for querying extra data.Based on the memory availability on the cluster, user can enable it to improve compaction performance.</td>
 </tr>
 <tr>
 <td>carbon.merge.index.in.segment</td>
 <td>true</td>
-<td>Each CarbonData file has a companion CarbonIndex file which maintains the metadata about the data.These CarbonIndex files are read and loaded into driver and is used subsequently for pruning of data during queries.These CarbonIndex files are very small in size(few KB) and are many.Reading many small files from HDFS is not efficient and leads to slow IO performance.Hence these CarbonIndex files belonging to a segment can be combined into  a single file and read once there by increasing the IO throughput.This configuration enables to merge all the CarbonIndex files into a single MergeIndex file upon data loading completion.<strong>NOTE:</strong> Reading a single big file is more efficient in HDFS and IO throughput is very high.Due to this the time needed to load the index files into memory when query is received for the first time on that table is significantly reduced and there by significantly reduces the delay in serving the first query.</td>
+<td>Each CarbonData file has a companion CarbonIndex file which maintains the metadata about the data. These CarbonIndex files are read and loaded into driver and is used subsequently for pruning of data during queries. These CarbonIndex files are very small in size(few KB) and are many.Reading many small files from HDFS is not efficient and leads to slow IO performance.Hence these CarbonIndex files belonging to a segment can be combined into  a single file and read once there by increasing the IO throughput. This configuration enables to merge all the CarbonIndex files into a single MergeIndex file upon data loading completion.<strong>NOTE:</strong> Reading a single big file is more efficient in HDFS and IO throughput is very high.Due to this the time needed to load the index files into memory when query is received for the first time on that table is significantly reduced and there by significantly reduces the delay in serving the first query.</td>
 </tr>
 </tbody>
 </table>
@@ -628,12 +651,12 @@
 <tr>
 <td>carbon.max.driver.lru.cache.size</td>
 <td>-1</td>
-<td>Maximum memory <strong>(in MB)</strong> upto which the driver process can cache the data (BTree and dictionary values). Beyond this, least recently used data will be removed from cache before loading new set of values.Default value of -1 means there is no memory limit for caching. Only integer values greater than 0 are accepted.<strong>NOTE:</strong> Minimum number of entries that needs to be removed from cache in order to load the new set of data is determined and unloaded.ie.,for example if 3 cache entries qualify for pre-emption, out of these, those entries that free up more cache memory is removed prior to others.</td>
+<td>Maximum memory <strong>(in MB)</strong> upto which the driver process can cache the data (BTree and dictionary values). Beyond this, least recently used data will be removed from cache before loading new set of values.Default value of -1 means there is no memory limit for caching. Only integer values greater than 0 are accepted. <strong>NOTE:</strong> Minimum number of entries that needs to be removed from cache in order to load the new set of data is determined and unloaded.ie.,for example if 3 cache entries qualify for pre-emption, out of these, those entries that free up more cache memory is removed prior to others. Please refer <a href="./faq.html#how-to-check-lru-cache-memory-footprint">FAQs</a> for checking LRU cache memory footprint.</td>
 </tr>
 <tr>
 <td>carbon.max.executor.lru.cache.size</td>
 <td>-1</td>
-<td>Maximum memory <strong>(in MB)</strong> upto which the executor process can cache the data (BTree and reverse dictionary values).Default value of -1 means there is no memory limit for caching. Only integer values greater than 0 are accepted.<strong>NOTE:</strong> If this parameter is not configured, then the value of <em><strong>carbon.max.driver.lru.cache.size</strong></em> will be used.</td>
+<td>Maximum memory <strong>(in MB)</strong> upto which the executor process can cache the data (BTree and reverse dictionary values).Default value of -1 means there is no memory limit for caching. Only integer values greater than 0 are accepted. <strong>NOTE:</strong> If this parameter is not configured, then the value of <em><strong>carbon.max.driver.lru.cache.size</strong></em> will be used.</td>
 </tr>
 <tr>
 <td>max.query.execution.time</td>
@@ -643,17 +666,17 @@
 <tr>
 <td>carbon.enableMinMax</td>
 <td>true</td>
-<td>CarbonData maintains the metadata which enables to prune unnecessary files from being scanned as per the query conditions.To achieve pruning, Min,Max of each column is maintined.Based on the filter condition in the query, certain data can be skipped from scanning by matching the filter value against the min,max values of the column(s) present in that carbondata file.This pruing enhances query performance significantly.</td>
+<td>CarbonData maintains the metadata which enables to prune unnecessary files from being scanned as per the query conditions. To achieve pruning, Min,Max of each column is maintined.Based on the filter condition in the query, certain data can be skipped from scanning by matching the filter value against the min,max values of the column(s) present in that carbondata file. This pruning enhances query performance significantly.</td>
 </tr>
 <tr>
 <td>carbon.dynamicallocation.schedulertimeout</td>
 <td>5</td>
-<td>CarbonData has its own scheduling algorithm to suggest to Spark on how many tasks needs to be launched and how much work each task need to do in a Spark cluster for any query on CarbonData.To determine the number of tasks that can be scheduled, knowing the count of active executors is necessary.When dynamic allocation is enabled on a YARN based spark cluster,execuor processes are shutdown if no request is received for a particular amount of time.The executors are brought up when the requet is received again.This configuration specifies the maximum time (unit in seconds) the carbon scheduler can wait for executor to be active. Minimum value is 5 sec and maximum value is 15 sec.**NOTE: **Waiting for longer time leads to slow query response time.Moreover it might be possible that YARN is not able to start the executors and waiting is not beneficial.</td>
+<td>CarbonData has its own scheduling algorithm to suggest to Spark on how many tasks needs to be launched and how much work each task need to do in a Spark cluster for any query on CarbonData. To determine the number of tasks that can be scheduled, knowing the count of active executors is necessary. When dynamic allocation is enabled on a YARN based spark cluster, executor processes are shutdown if no request is received for a particular amount of time. The executors are brought up when the requet is received again. This configuration specifies the maximum time (unit in seconds) the carbon scheduler can wait for executor to be active. Minimum value is 5 sec and maximum value is 15 sec.**NOTE: **Waiting for longer time leads to slow query response time.Moreover it might be possible that YARN is not able to start the executors and waiting is not beneficial.</td>
 </tr>
 <tr>
 <td>carbon.scheduler.minregisteredresourcesratio</td>
 <td>0.8</td>
-<td>Specifies the minimum resource (executor) ratio needed for starting the block distribution. The default value is 0.8, which indicates 80% of the requested resource is allocated for starting block distribution.  The minimum value is 0.1 min and the maximum value is 1.0.</td>
+<td>Specifies the minimum resource (executor) ratio needed for starting the block distribution. The default value is 0.8, which indicates 80% of the requested resource is allocated for starting block distribution. The minimum value is 0.1 min and the maximum value is 1.0.</td>
 </tr>
 <tr>
 <td>carbon.search.enabled (Alpha Feature)</td>
@@ -663,7 +686,7 @@
 <tr>
 <td>carbon.search.query.timeout</td>
 <td>10s</td>
-<td>Time within which the result is expected from the workers;beyond which the query is terminated</td>
+<td>Time within which the result is expected from the workers, beyond which the query is terminated</td>
 </tr>
 <tr>
 <td>carbon.search.scan.thread</td>
@@ -694,7 +717,7 @@
 <tr>
 <td>carbon.enable.vector.reader</td>
 <td>true</td>
-<td>Spark added vector processing to optimize cpu cache miss and there by increase the query performance.This configuration enables to fetch data as columnar batch of size 4*1024 rows instead of fetching data row by row and provide it to spark so that there is improvement in  select queries performance.</td>
+<td>Spark added vector processing to optimize cpu cache miss and there by increase the query performance. This configuration enables to fetch data as columnar batch of size 4*1024 rows instead of fetching data row by row and provide it to spark so that there is improvement in  select queries performance.</td>
 </tr>
 <tr>
 <td>carbon.task.distribution</td>
@@ -704,27 +727,27 @@
 <tr>
 <td>carbon.custom.block.distribution</td>
 <td>false</td>
-<td>CarbonData has its own scheduling algorithm to suggest to Spark on how many tasks needs to be launched and how much work each task need to do in a Spark cluster for any query on CarbonData.When this configuration is true, CarbonData would distribute the available blocks to be scanned among the available number of cores.For Example:If there are 10 blocks to be scanned and only 3 tasks can be run(only 3 executor cores available in the cluster), CarbonData would combine blocks as 4,3,3 and give it to 3 tasks to run.<strong>NOTE:</strong> When this configuration is false, as per the <em><strong>carbon.task.distribution</strong></em> configuration, each block/blocklet would be given to each task.</td>
+<td>CarbonData has its own scheduling algorithm to suggest to Spark on how many tasks needs to be launched and how much work each task need to do in a Spark cluster for any query on CarbonData. When this configuration is true, CarbonData would distribute the available blocks to be scanned among the available number of cores.For Example:If there are 10 blocks to be scanned and only 3 tasks can be run(only 3 executor cores available in the cluster), CarbonData would combine blocks as 4,3,3 and give it to 3 tasks to run. <strong>NOTE:</strong> When this configuration is false, as per the <em><strong>carbon.task.distribution</strong></em> configuration, each block/blocklet would be given to each task.</td>
 </tr>
 <tr>
 <td>enable.query.statistics</td>
 <td>false</td>
-<td>CarbonData has extensive logging which would be useful for debugging issues related to performance or hard to locate issues.This configuration when made <em><strong>true</strong></em> would log additional query statistics information to more accurately locate the issues being debugged.<strong>NOTE:</strong> Enabling this would log more debug information to log files, there by increasing the log files size significantly in short span of time.It is advised to configure the log files size, retention of log files parameters in log4j properties appropriately.Also extensive logging is an increased IO operation and hence over all query performance might get reduced.Therefore it is recommened to enable this configuration only for the duration of debugging.</td>
+<td>CarbonData has extensive logging which would be useful for debugging issues related to performance or hard to locate issues. This configuration when made <em><strong>true</strong></em> would log additional query statistics information to more accurately locate the issues being debugged.<strong>NOTE:</strong> Enabling this would log more debug information to log files, there by increasing the log files size significantly in short span of time.It is advised to configure the log files size, retention of log files parameters in log4j properties appropriately. Also extensive logging is an increased IO operation and hence over all query performance might get reduced. Therefore it is recommended to enable this configuration only for the duration of debugging.</td>
 </tr>
 <tr>
 <td>enable.unsafe.in.query.processing</td>
-<td>true</td>
-<td>CarbonData supports unsafe operations of Java to avoid GC overhead for certain operations.This configuration enables to use unsafe functions in CarbonData while scanning the  data during query.</td>
+<td>false</td>
+<td>CarbonData supports unsafe operations of Java to avoid GC overhead for certain operations. This configuration enables to use unsafe functions in CarbonData while scanning the  data during query.</td>
 </tr>
 <tr>
 <td>carbon.query.validate.directqueryondatamap</td>
 <td>true</td>
-<td>CarbonData supports creating pre-aggregate table datamaps as an independent tables.For some debugging purposes, it might be required to directly query from such datamap tables.This configuration allows to query on such datamaps.</td>
+<td>CarbonData supports creating pre-aggregate table datamaps as an independent tables. For some debugging purposes, it might be required to directly query from such datamap tables. This configuration allows to query on such datamaps.</td>
 </tr>
 <tr>
 <td>carbon.heap.memory.pooling.threshold.bytes</td>
 <td>1048576</td>
-<td>CarbonData supports unsafe operations of Java to avoid GC overhead for certain operations.Using unsafe, memory can be allocated on Java Heap or off heap.This configuration controlls the allocation mechanism on Java HEAP.If the heap memory allocations of the given size is greater or equal than this value,it should go through the pooling mechanism.But if set this size to -1, it should not go through the pooling mechanism.Default value is 1048576(1MB, the same as Spark).Value to be specified in bytes.</td>
+<td>CarbonData supports unsafe operations of Java to avoid GC overhead for certain operations. Using unsafe, memory can be allocated on Java Heap or off heap. This configuration controls the allocation mechanism on Java HEAP.If the heap memory allocations of the given size is greater or equal than this value,it should go through the pooling mechanism.But if set this size to -1, it should not go through the pooling mechanism.Default value is 1048576(1MB, the same as Spark).Value to be specified in bytes.</td>
 </tr>
 </tbody>
 </table>
@@ -747,7 +770,7 @@
 <tr>
 <td>carbon.insert.storage.level</td>
 <td>MEMORY_AND_DISK</td>
-<td>Storage level to persist dataset of a RDD/dataframe.Applicable when <em><strong>carbon.insert.persist.enable</strong></em> is <strong>true</strong>, if user's executor has less memory, set this parameter to 'MEMORY_AND_DISK_SER' or other storage level to correspond to different environment. <a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-persistence" rel="nofollow">See detail</a>.</td>
+<td>Storage level to persist dataset of a RDD/dataframe. Applicable when <em><strong>carbon.insert.persist.enable</strong></em> is <strong>true</strong>, if user's executor has less memory, set this parameter to 'MEMORY_AND_DISK_SER' or other storage level to correspond to different environment. <a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-persistence" rel="nofollow">See detail</a>.</td>
 </tr>
 <tr>
 <td>carbon.update.persist.enable</td>
@@ -757,7 +780,7 @@
 <tr>
 <td>carbon.update.storage.level</td>
 <td>MEMORY_AND_DISK</td>
-<td>Storage level to persist dataset of a RDD/dataframe.Applicable when <em><strong>carbon.update.persist.enable</strong></em> is <strong>true</strong>, if user's executor has less memory, set this parameter to 'MEMORY_AND_DISK_SER' or other storage level to correspond to different environment. <a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-persistence" rel="nofollow">See detail</a>.</td>
+<td>Storage level to persist dataset of a RDD/dataframe. Applicable when <em><strong>carbon.update.persist.enable</strong></em> is <strong>true</strong>, if user's executor has less memory, set this parameter to 'MEMORY_AND_DISK_SER' or other storage level to correspond to different environment. <a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-persistence" rel="nofollow">See detail</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -821,7 +844,7 @@
 <tbody>
 <tr>
 <td>carbon.options.bad.records.logger.enable</td>
-<td>CarbonData can identify the records that are not conformant to schema and isolate them as bad records.Enabling this configuration will make CarbonData to log such bad records.<strong>NOTE:</strong> If the input data contains many bad records, logging them will slow down the over all data loading throughput.The data load operation status would depend on the configuration in <em><strong>carbon.bad.records.action</strong></em>.</td>
+<td>CarbonData can identify the records that are not conformant to schema and isolate them as bad records.Enabling this configuration will make CarbonData to log such bad records.<strong>NOTE:</strong> If the input data contains many bad records, logging them will slow down the over all data loading throughput. The data load operation status would depend on the configuration in <em><strong>carbon.bad.records.action</strong></em>.</td>
 </tr>
 <tr>
 <td>carbon.options.bad.records.logger.enable</td>
@@ -841,7 +864,7 @@
 </tr>
 <tr>
 <td>carbon.options.single.pass</td>
-<td>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary. This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.<strong>NOTE:</strong> Enabling this starts a new dictionary server to handle dictionary generation requests during data loading.Without this option, the input csv files will have to read twice.Once while dictionary generation and persisting to the dictionary files.second when the data loading need to convert the input data into carbondata format.Enabling this optimizes the optimizes to read the input data only once there by reducing IO and hence over all data loading time.If concurrent data loading needs to be supported, consider tuning <em><strong>dictionary.worker.threads</strong></em>.Port on which the dictionary server need to listen on can be configured using the configuration <em><strong>carbon.dictionary.server.port</strong></em>.</td>
+<td>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary. This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE. <strong>NOTE:</strong> Enabling this starts a new dictionary server to handle dictionary generation requests during data loading. Without this option, the input csv files will have to read twice.Once while dictionary generation and persisting to the dictionary files.second when the data loading need to convert the input data into carbondata format.Enabling this optimizes the optimizes to read the input data only once there by reducing IO and hence over all data loading time.If concurrent data loading needs to be supported, consider tuning <em><strong>dictionary.worker.threads</strong></em>.Port on which the dictionary server need to listen on can be configured using the configuration <em><strong>carbon.dictionary.server.port</strong></em>.</td>
 </tr>
 <tr>
 <td>carbon.options.bad.record.path</td>
@@ -865,7 +888,7 @@
 </tr>
 <tr>
 <td>carbon.options.sort.scope</td>
-<td>Specifies how the current data load should be sorted with.**NOTE: **Refer to <a href="#data-loading-configuration">Data Loading Configuration</a>#carbon.sort.scope for detailed information.</td>
+<td>Specifies how the current data load should be sorted with. <strong>NOTE:</strong> Refer to <a href="#data-loading-configuration">Data Loading Configuration</a>#carbon.sort.scope for detailed information.</td>
 </tr>
 <tr>
 <td>carbon.options.global.sort.partitions</td>
@@ -873,11 +896,11 @@
 </tr>
 <tr>
 <td>carbon.options.serialization.null.format</td>
-<td>Default Null value representation in the data being loaded.<strong>NOTE:</strong> Refer to <a href="#data-loading-configuration">Data Loading Configuration</a>#carbon.options.serialization.null.format for detailed information.</td>
+<td>Default Null value representation in the data being loaded. <strong>NOTE:</strong> Refer to <a href="#data-loading-configuration">Data Loading Configuration</a>#carbon.options.serialization.null.format for detailed information.</td>
 </tr>
 <tr>
 <td>carbon.query.directQueryOnDataMap.enabled</td>
-<td>Specifies whether datamap can be queried directly.This is useful for debugging purposes.**NOTE: **Refer to <a href="#query-configuration">Query Configuration</a>#carbon.query.validate.directqueryondatamap for detailed information.</td>
+<td>Specifies whether datamap can be queried directly. This is useful for debugging purposes.**NOTE: **Refer to <a href="#query-configuration">Query Configuration</a>#carbon.query.validate.directqueryondatamap for detailed information.</td>
 </tr>
 </tbody>
 </table>

@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -212,7 +220,7 @@
                                     <div>
 <h1>
 <a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h1>
-<p>This tutorial provides a quick introduction to using CarbonData.To follow along with this guide, first download a packaged release of CarbonData from the <a href="https://dist.apache.org/repos/dist/release/carbondata/" target=_blank rel="nofollow">CarbonData website</a>.Alternatively it can be created following <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a> steps.</p>
+<p>This tutorial provides a quick introduction to using CarbonData. To follow along with this guide, first download a packaged release of CarbonData from the <a href="https://dist.apache.org/repos/dist/release/carbondata/" target=_blank rel="nofollow">CarbonData website</a>.Alternatively it can be created following <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a> steps.</p>
 <h2>
 <a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
 <ul>
@@ -233,7 +241,7 @@ EOF
 </ul>
 <h2>
 <a id="integration" class="anchor" href="#integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration</h2>
-<p>CarbonData can be integrated with Spark and Presto Execution Engines.The below documentation guides on Installing and Configuring with these execution engines.</p>
+<p>CarbonData can be integrated with Spark and Presto Execution Engines. The below documentation guides on Installing and Configuring with these execution engines.</p>
 <h3>
 <a id="spark" class="anchor" href="#spark" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spark</h3>
 <p><a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Installing and Configuring CarbonData to run locally with Spark Shell</a></p>
@@ -555,26 +563,26 @@ hdfs://&lt;host_name&gt;:port/user/hive/warehouse/carbon.store
 </code></pre>
 <h2>
 <a id="installing-and-configuring-carbondata-on-presto" class="anchor" href="#installing-and-configuring-carbondata-on-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Presto</h2>
-<p><strong>NOTE:</strong> <strong>CarbonData tables cannot be created nor loaded from Presto.User need to create CarbonData Table and load data into it
+<p><strong>NOTE:</strong> <strong>CarbonData tables cannot be created nor loaded from Presto. User need to create CarbonData Table and load data into it
 either with <a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Spark</a> or <a href="./sdk-guide.html">SDK</a>.
 Once the table is created,it can be queried from Presto.</strong></p>
 <h3>
 <a id="installing-presto" class="anchor" href="#installing-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Presto</h3>
 <ol>
 <li>
-<p>Download the 0.187 version of Presto using:
-<code>wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.187/presto-server-0.187.tar.gz</code></p>
+<p>Download the 0.210 version of Presto using:
+<code>wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.210/presto-server-0.210.tar.gz</code></p>
 </li>
 <li>
-<p>Extract Presto tar file: <code>tar zxvf presto-server-0.187.tar.gz</code>.</p>
+<p>Extract Presto tar file: <code>tar zxvf presto-server-0.210.tar.gz</code>.</p>
 </li>
 <li>
 <p>Download the Presto CLI for the coordinator and name it presto.</p>
 </li>
 </ol>
-<pre><code>  wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.187/presto-cli-0.187-executable.jar
+<pre><code>  wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.210/presto-cli-0.210-executable.jar
 
-  mv presto-cli-0.187-executable.jar presto
+  mv presto-cli-0.210-executable.jar presto
 
   chmod +x presto
 </code></pre>
@@ -582,7 +590,7 @@ Once the table is created,it can be queried from Presto.</strong></p>
 <a id="create-configuration-files" class="anchor" href="#create-configuration-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Configuration Files</h3>
 <ol>
 <li>
-<p>Create <code>etc</code> folder in presto-server-0.187 directory.</p>
+<p>Create <code>etc</code> folder in presto-server-0.210 directory.</p>
 </li>
 <li>
 <p>Create <code>config.properties</code>, <code>jvm.config</code>, <code>log.properties</code>, and <code>node.properties</code> files.</p>
@@ -624,10 +632,15 @@ node.data-dir=/home/ubuntu/data
 <pre><code>coordinator=true
 node-scheduler.include-coordinator=false
 http-server.http.port=8086
-query.max-memory=50GB
-query.max-memory-per-node=2GB
+query.max-memory=5GB
+query.max-total-memory-per-node=5GB
+query.max-memory-per-node=3GB
+memory.heap-headroom-per-node=1GB
 discovery-server.enabled=true
-discovery.uri=&lt;coordinator_ip&gt;:8086
+discovery.uri=http://localhost:8086
+task.max-worker-threads=4
+optimizer.dictionary-aggregation=true
+optimizer.optimize-hash-generation = false
 </code></pre>
 <p>The options <code>node-scheduler.include-coordinator=false</code> and <code>coordinator=true</code> indicate that the node is the coordinator and tells the coordinator not to do any of the computation work itself and to use the workers.</p>
 <p><strong>Note</strong>: It is recommended to set <code>query.max-memory-per-node</code> to half of the JVM config max memory, though the workload is highly concurrent, lower value for <code>query.max-memory-per-node</code> is to be used.</p>
@@ -640,7 +653,7 @@ Then, <code>query.max-memory=&lt;30GB * number of nodes&gt;</code>.</p>
 <a id="contents-of-your-configproperties-1" class="anchor" href="#contents-of-your-configproperties-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your config.properties</h5>
 <pre><code>coordinator=false
 http-server.http.port=8086
-query.max-memory=50GB
+query.max-memory=5GB
 query.max-memory-per-node=2GB
 discovery.uri=&lt;coordinator_ip&gt;:8086
 </code></pre>
@@ -663,10 +676,10 @@ discovery.uri=&lt;coordinator_ip&gt;:8086
 </ol>
 <h3>
 <a id="start-presto-server-on-all-nodes" class="anchor" href="#start-presto-server-on-all-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Presto Server on all nodes</h3>
-<pre><code>./presto-server-0.187/bin/launcher start
+<pre><code>./presto-server-0.210/bin/launcher start
 </code></pre>
 <p>To run it as a background process.</p>
-<pre><code>./presto-server-0.187/bin/launcher run
+<pre><code>./presto-server-0.210/bin/launcher run
 </code></pre>
 <p>To run it in foreground.</p>
 <h3>

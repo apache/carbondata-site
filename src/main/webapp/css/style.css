@@ -1307,6 +1307,11 @@ width:80%;
 padding-left:30px;
 }
 
+@media  screen and (min-width: 1690px) {
+  .verticalnavbar{
+      width: 11% !important;}
+}
+
 .verticalnavbar {
     float: left;
     text-transform: uppercase;

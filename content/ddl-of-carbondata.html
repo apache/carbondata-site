@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -229,6 +237,8 @@
 <li><a href="#caching-at-block-or-blocklet-level">Caching Level</a></li>
 <li><a href="#support-flat-folder-same-as-hiveparquet">Hive/Parquet folder Structure</a></li>
 <li><a href="#string-longer-than-32000-characters">Extra Long String columns</a></li>
+<li><a href="#compression-for-table">Compression for Table</a></li>
+<li><a href="#bad-records-path">Bad Records Path</a></li>
 </ul>
 </li>
 <li><a href="#create-table-as-select">CREATE TABLE AS SELECT</a></li>
@@ -326,6 +336,10 @@ STORED AS carbondata
 <td>Size of blocks to write onto hdfs</td>
 </tr>
 <tr>
+<td><a href="#table-blocklet-size-configuration">TABLE_BLOCKLET_SIZE</a></td>
+<td>Size of blocklet to write in the file</td>
+</tr>
+<tr>
 <td><a href="#table-compaction-configuration">MAJOR_COMPACTION_SIZE</a></td>
 <td>Size upto which the segments can be combined into one</td>
 </tr>
@@ -346,7 +360,7 @@ STORED AS carbondata
 <td>Segments generated within the configured time limit in days will be compacted, skipping others</td>
 </tr>
 <tr>
-<td><a href="#streaming">streaming</a></td>
+<td><a href="#streaming">STREAMING</a></td>
 <td>Whether the table is a streaming table</td>
 </tr>
 <tr>
@@ -359,11 +373,11 @@ STORED AS carbondata
 </tr>
 <tr>
 <td><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_INCLUDE</a></td>
-<td>Columns for which local dictionary needs to be generated.Useful when local dictionary need not be generated for all string/varchar/char columns</td>
+<td>Columns for which local dictionary needs to be generated. Useful when local dictionary need not be generated for all string/varchar/char columns</td>
 </tr>
 <tr>
 <td><a href="#local-dictionary-configuration">LOCAL_DICTIONARY_EXCLUDE</a></td>
-<td>Columns for which local dictionary generation should be skipped.Useful when local dictionary need not be generated for few string/varchar/char columns</td>
+<td>Columns for which local dictionary generation should be skipped. Useful when local dictionary need not be generated for few string/varchar/char columns</td>
 </tr>
 <tr>
 <td><a href="#caching-minmax-value-for-required-columns">COLUMN_META_CACHE</a></td>
@@ -371,10 +385,10 @@ STORED AS carbondata
 </tr>
 <tr>
 <td><a href="#caching-at-block-or-blocklet-level">CACHE_LEVEL</a></td>
-<td>Column metadata caching level.Whether to cache column metadata of block or blocklet</td>
+<td>Column metadata caching level. Whether to cache column metadata of block or blocklet</td>
 </tr>
 <tr>
-<td><a href="#support-flat-folder-same-as-hiveparquet">flat_folder</a></td>
+<td><a href="#support-flat-folder-same-as-hiveparquet">FLAT_FOLDER</a></td>
 <td>Whether to write all the carbondata files in a single folder.Not writing segments folder during incremental load</td>
 </tr>
 <tr>
@@ -400,12 +414,8 @@ STORED AS carbondata
 Suggested use cases : do dictionary encoding for low cardinality columns, it might help to improve data compression ratio and performance.</p>
 <pre><code>TBLPROPERTIES ('DICTIONARY_INCLUDE'='column1, column2')
 </code></pre>
+<p><strong>NOTE</strong>: Dictionary Include/Exclude for complex child columns is not supported.</p>
 </li>
-</ul>
-<pre><code>```
- NOTE: Dictionary Include/Exclude for complex child columns is not supported.
-</code></pre>
-<ul>
 <li>
 <h5>
 <a id="inverted-index-configuration" class="anchor" href="#inverted-index-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inverted Index Configuration</h5>
@@ -421,14 +431,14 @@ Suggested use cases : For high cardinality columns, you can disable the inverted
 <ul>
 <li>If users don't specify "SORT_COLUMN" property, by default MDK index be built by using all dimension columns except complex data type column.</li>
 <li>If this property is specified but with empty argument, then the table will be loaded without sort.</li>
-<li>This supports only string, date, timestamp, short, int, long, and boolean data types.
+<li>This supports only string, date, timestamp, short, int, long, byte and boolean data types.
 Suggested use cases : Only build MDK index for required columns,it might help to improve the data loading performance.</li>
 </ul>
 <pre><code>TBLPROPERTIES ('SORT_COLUMNS'='column1, column3')
 OR
 TBLPROPERTIES ('SORT_COLUMNS'='')
 </code></pre>
-<p>NOTE: Sort_Columns for Complex datatype columns is not supported.</p>
+<p><strong>NOTE</strong>: Sort_Columns for Complex datatype columns is not supported.</p>
 </li>
 <li>
 <h5>
@@ -444,29 +454,40 @@ And if you care about loading resources isolation strictly, because the system u
 </li>
 </ul>
 <pre><code>### Example:
-</code></pre>
-<pre><code> CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
-   productNumber INT,
-   productName STRING,
-   storeCity STRING,
-   storeProvince STRING,
-   productCategory STRING,
-   productBatch STRING,
-   saleQuantity INT,
-   revenue INT)
- STORED AS carbondata
- TBLPROPERTIES ('SORT_COLUMNS'='productName,storeCity',
-                'SORT_SCOPE'='NO_SORT')
+
+```
+CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
+  productNumber INT,
+  productName STRING,
+  storeCity STRING,
+  storeProvince STRING,
+  productCategory STRING,
+  productBatch STRING,
+  saleQuantity INT,
+  revenue INT)
+STORED AS carbondata
+TBLPROPERTIES ('SORT_COLUMNS'='productName,storeCity',
+               'SORT_SCOPE'='NO_SORT')
+```
 </code></pre>
 <p><strong>NOTE:</strong> CarbonData also supports "using carbondata". Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/SparkSessionExample.scala" target=_blank>SparkSessionExample</a> in the CarbonData repo.</p>
 <ul>
 <li>
 <h5>
 <a id="table-block-size-configuration" class="anchor" href="#table-block-size-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table Block Size Configuration</h5>
-<p>This command is for setting block size of this table, the default value is 1024 MB and supports a range of 1 MB to 2048 MB.</p>
+<p>This property is for setting block size of this table, the default value is 1024 MB and supports a range of 1 MB to 2048 MB.</p>
 <pre><code>TBLPROPERTIES ('TABLE_BLOCKSIZE'='512')
 </code></pre>
 <p><strong>NOTE:</strong> 512 or 512M both are accepted.</p>
+</li>
+<li>
+<h5>
+<a id="table-blocklet-size-configuration" class="anchor" href="#table-blocklet-size-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table Blocklet Size Configuration</h5>
+<p>This property is for setting blocklet size in the carbondata file, the default value is 64 MB.
+Blocklet is the minimum IO read unit, in case of point queries reduce blocklet size might improve the query performance.</p>
+<p>Example usage:</p>
+<pre><code>TBLPROPERTIES ('TABLE_BLOCKLET_SIZE'='8')
+</code></pre>
 </li>
 <li>
 <h5>
@@ -490,7 +511,7 @@ Following are 5 configurations:</p>
 <li>
 <h5>
 <a id="streaming" class="anchor" href="#streaming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Streaming</h5>
-<p>CarbonData supports streaming ingestion for real-time data. You can create the ?streaming? table using the following table properties.</p>
+<p>CarbonData supports streaming ingestion for real-time data. You can create the 'streaming' table using the following table properties.</p>
 <pre><code>TBLPROPERTIES ('streaming'='true')
 </code></pre>
 </li>
@@ -534,7 +555,28 @@ Following are 5 configurations:</p>
 <p>In case of multi-level complex dataType columns, primitive string/varchar/char columns are considered for local dictionary generation.</p>
 </li>
 </ul>
-<p>Local dictionary will have to be enabled explicitly during create table or by enabling the <strong>system property</strong> <em><strong>carbon.local.dictionary.enable</strong></em>. By default, Local Dictionary will be disabled for the carbondata table.</p>
+<p>System Level Properties for Local Dictionary:</p>
+<table>
+<thead>
+<tr>
+<th>Properties</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carbon.local.dictionary.enable</td>
+<td>false</td>
+<td>By default, Local Dictionary will be disabled for the carbondata table.</td>
+</tr>
+<tr>
+<td>carbon.local.dictionary.decoder.fallback</td>
+<td>true</td>
+<td>Page Level data will not be maintained for the blocklet. During fallback, actual data will be retrieved from the encoded page data using local dictionary. <strong>NOTE:</strong> Memory footprint decreases significantly as compared to when this property is set to false</td>
+</tr>
+</tbody>
+</table>
 <p>Local Dictionary can be configured using the following properties during create table command:</p>
 <table>
 <thead>
@@ -553,35 +595,37 @@ Following are 5 configurations:</p>
 <tr>
 <td>LOCAL_DICTIONARY_THRESHOLD</td>
 <td>10000</td>
-<td>The maximum cardinality of a column upto which carbondata can try to generate local dictionary (maximum - 100000)</td>
+<td>The maximum cardinality of a column upto which carbondata can try to generate local dictionary (maximum - 100000). <strong>NOTE:</strong> When LOCAL_DICTIONARY_THRESHOLD is defined for Complex columns, the count of distinct records of all child columns are summed up.</td>
 </tr>
 <tr>
 <td>LOCAL_DICTIONARY_INCLUDE</td>
 <td>string/varchar/char columns</td>
-<td>Columns for which Local Dictionary has to be generated.<strong>NOTE:</strong> Those string/varchar/char columns which are added into DICTIONARY_INCLUDE option will not be considered for local dictionary generation.This property needs to be configured only when local dictionary needs to be generated for few columns, skipping others.This property takes effect only when <strong>LOCAL_DICTIONARY_ENABLE</strong> is true or <strong>carbon.local.dictionary.enable</strong> is true</td>
+<td>Columns for which Local Dictionary has to be generated.<strong>NOTE:</strong> Those string/varchar/char columns which are added into DICTIONARY_INCLUDE option will not be considered for local dictionary generation. This property needs to be configured only when local dictionary needs to be generated for few columns, skipping others. This property takes effect only when <strong>LOCAL_DICTIONARY_ENABLE</strong> is true or <strong>carbon.local.dictionary.enable</strong> is true</td>
 </tr>
 <tr>
 <td>LOCAL_DICTIONARY_EXCLUDE</td>
 <td>none</td>
-<td>Columns for which Local Dictionary need not be generated.This property needs to be configured only when local dictionary needs to be skipped for few columns, generating for others.This property takes effect only when <strong>LOCAL_DICTIONARY_ENABLE</strong> is true or <strong>carbon.local.dictionary.enable</strong> is true</td>
+<td>Columns for which Local Dictionary need not be generated. This property needs to be configured only when local dictionary needs to be skipped for few columns, generating for others. This property takes effect only when <strong>LOCAL_DICTIONARY_ENABLE</strong> is true or <strong>carbon.local.dictionary.enable</strong> is true</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Fallback behavior:</strong></p>
 <ul>
-<li>When the cardinality of a column exceeds the threshold, it triggers a fallback and the generated dictionary will be reverted and data loading will be continued without dictionary encoding.</li>
+<li>
+<p>When the cardinality of a column exceeds the threshold, it triggers a fallback and the generated dictionary will be reverted and data loading will be continued without dictionary encoding.</p>
+</li>
+<li>
+<p>In case of complex columns, fallback is triggered when the summation value of all child columns' distinct records exceeds the defined LOCAL_DICTIONARY_THRESHOLD value.</p>
+</li>
 </ul>
 <p><strong>NOTE:</strong> When fallback is triggered, the data loading performance will decrease as encoded data will be discarded and the actual data is written to the temporary sort files.</p>
 <p><strong>Points to be noted:</strong></p>
-<ol>
+<ul>
 <li>
 <p>Reduce Block size:</p>
 <p>Number of Blocks generated is less in case of Local Dictionary as compression ratio is high. This may reduce the number of tasks launched during query, resulting in degradation of query performance if the pruned blocks are less compared to the number of parallel tasks which can be run. So it is recommended to configure smaller block size which in turn generates more number of blocks.</p>
 </li>
-<li>
-<p>All the page-level data for a blocklet needs to be maintained in memory until all the pages encoded for local dictionary is processed in order to handle fallback. Hence the memory required for local dictionary based table is more and this memory increase is proportional to number of columns.</p>
-</li>
-</ol>
+</ul>
 <h3>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 <pre><code>CREATE TABLE carbontable(
@@ -611,32 +655,32 @@ Following are 5 configurations:</p>
 <ul>
 <li>If you want no column min/max values to be cached in the driver.</li>
 </ul>
-<pre><code>COLUMN_META_CACHE=??
+<pre><code>COLUMN_META_CACHE=''
 </code></pre>
 <ul>
 <li>If you want only col1 min/max values to be cached in the driver.</li>
 </ul>
-<pre><code>COLUMN_META_CACHE=?col1?
+<pre><code>COLUMN_META_CACHE='col1'
 </code></pre>
 <ul>
 <li>If you want min/max values to be cached in driver for all the specified columns.</li>
 </ul>
-<pre><code>COLUMN_META_CACHE=?col1,col2,col3,??
+<pre><code>COLUMN_META_CACHE='col1,col2,col3,?'
 </code></pre>
 <p>Columns to be cached can be specified either while creating table or after creation of the table.
 During create table operation; specify the columns to be cached in table properties.</p>
 <p>Syntax:</p>
-<pre><code>CREATE TABLE [dbName].tableName (col1 String, col2 String, col3 int,?) STORED BY ?carbondata? TBLPROPERTIES (?COLUMN_META_CACHE?=?col1,col2,??)
+<pre><code>CREATE TABLE [dbName].tableName (col1 String, col2 String, col3 int,?) STORED BY 'carbondata' TBLPROPERTIES ('COLUMN_META_CACHE'='col1,col2,?')
 </code></pre>
 <p>Example:</p>
-<pre><code>CREATE TABLE employee (name String, city String, id int) STORED BY ?carbondata? TBLPROPERTIES (?COLUMN_META_CACHE?=?name?)
+<pre><code>CREATE TABLE employee (name String, city String, id int) STORED BY 'carbondata' TBLPROPERTIES ('COLUMN_META_CACHE'='name')
 </code></pre>
 <p>After creation of table or on already created tables use the alter table command to configure the columns to be cached.</p>
 <p>Syntax:</p>
-<pre><code>ALTER TABLE [dbName].tableName SET TBLPROPERTIES (?COLUMN_META_CACHE?=?col1,col2,??)
+<pre><code>ALTER TABLE [dbName].tableName SET TBLPROPERTIES ('COLUMN_META_CACHE'='col1,col2,?')
 </code></pre>
 <p>Example:</p>
-<pre><code>ALTER TABLE employee SET TBLPROPERTIES (?COLUMN_META_CACHE?=?city?)
+<pre><code>ALTER TABLE employee SET TBLPROPERTIES ('COLUMN_META_CACHE'='city')
 </code></pre>
 </li>
 <li>
@@ -645,36 +689,36 @@ During create table operation; specify the columns to be cached in table propert
 <p>This feature allows you to maintain the cache at Block level, resulting in optimized usage of the memory. The memory consumption is high if the Blocklet level caching is maintained as a Block can have multiple Blocklet.</p>
 <p>Following are the valid values for CACHE_LEVEL:</p>
 <p><em>Configuration for caching in driver at Block level (default value).</em></p>
-<pre><code>CACHE_LEVEL= ?BLOCK?
+<pre><code>CACHE_LEVEL= 'BLOCK'
 </code></pre>
 <p><em>Configuration for caching in driver at Blocklet level.</em></p>
-<pre><code>CACHE_LEVEL= ?BLOCKLET?
+<pre><code>CACHE_LEVEL= 'BLOCKLET'
 </code></pre>
 <p>Cache level can be specified either while creating table or after creation of the table.
 During create table operation specify the cache level in table properties.</p>
 <p>Syntax:</p>
-<pre><code>CREATE TABLE [dbName].tableName (col1 String, col2 String, col3 int,?) STORED BY ?carbondata? TBLPROPERTIES (?CACHE_LEVEL?=?Blocklet?)
+<pre><code>CREATE TABLE [dbName].tableName (col1 String, col2 String, col3 int,?) STORED BY 'carbondata' TBLPROPERTIES ('CACHE_LEVEL'='Blocklet')
 </code></pre>
 <p>Example:</p>
-<pre><code>CREATE TABLE employee (name String, city String, id int) STORED BY ?carbondata? TBLPROPERTIES (?CACHE_LEVEL?=?Blocklet?)
+<pre><code>CREATE TABLE employee (name String, city String, id int) STORED BY 'carbondata' TBLPROPERTIES ('CACHE_LEVEL'='Blocklet')
 </code></pre>
 <p>After creation of table or on already created tables use the alter table command to configure the cache level.</p>
 <p>Syntax:</p>
-<pre><code>ALTER TABLE [dbName].tableName SET TBLPROPERTIES (?CACHE_LEVEL?=?Blocklet?)
+<pre><code>ALTER TABLE [dbName].tableName SET TBLPROPERTIES ('CACHE_LEVEL'='Blocklet')
 </code></pre>
 <p>Example:</p>
-<pre><code>ALTER TABLE employee SET TBLPROPERTIES (?CACHE_LEVEL?=?Blocklet?)
+<pre><code>ALTER TABLE employee SET TBLPROPERTIES ('CACHE_LEVEL'='Blocklet')
 </code></pre>
 </li>
 <li>
 <h5>
 <a id="support-flat-folder-same-as-hiveparquet" class="anchor" href="#support-flat-folder-same-as-hiveparquet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support Flat folder same as Hive/Parquet</h5>
-<p>This feature allows all carbondata and index files to keep directy under tablepath. Currently all carbondata/carbonindex files written under tablepath/Fact/Part0/Segment_NUM folder and it is not same as hive/parquet folder structure. This feature makes all files written will be directly under tablepath, it does not maintain any segment folder structure.This is useful for interoperability between the execution engines and plugin with other execution engines like hive or presto becomes easier.</p>
+<p>This feature allows all carbondata and index files to keep directy under tablepath. Currently all carbondata/carbonindex files written under tablepath/Fact/Part0/Segment_NUM folder and it is not same as hive/parquet folder structure. This feature makes all files written will be directly under tablepath, it does not maintain any segment folder structure. This is useful for interoperability between the execution engines and plugin with other execution engines like hive or presto becomes easier.</p>
 <p>Following table property enables this feature and default value is false.</p>
 <pre><code> 'flat_folder'='true'
 </code></pre>
 <p>Example:</p>
-<pre><code>CREATE TABLE employee (name String, city String, id int) STORED BY ?carbondata? TBLPROPERTIES ('flat_folder'='true')
+<pre><code>CREATE TABLE employee (name String, city String, id int) STORED BY 'carbondata' TBLPROPERTIES ('flat_folder'='true')
 </code></pre>
 </li>
 <li>
@@ -697,6 +741,37 @@ TBLPROPERTIES ('LONG_STRING_COLUMNS'='col1,col2')
 <p>If you are using Carbon-SDK, you can specify the datatype of long string column as <code>varchar</code>.
 You can refer to SDKwriterTestCase for example.</p>
 <p><strong>NOTE:</strong> The LONG_STRING_COLUMNS can only be string/char/varchar columns and cannot be dictionary_include/sort_columns/complex columns.</p>
+</li>
+<li>
+<h5>
+<a id="compression-for-table" class="anchor" href="#compression-for-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compression for table</h5>
+<p>Data compression is also supported by CarbonData.
+By default, Snappy is used to compress the data. CarbonData also support ZSTD compressor.
+User can specify the compressor in the table property:</p>
+<pre><code>TBLPROPERTIES('carbon.column.compressor'='snappy')
+</code></pre>
+<p>or</p>
+<pre><code>TBLPROPERTIES('carbon.column.compressor'='zstd')
+</code></pre>
+<p>If the compressor is configured, all the data loading and compaction will use that compressor.
+If the compressor is not configured, the data loading and compaction will use the compressor from current system property.
+In this scenario, the compressor for each load may differ if the system property is changed each time. This is helpful if you want to change the compressor for a table.
+The corresponding system property is configured in carbon.properties file as below:</p>
+<pre><code>carbon.column.compressor=snappy
+</code></pre>
+<p>or</p>
+<pre><code>carbon.column.compressor=zstd
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="bad-records-path" class="anchor" href="#bad-records-path" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bad Records Path</h5>
+<p>This property is used to specify the location where bad records would be written.
+As the table path remains the same after rename therefore the user can use this property to
+specify bad records path for the table at the time of creation, so that the same path can
+be later viewed in table description for reference.</p>
+<pre><code>  TBLPROPERTIES('BAD_RECORD_PATH'='/opt/badrecords'')
+</code></pre>
 </li>
 </ul>
 <h2>
@@ -735,7 +810,7 @@ carbon.sql("SELECT * FROM target_table").show
 <a id="create-external-table" class="anchor" href="#create-external-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE EXTERNAL TABLE</h2>
 <p>This function allows user to create external table by specifying location.</p>
 <pre><code>CREATE EXTERNAL TABLE [IF NOT EXISTS] [db_name.]table_name 
-STORED AS carbondata LOCATION ?$FilesPath?
+STORED AS carbondata LOCATION '$FilesPath'
 </code></pre>
 <h3>
 <a id="create-external-table-on-managed-table-data-location" class="anchor" href="#create-external-table-on-managed-table-data-location" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create external table on managed table data location.</h3>
@@ -781,7 +856,7 @@ suggest to drop the external table and create again to register table with new s
 </code></pre>
 <h3>
 <a id="example-1" class="anchor" href="#example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
-<pre><code>CREATE DATABASE carbon LOCATION ?hdfs://name_cluster/dir1/carbonstore?;
+<pre><code>CREATE DATABASE carbon LOCATION "hdfs://name_cluster/dir1/carbonstore";
 </code></pre>
 <h2>
 <a id="table-management" class="anchor" href="#table-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TABLE MANAGEMENT</h2>
@@ -826,12 +901,11 @@ TBLPROPERTIES('DICTIONARY_INCLUDE'='col_name,...',
 </code></pre>
 <pre><code>ALTER TABLE carbon ADD COLUMNS (a1 INT, b1 STRING) TBLPROPERTIES('DEFAULT.VALUE.a1'='10')
 </code></pre>
-<p>NOTE: Add Complex datatype columns is not supported.</p>
+<p><strong>NOTE:</strong> Add Complex datatype columns is not supported.</p>
 </li>
 </ul>
-<p>Users can specify which columns to include and exclude for local dictionary generation after adding new columns. These will be appended with the already existing local dictionary include and exclude columns of main table respectively.</p>
-<pre><code>   ALTER TABLE carbon ADD COLUMNS (a1 STRING, b1 STRING) TBLPROPERTIES('LOCAL_DICTIONARY_INCLUDE'='a1','LOCAL_DICTIONARY_EXCLUDE'='b1')
-</code></pre>
+<p>Users can specify which columns to include and exclude for local dictionary generation after adding new columns. These will be appended with the already existing local dictionary include and exclude columns of main table respectively.
+<code>ALTER TABLE carbon ADD COLUMNS (a1 STRING, b1 STRING) TBLPROPERTIES('LOCAL_DICTIONARY_INCLUDE'='a1','LOCAL_DICTIONARY_EXCLUDE'='b1')</code></p>
 <ul>
 <li>
 <h5>
@@ -846,7 +920,7 @@ ALTER TABLE test_db.carbon DROP COLUMNS (b1)
 
 ALTER TABLE carbon DROP COLUMNS (c1,d1)
 </code></pre>
-<p>NOTE: Drop Complex child column is not supported.</p>
+<p><strong>NOTE:</strong> Drop Complex child column is not supported.</p>
 </li>
 <li>
 <h5>
@@ -876,12 +950,14 @@ Change of decimal data type from lower precision to higher precision will only b
 <pre><code> ALTER TABLE [db_name.]table_name COMPACT 'SEGMENT_INDEX'
 </code></pre>
 <pre><code>Examples:
-```
-ALTER TABLE test_db.carbon COMPACT 'SEGMENT_INDEX'
-```
-**NOTE:**
+</code></pre>
+<pre><code> ALTER TABLE test_db.carbon COMPACT 'SEGMENT_INDEX'
+ ```
 
-* Merge index is not supported on streaming table.
+ **NOTE:**
+
+ * Merge index is not supported on streaming table.
+
 </code></pre>
 </li>
 <li>
@@ -935,7 +1011,7 @@ STORED AS carbondata
 <p>Example:</p>
 <pre><code>CREATE TABLE IF NOT EXISTS productSchema.productSalesTable (
                               productNumber Int COMMENT 'unique serial number for product')
-COMMENT ?This is table comment?
+COMMENT "This is table comment"
  STORED AS carbondata
  TBLPROPERTIES ('DICTIONARY_INCLUDE'='productNumber')
 </code></pre>
@@ -972,7 +1048,7 @@ COMMENT ?This is table comment?
 PARTITIONED BY (productCategory STRING, productBatch STRING)
 STORED AS carbondata
 </code></pre>
-<p>NOTE: Hive partition is not supported on complex datatype columns.</p>
+<p><strong>NOTE:</strong> Hive partition is not supported on complex datatype columns.</p>
 <h4>
 <a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h4>
 <p>This command gets the Hive partition information of the table</p>

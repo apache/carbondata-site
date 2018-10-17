@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -223,7 +231,10 @@
 <li>BIGINT</li>
 <li>DOUBLE</li>
 <li>DECIMAL</li>
+<li>FLOAT</li>
+<li>BYTE</li>
 </ul>
+<p><strong>NOTE</strong>: Float and Bytes are only supported for SDK and FileFormat.</p>
 </li>
 <li>
 <p>Date/Time Types</p>
@@ -248,6 +259,8 @@ Please refer to TBLProperties in <a href="./ddl-of-carbondata.html#create-table"
 <li>arrays: ARRAY<code>&lt;data_type&gt;</code>
 </li>
 <li>structs: STRUCT<code>&lt;col_name : data_type COMMENT col_comment, ...&gt;</code>
+</li>
+<li>maps: MAP<code>&lt;primitive_type, data_type&gt;</code>
 </li>
 </ul>
 <p><strong>NOTE</strong>: Only 2 level complex type schema is supported for now.</p>

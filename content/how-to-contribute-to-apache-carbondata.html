@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
 							<li>
@@ -179,7 +182,12 @@
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
                             </div>
 
-                            <a class="b-nav__api nav__item" href="./sdk-guide.html">API</a>
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
@@ -238,7 +246,7 @@ create it. Please discuss your proposal with a committer or the component lead i
 alternatively, on the developer mailing list(<a href="mailto:dev@carbondata.apache.org">dev@carbondata.apache.org</a>).</p>
 <p>If there?s an existing JIRA issue for your intended contribution, please comment about your
 intended work. Once the work is understood, a committer will assign the issue to you.
-(If you don?t have a JIRA role yet, you?ll be added to the ?contributor? role.) If an issue is
+(If you don?t have a JIRA role yet, you?ll be added to the "contributor" role.) If an issue is
 currently assigned, please check with the current assignee before reassigning.</p>
 <p>For moderate or large contributions, you should not start coding or writing a design doc unless
 there is a corresponding JIRA issue assigned to you for that work. Simple changes,
@@ -334,7 +342,7 @@ When you make a revision, always push it in a new commit.</p>
 Please make sure those tests pass,the contribution cannot be merged otherwise.</p>
 <h4>
 <a id="lgtm" class="anchor" href="#lgtm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LGTM</h4>
-<p>Once the reviewer is happy with the change, they?ll respond with an LGTM (?looks good to me!?).
+<p>Once the reviewer is happy with the change, they?ll respond with an LGTM ("looks good to me!").
 At this point, the committer will take over, possibly make some additional touch ups,
 and merge your changes into the codebase.</p>
 <p>In the case both the author and the reviewer are committers, either can merge the pull request.
