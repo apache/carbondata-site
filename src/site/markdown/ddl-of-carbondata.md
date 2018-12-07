@@ -33,7 +33,9 @@ CarbonData DDL statements are documented here,which includes:
   * [Hive/Parquet folder Structure](#support-flat-folder-same-as-hiveparquet)
   * [Extra Long String columns](#string-longer-than-32000-characters)
   * [Compression for Table](#compression-for-table)
-  * [Bad Records Path](#bad-records-path)
+  * [Bad Records Path](#bad-records-path) 
+  * [Load Minimum Input File Size](#load-minimum-data-size) 
+
 * [CREATE TABLE AS SELECT](#create-table-as-select)
 * [CREATE EXTERNAL TABLE](#create-external-table)
   * [External Table on Transactional table location](#create-external-table-on-managed-table-data-location)
@@ -84,6 +86,7 @@ CarbonData DDL statements are documented here,which includes:
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [DICTIONARY_INCLUDE](#dictionary-encoding-configuration)     | Columns for which dictionary needs to be generated           |
 | [NO_INVERTED_INDEX](#inverted-index-configuration)           | Columns to exclude from inverted index generation            |
+| [INVERTED_INDEX](#inverted-index-configuration)              | Columns to include for inverted index generation             |
 | [SORT_COLUMNS](#sort-columns-configuration)                  | Columns to include in sort and its order of sort             |
 | [SORT_SCOPE](#sort-scope-configuration)                      | Sort scope of the load.Options include no sort, local sort ,batch sort and global sort |
 | [TABLE_BLOCKSIZE](#table-block-size-configuration)           | Size of blocks to write onto hdfs                            |
@@ -104,6 +107,7 @@ CarbonData DDL statements are documented here,which includes:
 | [LONG_STRING_COLUMNS](#string-longer-than-32000-characters)  | Columns which are greater than 32K characters                |
 | [BUCKETNUMBER](#bucketing)                                   | Number of buckets to be created                              |
 | [BUCKETCOLUMNS](#bucketing)                                  | Columns which are to be placed in buckets                    |
+| [LOAD_MIN_SIZE_INMB](#load-minimum-data-size)                | Minimum input data size per node for data loading          |
 
  Following are the guidelines for TBLPROPERTIES, CarbonData's additional table options can be set via carbon.properties.
 
@@ -120,11 +124,11 @@ CarbonData DDL statements are documented here,which includes:
 
    - ##### Inverted Index Configuration
 
-     By default inverted index is enabled, it might help to improve compression ratio and query speed, especially for low cardinality columns which are in reward position.
+     By default inverted index is disabled as store size will be reduced, it can be enabled by using a table property. It might help to improve compression ratio and query speed, especially for low cardinality columns which are in reward position.
      Suggested use cases : For high cardinality columns, you can disable the inverted index for improving the data loading performance.
 
      ```
-     TBLPROPERTIES ('NO_INVERTED_INDEX'='column1, column3')
+     TBLPROPERTIES ('NO_INVERTED_INDEX'='column1', 'INVERTED_INDEX'='column2, column3')
      ```
 
    - ##### Sort Columns Configuration
@@ -245,7 +249,8 @@ CarbonData DDL statements are documented here,which includes:
       * TIMESTAMP
       * DATE
       * BOOLEAN
-   
+      * FLOAT
+      * BYTE
    * In case of multi-level complex dataType columns, primitive string/varchar/char columns are considered for local dictionary generation.
 
    System Level Properties for Local Dictionary: 
@@ -445,7 +450,7 @@ CarbonData DDL statements are documented here,which includes:
    - ##### Compression for table
 
      Data compression is also supported by CarbonData.
-     By default, Snappy is used to compress the data. CarbonData also support ZSTD compressor.
+     By default, Snappy is used to compress the data. CarbonData also supports ZSTD compressor.
      User can specify the compressor in the table property:
 
      ```
@@ -474,7 +479,19 @@ CarbonData DDL statements are documented here,which includes:
      be later viewed in table description for reference.
 
      ```
-       TBLPROPERTIES('BAD_RECORD_PATH'='/opt/badrecords'')
+       TBLPROPERTIES('BAD_RECORD_PATH'='/opt/badrecords')
+     ```
+     
+   - ##### Load minimum data size
+     This property indicates the minimum input data size per node for data loading.
+     By default it is not enabled. Setting a non-zero integer value will enable this feature.
+     This property is useful if you have a large cluster and only want a small portion of the nodes to process data loading.
+     For example, if you have a cluster with 10 nodes and the input data is about 1GB. Without this property, each node will process about 100MB input data and result in at least 10 data files. With this property configured with 512, only 2 nodes will be chosen to process the input data, each with about 512MB input and result in about 2 or 4 files based on the compress ratio.
+     Moreover, this property can also be specified in the load option.
+     Notice that once you enable this feature, for load balance, carbondata will ignore the data locality while assigning input data to nodes, this will cause more network traffic.
+
+     ```
+       TBLPROPERTIES('LOAD_MIN_SIZE_INMB'='256')
      ```
 
 ## CREATE TABLE AS SELECT
@@ -540,7 +557,7 @@ CarbonData DDL statements are documented here,which includes:
 
 ### Create external table on Non-Transactional table data location.
   Non-Transactional table data location will have only carbondata and carbonindex files, there will not be a metadata folder (table status and schema).
-  Our SDK module currently support writing data in this format.
+  Our SDK module currently supports writing data in this format.
 
   **Example:**
   ```
@@ -550,7 +567,7 @@ CarbonData DDL statements are documented here,which includes:
   ```
 
   Here writer path will have carbondata and index files.
-  This can be SDK output. Refer [SDK Guide](./sdk-guide.md). 
+  This can be SDK output or C++ SDK output. Refer [SDK Guide](./sdk-guide.md) and [C++ SDK Guide](./csdk-guide.md). 
 
   **Note:**
   1. Dropping of the external table should not delete the files present in the location.

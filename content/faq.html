@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
-                                   target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -390,17 +390,15 @@ TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"))
 <h2>
 <a id="how-to-check-lru-cache-memory-footprint" class="anchor" href="#how-to-check-lru-cache-memory-footprint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to check LRU cache memory footprint?</h2>
 <p>To observe the LRU cache memory footprint in the logs, configure the below properties in log4j.properties file.</p>
-<pre><code>log4j.logger.org.apache.carbondata.core.memory.UnsafeMemoryManager = DEBUG
-log4j.logger.org.apache.carbondata.core.cache.CarbonLRUCache = DEBUG
+<pre><code>log4j.logger.org.apache.carbondata.core.cache.CarbonLRUCache = DEBUG
 </code></pre>
-<p>These properties will enable the DEBUG log for the CarbonLRUCache and UnsafeMemoryManager which will print the information of memory consumed using which the LRU cache size can be decided. <strong>Note:</strong> Enabling the DEBUG log will degrade the query performance.</p>
+<p>This property will enable the DEBUG log for the CarbonLRUCache and UnsafeMemoryManager which will print the information of memory consumed using which the LRU cache size can be decided. <strong>Note:</strong> Enabling the DEBUG log will degrade the query performance. Ensure carbon.max.driver.lru.cache.size is configured to observe the current cache size.</p>
 <p><strong>Example:</strong></p>
-<pre><code>18/09/26 15:05:28 DEBUG UnsafeMemoryManager: pool-44-thread-1 Memory block (org.apache.carbondata.core.memory.MemoryBlock@21312095) is created with size 10. Total memory used 413Bytes, left 536870499Bytes
-18/09/26 15:05:29 DEBUG CarbonLRUCache: main Required size for entry /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge :: 181 Current cache size :: 0
-18/09/26 15:05:30 DEBUG UnsafeMemoryManager: main Freeing memory of size: 105available memory:  536870836
-18/09/26 15:05:30 DEBUG UnsafeMemoryManager: main Freeing memory of size: 76available memory:  536870912
+<pre><code>18/09/26 15:05:29 DEBUG CarbonLRUCache: main Required size for entry /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge :: 181 Current cache size :: 0
 18/09/26 15:05:30 INFO CarbonLRUCache: main Removed entry from InMemory lru cache :: /home/target/store/default/stored_as_carbondata_table/Fact/Part0/Segment_0/0_1537954529044.carbonindexmerge
 </code></pre>
+<p><strong>Note:</strong> If  <code>Removed entry from InMemory LRU cache</code> are frequently observed in logs, you may have to increase the configured LRU size.</p>
+<p>To observe the LRU cache from heap dump, check the heap used by CarbonLRUCache class.</p>
 <h2>
 <a id="getting-tablestatuslock-issues-when-loading-data" class="anchor" href="#getting-tablestatuslock-issues-when-loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting tablestatus.lock issues When loading data</h2>
 <p><strong>Symptom</strong></p>

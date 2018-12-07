@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
-                                   target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -227,10 +227,14 @@
 </ol>
 <h1>
 <a id="sdk-writer" class="anchor" href="#sdk-writer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SDK Writer</h1>
-<p>In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.</p>
+<p>In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.
+If user want to use SDK, except carbondata-store-sdk-x.x.x-SNAPSHOT.jar,
+it needs carbondata-core-x.x.x-SNAPSHOT.jar, carbondata-common-x.x.x-SNAPSHOT.jar,
+carbondata-format-x.x.x-SNAPSHOT.jar, carbondata-hadoop-x.x.x-SNAPSHOT.jar and carbondata-processing-x.x.x-SNAPSHOT.jar.
+What's more, user also can use carbondata-sdk.jar directly.</p>
 <p>This SDK writer, writes carbondata file and carbonindex file at a given path.
 External client can make use of this writer to convert other format data or live data to create carbondata and index files.
-These SDK writer output contains just a carbondata and carbonindex files. No metadata folder will be present.</p>
+These SDK writer output contains just carbondata and carbonindex files. No metadata folder will be present.</p>
 <h2>
 <a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
 <h3>
@@ -267,7 +271,7 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 
      <span class="pl-smi">CarbonProperties</span><span class="pl-k">.</span>getInstance()<span class="pl-k">.</span>addProperty(<span class="pl-s"><span class="pl-pds">"</span>enable.offheap.sort<span class="pl-pds">"</span></span>, enableOffheap);
  
-     <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path)<span class="pl-k">.</span>withCsvInput(schema);
+     <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path)<span class="pl-k">.</span>withCsvInput(schema)<span class="pl-k">.</span>writtenBy(<span class="pl-s"><span class="pl-pds">"</span>SDK<span class="pl-pds">"</span></span>);
  
      <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>build();
  
@@ -322,7 +326,7 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
     <span class="pl-k">try</span> {
       <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()
           .outputPath(path)
-          .withAvroInput(<span class="pl-k">new</span> <span class="pl-smi">org.apache.avro<span class="pl-k">.</span>Schema</span>.<span class="pl-smi">Parser</span>()<span class="pl-k">.</span>parse(avroSchema))<span class="pl-k">.</span>build();
+          .withAvroInput(<span class="pl-k">new</span> <span class="pl-smi">org.apache.avro<span class="pl-k">.</span>Schema</span>.<span class="pl-smi">Parser</span>()<span class="pl-k">.</span>parse(avroSchema))<span class="pl-k">.</span>writtenBy(<span class="pl-s"><span class="pl-pds">"</span>SDK<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>build();
 
       <span class="pl-k">for</span> (<span class="pl-k">int</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-c1">100</span>; i<span class="pl-k">++</span>) {
         writer<span class="pl-k">.</span>write(record);
@@ -360,7 +364,7 @@ These SDK writer output contains just a carbondata and carbonindex files. No met
 
     <span class="pl-smi">Schema</span> <span class="pl-smi">CarbonSchema</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Schema</span>(fields);
 
-    <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path)<span class="pl-k">.</span>withJsonInput(<span class="pl-smi">CarbonSchema</span>);
+    <span class="pl-smi">CarbonWriterBuilder</span> builder <span class="pl-k">=</span> <span class="pl-smi">CarbonWriter</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>outputPath(path)<span class="pl-k">.</span>withJsonInput(<span class="pl-smi">CarbonSchema</span>)<span class="pl-k">.</span>writtenBy(<span class="pl-s"><span class="pl-pds">"</span>SDK<span class="pl-pds">"</span></span>);
 
     <span class="pl-c"><span class="pl-c">//</span> initialize json writer with carbon schema</span>
     <span class="pl-smi">CarbonWriter</span> writer <span class="pl-k">=</span> builder<span class="pl-k">.</span>build();
@@ -644,6 +648,8 @@ public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
 * j. sort_scope -- "local_sort", "no_sort", "batch_sort". default value is "local_sort"
 * k. long_string_columns -- comma separated string columns which are more than 32k length. 
 *                           default value is null.
+* l. inverted_index -- comma separated string columns for which inverted index needs to be
+*                      generated
 *
 * @return updated CarbonWriterBuilder
 */
@@ -666,6 +672,15 @@ public CarbonWriterBuilder withThreadSafe(short numOfThreads);
 * @return updated CarbonWriterBuilder
 */
 public CarbonWriterBuilder withHadoopConf(Configuration conf)
+</code></pre>
+<pre><code>  /**
+   * Updates the hadoop configuration with the given key value
+   *
+   * @param key   key word
+   * @param value value
+   * @return this object
+   */
+  public CarbonWriterBuilder withHadoopConf(String key, String value);
 </code></pre>
 <pre><code>/**
 * to build a {@link CarbonWriter}, which accepts row in CSV format
@@ -692,6 +707,23 @@ public CarbonWriterBuilder withAvroInput(org.apache.avro.Schema avroSchema);
 public CarbonWriterBuilder withJsonInput(Schema carbonSchema);
 </code></pre>
 <pre><code>/**
+* To support writing the ApplicationName which is writing the carbondata file
+* This is a mandatory API to call, else the build() call will fail with error.
+* @param application name which is writing the carbondata files
+* @return CarbonWriterBuilder
+*/
+public CarbonWriterBuilder writtenBy(String appName) {
+</code></pre>
+<pre><code>/**
+* sets the list of columns for which inverted index needs to generated
+* @param invertedIndexColumns is a string array of columns for which inverted index needs to
+* generated.
+* If it is null or an empty array, inverted index will be generated for none of the columns
+* @return updated CarbonWriterBuilder
+*/
+public CarbonWriterBuilder invertedIndexFor(String[] invertedIndexColumns);
+</code></pre>
+<pre><code>/**
 * Build a {@link CarbonWriter}
 * This writer is not thread safe,
 * use withThreadSafe() configuration in multi thread environment
@@ -702,8 +734,21 @@ public CarbonWriterBuilder withJsonInput(Schema carbonSchema);
 */
 public CarbonWriter build() throws IOException, InvalidLoadOptionException;
 </code></pre>
+<pre><code> /**
+   * Configure Row Record Reader for reading.
+   *
+   */
+  public CarbonReaderBuilder withRowRecordReader()
+</code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonwriter" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonWriter</h3>
+<pre><code>/**
+* Create a {@link CarbonWriterBuilder} to build a {@link CarbonWriter}
+*/
+public static CarbonWriterBuilder builder() {
+    return new CarbonWriterBuilder();
+}
+</code></pre>
 <pre><code>/**
 * Write an object to the file, the format of the object depends on the implementation
 * If AvroCarbonWriter, object is of type org.apache.avro.generic.GenericData.Record, 
@@ -719,13 +764,6 @@ public abstract void write(Object object) throws IOException;
 * Flush and close the writer
 */
 public abstract void close() throws IOException;
-</code></pre>
-<pre><code>/**
-* Create a {@link CarbonWriterBuilder} to build a {@link CarbonWriter}
-*/
-public static CarbonWriterBuilder builder() {
-    return new CarbonWriterBuilder();
-}
 </code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfilefield" class="anchor" href="#class-orgapachecarbondatasdkfilefield" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.Field</h3>
@@ -824,6 +862,24 @@ External client can make use of this reader to read CarbonData files without Car
    */
   public static CarbonReaderBuilder builder(String tablePath);
 </code></pre>
+<pre><code>/**
+  * Breaks the list of CarbonRecordReader in CarbonReader into multiple
+  * CarbonReader objects, each iterating through some 'carbondata' files
+  * and return that list of CarbonReader objects
+  *
+  * If the no. of files is greater than maxSplits, then break the
+  * CarbonReader into maxSplits splits, with each split iterating
+  * through &gt;= 1 file.
+  *
+  * If the no. of files is less than maxSplits, then return list of
+  * CarbonReader with size as the no. of files, with each CarbonReader
+  * iterating through exactly one file
+  *
+  * @param maxSplits: Int
+  * @return list of CarbonReader objects
+  */
+  public List&lt;CarbonReader&gt; split(int maxSplits);
+</code></pre>
 <pre><code>  /**
    * Return true if has next row
    */
@@ -833,6 +889,11 @@ External client can make use of this reader to read CarbonData files without Car
    * Read and return next row object
    */
   public T readNextRow();
+</code></pre>
+<pre><code>  /**
+   * Read and return next batch row objects
+   */
+  public Object[] readNextBatchRow();
 </code></pre>
 <pre><code>  /**
    * Close reader
@@ -865,6 +926,14 @@ External client can make use of this reader to read CarbonData files without Car
   */
   public CarbonReaderBuilder filter(Expression filterExpression);
 </code></pre>
+<pre><code>  /**
+   * Sets the batch size of records to read
+   *
+   * @param batch batch size
+   * @return updated CarbonReaderBuilder
+   */
+  public CarbonReaderBuilder withBatch(int batch);
+</code></pre>
 <pre><code>/**
  * To support hadoop configuration
  *
@@ -872,6 +941,15 @@ External client can make use of this reader to read CarbonData files without Car
  * @return updated CarbonReaderBuilder
  */
  public CarbonReaderBuilder withHadoopConf(Configuration conf);
+</code></pre>
+<pre><code>  /**
+   * Updates the hadoop configuration with the given key value
+   *
+   * @param key   key word
+   * @param value value
+   * @return this object
+   */
+  public CarbonReaderBuilder withHadoopConf(String key, String value);
 </code></pre>
 <pre><code> /**
    * Build CarbonReader
@@ -892,6 +970,7 @@ External client can make use of this reader to read CarbonData files without Car
    * @return schema object
    * @throws IOException
    */
+  @Deprecated
   public static Schema readSchemaInSchemaFile(String schemaFilePath);
 </code></pre>
 <pre><code>  /**
@@ -900,6 +979,7 @@ External client can make use of this reader to read CarbonData files without Car
    * @param dataFilePath complete path including carbondata file name
    * @return Schema object
    */
+  @Deprecated
   public static Schema readSchemaInDataFile(String dataFilePath);
 </code></pre>
 <pre><code>  /**
@@ -909,7 +989,41 @@ External client can make use of this reader to read CarbonData files without Car
    * @return schema object
    * @throws IOException
    */
+  @Deprecated
   public static Schema readSchemaInIndexFile(String indexFilePath);
+</code></pre>
+<pre><code>  /**
+   * read schema from path,
+   * path can be folder path,carbonindex file path, and carbondata file path
+   * and will not check all files schema
+   *
+   * @param path file/folder path
+   * @return schema
+   * @throws IOException
+   */
+  public static Schema readSchema(String path);
+</code></pre>
+<pre><code>  /**
+   * read schema from path,
+   * path can be folder path,carbonindex file path, and carbondata file path
+   * and user can decide whether check all files schema
+   *
+   * @param path             file/folder path
+   * @param validateSchema whether check all files schema
+   * @return schema
+   * @throws IOException
+   */
+  public static Schema readSchema(String path, boolean validateSchema);
+</code></pre>
+<pre><code>  /**
+   * This method return the version details in formatted string by reading from carbondata file
+   * If application name is SDK_1.0.0 and this has written the carbondata file in carbondata 1.6 project version,
+   * then this API returns the String "SDK_1.0.0 in version: 1.6.0-SNAPSHOT"
+   * @param dataFilePath complete path including carbondata file name
+   * @return string with information of who has written this file in which carbondata project version
+   * @throws IOException
+   */
+  public static String getVersionDetails(String dataFilePath);
 </code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfileschema-1" class="anchor" href="#class-orgapachecarbondatasdkfileschema-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.Schema</h3>

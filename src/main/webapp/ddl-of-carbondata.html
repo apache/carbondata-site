@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
-                                   target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -223,7 +223,7 @@
 <p>CarbonData DDL statements are documented here,which includes:</p>
 <ul>
 <li>
-<a href="#create-table">CREATE TABLE</a>
+<p><a href="#create-table">CREATE TABLE</a></p>
 <ul>
 <li><a href="#dictionary-encoding-configuration">Dictionary Encoding</a></li>
 <li><a href="#inverted-index-configuration">Inverted Index</a></li>
@@ -239,19 +239,24 @@
 <li><a href="#string-longer-than-32000-characters">Extra Long String columns</a></li>
 <li><a href="#compression-for-table">Compression for Table</a></li>
 <li><a href="#bad-records-path">Bad Records Path</a></li>
+<li><a href="#load-minimum-data-size">Load Minimum Input File Size</a></li>
 </ul>
 </li>
-<li><a href="#create-table-as-select">CREATE TABLE AS SELECT</a></li>
 <li>
-<a href="#create-external-table">CREATE EXTERNAL TABLE</a>
+<p><a href="#create-table-as-select">CREATE TABLE AS SELECT</a></p>
+</li>
+<li>
+<p><a href="#create-external-table">CREATE EXTERNAL TABLE</a></p>
 <ul>
 <li><a href="#create-external-table-on-managed-table-data-location">External Table on Transactional table location</a></li>
 <li><a href="#create-external-table-on-non-transactional-table-data-location">External Table on non-transactional table location</a></li>
 </ul>
 </li>
-<li><a href="#create-database">CREATE DATABASE</a></li>
 <li>
-<a href="#table-management">TABLE MANAGEMENT</a>
+<p><a href="#create-database">CREATE DATABASE</a></p>
+</li>
+<li>
+<p><a href="#table-management">TABLE MANAGEMENT</a></p>
 <ul>
 <li><a href="#show-table">SHOW TABLE</a></li>
 <li>
@@ -271,7 +276,7 @@
 </ul>
 </li>
 <li>
-<a href="#partition">PARTITION</a>
+<p><a href="#partition">PARTITION</a></p>
 <ul>
 <li>
 <a href="#standard-partition">STANDARD PARTITION(HIVE)</a>
@@ -293,7 +298,9 @@
 <li><a href="#drop-a-partition">DROP PARTITION</a></li>
 </ul>
 </li>
-<li><a href="#bucketing">BUCKETING</a></li>
+<li>
+<p><a href="#bucketing">BUCKETING</a></p>
+</li>
 </ul>
 <h2>
 <a id="create-table" class="anchor" href="#create-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE TABLE</h2>
@@ -322,6 +329,10 @@ STORED AS carbondata
 <tr>
 <td><a href="#inverted-index-configuration">NO_INVERTED_INDEX</a></td>
 <td>Columns to exclude from inverted index generation</td>
+</tr>
+<tr>
+<td><a href="#inverted-index-configuration">INVERTED_INDEX</a></td>
+<td>Columns to include for inverted index generation</td>
 </tr>
 <tr>
 <td><a href="#sort-columns-configuration">SORT_COLUMNS</a></td>
@@ -403,6 +414,10 @@ STORED AS carbondata
 <td><a href="#bucketing">BUCKETCOLUMNS</a></td>
 <td>Columns which are to be placed in buckets</td>
 </tr>
+<tr>
+<td><a href="#load-minimum-data-size">LOAD_MIN_SIZE_INMB</a></td>
+<td>Minimum input data size per node for data loading</td>
+</tr>
 </tbody>
 </table>
 <p>Following are the guidelines for TBLPROPERTIES, CarbonData's additional table options can be set via carbon.properties.</p>
@@ -419,9 +434,9 @@ Suggested use cases : do dictionary encoding for low cardinality columns, it mig
 <li>
 <h5>
 <a id="inverted-index-configuration" class="anchor" href="#inverted-index-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inverted Index Configuration</h5>
-<p>By default inverted index is enabled, it might help to improve compression ratio and query speed, especially for low cardinality columns which are in reward position.
+<p>By default inverted index is disabled as store size will be reduced, it can be enabled by using a table property. It might help to improve compression ratio and query speed, especially for low cardinality columns which are in reward position.
 Suggested use cases : For high cardinality columns, you can disable the inverted index for improving the data loading performance.</p>
-<pre><code>TBLPROPERTIES ('NO_INVERTED_INDEX'='column1, column3')
+<pre><code>TBLPROPERTIES ('NO_INVERTED_INDEX'='column1', 'INVERTED_INDEX'='column2, column3')
 </code></pre>
 </li>
 <li>
@@ -549,6 +564,8 @@ Following are 5 configurations:</p>
 <li>TIMESTAMP</li>
 <li>DATE</li>
 <li>BOOLEAN</li>
+<li>FLOAT</li>
+<li>BYTE</li>
 </ul>
 </li>
 <li>
@@ -746,7 +763,7 @@ You can refer to SDKwriterTestCase for example.</p>
 <h5>
 <a id="compression-for-table" class="anchor" href="#compression-for-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compression for table</h5>
 <p>Data compression is also supported by CarbonData.
-By default, Snappy is used to compress the data. CarbonData also support ZSTD compressor.
+By default, Snappy is used to compress the data. CarbonData also supports ZSTD compressor.
 User can specify the compressor in the table property:</p>
 <pre><code>TBLPROPERTIES('carbon.column.compressor'='snappy')
 </code></pre>
@@ -770,7 +787,19 @@ The corresponding system property is configured in carbon.properties file as bel
 As the table path remains the same after rename therefore the user can use this property to
 specify bad records path for the table at the time of creation, so that the same path can
 be later viewed in table description for reference.</p>
-<pre><code>  TBLPROPERTIES('BAD_RECORD_PATH'='/opt/badrecords'')
+<pre><code>  TBLPROPERTIES('BAD_RECORD_PATH'='/opt/badrecords')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="load-minimum-data-size" class="anchor" href="#load-minimum-data-size" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load minimum data size</h5>
+<p>This property indicates the minimum input data size per node for data loading.
+By default it is not enabled. Setting a non-zero integer value will enable this feature.
+This property is useful if you have a large cluster and only want a small portion of the nodes to process data loading.
+For example, if you have a cluster with 10 nodes and the input data is about 1GB. Without this property, each node will process about 100MB input data and result in at least 10 data files. With this property configured with 512, only 2 nodes will be chosen to process the input data, each with about 512MB input and result in about 2 or 4 files based on the compress ratio.
+Moreover, this property can also be specified in the load option.
+Notice that once you enable this feature, for load balance, carbondata will ignore the data locality while assigning input data to nodes, this will cause more network traffic.</p>
+<pre><code>  TBLPROPERTIES('LOAD_MIN_SIZE_INMB'='256')
 </code></pre>
 </li>
 </ul>
@@ -832,14 +861,14 @@ checkAnswer(sql("SELECT count(*) from source"), sql("SELECT count(*) from origin
 <h3>
 <a id="create-external-table-on-non-transactional-table-data-location" class="anchor" href="#create-external-table-on-non-transactional-table-data-location" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create external table on Non-Transactional table data location.</h3>
 <p>Non-Transactional table data location will have only carbondata and carbonindex files, there will not be a metadata folder (table status and schema).
-Our SDK module currently support writing data in this format.</p>
+Our SDK module currently supports writing data in this format.</p>
 <p><strong>Example:</strong></p>
 <pre><code>sql(
 s"""CREATE EXTERNAL TABLE sdkOutputTable STORED AS carbondata LOCATION
 |'$writerPath' """.stripMargin)
 </code></pre>
 <p>Here writer path will have carbondata and index files.
-This can be SDK output. Refer <a href="./sdk-guide.html">SDK Guide</a>.</p>
+This can be SDK output or C++ SDK output. Refer <a href="./sdk-guide.html">SDK Guide</a> and <a href="./csdk-guide.html">C++ SDK Guide</a>.</p>
 <p><strong>Note:</strong></p>
 <ol>
 <li>Dropping of the external table should not delete the files present in the location.</li>
