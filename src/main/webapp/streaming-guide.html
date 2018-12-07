@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
-                                   target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -243,9 +243,10 @@
 <li>
 <a href="#streaming-job-management">Streaming Job Management</a>
 <ul>
-<li><a href="#start-stream">START STREAM</a></li>
-<li><a href="#stop-stream">STOP STREAM</a></li>
+<li><a href="#create-stream">CREATE STREAM</a></li>
+<li><a href="#drop-stream">DROP STREAM</a></li>
 <li><a href="#show-streams">SHOW STREAMS</a></li>
+<li><a href="#close-stream">CLOSE STREAM</a></li>
 </ul>
 </li>
 </ul>
@@ -570,7 +571,7 @@ streaming table using following DDL.</p>
 
     sql(
       """
-        |START STREAM job123 ON TABLE sink
+        |CREATE STREAM job123 ON TABLE sink
         |STMPROPERTIES(
         |  'trigger'='ProcessingTime',
         |  'interval'='1 seconds')
@@ -580,7 +581,7 @@ streaming table using following DDL.</p>
         |  WHERE id % 2 = 1
       """.stripMargin)
 
-    sql("STOP STREAM job123")
+    sql("DROP STREAM job123")
 
     sql("SHOW STREAMS [ON TABLE tableName]")
 </code></pre>
@@ -591,14 +592,14 @@ streaming table using following DDL.</p>
 <p>As above example shown:</p>
 <ul>
 <li>
-<code>START STREAM jobName ON TABLE tableName</code> is used to start a streaming ingest job.</li>
+<code>CREATE STREAM jobName ON TABLE tableName</code> is used to start a streaming ingest job.</li>
 <li>
-<code>STOP STREAM jobName</code> is used to stop a streaming job by its name</li>
+<code>DROP STREAM jobName</code> is used to stop a streaming job by its name</li>
 <li>
 <code>SHOW STREAMS [ON TABLE tableName]</code> is used to print streaming job information</li>
 </ul>
 <h5>
-<a id="start-stream" class="anchor" href="#start-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>START STREAM</h5>
+<a id="create-stream" class="anchor" href="#create-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CREATE STREAM</h5>
 <p>When this is issued, carbon will start a structured streaming job to do the streaming ingestion. Before launching the job, system will validate:</p>
 <ul>
 <li>
@@ -651,9 +652,24 @@ TBLPROPERTIES(
  <span class="pl-s"><span class="pl-pds">'</span>record_format<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>csv<span class="pl-pds">'</span></span>, <span class="pl-k">//</span> can be csv <span class="pl-k">or</span> json, default is csv
  <span class="pl-s"><span class="pl-pds">'</span>delimiter<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>|<span class="pl-pds">'</span></span>
 )</pre></div>
+<ul>
+<li>Then CREATE STREAM can be used to start the streaming ingest job from source table to sink table</li>
+</ul>
+<pre><code>CREATE STREAM job123 ON TABLE sink
+STMPROPERTIES(
+    'trigger'='ProcessingTime',
+     'interval'='10 seconds'
+) 
+AS
+   SELECT *
+   FROM source
+   WHERE id % 2 = 1
+</code></pre>
 <h5>
-<a id="stop-stream" class="anchor" href="#stop-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STOP STREAM</h5>
-<p>When this is issued, the streaming job will be stopped immediately. It will fail if the jobName specified is not exist.</p>
+<a id="drop-stream" class="anchor" href="#drop-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DROP STREAM</h5>
+<p>When <code>DROP STREAM</code> is issued, the streaming job will be stopped immediately. It will fail if the jobName specified is not exist.</p>
+<pre><code>DROP STREAM job123
+</code></pre>
 <h5>
 <a id="show-streams" class="anchor" href="#show-streams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW STREAMS</h5>
 <p><code>SHOW STREAMS ON TABLE tableName</code> command will print the streaming job information as following</p>
@@ -680,6 +696,10 @@ TBLPROPERTIES(
 </tbody>
 </table>
 <p><code>SHOW STREAMS</code> command will show all stream jobs in the system.</p>
+<h5>
+<a id="alter-table-close-stream" class="anchor" href="#alter-table-close-stream" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ALTER TABLE CLOSE STREAM</h5>
+<p>When the streaming application is stopped, and user want to manually trigger data conversion from carbon streaming files to columnar files, one can use
+<code>ALTER TABLE sink COMPACT 'CLOSE_STREAMING';</code></p>
 <script>
 $(function() {
   // Show selected style on nav item

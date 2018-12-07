@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
-                                   target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -313,8 +313,7 @@ Several encodings that may be used in CarbonData files.</li>
 <p><a href="../docs/images/2-3_3.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-3_3.png?raw=true" alt="V3" style="max-width:100%;"></a></p>
 <h4>
 <a id="footer-format" class="anchor" href="#footer-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Footer format</h4>
-<p>Footer records each carbondata
-All blocklet data distribution information and statistical related metadata information (minmax, startkey/endkey) inside the file.</p>
+<p>Footer records each carbondata, all blocklet data distribution information and statistical related metadata information (minmax, startkey/endkey) inside the file.</p>
 <p><a href="../docs/images/2-3_4.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-3_4.png?raw=true" alt="Footer format" style="max-width:100%;"></a></p>
 <ol>
 <li>BlockletInfo3 is used to record the offset and length of all ColumnChunk3.</li>

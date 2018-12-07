@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
                                    target="_blank">Apache CarbonData 1.3.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.0/"
-                                   target="_blank">Apache CarbonData 1.3.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -219,119 +219,28 @@
                                 <div class="col-sm-12  col-md-12">
                                     <div>
 <h1>
-<a id="csdk-guide" class="anchor" href="#csdk-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSDK Guide</h1>
-<p>CarbonData CSDK provides C++ interface to write and read carbon file.
-CSDK use JNI to invoke java SDK in C++ code.</p>
+<a id="c-sdk-guide" class="anchor" href="#c-sdk-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C++ SDK Guide</h1>
+<p>CarbonData C++ SDK provides C++ interface to write and read carbon file.
+C++ SDK use JNI to invoke java SDK in C++ code.</p>
 <h1>
-<a id="csdk-reader" class="anchor" href="#csdk-reader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSDK Reader</h1>
-<p>This CSDK reader reads CarbonData file and carbonindex file at a given path.
+<a id="c-sdk-reader" class="anchor" href="#c-sdk-reader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C++ SDK Reader</h1>
+<p>This C++ SDK reader reads CarbonData file and carbonindex file at a given path.
 External client can make use of this reader to read CarbonData files in C++
 code and without CarbonSession.</p>
 <p>In the carbon jars package, there exist a carbondata-sdk.jar,
-including SDK reader for CSDK.</p>
+including SDK reader for C++ SDK.</p>
 <h2>
 <a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
-<pre><code>// 1. init JVM
-JavaVM *jvm;
-JNIEnv *initJVM() {
-    JNIEnv *env;
-    JavaVMInitArgs vm_args;
-    int parNum = 3;
-    int res;
-    JavaVMOption options[parNum];
-
-    options[0].optionString = "-Djava.compiler=NONE";
-    options[1].optionString = "-Djava.class.path=../../sdk/target/carbondata-sdk.jar";
-    options[2].optionString = "-verbose:jni";
-    vm_args.version = JNI_VERSION_1_8;
-    vm_args.nOptions = parNum;
-    vm_args.options = options;
-    vm_args.ignoreUnrecognized = JNI_FALSE;
-
-    res = JNI_CreateJavaVM(&amp;jvm, (void **) &amp;env, &amp;vm_args);
-    if (res &lt; 0) {
-        fprintf(stderr, "\nCan't create Java VM\n");
-        exit(1);
-    }
-
-    return env;
-}
-
-// 2. create carbon reader and read data 
-// 2.1 read data from local disk
-/**
- * test read data from local disk, without projection
- *
- * @param env  jni env
- * @return
- */
-bool readFromLocalWithoutProjection(JNIEnv *env) {
-
-    CarbonReader carbonReaderClass;
-    carbonReaderClass.builder(env, "../resources/carbondata", "test");
-    carbonReaderClass.build();
-
-    while (carbonReaderClass.hasNext()) {
-        jobjectArray row = carbonReaderClass.readNextRow();
-        jsize length = env-&gt;GetArrayLength(row);
-        int j = 0;
-        for (j = 0; j &lt; length; j++) {
-            jobject element = env-&gt;GetObjectArrayElement(row, j);
-            char *str = (char *) env-&gt;GetStringUTFChars((jstring) element, JNI_FALSE);
-            printf("%s\t", str);
-        }
-        printf("\n");
-    }
-    carbonReaderClass.close();
-}
-
-// 2.2 read data from S3
-
-/**
- * read data from S3
- * parameter is ak sk endpoint
- *
- * @param env jni env
- * @param argv argument vector
- * @return
- */
-bool readFromS3(JNIEnv *env, char *argv[]) {
-    CarbonReader reader;
-
-    char *args[3];
-    // "your access key"
-    args[0] = argv[1];
-    // "your secret key"
-    args[1] = argv[2];
-    // "your endPoint"
-    args[2] = argv[3];
-
-    reader.builder(env, "s3a://sdk/WriterOutput", "test");
-    reader.withHadoopConf(3, args);
-    reader.build();
-    printf("\nRead data from S3:\n");
-    while (reader.hasNext()) {
-        jobjectArray row = reader.readNextRow();
-        jsize length = env-&gt;GetArrayLength(row);
-
-        int j = 0;
-        for (j = 0; j &lt; length; j++) {
-            jobject element = env-&gt;GetObjectArrayElement(row, j);
-            char *str = (char *) env-&gt;GetStringUTFChars((jstring) element, JNI_FALSE);
-            printf("%s\t", str);
-        }
-        printf("\n");
-    }
-
-    reader.close();
-}
-
-// 3. destory JVM
-    (jvm)-&gt;DestroyJavaVM();
-</code></pre>
-<p>Find example code at main.cpp of CSDK module</p>
+<p>Please find example code at  <a href="https://github.com/apache/carbondata/blob/master/store/CSDK/test/main.cpp" target=_blank>main.cpp</a> of CSDK module</p>
+<p>When users use C++ to read carbon files, users should init JVM first. Then users create
+carbon reader and read data.There are some example code of read data from local disk<br>
+and read data from S3 at main.cpp of CSDK module.  Finally, users need to
+release the memory and destroy JVM.</p>
+<p>C++ SDK support read batch row. User can set batch by using withBatch(int batch) before build, and read batch by using readNextBatchRow().</p>
 <h2>
 <a id="api-list" class="anchor" href="#api-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
+<h3>
+<a id="carbonreader" class="anchor" href="#carbonreader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonReader</h3>
 <pre><code>    /**
      * create a CarbonReaderBuilder object for building carbonReader,
      * CarbonReaderBuilder object  can configure different parameter
@@ -342,8 +251,17 @@ bool readFromS3(JNIEnv *env, char *argv[]) {
      * @return CarbonReaderBuilder object
      */
     jobject builder(JNIEnv *env, char *path, char *tableName);
-
-    /**
+</code></pre>
+<pre><code>    /**
+     * create a CarbonReaderBuilder object for building carbonReader,
+     * CarbonReaderBuilder object  can configure different parameter
+     *
+     * @param env JNIEnv
+     * @param path data store path
+     * */
+    void builder(JNIEnv *env, char *path);
+</code></pre>
+<pre><code>    /**
      * Configure the projection column names of carbon reader
      *
      * @param argc argument counter
@@ -351,8 +269,8 @@ bool readFromS3(JNIEnv *env, char *argv[]) {
      * @return CarbonReaderBuilder object
      */
     jobject projection(int argc, char *argv[]);
-
-    /**
+</code></pre>
+<pre><code>    /**
      *  build carbon reader with argument vector
      *  it support multiple parameter
      *  like: key=value
@@ -363,36 +281,239 @@ bool readFromS3(JNIEnv *env, char *argv[]) {
      * @return CarbonReaderBuilder object
      **/
     jobject withHadoopConf(int argc, char *argv[]);
-
-    /**
+</code></pre>
+<pre><code>   /**
+     * Sets the batch size of records to read
+     *
+     * @param batch batch size
+     * @return CarbonReaderBuilder object
+     */
+    void withBatch(int batch);
+</code></pre>
+<pre><code>    /**
+     * Configure Row Record Reader for reading.
+     */
+    void withRowRecordReader();
+</code></pre>
+<pre><code>    /**
      * build carbonReader object for reading data
      * it support read data from load disk
      *
      * @return carbonReader object
      */
     jobject build();
-
-    /**
+</code></pre>
+<pre><code>    /**
      * Whether it has next row data
      *
      * @return boolean value, if it has next row, return true. if it hasn't next row, return false.
      */
     jboolean hasNext();
-
-    /**
-     * read next row from data
-     *
-     * @return object array of one row
+</code></pre>
+<pre><code>    /**
+     * read next carbonRow from data
+     * @return carbonRow object of one row
      */
-    jobjectArray readNextRow();
-
-    /**
+     jobject readNextRow();
+</code></pre>
+<pre><code>    /**
+     * read Next Batch Row
+     *
+     * @return rows
+     */
+    jobjectArray readNextBatchRow();
+</code></pre>
+<pre><code>    /**
      * close the carbon reader
      *
      * @return  boolean value
      */
     jboolean close();
-
+</code></pre>
+<h1>
+<a id="c-sdk-writer" class="anchor" href="#c-sdk-writer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C++ SDK Writer</h1>
+<p>This C++ SDK writer writes CarbonData file and carbonindex file at a given path.
+External client can make use of this writer to write CarbonData files in C++
+code and without CarbonSession. C++ SDK already supports S3 and local disk.</p>
+<p>In the carbon jars package, there exist a carbondata-sdk.jar,
+including SDK writer for C++ SDK.</p>
+<h2>
+<a id="quick-example-1" class="anchor" href="#quick-example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
+<p>Please find example code at  <a href="https://github.com/apache/carbondata/blob/master/store/CSDK/test/main.cpp" target=_blank>main.cpp</a> of CSDK module</p>
+<p>When users use C++ to write carbon files, users should init JVM first. Then users create
+carbon writer and write data.There are some example code of write data to local disk<br>
+and write data to S3 at main.cpp of CSDK module.  Finally, users need to
+release the memory and destroy JVM.</p>
+<h2>
+<a id="api-list-1" class="anchor" href="#api-list-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
+<h3>
+<a id="carbonwriter" class="anchor" href="#carbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonWriter</h3>
+<pre><code>    /**
+     * create a CarbonWriterBuilder object for building carbonWriter,
+     * CarbonWriterBuilder object  can configure different parameter
+     *
+     * @param env JNIEnv
+     * @return CarbonWriterBuilder object
+     */
+    void builder(JNIEnv *env);
+</code></pre>
+<pre><code>    /**
+     * Sets the output path of the writer builder
+     *
+     * @param path is the absolute path where output files are written
+     * This method must be called when building CarbonWriterBuilder
+     * @return updated CarbonWriterBuilder
+     */
+    void outputPath(char *path);
+</code></pre>
+<pre><code>    /**
+     * configure the schema with json style schema
+     *
+     * @param jsonSchema json style schema
+     * @return updated CarbonWriterBuilder
+     */
+    void withCsvInput(char *jsonSchema);
+</code></pre>
+<pre><code>    /**
+    * Updates the hadoop configuration with the given key value
+    *
+    * @param key key word
+    * @param value value
+    * @return CarbonWriterBuilder object
+    */
+    void withHadoopConf(char *key, char *value);
+</code></pre>
+<pre><code>    /**
+     * @param appName appName which is writing the carbondata files
+     */
+    void writtenBy(char *appName);
+</code></pre>
+<pre><code>    /**
+     * build carbonWriter object for writing data
+     * it support write data from load disk
+     *
+     * @return carbonWriter object
+     */
+    void build();
+</code></pre>
+<pre><code>    /**
+     * Write an object to the file, the format of the object depends on the
+     * implementation.
+     * Note: This API is not thread safe
+     */
+    void write(jobject obj);
+</code></pre>
+<pre><code>    /**
+     * close the carbon Writer
+     */
+    void close();
+</code></pre>
+<h3>
+<a id="carbonschemareader" class="anchor" href="#carbonschemareader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonSchemaReader</h3>
+<pre><code>    /**
+     * constructor with jni env
+     *
+     * @param env  jni env
+     */
+    CarbonSchemaReader(JNIEnv *env);
+</code></pre>
+<pre><code>    /**
+     * read schema from path,
+     * path can be folder path, carbonindex file path, and carbondata file path
+     * and will not check all files schema
+     *
+     * @param path file/folder path
+     * @return schema
+     */
+    jobject readSchema(char *path);
+</code></pre>
+<pre><code>    /**
+     *  read schema from path,
+     *  path can be folder path, carbonindex file path, and carbondata file path
+     *  and user can decide whether check all files schema
+     *
+     * @param path carbon data path
+     * @param validateSchema whether check all files schema
+     * @return schema
+     */
+    jobject readSchema(char *path, bool validateSchema);
+</code></pre>
+<h3>
+<a id="schema" class="anchor" href="#schema" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Schema</h3>
+<pre><code> /**
+     * constructor with jni env and carbon schema data
+     *
+     * @param env jni env
+     * @param schema  carbon schema data
+     */
+    Schema(JNIEnv *env, jobject schema);
+</code></pre>
+<pre><code>    /**
+     * get fields length of schema
+     *
+     * @return fields length
+     */
+    int getFieldsLength();
+</code></pre>
+<pre><code>    /**
+     * get field name by ordinal
+     *
+     * @param ordinal the data index of carbon schema
+     * @return ordinal field name
+     */
+    char *getFieldName(int ordinal);
+</code></pre>
+<pre><code>    /**
+     * get  field data type name by ordinal
+     *
+     * @param ordinal the data index of carbon schema
+     * @return ordinal field data type name
+     */
+    char *getFieldDataTypeName(int ordinal);
+</code></pre>
+<pre><code>    /**
+     * get  array child element data type name by ordinal
+     *
+     * @param ordinal the data index of carbon schema
+     * @return ordinal array child element data type name
+     */
+    char *getArrayElementTypeName(int ordinal);
+</code></pre>
+<h3>
+<a id="carbonproperties" class="anchor" href="#carbonproperties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonProperties</h3>
+<pre><code>  /**
+     * Constructor of CarbonProperties
+     *
+     * @param env JNI env
+     */
+    CarbonProperties(JNIEnv *env);
+</code></pre>
+<pre><code>    /**
+     * This method will be used to add a new property
+     * 
+     * @param key property key
+     * @param value property value
+     * @return CarbonProperties object
+     */
+    jobject addProperty(char *key, char *value);
+</code></pre>
+<pre><code>    /**
+     * This method will be used to get the properties value
+     *
+     * @param key  property key
+     * @return  property value
+     */
+    char *getProperty(char *key);
+</code></pre>
+<pre><code>    /**
+     * This method will be used to get the properties value
+     * if property is not present then it will return the default value
+     *
+     * @param key  property key
+     * @param defaultValue  property default Value
+     * @return
+     */
+    char *getProperty(char *key, char *defaultValue);
 </code></pre>
 <script>
 $(function() {

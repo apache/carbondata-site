@@ -15,123 +15,33 @@
     limitations under the License.
 -->
 
-# CSDK Guide
+# C++ SDK Guide
 
-CarbonData CSDK provides C++ interface to write and read carbon file. 
-CSDK use JNI to invoke java SDK in C++ code.
+CarbonData C++ SDK provides C++ interface to write and read carbon file. 
+C++ SDK use JNI to invoke java SDK in C++ code.
 
 
-# CSDK Reader
-This CSDK reader reads CarbonData file and carbonindex file at a given path.
+# C++ SDK Reader
+This C++ SDK reader reads CarbonData file and carbonindex file at a given path.
 External client can make use of this reader to read CarbonData files in C++ 
 code and without CarbonSession.
 
 
 In the carbon jars package, there exist a carbondata-sdk.jar, 
-including SDK reader for CSDK.
+including SDK reader for C++ SDK.
 ## Quick example
-```
-// 1. init JVM
-JavaVM *jvm;
-JNIEnv *initJVM() {
-    JNIEnv *env;
-    JavaVMInitArgs vm_args;
-    int parNum = 3;
-    int res;
-    JavaVMOption options[parNum];
 
-    options[0].optionString = "-Djava.compiler=NONE";
-    options[1].optionString = "-Djava.class.path=../../sdk/target/carbondata-sdk.jar";
-    options[2].optionString = "-verbose:jni";
-    vm_args.version = JNI_VERSION_1_8;
-    vm_args.nOptions = parNum;
-    vm_args.options = options;
-    vm_args.ignoreUnrecognized = JNI_FALSE;
+Please find example code at  [main.cpp](https://github.com/apache/carbondata/blob/master/store/CSDK/test/main.cpp) of CSDK module  
 
-    res = JNI_CreateJavaVM(&jvm, (void **) &env, &vm_args);
-    if (res < 0) {
-        fprintf(stderr, "\nCan't create Java VM\n");
-        exit(1);
-    }
+When users use C++ to read carbon files, users should init JVM first. Then users create 
+carbon reader and read data.There are some example code of read data from local disk  
+and read data from S3 at main.cpp of CSDK module.  Finally, users need to 
+release the memory and destroy JVM.
 
-    return env;
-}
-
-// 2. create carbon reader and read data 
-// 2.1 read data from local disk
-/**
- * test read data from local disk, without projection
- *
- * @param env  jni env
- * @return
- */
-bool readFromLocalWithoutProjection(JNIEnv *env) {
-
-    CarbonReader carbonReaderClass;
-    carbonReaderClass.builder(env, "../resources/carbondata", "test");
-    carbonReaderClass.build();
-
-    while (carbonReaderClass.hasNext()) {
-        jobjectArray row = carbonReaderClass.readNextRow();
-        jsize length = env->GetArrayLength(row);
-        int j = 0;
-        for (j = 0; j < length; j++) {
-            jobject element = env->GetObjectArrayElement(row, j);
-            char *str = (char *) env->GetStringUTFChars((jstring) element, JNI_FALSE);
-            printf("%s\t", str);
-        }
-        printf("\n");
-    }
-    carbonReaderClass.close();
-}
-
-// 2.2 read data from S3
-
-/**
- * read data from S3
- * parameter is ak sk endpoint
- *
- * @param env jni env
- * @param argv argument vector
- * @return
- */
-bool readFromS3(JNIEnv *env, char *argv[]) {
-    CarbonReader reader;
-
-    char *args[3];
-    // "your access key"
-    args[0] = argv[1];
-    // "your secret key"
-    args[1] = argv[2];
-    // "your endPoint"
-    args[2] = argv[3];
-
-    reader.builder(env, "s3a://sdk/WriterOutput", "test");
-    reader.withHadoopConf(3, args);
-    reader.build();
-    printf("\nRead data from S3:\n");
-    while (reader.hasNext()) {
-        jobjectArray row = reader.readNextRow();
-        jsize length = env->GetArrayLength(row);
-
-        int j = 0;
-        for (j = 0; j < length; j++) {
-            jobject element = env->GetObjectArrayElement(row, j);
-            char *str = (char *) env->GetStringUTFChars((jstring) element, JNI_FALSE);
-            printf("%s\t", str);
-        }
-        printf("\n");
-    }
-
-    reader.close();
-}
-
-// 3. destory JVM
-    (jvm)->DestroyJavaVM();
-```
-Find example code at main.cpp of CSDK module
+C++ SDK support read batch row. User can set batch by using withBatch(int batch) before build, and read batch by using readNextBatchRow().
 
 ## API List
+### CarbonReader
 ```
     /**
      * create a CarbonReaderBuilder object for building carbonReader,
@@ -143,7 +53,20 @@ Find example code at main.cpp of CSDK module
      * @return CarbonReaderBuilder object
      */
     jobject builder(JNIEnv *env, char *path, char *tableName);
+```
 
+```
+    /**
+     * create a CarbonReaderBuilder object for building carbonReader,
+     * CarbonReaderBuilder object  can configure different parameter
+     *
+     * @param env JNIEnv
+     * @param path data store path
+     * */
+    void builder(JNIEnv *env, char *path);
+```
+
+```
     /**
      * Configure the projection column names of carbon reader
      *
@@ -152,7 +75,9 @@ Find example code at main.cpp of CSDK module
      * @return CarbonReaderBuilder object
      */
     jobject projection(int argc, char *argv[]);
+```
 
+```
     /**
      *  build carbon reader with argument vector
      *  it support multiple parameter
@@ -164,7 +89,26 @@ Find example code at main.cpp of CSDK module
      * @return CarbonReaderBuilder object
      **/
     jobject withHadoopConf(int argc, char *argv[]);
+```
 
+```
+   /**
+     * Sets the batch size of records to read
+     *
+     * @param batch batch size
+     * @return CarbonReaderBuilder object
+     */
+    void withBatch(int batch);
+```
+
+```
+    /**
+     * Configure Row Record Reader for reading.
+     */
+    void withRowRecordReader();
+```
+
+```
     /**
      * build carbonReader object for reading data
      * it support read data from load disk
@@ -172,26 +116,262 @@ Find example code at main.cpp of CSDK module
      * @return carbonReader object
      */
     jobject build();
+```
 
+```
     /**
      * Whether it has next row data
      *
      * @return boolean value, if it has next row, return true. if it hasn't next row, return false.
      */
     jboolean hasNext();
+```
 
+```
     /**
-     * read next row from data
-     *
-     * @return object array of one row
+     * read next carbonRow from data
+     * @return carbonRow object of one row
      */
-    jobjectArray readNextRow();
+     jobject readNextRow();
+```
 
+```
+    /**
+     * read Next Batch Row
+     *
+     * @return rows
+     */
+    jobjectArray readNextBatchRow();
+```
+
+```
     /**
      * close the carbon reader
      *
      * @return  boolean value
      */
     jboolean close();
+```
 
+# C++ SDK Writer
+This C++ SDK writer writes CarbonData file and carbonindex file at a given path. 
+External client can make use of this writer to write CarbonData files in C++ 
+code and without CarbonSession. C++ SDK already supports S3 and local disk.
+
+In the carbon jars package, there exist a carbondata-sdk.jar, 
+including SDK writer for C++ SDK. 
+
+## Quick example
+Please find example code at  [main.cpp](https://github.com/apache/carbondata/blob/master/store/CSDK/test/main.cpp) of CSDK module  
+
+When users use C++ to write carbon files, users should init JVM first. Then users create 
+carbon writer and write data.There are some example code of write data to local disk  
+and write data to S3 at main.cpp of CSDK module.  Finally, users need to 
+release the memory and destroy JVM.
+
+## API List
+### CarbonWriter
+```
+    /**
+     * create a CarbonWriterBuilder object for building carbonWriter,
+     * CarbonWriterBuilder object  can configure different parameter
+     *
+     * @param env JNIEnv
+     * @return CarbonWriterBuilder object
+     */
+    void builder(JNIEnv *env);
+```
+
+```
+    /**
+     * Sets the output path of the writer builder
+     *
+     * @param path is the absolute path where output files are written
+     * This method must be called when building CarbonWriterBuilder
+     * @return updated CarbonWriterBuilder
+     */
+    void outputPath(char *path);
+```
+
+```
+    /**
+     * configure the schema with json style schema
+     *
+     * @param jsonSchema json style schema
+     * @return updated CarbonWriterBuilder
+     */
+    void withCsvInput(char *jsonSchema);
+```
+
+```
+    /**
+    * Updates the hadoop configuration with the given key value
+    *
+    * @param key key word
+    * @param value value
+    * @return CarbonWriterBuilder object
+    */
+    void withHadoopConf(char *key, char *value);
+```
+
+```
+    /**
+     * @param appName appName which is writing the carbondata files
+     */
+    void writtenBy(char *appName);
+```
+
+```
+    /**
+     * build carbonWriter object for writing data
+     * it support write data from load disk
+     *
+     * @return carbonWriter object
+     */
+    void build();
+```
+
+```
+    /**
+     * Write an object to the file, the format of the object depends on the
+     * implementation.
+     * Note: This API is not thread safe
+     */
+    void write(jobject obj);
+```
+
+```
+    /**
+     * close the carbon Writer
+     */
+    void close();
+```
+
+### CarbonSchemaReader
+
+```
+    /**
+     * constructor with jni env
+     *
+     * @param env  jni env
+     */
+    CarbonSchemaReader(JNIEnv *env);
+```
+
+```
+    /**
+     * read schema from path,
+     * path can be folder path, carbonindex file path, and carbondata file path
+     * and will not check all files schema
+     *
+     * @param path file/folder path
+     * @return schema
+     */
+    jobject readSchema(char *path);
+```
+
+```
+    /**
+     *  read schema from path,
+     *  path can be folder path, carbonindex file path, and carbondata file path
+     *  and user can decide whether check all files schema
+     *
+     * @param path carbon data path
+     * @param validateSchema whether check all files schema
+     * @return schema
+     */
+    jobject readSchema(char *path, bool validateSchema);
+```
+
+### Schema
+``` 
+ /**
+     * constructor with jni env and carbon schema data
+     *
+     * @param env jni env
+     * @param schema  carbon schema data
+     */
+    Schema(JNIEnv *env, jobject schema);
+```
+
+```
+    /**
+     * get fields length of schema
+     *
+     * @return fields length
+     */
+    int getFieldsLength();
+```
+
+```
+    /**
+     * get field name by ordinal
+     *
+     * @param ordinal the data index of carbon schema
+     * @return ordinal field name
+     */
+    char *getFieldName(int ordinal);
+```
+
+```
+    /**
+     * get  field data type name by ordinal
+     *
+     * @param ordinal the data index of carbon schema
+     * @return ordinal field data type name
+     */
+    char *getFieldDataTypeName(int ordinal);
+```
+
+```
+    /**
+     * get  array child element data type name by ordinal
+     *
+     * @param ordinal the data index of carbon schema
+     * @return ordinal array child element data type name
+     */
+    char *getArrayElementTypeName(int ordinal);
+```
+
+### CarbonProperties
+```
+  /**
+     * Constructor of CarbonProperties
+     *
+     * @param env JNI env
+     */
+    CarbonProperties(JNIEnv *env);
+```
+
+```
+    /**
+     * This method will be used to add a new property
+     * 
+     * @param key property key
+     * @param value property value
+     * @return CarbonProperties object
+     */
+    jobject addProperty(char *key, char *value);
+```
+
+```
+    /**
+     * This method will be used to get the properties value
+     *
+     * @param key  property key
+     * @return  property value
+     */
+    char *getProperty(char *key);
+```
+
+```
+    /**
+     * This method will be used to get the properties value
+     * if property is not present then it will return the default value
+     *
+     * @param key  property key
+     * @param defaultValue  property default Value
+     * @return
+     */
+    char *getProperty(char *key, char *defaultValue);
 ```
