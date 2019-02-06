@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
                                    target="_blank">Apache CarbonData 1.5.1</a></li>
                             <li>
@@ -63,9 +66,6 @@
 							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
-                                   target="_blank">Apache CarbonData 1.3.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -238,13 +238,13 @@
 <h2>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 <p>DataMap can be created using following DDL</p>
-<pre><code>  CREATE DATAMAP [IF NOT EXISTS] datamap_name
-  [ON TABLE main_table]
-  USING "datamap_provider"
-  [WITH DEFERRED REBUILD]
-  DMPROPERTIES ('key'='value', ...)
-  AS
-    SELECT statement
+<pre><code>CREATE DATAMAP [IF NOT EXISTS] datamap_name
+[ON TABLE main_table]
+USING "datamap_provider"
+[WITH DEFERRED REBUILD]
+DMPROPERTIES ('key'='value', ...)
+AS
+  SELECT statement
 </code></pre>
 <p>Currently, there are 5 DataMap implementations in CarbonData.</p>
 <table>

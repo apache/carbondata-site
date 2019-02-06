@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
                                    target="_blank">Apache CarbonData 1.5.1</a></li>
                             <li>
@@ -63,9 +66,6 @@
 							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
-                                   target="_blank">Apache CarbonData 1.3.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -269,6 +269,10 @@ OPTIONS(property_name=property_value, ...)
 <td>If header is not present in the input csv, what is the column names to be used for data read from input csv</td>
 </tr>
 <tr>
+<td><a href="#sort_scope">SORT_SCOPE</a></td>
+<td>Sort Scope to be used for current load.</td>
+</tr>
+<tr>
 <td><a href="#multiline">MULTILINE</a></td>
 <td>Whether a row data can span across multiple lines.</td>
 </tr>
@@ -332,8 +336,14 @@ OPTIONS(property_name=property_value, ...)
 <td><a href="#global_sort_partitions">GLOBAL_SORT_PARTITIONS</a></td>
 <td>Number of partition to use for shuffling of data during sorting</td>
 </tr>
+<tr>
+<td><a href="#scale_factor">SCALE_FACTOR</a></td>
+<td>Control the partition size for RANGE_COLUMN feature</td>
+</tr>
 </tbody>
 </table>
+<ul>
+<li>
 <p>You can use the following options to load data:</p>
 <ul>
 <li>
@@ -376,6 +386,24 @@ true: CSV file is with file header.</p>
 </li>
 <li>
 <h5>
+<a id="sort_scope" class="anchor" href="#sort_scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SORT_SCOPE:</h5>
+<p>Sort Scope to be used for the current load. This overrides the Sort Scope of Table.
+Requirement: Sort Columns must be set while creating table. If Sort Columns is null, Sort Scope is always NO_SORT.</p>
+<pre><code>OPTIONS('SORT_SCOPE'='BATCH_SORT')
+</code></pre>
+<p>Priority order for choosing Sort Scope is:</p>
+<ol>
+<li>Load Data Command</li>
+<li>CARBON.TABLE.LOAD.SORT.SCOPE..<table> session property
+</table>
+</li>
+<li>Table level Sort Scope</li>
+<li>CARBON.OPTIONS.SORT.SCOPE session property</li>
+<li>Default Value: NO_SORT</li>
+
+
+<li>
+<h5>
 <a id="multiline" class="anchor" href="#multiline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MULTILINE:</h5>
 <p>CSV with new line character in quotes.</p>
 <pre><code>OPTIONS('MULTILINE'='true') 
@@ -398,15 +426,23 @@ true: CSV file is with file header.</p>
 <li>
 <h5>
 <a id="complex_delimiter_level_1" class="anchor" href="#complex_delimiter_level_1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPLEX_DELIMITER_LEVEL_1:</h5>
-<p>Split the complex type data column in a row (eg., a$b$c --&gt; Array = {a,b,c}).</p>
-<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='$') 
+<p>Split the complex type data column in a row (eg., a\001b\001c --&gt; Array = {a,b,c}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='\001')
 </code></pre>
 </li>
 <li>
 <h5>
 <a id="complex_delimiter_level_2" class="anchor" href="#complex_delimiter_level_2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPLEX_DELIMITER_LEVEL_2:</h5>
-<p>Split the complex type nested data column in a row. Applies level_1 delimiter &amp; applies level_2 based on complex data type (eg., a:b$c:d --&gt; Array&gt; = {{a,b},{c,d}}).</p>
-<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':')
+<p>Split the complex type nested data column in a row. Applies level_1 delimiter &amp; applies level_2 based on complex data type (eg., a\002b\001c\002d --&gt; Array&gt; = {{a,b},{c,d}}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_2'='\002')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="complex_delimiter_level_3" class="anchor" href="#complex_delimiter_level_3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPLEX_DELIMITER_LEVEL_3:</h5>
+<p>Split the complex type nested data column in a row. Applies level_1 delimiter, applies level_2 and then level_3 delimiter based on complex data type.
+Used in case of nested Complex Map type. (eg., 'a\003b\002b\003c\001aa\003bb\002cc\003dd' --&gt; Array Of Map&gt; = {{a -&gt; b, b -&gt; c},{aa -&gt; bb, cc -&gt; dd}}).</p>
+<pre><code>OPTIONS('COMPLEX_DELIMITER_LEVEL_3'='\003')
 </code></pre>
 </li>
 <li>
@@ -454,11 +490,12 @@ true: CSV file is with file header.</p>
 <a id="single_pass" class="anchor" href="#single_pass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SINGLE_PASS:</h5>
 <p>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.</p>
 </li>
-</ul>
+
 <p>This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.</p>
 <pre><code> OPTIONS('SINGLE_PASS'='TRUE')
 </code></pre>
 <p><strong>NOTE:</strong></p>
+</ol>
 <ul>
 <li>If this option is set to TRUE then data loading will take less time.</li>
 <li>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</li>
@@ -470,8 +507,8 @@ options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
 'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
 workgroupcategoryname,deptno,deptname,projectcode,
 projectjoindate,projectenddate,attendance,utilization,salary',
-'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$',
-'COMPLEX_DELIMITER_LEVEL_2'=':',
+'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='\\\001',
+'COMPLEX_DELIMITER_LEVEL_2'='\\\002',
 'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
 'SINGLE_PASS'='TRUE')
 </code></pre>
@@ -509,16 +546,37 @@ OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true','BAD_RECORD_PATH'='hdfs://hacluster/t
 <li>
 <h5>
 <a id="global_sort_partitions" class="anchor" href="#global_sort_partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GLOBAL_SORT_PARTITIONS:</h5>
-<p>If the SORT_SCOPE is defined as GLOBAL_SORT, then user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map task as reduce task. It is recommended that each reduce task deal with 512MB-1GB data.</p>
+<p>If the SORT_SCOPE is defined as GLOBAL_SORT, then user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map task as reduce task. It is recommended that each reduce task deal with 512MB-1GB data.
+For RANGE_COLUMN, GLOBAL_SORT_PARTITIONS is used to specify the number of range partitions also.</p>
 </li>
 </ul>
 <pre><code>OPTIONS('GLOBAL_SORT_PARTITIONS'='2')
 </code></pre>
-<p>NOTE:</p>
+<p><strong>NOTE:</strong></p>
 <ul>
 <li>GLOBAL_SORT_PARTITIONS should be Integer type, the range is [1,Integer.MaxValue].</li>
 <li>It is only used when the SORT_SCOPE is GLOBAL_SORT.</li>
 </ul>
+<ul>
+<li>
+<h5>
+<a id="scale_factor" class="anchor" href="#scale_factor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SCALE_FACTOR</h5>
+</li>
+</ul>
+<p>For RANGE_COLUMN, SCALE_FACTOR is used to control the number of range partitions as following.</p>
+<pre><code>  splitSize = max(blocklet_size, (block_size - blocklet_size)) * scale_factor
+  numPartitions = total size of input data / splitSize
+</code></pre>
+<p>The default value is 3, and the range is [1, 300].</p>
+<pre><code>  OPTIONS('SCALE_FACTOR'='10')
+</code></pre>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>If both GLOBAL_SORT_PARTITIONS and SCALE_FACTOR are used at the same time, only GLOBAL_SORT_PARTITIONS is valid.</li>
+<li>The compaction on RANGE_COLUMN will use LOCAL_SORT by default.</li>
+</ul>
+
+
 <h3>
 <a id="insert-data-into-carbondata-table" class="anchor" href="#insert-data-into-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO CARBONDATA TABLE</h3>
 <p>This command inserts data into a CarbonData table, it is defined as a combination of two queries Insert and Select query respectively.
@@ -650,14 +708,17 @@ All specified segment ids should exist and be valid, otherwise compaction will f
 Custom compaction is usually done during the off-peak time.</p>
 <pre><code>ALTER TABLE table_name COMPACT 'CUSTOM' WHERE SEGMENT.ID IN (2,3,4)
 </code></pre>
-<p>NOTE: Compaction is unsupported for table containing Complex columns.</p>
 <ul>
 <li><strong>CLEAN SEGMENTS AFTER Compaction</strong></li>
 </ul>
 <p>Clean the segments which are compacted:</p>
 <pre><code>CLEAN FILES FOR TABLE carbon_table
 </code></pre>
-<script>
+
+</li>
+</ul>
+</li>
+</ul><script>
 $(function() {
   // Show selected style on nav item
   $('.b-nav__docs').addClass('selected');

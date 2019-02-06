@@ -219,34 +219,164 @@
                                 <div class="col-sm-12  col-md-12">
                                     <div>
 <h1>
-<a id="apache-carbondata-documentation" class="anchor" href="#apache-carbondata-documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Apache CarbonData Documentation</h1>
-<p>Apache CarbonData is a new big data file format for faster interactive query using advanced columnar storage, index, compression and encoding techniques to improve computing efficiency, which helps in speeding up queries by an order of magnitude faster over PetaBytes of data.</p>
-<h2>
-<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
-<p><strong>File Format Concepts:</strong> Start with the basics of understanding the <a href="./file-structure-of-carbondata.html#carbondata-file-format">CarbonData file format</a> and its <a href="./file-structure-of-carbondata.html">storage structure</a>. This will help to understand other parts of the documentation, including deployment, programming and usage guides.</p>
-<p><strong>Quick Start:</strong> <a href="./quick-start-guide.html#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Run an example program</a> on your local machine or <a href="https://github.com/apache/carbondata/tree/master/examples/spark2/src/main/scala/org/apache/carbondata/examples" target=_blank>study some examples</a>.</p>
-<p><strong>CarbonData SQL Language Reference:</strong> CarbonData extends the Spark SQL language and adds several <a href="./ddl-of-carbondata.html">DDL</a> and <a href="./dml-of-carbondata.html">DML</a> statements to support operations on it. Refer to the <a href="./language-manual.html">Reference Manual</a> to understand the supported features and functions.</p>
-<p><strong>Programming Guides:</strong> You can read our guides about <a href="./sdk-guide.html">Java APIs supported</a> or <a href="./csdk-guide.html">C++ APIs supported</a> to learn how to integrate CarbonData with your applications.</p>
-<h2>
-<a id="integration" class="anchor" href="#integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration</h2>
+<a id="alluxio-guide" class="anchor" href="#alluxio-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alluxio guide</h1>
+<p>This tutorial provides a brief introduction to using Alluxio.</p>
 <ul>
-<li>CarbonData can be integrated with popular execution engines like <a href="./quick-start-guide.html#spark">Spark</a> , <a href="./quick-start-guide.html#presto">Presto</a> and <a href="./quick-start-guide.html#hive">Hive</a>.</li>
-<li>CarbonData can be integrated with popular storage engines like HDFS, Huawei Cloud(OBS) and <a href="./quick-start-guide.html#alluxio">Alluxio</a>.<br>
-Refer to the <a href="./quick-start-guide.html#integration">Installation and Configuration</a> section to understand all modes of Integrating CarbonData.</li>
+<li>How to use Alluxio in CarbonData?
+<ul>
+<li>[Running alluxio example in CarbonData project by IDEA](#Running alluxio example in CarbonData project by IDEA)</li>
+<li>[CarbonData supports alluxio by spark-shell](#CarbonData supports alluxio by spark-shell)</li>
+<li>[CarbonData supports alluxio by spark-submit](#CarbonData supports alluxio by spark-submit)</li>
+</ul>
+</li>
 </ul>
 <h2>
-<a id="contributing-to-carbondata" class="anchor" href="#contributing-to-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing to CarbonData</h2>
-<p>The Apache CarbonData community welcomes all kinds of contributions from anyone with a passion for
-faster data format.Contributing to CarbonData doesn?t just mean writing code. Helping new users on the mailing list, testing releases, and improving documentation are also welcome.Please follow the <a href="./how-to-contribute-to-apache-carbondata.html">Contributing to CarbonData guidelines</a> before proposing a design or code change.</p>
-<p><strong>Compiling CarbonData:</strong> This <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>guide</a> will help you to compile and generate the jars for test.</p>
+<a id="running-alluxio-example-in-carbondata-project-by-idea" class="anchor" href="#running-alluxio-example-in-carbondata-project-by-idea" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running alluxio example in CarbonData project by IDEA</h2>
+<h3>
+<a id="building-carbondata" class="anchor" href="#building-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a>
+</h3>
+<ul>
+<li>Please refer to <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a>.</li>
+<li>Users need to install IDEA and scala plugin, and import CarbonData project.</li>
+</ul>
+<h3>
+<a id="installing-and-starting-alluxio" class="anchor" href="#installing-and-starting-alluxio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and starting Alluxio</h3>
+<ul>
+<li>Please refer to <a href="https://www.alluxio.org/docs/1.8/en/Getting-Started.html#starting-alluxio" rel="nofollow">https://www.alluxio.org/docs/1.8/en/Getting-Started.html#starting-alluxio</a>
+</li>
+<li>Access the Alluxio web: <a href="http://localhost:19999/home" rel="nofollow">http://localhost:19999/home</a>
+</li>
+</ul>
+<h3>
+<a id="running-example" class="anchor" href="#running-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running Example</h3>
+<ul>
+<li>Please refer to <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/AlluxioExample.scala" target=_blank>AlluxioExample</a>
+</li>
+</ul>
 <h2>
-<a id="external-resources" class="anchor" href="#external-resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>External Resources</h2>
-<p><strong>Wiki:</strong> You can read the <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Home" rel="nofollow">Apache CarbonData wiki</a> page for upcoming release plan, blogs and training materials.</p>
-<p><strong>Summit:</strong> Presentations from past summits and conferences can be found <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609" rel="nofollow">here</a>.</p>
-<p><strong>Blogs:</strong> Blogs by external users can be found <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=67635497" rel="nofollow">here</a>.</p>
-<p><strong>Performance reports:</strong> TPC-H performance reports can be found <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Performance+-+TPCH+Report+of+CarbonData+%281.2+version%29+and+Parquet+on+Spark+Execution+Engine" rel="nofollow">here</a>.</p>
-<p><strong>Trainings:</strong> Training records on design and code flows can be found <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Training+Materials" rel="nofollow">here</a>.</p>
-</div>
+<a id="carbondata-supports-alluxio-by-spark-shell" class="anchor" href="#carbondata-supports-alluxio-by-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData supports alluxio by spark-shell</h2>
+<h3>
+<a id="building-carbondata-1" class="anchor" href="#building-carbondata-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a>
+</h3>
+<ul>
+<li>Please refer to <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a>.</li>
+</ul>
+<h3>
+<a id="preparing-spark" class="anchor" href="#preparing-spark" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Preparing Spark</h3>
+<ul>
+<li>Please refer to <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">http://spark.apache.org/docs/latest/</a>
+</li>
+</ul>
+<h3>
+<a id="downloading-alluxio-and-uncompressing-it" class="anchor" href="#downloading-alluxio-and-uncompressing-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Downloading alluxio and uncompressing it</h3>
+<ul>
+<li>Please refer to <a href="https://www.alluxio.org/download" target=_blank rel="nofollow">https://www.alluxio.org/download</a>
+</li>
+</ul>
+<h3>
+<a id="running-spark-shell" class="anchor" href="#running-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running spark-shell</h3>
+<ul>
+<li>Running the command in spark path</li>
+</ul>
+<pre lang="$command"><code>./bin/spark-shell --jars ${CARBONDATA_PATH}/assembly/target/scala-2.11/apache-carbondata-1.6.0-SNAPSHOT-bin-spark2.2.1-hadoop2.7.2.jar,${ALLUXIO_PATH}/client/alluxio-1.8.1-client.jar
+</code></pre>
+<ul>
+<li>Testing use alluxio by CarbonSession</li>
+</ul>
+<pre lang="$scala"><code>import org.apache.spark.sql.CarbonSession._
+import org.apache.spark.sql.SparkSession
+   
+val carbon = SparkSession.builder().master("local").appName("test").getOrCreateCarbonSession("alluxio://localhost:19998/carbondata");
+carbon.sql("CREATE TABLE carbon_alluxio(id String,name String, city String,age Int) STORED as carbondata");
+carbon.sql(s"LOAD DATA LOCAL INPATH '${CARBONDATA_PATH}/integration/spark-common-test/src/test/resources/sample.csv' into table carbon_alluxio");
+carbon.sql("select * from carbon_alluxio").show
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre lang="$scala"><code>scala&gt; carbon.sql("select * from carbon_alluxio").show
++---+------+---------+---+
+| id|  name|     city|age|
++---+------+---------+---+
+|  1| david| shenzhen| 31|
+|  2| eason| shenzhen| 27|
+|  3| jarry|    wuhan| 35|
+|  3| jarry|Bangalore| 35|
+|  4| kunal|    Delhi| 26|
+|  4|vishal|Bangalore| 29|
++---+------+---------+---+
+</code></pre>
+<h2>
+<a id="carbondata-supports-alluxio-by-spark-submit" class="anchor" href="#carbondata-supports-alluxio-by-spark-submit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData supports alluxio by spark-submit</h2>
+<h3>
+<a id="building-carbondata-2" class="anchor" href="#building-carbondata-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a>
+</h3>
+<ul>
+<li>Please refer to <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>Building CarbonData</a>.</li>
+</ul>
+<h3>
+<a id="preparing-spark-1" class="anchor" href="#preparing-spark-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Preparing Spark</h3>
+<ul>
+<li>Please refer to <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">http://spark.apache.org/docs/latest/</a>
+</li>
+</ul>
+<h3>
+<a id="downloading-alluxio-and-uncompressing-it-1" class="anchor" href="#downloading-alluxio-and-uncompressing-it-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Downloading alluxio and uncompressing it</h3>
+<ul>
+<li>Please refer to <a href="https://www.alluxio.org/download" target=_blank rel="nofollow">https://www.alluxio.org/download</a>
+</li>
+</ul>
+<h3>
+<a id="running-spark-submit" class="anchor" href="#running-spark-submit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running spark-submit</h3>
+<h4>
+<a id="upload-data-to-alluxio" class="anchor" href="#upload-data-to-alluxio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upload data to alluxio</h4>
+<pre lang="$command"><code>./bin/alluxio fs  copyFromLocal ${CARBONDATA_PATH}/hadoop/src/test/resources/data.csv /
+</code></pre>
+<h4>
+<a id="command" class="anchor" href="#command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command</h4>
+<pre lang="$command"><code>./bin/spark-submit \
+--master local \
+--jars ${ALLUXIO_PATH}/client/alluxio-1.8.1-client.jar,${CARBONDATA_PATH}/examples/spark2/target/carbondata-examples-1.6.0-SNAPSHOT.jar \
+--class org.apache.carbondata.examples.AlluxioExample \
+${CARBONDATA_PATH}/assembly/target/scala-2.11/apache-carbondata-1.6.0-SNAPSHOT-bin-spark2.2.1-hadoop2.7.2.jar \
+false
+</code></pre>
+<p><strong>NOTE</strong>: Please set runShell as false, which can avoid dependency on alluxio shell module.</p>
+<h4>
+<a id="result" class="anchor" href="#result" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Result</h4>
+<pre lang="$command"><code>+-----------------+-------+--------------------+--------------------+---------+-----------+---------+----------+
+|SegmentSequenceId| Status|     Load Start Time|       Load End Time|Merged To|File Format|Data Size|Index Size|
++-----------------+-------+--------------------+--------------------+---------+-----------+---------+----------+
+|                1|Success|2019-01-09 15:10:...|2019-01-09 15:10:...|       NA|COLUMNAR_V3|  23.92KB|    1.07KB|
+|                0|Success|2019-01-09 15:10:...|2019-01-09 15:10:...|       NA|COLUMNAR_V3|  23.92KB|    1.07KB|
++-----------------+-------+--------------------+--------------------+---------+-----------+---------+----------+
+
++-------+------+
+|country|amount|
++-------+------+
+| france|   202|
+|  china|  1698|
++-------+------+
+
++-----------------+---------+--------------------+--------------------+---------+-----------+---------+----------+
+|SegmentSequenceId|   Status|     Load Start Time|       Load End Time|Merged To|File Format|Data Size|Index Size|
++-----------------+---------+--------------------+--------------------+---------+-----------+---------+----------+
+|                3|Compacted|2019-01-09 15:10:...|2019-01-09 15:10:...|      0.1|COLUMNAR_V3|  23.92KB|    1.03KB|
+|                2|Compacted|2019-01-09 15:10:...|2019-01-09 15:10:...|      0.1|COLUMNAR_V3|  23.92KB|    1.07KB|
+|                1|Compacted|2019-01-09 15:10:...|2019-01-09 15:10:...|      0.1|COLUMNAR_V3|  23.92KB|    1.07KB|
+|              0.1|  Success|2019-01-09 15:10:...|2019-01-09 15:10:...|       NA|COLUMNAR_V3|  37.65KB|    1.08KB|
+|                0|Compacted|2019-01-09 15:10:...|2019-01-09 15:10:...|      0.1|COLUMNAR_V3|  23.92KB|    1.07KB|
++-----------------+---------+--------------------+--------------------+---------+-----------+---------+----------+
+
+</code></pre>
+<h2>
+<a id="reference" class="anchor" href="#reference" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reference</h2>
+<p>[1] <a href="https://www.alluxio.org/docs/1.8/en/Getting-Started.html" target=_blank rel="nofollow">https://www.alluxio.org/docs/1.8/en/Getting-Started.html</a>
+[2] <a href="https://www.alluxio.org/docs/1.8/en/compute/Spark.html" target=_blank rel="nofollow">https://www.alluxio.org/docs/1.8/en/compute/Spark.html</a></p>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__quickstart').addClass('selected'); });
+</script></div>
 </div>
 </div>
 </div>

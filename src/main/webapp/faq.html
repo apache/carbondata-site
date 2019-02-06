@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
                                    target="_blank">Apache CarbonData 1.5.1</a></li>
                             <li>
@@ -63,9 +66,6 @@
 							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
-                                   target="_blank">Apache CarbonData 1.3.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -279,12 +279,10 @@ By default <strong>carbon.badRecords.location</strong> specifies the following l
 <a id="how-to-specify-store-location-while-creating-carbon-session" class="anchor" href="#how-to-specify-store-location-while-creating-carbon-session" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to specify store location while creating carbon session?</h2>
 <p>The store location specified while creating carbon session is used by the CarbonData to store the meta data like the schema, dictionary files, dictionary meta data and sort indexes.</p>
 <p>Try creating <code>carbonsession</code> with <code>storepath</code> specified in the following manner :</p>
-<pre><code>val carbon = SparkSession.builder().config(sc.getConf)
-             .getOrCreateCarbonSession(&lt;store_path&gt;)
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(&lt;carbon_store_path&gt;)
 </code></pre>
 <p>Example:</p>
-<pre><code>val carbon = SparkSession.builder().config(sc.getConf)
-             .getOrCreateCarbonSession("hdfs://localhost:9000/carbon/store")
+<pre><code>val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("hdfs://localhost:9000/carbon/store")
 </code></pre>
 <h2>
 <a id="what-is-carbon-lock-type" class="anchor" href="#what-is-carbon-lock-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is Carbon Lock Type?</h2>
@@ -447,9 +445,9 @@ $OverrideCatalog$$overrides_$e
 <p>Use the following command :</p>
 </li>
 </ol>
-<pre><code>"mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package"
+<pre><code>mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package
 </code></pre>
-<p>Note :  Refrain from using "mvn clean package" without specifying the profile.</p>
+<p>Note : Refrain from using "mvn clean package" without specifying the profile.</p>
 <h2>
 <a id="failed-to-execute-load-query-on-cluster" class="anchor" href="#failed-to-execute-load-query-on-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to execute load query on cluster</h2>
 <p><strong>Symptom</strong></p>
