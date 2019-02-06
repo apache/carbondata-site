@@ -49,6 +49,7 @@ CarbonData DML statements are documented here,which includes:
 | [COMMENTCHAR](#commentchar)                             | Character used to comment the rows in the input csv file. Those rows will be skipped from processing |
 | [HEADER](#header)                                       | Whether the input csv files have header row                  |
 | [FILEHEADER](#fileheader)                               | If header is not present in the input csv, what is the column names to be used for data read from input csv |
+| [SORT_SCOPE](#sort_scope)                               | Sort Scope to be used for current load.                      |
 | [MULTILINE](#multiline)                                 | Whether a row data can span across multiple lines.           |
 | [ESCAPECHAR](#escapechar)                               | Escape character used to excape the data in input csv file.For eg.,\ is a standard escape character |
 | [SKIP_EMPTY_LINE](#skip_empty_line)                     | Whether empty lines in input csv file should be skipped or loaded as null row |
@@ -65,7 +66,8 @@ CarbonData DML statements are documented here,which includes:
 | [BAD_RECORDS_ACTION](#bad-records-handling)             | Behavior of data loading when bad record is found            |
 | [IS_EMPTY_DATA_BAD_RECORD](#bad-records-handling)       | Whether empty data of a column to be considered as bad record or not |
 | [GLOBAL_SORT_PARTITIONS](#global_sort_partitions)       | Number of partition to use for shuffling of data during sorting |
-
+| [SCALE_FACTOR](#scale_factor)                           | Control the partition size for RANGE_COLUMN feature          |
+-
   You can use the following options to load data:
 
   - ##### DELIMITER: 
@@ -106,6 +108,21 @@ CarbonData DML statements are documented here,which includes:
     OPTIONS('FILEHEADER'='column1,column2') 
     ```
 
+  - ##### SORT_SCOPE:
+    Sort Scope to be used for the current load. This overrides the Sort Scope of Table.
+    Requirement: Sort Columns must be set while creating table. If Sort Columns is null, Sort Scope is always NO_SORT.
+  
+    ```
+    OPTIONS('SORT_SCOPE'='BATCH_SORT')
+    ```
+    
+    Priority order for choosing Sort Scope is:
+    1. Load Data Command
+    2. CARBON.TABLE.LOAD.SORT.SCOPE.<db>.<table> session property
+    3. Table level Sort Scope
+    4. CARBON.OPTIONS.SORT.SCOPE session property
+    5. Default Value: NO_SORT
+
   - ##### MULTILINE:
 
     CSV with new line character in quotes.
@@ -132,18 +149,27 @@ CarbonData DML statements are documented here,which includes:
 
   - ##### COMPLEX_DELIMITER_LEVEL_1:
 
-    Split the complex type data column in a row (eg., a$b$c --> Array = {a,b,c}).
+    Split the complex type data column in a row (eg., a\001b\001c --> Array = {a,b,c}).
 
     ```
-    OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='$') 
+    OPTIONS('COMPLEX_DELIMITER_LEVEL_1'='\001')
     ```
 
   - ##### COMPLEX_DELIMITER_LEVEL_2:
 
-    Split the complex type nested data column in a row. Applies level_1 delimiter & applies level_2 based on complex data type (eg., a:b$c:d --> Array> = {{a,b},{c,d}}).
+    Split the complex type nested data column in a row. Applies level_1 delimiter & applies level_2 based on complex data type (eg., a\002b\001c\002d --> Array> = {{a,b},{c,d}}).
 
     ```
-    OPTIONS('COMPLEX_DELIMITER_LEVEL_2'=':')
+    OPTIONS('COMPLEX_DELIMITER_LEVEL_2'='\002')
+    ```
+
+  - ##### COMPLEX_DELIMITER_LEVEL_3:
+
+    Split the complex type nested data column in a row. Applies level_1 delimiter, applies level_2 and then level_3 delimiter based on complex data type.
+     Used in case of nested Complex Map type. (eg., 'a\003b\002b\003c\001aa\003bb\002cc\003dd' --> Array Of Map> = {{a -> b, b -> c},{aa -> bb, cc -> dd}}).
+
+    ```
+    OPTIONS('COMPLEX_DELIMITER_LEVEL_3'='\003')
     ```
 
   - ##### ALL_DICTIONARY_PATH:
@@ -212,8 +238,8 @@ CarbonData DML statements are documented here,which includes:
    'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
    workgroupcategoryname,deptno,deptname,projectcode,
    projectjoindate,projectenddate,attendance,utilization,salary',
-   'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='$',
-   'COMPLEX_DELIMITER_LEVEL_2'=':',
+   'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='\\\001',
+   'COMPLEX_DELIMITER_LEVEL_2'='\\\002',
    'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
    'SINGLE_PASS'='TRUE')
    ```
@@ -251,14 +277,30 @@ CarbonData DML statements are documented here,which includes:
   - ##### GLOBAL_SORT_PARTITIONS:
 
     If the SORT_SCOPE is defined as GLOBAL_SORT, then user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map task as reduce task. It is recommended that each reduce task deal with 512MB-1GB data.
-
+    For RANGE_COLUMN, GLOBAL_SORT_PARTITIONS is used to specify the number of range partitions also.
   ```
   OPTIONS('GLOBAL_SORT_PARTITIONS'='2')
   ```
 
-   NOTE:
+   **NOTE:**
    * GLOBAL_SORT_PARTITIONS should be Integer type, the range is [1,Integer.MaxValue].
    * It is only used when the SORT_SCOPE is GLOBAL_SORT.
+
+   - ##### SCALE_FACTOR
+
+   For RANGE_COLUMN, SCALE_FACTOR is used to control the number of range partitions as following.
+   ```
+     splitSize = max(blocklet_size, (block_size - blocklet_size)) * scale_factor
+     numPartitions = total size of input data / splitSize
+   ```
+   The default value is 3, and the range is [1, 300].
+
+   ```
+     OPTIONS('SCALE_FACTOR'='10')
+   ```
+   **NOTE:**
+   * If both GLOBAL_SORT_PARTITIONS and SCALE_FACTOR are used at the same time, only GLOBAL_SORT_PARTITIONS is valid.
+   * The compaction on RANGE_COLUMN will use LOCAL_SORT by default.
 
 ### INSERT DATA INTO CARBONDATA TABLE
 
@@ -449,7 +491,6 @@ CarbonData DML statements are documented here,which includes:
   ```
   ALTER TABLE table_name COMPACT 'CUSTOM' WHERE SEGMENT.ID IN (2,3,4)
   ```
-  NOTE: Compaction is unsupported for table containing Complex columns.
 
 
   - **CLEAN SEGMENTS AFTER Compaction**
@@ -458,4 +499,3 @@ CarbonData DML statements are documented here,which includes:
   ```
   CLEAN FILES FOR TABLE carbon_table
   ```
-

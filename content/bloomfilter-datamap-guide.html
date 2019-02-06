@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
                                    target="_blank">Apache CarbonData 1.5.1</a></li>
                             <li>
@@ -63,9 +66,6 @@
 							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
-                                   target="_blank">Apache CarbonData 1.3.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -236,7 +236,7 @@ ON TABLE main_table
 USING 'bloomfilter'
 DMPROPERTIES ('index_columns'='city, name', 'BLOOM_SIZE'='640000', 'BLOOM_FPP'='0.00001')
 </code></pre>
-<p>Dropping specified datamap</p>
+<p>Dropping Specified DataMap</p>
 <pre><code>DROP DATAMAP [IF EXISTS] datamap_name
 ON TABLE main_table
 </code></pre>
@@ -244,7 +244,7 @@ ON TABLE main_table
 <pre><code>SHOW DATAMAP
 ON TABLE main_table
 </code></pre>
-<p>Disable Datamap</p>
+<p>Disable DataMap</p>
 <blockquote>
 <p>The datamap by default is enabled. To support tuning on query, we can disable a specific datamap during query to observe whether we can gain performance enhancement from it. This is effective only for current session.</p>
 </blockquote>
@@ -277,10 +277,10 @@ since <code>id</code> is in the sort_columns and it is orderd,
 query on it will be fast because CarbonData can skip all the irrelative blocklets.
 But queries on <code>name</code> may be bad since the blocklet minmax may not help,
 because in each blocklet the range of the value of <code>name</code> may be the same -- all from A* to z*.
-In this case, user can create a BloomFilter datamap on column <code>name</code>.
-Moreover, user can also create a BloomFilter datamap on the sort_columns.
+In this case, user can create a BloomFilter DataMap on column <code>name</code>.
+Moreover, user can also create a BloomFilter DataMap on the sort_columns.
 This is useful if user has too many segments and the range of the value of sort_columns are almost the same.</p>
-<p>User can create BloomFilter datamap using the Create DataMap DDL:</p>
+<p>User can create BloomFilter DataMap using the Create DataMap DDL:</p>
 <pre><code>CREATE DATAMAP dm
 ON TABLE datamap_test
 USING 'bloomfilter'
@@ -327,16 +327,16 @@ DMPROPERTIES ('INDEX_COLUMNS' = 'name,id', 'BLOOM_SIZE'='640000', 'BLOOM_FPP'='0
 <a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading Data</h2>
 <p>When loading data to main table, BloomFilter files will be generated for all the
 index_columns given in DMProperties which contains the blockletId and a BloomFilter for each index column.
-These index files will be written inside a folder named with datamap name
+These index files will be written inside a folder named with DataMap name
 inside each segment folders.</p>
 <h2>
 <a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying Data</h2>
-<p>User can verify whether a query can leverage BloomFilter datamap by executing <code>EXPLAIN</code> command,
-which will show the transformed logical plan, and thus user can check whether the BloomFilter datamap can skip blocklets during the scan.
-If the datamap does not prune blocklets well, you can try to increase the value of property <code>BLOOM_SIZE</code> and decrease the value of property <code>BLOOM_FPP</code>.</p>
+<p>User can verify whether a query can leverage BloomFilter DataMap by executing <code>EXPLAIN</code> command,
+which will show the transformed logical plan, and thus user can check whether the BloomFilter DataMap can skip blocklets during the scan.
+If the DataMap does not prune blocklets well, you can try to increase the value of property <code>BLOOM_SIZE</code> and decrease the value of property <code>BLOOM_FPP</code>.</p>
 <h2>
 <a id="data-management-with-bloomfilter-datamap" class="anchor" href="#data-management-with-bloomfilter-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management With BloomFilter DataMap</h2>
-<p>Data management with BloomFilter datamap has no difference with that on Lucene datamap.
+<p>Data management with BloomFilter DataMap has no difference with that on Lucene DataMap.
 You can refer to the corresponding section in <code>CarbonData Lucene DataMap</code>.</p>
 <h2>
 <a id="useful-tips" class="anchor" href="#useful-tips" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Useful Tips</h2>
@@ -344,25 +344,25 @@ You can refer to the corresponding section in <code>CarbonData Lucene DataMap</c
 <li>BloomFilter DataMap is suggested to be created on the high cardinality columns.
 Query conditions on these columns are always simple <code>equal</code> or <code>in</code>,
 such as 'col1=XX', 'col1 in (XX, YY)'.</li>
-<li>We can create multiple BloomFilter datamaps on one table,
-but we do recommend you to create one BloomFilter datamap that contains multiple index columns,
+<li>We can create multiple BloomFilter DataMaps on one table,
+but we do recommend you to create one BloomFilter DataMap that contains multiple index columns,
 because the data loading and query performance will be better.</li>
 <li>
 <code>BLOOM_FPP</code> is only the expected number from user, the actually FPP may be worse.
-If the BloomFilter datamap does not work well,
+If the BloomFilter DataMap does not work well,
 you can try to increase <code>BLOOM_SIZE</code> and decrease <code>BLOOM_FPP</code> at the same time.
 Notice that bigger <code>BLOOM_SIZE</code> will increase the size of index file
 and smaller <code>BLOOM_FPP</code> will increase runtime calculation while performing query.</li>
-<li>'0' skipped blocklets of BloomFilter datamap in explain output indicates that
-BloomFilter datamap does not prune better than Main datamap.
+<li>'0' skipped blocklets of BloomFilter DataMap in explain output indicates that
+BloomFilter DataMap does not prune better than Main DataMap.
 (For example since the data is not ordered, a specific value may be contained in many blocklets. In this case, bloom may not work better than Main DataMap.)
 If this occurs very often, it means that current BloomFilter is useless. You can disable or drop it.
-Sometimes we cannot see any pruning result about BloomFilter datamap in the explain output,
-this indicates that the previous datamap has pruned all the blocklets and there is no need to continue pruning.</li>
-<li>In some scenarios, the BloomFilter datamap may not enhance the query performance significantly
+Sometimes we cannot see any pruning result about BloomFilter DataMap in the explain output,
+this indicates that the previous DataMap has pruned all the blocklets and there is no need to continue pruning.</li>
+<li>In some scenarios, the BloomFilter DataMap may not enhance the query performance significantly
 but if it can reduce the number of spark task,
-there is still a chance that BloomFilter datamap can enhance the performance for concurrent query.</li>
-<li>Note that BloomFilter datamap will decrease the data loading performance and may cause slightly storage expansion (for datamap index file).</li>
+there is still a chance that BloomFilter DataMap can enhance the performance for concurrent query.</li>
+<li>Note that BloomFilter DataMap will decrease the data loading performance and may cause slightly storage expansion (for DataMap index file).</li>
 </ul>
 <script>
 $(function() {

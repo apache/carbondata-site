@@ -219,34 +219,88 @@
                                 <div class="col-sm-12  col-md-12">
                                     <div>
 <h1>
-<a id="apache-carbondata-documentation" class="anchor" href="#apache-carbondata-documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Apache CarbonData Documentation</h1>
-<p>Apache CarbonData is a new big data file format for faster interactive query using advanced columnar storage, index, compression and encoding techniques to improve computing efficiency, which helps in speeding up queries by an order of magnitude faster over PetaBytes of data.</p>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h1>
+<p>This tutorial provides a quick introduction to using current integration/hive module.</p>
 <h2>
-<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
-<p><strong>File Format Concepts:</strong> Start with the basics of understanding the <a href="./file-structure-of-carbondata.html#carbondata-file-format">CarbonData file format</a> and its <a href="./file-structure-of-carbondata.html">storage structure</a>. This will help to understand other parts of the documentation, including deployment, programming and usage guides.</p>
-<p><strong>Quick Start:</strong> <a href="./quick-start-guide.html#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Run an example program</a> on your local machine or <a href="https://github.com/apache/carbondata/tree/master/examples/spark2/src/main/scala/org/apache/carbondata/examples" target=_blank>study some examples</a>.</p>
-<p><strong>CarbonData SQL Language Reference:</strong> CarbonData extends the Spark SQL language and adds several <a href="./ddl-of-carbondata.html">DDL</a> and <a href="./dml-of-carbondata.html">DML</a> statements to support operations on it. Refer to the <a href="./language-manual.html">Reference Manual</a> to understand the supported features and functions.</p>
-<p><strong>Programming Guides:</strong> You can read our guides about <a href="./sdk-guide.html">Java APIs supported</a> or <a href="./csdk-guide.html">C++ APIs supported</a> to learn how to integrate CarbonData with your applications.</p>
+<a id="build-in-120-hive-integration-only-support-spark21-and-hadoop272" class="anchor" href="#build-in-120-hive-integration-only-support-spark21-and-hadoop272" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build (In 1.2.0, hive integration only support spark2.1 and hadoop2.7.2)</h2>
+<p>mvn -DskipTests -Pspark-2.1 -Phadoop-2.7.2 clean package</p>
 <h2>
-<a id="integration" class="anchor" href="#integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration</h2>
+<a id="prepare-carbondata-in-spark" class="anchor" href="#prepare-carbondata-in-spark" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prepare CarbonData in Spark</h2>
 <ul>
-<li>CarbonData can be integrated with popular execution engines like <a href="./quick-start-guide.html#spark">Spark</a> , <a href="./quick-start-guide.html#presto">Presto</a> and <a href="./quick-start-guide.html#hive">Hive</a>.</li>
-<li>CarbonData can be integrated with popular storage engines like HDFS, Huawei Cloud(OBS) and <a href="./quick-start-guide.html#alluxio">Alluxio</a>.<br>
-Refer to the <a href="./quick-start-guide.html#integration">Installation and Configuration</a> section to understand all modes of Integrating CarbonData.</li>
+<li>
+<p>Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData.</p>
+<pre><code>cd carbondata
+cat &gt; sample.csv &lt;&lt; EOF
+id,name,scale,country,salary
+1,yuhai,1.77,china,33000.1
+2,runlin,1.70,china,33000.2
+EOF
+</code></pre>
+</li>
+<li>
+<p>copy data to HDFS</p>
+</li>
 </ul>
+<pre><code>$HADOOP_HOME/bin/hadoop fs -put sample.csv &lt;hdfs store path&gt;/sample.csv
+</code></pre>
+<ul>
+<li>Add the following params to $SPARK_CONF_DIR/conf/hive-site.xml</li>
+</ul>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">property</span>&gt;
+  &lt;<span class="pl-ent">name</span>&gt;hive.metastore.pre.event.listeners&lt;/<span class="pl-ent">name</span>&gt;
+  &lt;<span class="pl-ent">value</span>&gt;org.apache.carbondata.hive.CarbonHiveMetastoreListener&lt;/<span class="pl-ent">value</span>&gt;
+&lt;/<span class="pl-ent">property</span>&gt;</pre></div>
+<ul>
+<li>Start Spark shell by running the following command in the Spark directory</li>
+</ul>
+<pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path, carbon hive jar path&gt;
+</code></pre>
+<pre><code>import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.CarbonSession._
+val rootPath = "hdfs:///user/hadoop/carbon"
+val storeLocation = s"$rootPath/store"
+val warehouse = s"$rootPath/warehouse"
+val metaStoreDB = s"$rootPath/metastore_db"
+
+val carbon = SparkSession.builder().enableHiveSupport().config("spark.sql.warehouse.dir", warehouse).config(org.apache.carbondata.core.constants.CarbonCommonConstants.STORE_LOCATION, storeLocation).getOrCreateCarbonSession(storeLocation, metaStoreDB)
+
+carbon.sql("create table hive_carbon(id int, name string, scale decimal, country string, salary double) STORED BY 'carbondata'")
+carbon.sql("LOAD DATA INPATH '&lt;hdfs store path&gt;/sample.csv' INTO TABLE hive_carbon")
+scala&gt;carbon.sql("SELECT * FROM hive_carbon").show()
+</code></pre>
 <h2>
-<a id="contributing-to-carbondata" class="anchor" href="#contributing-to-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing to CarbonData</h2>
-<p>The Apache CarbonData community welcomes all kinds of contributions from anyone with a passion for
-faster data format.Contributing to CarbonData doesn?t just mean writing code. Helping new users on the mailing list, testing releases, and improving documentation are also welcome.Please follow the <a href="./how-to-contribute-to-apache-carbondata.html">Contributing to CarbonData guidelines</a> before proposing a design or code change.</p>
-<p><strong>Compiling CarbonData:</strong> This <a href="https://github.com/apache/carbondata/tree/master/build" target=_blank>guide</a> will help you to compile and generate the jars for test.</p>
-<h2>
-<a id="external-resources" class="anchor" href="#external-resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>External Resources</h2>
-<p><strong>Wiki:</strong> You can read the <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Home" rel="nofollow">Apache CarbonData wiki</a> page for upcoming release plan, blogs and training materials.</p>
-<p><strong>Summit:</strong> Presentations from past summits and conferences can be found <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609" rel="nofollow">here</a>.</p>
-<p><strong>Blogs:</strong> Blogs by external users can be found <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=67635497" rel="nofollow">here</a>.</p>
-<p><strong>Performance reports:</strong> TPC-H performance reports can be found <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Performance+-+TPCH+Report+of+CarbonData+%281.2+version%29+and+Parquet+on+Spark+Execution+Engine" rel="nofollow">here</a>.</p>
-<p><strong>Trainings:</strong> Training records on design and code flows can be found <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/CarbonData+Training+Materials" rel="nofollow">here</a>.</p>
-</div>
+<a id="query-data-in-hive" class="anchor" href="#query-data-in-hive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Data in Hive</h2>
+<h3>
+<a id="configure-hive-classpath" class="anchor" href="#configure-hive-classpath" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configure hive classpath</h3>
+<pre><code>mkdir hive/auxlibs/
+cp carbondata/assembly/target/scala-2.11/carbondata_2.11*.jar hive/auxlibs/
+cp carbondata/integration/hive/target/carbondata-hive-*.jar hive/auxlibs/
+cp $SPARK_HOME/jars/spark-catalyst*.jar hive/auxlibs/
+cp $SPARK_HOME/jars/scala*.jar hive/auxlibs/
+export HIVE_AUX_JARS_PATH=hive/auxlibs/
+</code></pre>
+<h3>
+<a id="fix-snappy-issue" class="anchor" href="#fix-snappy-issue" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fix snappy issue</h3>
+<pre><code>copy snappy-java-xxx.jar from "./&lt;SPARK_HOME&gt;/jars/" to "./Library/Java/Extensions"
+export HADOOP_OPTS="-Dorg.xerial.snappy.lib.path=/Library/Java/Extensions -Dorg.xerial.snappy.lib.name=libsnappyjava.jnilib -Dorg.xerial.snappy.tempdir=/Users/apple/DEMO/tmp"
+</code></pre>
+<h3>
+<a id="start-hive-client" class="anchor" href="#start-hive-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start hive client</h3>
+<pre><code>$HIVE_HOME/bin/hive
+</code></pre>
+<h3>
+<a id="query-data-from-hive-table" class="anchor" href="#query-data-from-hive-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query data from hive table</h3>
+<pre><code>set hive.mapred.supports.subdirectories=true;
+set mapreduce.input.fileinputformat.input.dir.recursive=true;
+
+select * from hive_carbon;
+select count(*) from hive_carbon;
+select * from hive_carbon order by id;
+</code></pre>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__quickstart').addClass('selected'); });
+</script></div>
 </div>
 </div>
 </div>

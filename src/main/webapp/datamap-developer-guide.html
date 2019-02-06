@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
                                    target="_blank">Apache CarbonData 1.5.1</a></li>
                             <li>
@@ -63,9 +66,6 @@
 							<li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
                                    target="_blank">Apache CarbonData 1.4.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.3.1/"
-                                   target="_blank">Apache CarbonData 1.3.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -217,15 +217,16 @@
                         <div id="viewpage" name="viewpage">
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
-                                    <div><h1>
+                                    <div>
+<h1>
 <a id="datamap-developer-guide" class="anchor" href="#datamap-developer-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMap Developer Guide</h1>
 <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 <p>DataMap is a data structure that can be used to accelerate certain query of the table. Different DataMap can be implemented by developers.
-Currently, there are two 2 types of DataMap supported:</p>
+Currently, there are two types of DataMap supported:</p>
 <ol>
-<li>IndexDataMap: DataMap that leverages index to accelerate filter query</li>
-<li>MVDataMap: DataMap that leverages Materialized View to accelerate olap style query, like SPJG query (select, predicate, join, groupby)</li>
+<li>IndexDataMap: DataMap that leverages index to accelerate filter query. Lucene DataMap and BloomFiler DataMap belong to this type of DataMaps.</li>
+<li>MVDataMap: DataMap that leverages Materialized View to accelerate olap style query, like SPJG query (select, predicate, join, groupby). Preaggregate, timeseries and mv DataMap belong to this type of DataMaps.</li>
 </ol>
 <h3>
 <a id="datamap-provider" class="anchor" href="#datamap-provider" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMap Provider</h3>
@@ -234,7 +235,7 @@ Currently, the provider string can be:</p>
 <ol>
 <li>preaggregate: A type of MVDataMap that do pre-aggregate of single table</li>
 <li>timeseries: A type of MVDataMap that do pre-aggregate based on time dimension of the table</li>
-<li>class name IndexDataMapFactory  implementation: Developer can implement new type of IndexDataMap by extending IndexDataMapFactory</li>
+<li>class name IndexDataMapFactory implementation: Developer can implement new type of IndexDataMap by extending IndexDataMapFactory</li>
 </ol>
 <p>When user issues <code>DROP DATAMAP dm ON TABLE main</code>, the corresponding DataMapProvider interface will be called.</p>
 <p>Click for more details about <a href="./datamap-management.html#datamap-management">DataMap Management</a> and supported <a href="./datamap-management.html#overview">DSL</a>.</p>
