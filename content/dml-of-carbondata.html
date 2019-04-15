@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
                                    target="_blank">Apache CarbonData 1.5.2</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
-							<li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
-                                   target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -235,10 +235,13 @@
 <h3>
 <a id="load-files-to-carbondata-table" class="anchor" href="#load-files-to-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LOAD FILES TO CARBONDATA TABLE</h3>
 <p>This command is used to load csv files to carbondata, OPTIONS are not mandatory for data loading process.</p>
-<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+<pre><code>LOAD DATA INPATH 'folder_path'
 INTO TABLE [db_name.]table_name 
 OPTIONS(property_name=property_value, ...)
 </code></pre>
+<p><strong>NOTE</strong>:
+* Use 'file://' prefix to indicate local input files path, but it just supports local mode.
+* If run on cluster mode, please upload all input files to distributed file system, for example 'hdfs://' for hdfs.</p>
 <p><strong>Supported Properties:</strong></p>
 <table>
 <thead>
@@ -501,7 +504,7 @@ Used in case of nested Complex Map type. (eg., 'a\003b\002b\003c\001aa\003bb\002
 <li>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</li>
 </ul>
 <p>Example:</p>
-<pre><code>LOAD DATA local inpath '/opt/rawdata/data.csv' INTO table carbontable
+<pre><code>LOAD DATA inpath '/opt/rawdata/data.csv' INTO table carbontable
 options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
 'HEADER'='false',
 'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
@@ -610,15 +613,17 @@ It comes with the functionality to aggregate the records of a table by performin
 <h3>
 <a id="load-data-using-static-partition" class="anchor" href="#load-data-using-static-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Static Partition</h3>
 <p>This command allows you to load data using static partition.</p>
-<pre><code>LOAD DATA [LOCAL] INPATH 'folder_path' 
+<pre><code>LOAD DATA INPATH 'folder_path'
 INTO TABLE [db_name.]table_name PARTITION (partition_spec) 
-OPTIONS(property_name=property_value, ...)    
-INSERT INTO INTO TABLE [db_name.]table_name PARTITION (partition_spec) &lt;SELECT STATEMENT&gt;
+OPTIONS(property_name=property_value, ...)
+
+INSERT INTO TABLE [db_name.]table_name PARTITION (partition_spec) &lt;SELECT STATEMENT&gt;
 </code></pre>
 <p>Example:</p>
-<pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.csv'
+<pre><code>LOAD DATA INPATH '${env:HOME}/staticinput.csv'
 INTO TABLE locationTable
-PARTITION (country = 'US', state = 'CA')  
+PARTITION (country = 'US', state = 'CA')
+
 INSERT INTO TABLE locationTable
 PARTITION (country = 'US', state = 'AL')
 SELECT &lt;columns list excluding partition columns&gt; FROM another_user
@@ -627,8 +632,9 @@ SELECT &lt;columns list excluding partition columns&gt; FROM another_user
 <a id="load-data-using-dynamic-partition" class="anchor" href="#load-data-using-dynamic-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Dynamic Partition</h3>
 <p>This command allows you to load data using dynamic partition. If partition spec is not specified, then the partition is considered as dynamic.</p>
 <p>Example:</p>
-<pre><code>LOAD DATA LOCAL INPATH '${env:HOME}/staticinput.csv'
-INTO TABLE locationTable          
+<pre><code>LOAD DATA INPATH '${env:HOME}/staticinput.csv'
+INTO TABLE locationTable
+
 INSERT INTO TABLE locationTable
 SELECT &lt;columns list excluding partition columns&gt; FROM another_user
 </code></pre>

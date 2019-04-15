@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
                                    target="_blank">Apache CarbonData 1.5.2</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
-							<li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
-                                   target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -302,6 +302,9 @@
 </li>
 <li>
 <p><a href="#bucketing">BUCKETING</a></p>
+</li>
+<li>
+<p><a href="#cache">CACHE</a></p>
 </li>
 </ul>
 <h2>
@@ -1288,6 +1291,40 @@ TBLPROPERTIES('BUCKETNUMBER'='noOfBuckets',
 STORED AS carbondata
 TBLPROPERTIES ('BUCKETNUMBER'='4', 'BUCKETCOLUMNS'='productName')
 </code></pre>
+<h2>
+<a id="cache" class="anchor" href="#cache" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CACHE</h2>
+<p>CarbonData internally uses LRU caching to improve the performance. The user can get information
+about current cache used status in memory through the following command:</p>
+<div class="highlight highlight-source-sql"><pre>SHOW METACACHE</pre></div>
+<p>This shows the overall memory consumed in the cache by categories - index files, dictionary and
+datamaps. This also shows the cache usage by all the tables and children tables in the current
+database.</p>
+<div class="highlight highlight-source-sql"><pre>SHOW METACACHE <span class="pl-k">ON</span> TABLE tableName</pre></div>
+<p>This shows detailed information on cache usage by the table <code>tableName</code> and its carbonindex files,
+its dictionary files, its datamaps and children tables.</p>
+<p>This command is not allowed on child tables.</p>
+<div class="highlight highlight-source-sql"><pre>  DROP METACACHE <span class="pl-k">ON</span> TABLE tableName</pre></div>
+<p>This clears any entry in cache by the table <code>tableName</code>, its carbonindex files,
+its dictionary files, its datamaps and children tables.</p>
+<p>This command is not allowed on child tables.</p>
+<h3>
+<a id="important-points" class="anchor" href="#important-points" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Important points</h3>
+<ol>
+<li>
+<p>Cache information is updated only after the select query is executed.</p>
+</li>
+<li>
+<p>In case of alter table the already loaded cache is invalidated when any subsequent select query
+is fired.</p>
+</li>
+<li>
+<p>Dictionary is loaded in cache only when the dictionary columns are queried upon. If we don't do
+direct query on dictionary column, cache will not be loaded.
+If we do <code>SELECT * FROM t1</code>, and even though for this case dictionary is loaded, it is loaded in
+executor and not on driver, and the final result rows are returned back to driver, and thus will
+produce no trace on driver cache if we do <code>SHOW METACACHE</code> or <code>SHOW METACACHE ON TABLE t1</code>.</p>
+</li>
+</ol>
 <script>
 $(function() {
   // Show selected style on nav item

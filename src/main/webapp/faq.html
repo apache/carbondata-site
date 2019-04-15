@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
                                    target="_blank">Apache CarbonData 1.5.2</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
-							<li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
-                                   target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -248,6 +248,7 @@
 <li><a href="#failed-to-insert-data-on-the-cluster">Failed to insert data on the cluster</a></li>
 <li><a href="#failed-to-execute-concurrent-operations-on-table-by-multiple-workers">Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers</a></li>
 <li><a href="#failed-to-create-a-table-with-a-single-numeric-column">Failed to create a table with a single numeric column</a></li>
+<li><a href="#failed-to-create-datamap-and-drop-datamap-is-also-not-working">Failed to create datamap and drop datamap is also not working</a></li>
 </ul>
 <h2></h2>
 <h2>
@@ -582,6 +583,17 @@ For example, you can use scp to copy this file to all the nodes.</p>
 <p>Behaviour not supported.</p>
 <p><strong>Procedure</strong></p>
 <p>A single column that can be considered as dimension is mandatory for table creation.</p>
+<h2>
+<a id="failed-to-create-datamap-and-drop-datamap-is-also-not-working" class="anchor" href="#failed-to-create-datamap-and-drop-datamap-is-also-not-working" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to create datamap and drop datamap is also not working</h2>
+<p><strong>Symptom</strong></p>
+<p>Execution fails with the following exception :</p>
+<pre><code>HDFS Quota Exceeded
+</code></pre>
+<p><strong>Possible Cause</strong></p>
+<p>HDFS Quota is set, and it is not letting carbondata write or modify any files.</p>
+<p><strong>Procedure</strong></p>
+<p>Drop that particular datamap using Drop Table command using table name as
+parentTableName_datamapName so as to clear the stale folders.</p>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__faq').addClass('selected'); });
