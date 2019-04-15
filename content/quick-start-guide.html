@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
                                    target="_blank">Apache CarbonData 1.5.2</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
-							<li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
-                                   target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -255,18 +255,18 @@ EOF
 <p><a href="#installing-and-configuring-carbondata-on-presto">Installing and Configuring CarbonData on Presto</a></p>
 <h4>
 <a id="hive" class="anchor" href="#hive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hive</h4>
-<p><a href="./hive-guide.html" target=_blank>Installing and Configuring CarbonData on Hive</a></p>
+<p><a href="https://github.com/apache/carbondata/blob/master/docs/hive-guide.html" target=_blank>Installing and Configuring CarbonData on Hive</a></p>
 <h3>
 <a id="integration-with-storage-engines" class="anchor" href="#integration-with-storage-engines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration with Storage Engines</h3>
 <h4>
 <a id="hdfs" class="anchor" href="#hdfs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HDFS</h4>
-<p><a href="#installing-and-configuring-carbondata-on-standalone-spark-cluster">CarbonData supports read and write with HDFS</a></p>
+<p><a href="https://github.com/apache/carbondata/blob/master/docs/quick-start-guide.html#installing-and-configuring-carbondata-on-standalone-spark-cluster">CarbonData supports read and write with HDFS</a></p>
 <h4>
 <a id="s3" class="anchor" href="#s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3</h4>
-<p><a href="./s3-guide.html" target=_blank>CarbonData supports read and write with S3</a></p>
+<p><a href="https://github.com/apache/carbondata/blob/master/docs/s3-guide.html" target=_blank>CarbonData supports read and write with S3</a></p>
 <h4>
 <a id="alluxio" class="anchor" href="#alluxio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alluxio</h4>
-<p><a href="./alluxio-guide.html" target=_blank>CarbonData supports read and write with Alluxio</a></p>
+<p><a href="https://github.com/apache/carbondata/blob/master/docs/alluxio-guide.html" target=_blank>CarbonData supports read and write with Alluxio</a></p>
 <h2>
 <a id="installing-and-configuring-carbondata-to-run-locally-with-spark-shell" class="anchor" href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData to run locally with Spark Shell</h2>
 <p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">Apache Spark Documentation</a> for more details on Spark shell.</p>
@@ -521,7 +521,11 @@ mv carbondata.tar.gz carbonlib/
 --executor-memory 2G \
 --executor-cores 2
 </code></pre>
-<p><strong>NOTE</strong>: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.</li>
+<li>If use Spark + Hive 1.1.X, it needs to add carbondata assembly jar and carbondata-hive jar into parameter 'spark.sql.hive.metastore.jars' in spark-default.conf file.</li>
+</ul>
 <h2>
 <a id="query-execution-using-carbondata-thrift-server" class="anchor" href="#query-execution-using-carbondata-thrift-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Execution Using CarbonData Thrift Server</h2>
 <h3>

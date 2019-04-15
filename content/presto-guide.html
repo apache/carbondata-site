@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
                                    target="_blank">Apache CarbonData 1.5.2</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
-							<li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
-                                   target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -227,22 +227,30 @@
 <a id="presto-multinode-cluster-setup-for-carbondata" class="anchor" href="#presto-multinode-cluster-setup-for-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Presto Multinode Cluster Setup for Carbondata</h2>
 <h3>
 <a id="installing-presto" class="anchor" href="#installing-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Presto</h3>
+<p>To know about which version of presto is supported by this version of carbon, visit
+<a href="https://github.com/apache/carbondata/blob/master/integration/presto/pom.xml" target=_blank>https://github.com/apache/carbondata/blob/master/integration/presto/pom.xml</a>
+and look for <code>&lt;presto.version&gt;</code></p>
+<p><em>Example:</em>
+<code>&lt;presto.version&gt;0.217&lt;/presto.version&gt;</code>
+This means current version of carbon supports presto 0.217 version.</p>
+<p><em>Note:</em>
+Currently carbondata supports only one version of presto, cannot handle multiple versions at same time. If user wish to use older version of presto, then need to use older version of carbon (other old branches, say branch-1.5 and check the supported presto version in it's pom.xml file in integration/presto/)</p>
 <ol>
-<li>Download the 0.210 version of Presto using:</li>
+<li>Download that version of Presto (say 0.217) using below command:</li>
 </ol>
-<pre><code>wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.210/presto-server-0.210.tar.gz
+<pre><code>wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.217/presto-server-0.217.tar.gz
 </code></pre>
 <ol start="2">
 <li>
-<p>Extract Presto tar file: <code>tar zxvf presto-server-0.210.tar.gz</code>.</p>
+<p>Extract Presto tar file: <code>tar zxvf presto-server-0.217.tar.gz</code>.</p>
 </li>
 <li>
-<p>Download the Presto CLI for the coordinator and name it presto.</p>
+<p>Download the Presto CLI of the same presto server version (say 0.217) for the coordinator and name it presto.</p>
 </li>
 </ol>
-<pre><code>  wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.210/presto-cli-0.210-executable.jar
+<pre><code>  wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.217/presto-cli-0.217-executable.jar
 
-  mv presto-cli-0.210-executable.jar presto
+  mv presto-cli-0.217-executable.jar presto
 
   chmod +x presto
 </code></pre>
@@ -250,7 +258,7 @@
 <a id="create-configuration-files" class="anchor" href="#create-configuration-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Configuration Files</h3>
 <ol>
 <li>
-<p>Create <code>etc</code> folder in presto-server-0.210 directory.</p>
+<p>Create <code>etc</code> folder in presto-server-0.217 directory.</p>
 </li>
 <li>
 <p>Create <code>config.properties</code>, <code>jvm.config</code>, <code>log.properties</code>, and <code>node.properties</code> files.</p>
@@ -333,10 +341,10 @@ discovery.uri=&lt;coordinator_ip&gt;:8086
 </ol>
 <h3>
 <a id="start-presto-server-on-all-nodes" class="anchor" href="#start-presto-server-on-all-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Presto Server on all nodes</h3>
-<pre><code>./presto-server-0.210/bin/launcher start
+<pre><code>./presto-server-0.217/bin/launcher start
 </code></pre>
 <p>To run it as a background process.</p>
-<pre><code>./presto-server-0.210/bin/launcher run
+<pre><code>./presto-server-0.217/bin/launcher run
 </code></pre>
 <p>To run it in foreground.</p>
 <h3>
@@ -353,7 +361,7 @@ discovery.uri=&lt;coordinator_ip&gt;:8086
 <h3>
 <a id="config-presto-server" class="anchor" href="#config-presto-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Config presto server</h3>
 <ul>
-<li>Download presto server (0.210 is suggested and supported) : <a href="https://repo1.maven.org/maven2/com/facebook/presto/presto-server/" target=_blank rel="nofollow">https://repo1.maven.org/maven2/com/facebook/presto/presto-server/</a>
+<li>Download presto server (0.217 is suggested and supported) : <a href="https://repo1.maven.org/maven2/com/facebook/presto/presto-server/" target=_blank rel="nofollow">https://repo1.maven.org/maven2/com/facebook/presto/presto-server/</a>
 </li>
 <li>Finish presto configuration following <a href="https://prestodb.io/docs/current/installation/deployment.html" target=_blank rel="nofollow">https://prestodb.io/docs/current/installation/deployment.html</a>.
 A configuration example:</li>
@@ -448,7 +456,7 @@ carbondata files.</p>
 <a id="query-carbondata-in-cli-of-presto" class="anchor" href="#query-carbondata-in-cli-of-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query carbondata in CLI of presto</h3>
 <ul>
 <li>
-<p>Download presto cli client of version 0.210 : <a href="https://repo1.maven.org/maven2/com/facebook/presto/presto-cli" target=_blank rel="nofollow">https://repo1.maven.org/maven2/com/facebook/presto/presto-cli</a></p>
+<p>Download presto cli client of version 0.217 : <a href="https://repo1.maven.org/maven2/com/facebook/presto/presto-cli" target=_blank rel="nofollow">https://repo1.maven.org/maven2/com/facebook/presto/presto-cli</a></p>
 </li>
 <li>
 <p>Start CLI:</p>

@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
                                    target="_blank">Apache CarbonData 1.5.2</a></li>
                             <li>
@@ -63,9 +66,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
                                    target="_blank">Apache CarbonData 1.4.1</a></li>
-							<li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.0/"
-                                   target="_blank">Apache CarbonData 1.4.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -493,7 +493,7 @@
 </tr>
 <tr>
 <td>Query</td>
-<td>enable.unsafe.in.query.procressing</td>
+<td>enable.unsafe.in.query.processing</td>
 <td>true</td>
 <td>Data that needs to be scanned in huge which in turn generates more short lived Java objects. This cause pressure of GC.using unsafe and offheap will reduce the GC overhead</td>
 </tr>
@@ -501,7 +501,7 @@
 <td>Query</td>
 <td>use.offheap.in.query.processing</td>
 <td>true</td>
-<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects. This cause pressure of GC.using unsafe and offheap will reduce the GC overhead.offheap can be accessed through java unsafe.hence enable.unsafe.in.query.procressing needs to be true</td>
+<td>Data that needs to be scanned in huge which in turn generates more short lived Java objects. This cause pressure of GC.using unsafe and offheap will reduce the GC overhead.offheap can be accessed through java unsafe.hence enable.unsafe.in.query.processing needs to be true</td>
 </tr>
 <tr>
 <td>Query</td>

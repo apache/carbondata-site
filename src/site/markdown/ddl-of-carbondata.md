@@ -67,6 +67,7 @@ CarbonData DDL statements are documented here,which includes:
   * [SPLIT PARTITION](#split-a-partition)
   * [DROP PARTITION](#drop-a-partition)
 * [BUCKETING](#bucketing)
+* [CACHE](#cache)
 
 ## CREATE TABLE
 
@@ -1088,4 +1089,46 @@ Users can specify which columns to include and exclude for local dictionary gene
   TBLPROPERTIES ('BUCKETNUMBER'='4', 'BUCKETCOLUMNS'='productName')
   ```
 
+## CACHE
 
+  CarbonData internally uses LRU caching to improve the performance. The user can get information 
+  about current cache used status in memory through the following command:
+
+  ```sql
+  SHOW METACACHE
+  ``` 
+  
+  This shows the overall memory consumed in the cache by categories - index files, dictionary and 
+  datamaps. This also shows the cache usage by all the tables and children tables in the current 
+  database.
+  
+  ```sql
+  SHOW METACACHE ON TABLE tableName
+  ```
+  
+  This shows detailed information on cache usage by the table `tableName` and its carbonindex files, 
+  its dictionary files, its datamaps and children tables.
+  
+  This command is not allowed on child tables.
+
+  ```sql
+    DROP METACACHE ON TABLE tableName
+   ```
+    
+  This clears any entry in cache by the table `tableName`, its carbonindex files, 
+  its dictionary files, its datamaps and children tables.
+    
+  This command is not allowed on child tables.
+
+### Important points
+
+  1. Cache information is updated only after the select query is executed. 
+  
+  2. In case of alter table the already loaded cache is invalidated when any subsequent select query
+  is fired.
+
+  3. Dictionary is loaded in cache only when the dictionary columns are queried upon. If we don't do
+  direct query on dictionary column, cache will not be loaded.
+  If we do `SELECT * FROM t1`, and even though for this case dictionary is loaded, it is loaded in
+  executor and not on driver, and the final result rows are returned back to driver, and thus will
+  produce no trace on driver cache if we do `SHOW METACACHE` or `SHOW METACACHE ON TABLE t1`.
