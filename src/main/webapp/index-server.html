@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
+                                   target="_blank">Apache CarbonData 1.4.1</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="distributed-index-server" class="anchor" href="#distributed-index-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Distributed Index Server</h1>
+<h2>
+<a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h2>
+<p>Carbon currently prunes and caches all block/blocklet datamap index information into the driver for
+normal table, for Bloom/Index datamaps the JDBC driver will launch a job to prune and cache the
+datamaps in executors.</p>
+<p>This causes the driver to become a bottleneck in the following ways:</p>
+<ol>
+<li>If the cache size becomes huge(70-80% of the driver memory) then there can be excessive GC in
+the driver which can slow down the query and the driver may even go OutOfMemory.</li>
+<li>LRU has to evict a lot of elements from the cache to accommodate the new objects which would
+in turn slow down the queries.</li>
+<li>For bloom there is no guarantee that the next query goes to the same executor to reuse the cache
+and hence cache could be duplicated in multiple executors.</li>
+<li>Multiple JDBC drivers need to maintain their own copy of the cache.</li>
+</ol>
+<p>Distributed Index Cache Server aims to solve the above mentioned problems.</p>
+<h2>
+<a id="distribution" class="anchor" href="#distribution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Distribution</h2>
+<p>When enabled, any query on a carbon table will be routed to the index server service in form of
+a request. The request will consist of the table name, segments, filter expression and other
+information used for pruning.</p>
+<p>In IndexServer service a pruning RDD is fired which will take care of the pruning for that
+request. This RDD will be creating tasks based on the number of segments that are applicable for
+pruning. It can happen that the user has specified segments to access for that table, so only the
+specified segments would be applicable for pruning. Refer: <a href="https://github.com/apache/carbondata/blob/6e50c1c6fc1d6e82a4faf6dc6e0824299786ccc0/docs/segment-management-on-carbondata.html#query-data-with-specified-segments">query-data-with-specified-segments</a>.
+IndexServer driver would have 2 important tasks, distributing the segments equally among the
+available executors and keeping track of the executor where the segment is cached.</p>
+<p>To achieve this 2 separate mappings would be maintained as follows.</p>
+<ol>
+<li>
+<p>segment to executor location:
+This mapping will be maintained for each table and will enable the index server to track the
+cache location for each segment.</p>
+</li>
+<li>
+<p>Cache size held by each executor:
+This mapping will be used to distribute the segments equally(on the basis of size) among the
+executors.</p>
+</li>
+</ol>
+<p>Once a request is received each segment would be iterated over and
+checked against tableToExecutorMapping to find if a executor is already
+assigned. If a mapping already exists then it means that most
+probably(if not evicted by LRU) the segment is already cached in that
+executor and the task for that segment has to be fired on this executor.</p>
+<p>If mapping is not found then first check executorToCacheMapping against
+the available executor list to find if any unassigned executor is
+present and use that executor for the current segment. If all the
+executors are assigned with some segment then find the least loaded
+executor on the basis of size.</p>
+<p>Initially the segment index size would be used to distribute the
+segments fairly among the executor because the actual cache size would
+be known to the driver only when the segments are cached and appropriate
+information is returned to the driver.</p>
+<p><strong>NOTE:</strong> In case of legacy segment(version: 1.1) the index size is not available
+therefore all the legacy segments would be processed in a round robin
+fashion.</p>
+<p>After the job is completed the tasks would return the cache size held by
+each executor which would be updated to the executorToCacheMapping and
+the pruned blocklets which would be further used for result fetching.</p>
+<p><strong>Note:</strong> Multiple JDBC drivers can connect to the index server to use the cache.</p>
+<h2>
+<a id="reallocation-of-executor" class="anchor" href="#reallocation-of-executor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reallocation of executor</h2>
+<p>In case executor(s) become dead/unavailable then the segments that were
+earlier being handled by those would be reassigned to some other
+executor using the distribution logic.</p>
+<p><strong>Note:</strong> Cache loading would be done again in the new executor for the
+current query.</p>
+<h2>
+<a id="metacache-ddl" class="anchor" href="#metacache-ddl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MetaCache DDL</h2>
+<p>The show metacache DDL has a new column called cache location will indicate whether the cache is
+from executor or driver. To drop cache the user has to enable/disable the index server using the
+dynamic configuration to clear the cache of the desired location.</p>
+<p>Refer: <a href="https://github.com/apache/carbondata/blob/master/docs/ddl-of-carbondata.html#cache">MetaCacheDDL</a></p>
+<h2>
+<a id="fallback" class="anchor" href="#fallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fallback</h2>
+<p>In case of any failure the index server would fallback to embedded mode
+which means that the JDBCServer would take care of distributed pruning.
+A similar job would be fired by the JDBCServer which would take care of
+pruning using its own executors. If for any reason the embedded mode
+also fails to prune the datamaps then the job would be passed on to
+driver.</p>
+<p><strong>NOTE:</strong> In case of embedded mode a job would be fired after pruning to clear the
+cache as data cached in JDBCServer executors would be of no use.</p>
+<h2>
+<a id="writing-splits-to-a-file" class="anchor" href="#writing-splits-to-a-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Writing splits to a file</h2>
+<p>If the response is too huge then it is better to write the splits to a file so that the driver can
+read this file and create the splits. This can be controlled using the property 'carbon.index.server
+.inmemory.serialization.threshold.inKB'. By default, the minimum value for this property is 0,
+meaning that no matter how small the splits are they would be written to the file. Maximum is
+102400KB which will mean if the size of the splits for a executor cross this value then they would
+be written to file.</p>
+<p>The user can set the location for these file by using 'carbon.indexserver.temp.path'. By default
+table path would be used to write the files.</p>
+<h2>
+<a id="security" class="anchor" href="#security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security</h2>
+<p>The security for the index server is controlled through 'spark.carbon.indexserver.keytab' and 'spark
+.carbon.indexserver.principal'. These allow the RPC framework to login using the principal. It is
+recommended that the principal should be a super user, and the user should be exclusive for index
+server so that it does not grant access to any other service. Internally the operations would be
+executed  as a Privileged Action using the login user.</p>
+<p>The Index Server is a long running service therefore the 'spark.yarn.keytab' and 'spark.yarn
+.principal' should be configured.</p>
+<h2>
+<a id="configurations" class="anchor" href="#configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configurations</h2>
+<h5>
+<a id="carbonpropertiesjdbcserver" class="anchor" href="#carbonpropertiesjdbcserver" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>carbon.properties(JDBCServer)</h5>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Default Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">carbon.enable.index.server</td>
+<td align="center">false</td>
+<td align="center">Enable the use of index server for pruning for the whole application.</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.ip</td>
+<td align="center">NA</td>
+<td align="center">Specify the IP/HOST on which the server is started. Better to specify the private IP.</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.port</td>
+<td align="center">NA</td>
+<td align="center">The port on which the index server is started.</td>
+</tr>
+<tr>
+<td align="center">carbon.disable.index.server.fallback</td>
+<td align="center">false</td>
+<td align="center">Whether to enable/disable fallback for index server. Should be used for testing purposes only. Refer: <a href="#Fallback">Fallback</a>
+</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.max.jobname.length</td>
+<td align="center">NA</td>
+<td align="center">The max length of the job to show in the index server service UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.</td>
+</tr>
+</tbody>
+</table>
+<h5>
+<a id="carbonpropertiesindexserver" class="anchor" href="#carbonpropertiesindexserver" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>carbon.properties(IndexServer)</h5>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Default Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">carbon.index.server.ip</td>
+<td align="center">NA</td>
+<td align="center">Specify the IP/HOST on which the server would be started. Better to specify the private IP.</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.port</td>
+<td align="center">NA</td>
+<td align="center">The port on which the index server has to be started.</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.max.worker.threads</td>
+<td align="center">500</td>
+<td align="center">Number of RPC handlers to open for accepting the requests from JDBC driver. Max accepted value is Integer.Max. Refer: <a href="https://github.com/apache/hive/blob/master/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java#L3441">Hive configuration</a>
+</td>
+</tr>
+<tr>
+<td align="center">carbon.max.executor.lru.cache.size</td>
+<td align="center">NA</td>
+<td align="center">Maximum memory <strong>(in MB)</strong> upto which the executor process can cache the data (DataMaps and reverse dictionary values). Only integer values greater than 0 are accepted. <strong>NOTE:</strong> Mandatory for the user to set.</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.max.jobname.length</td>
+<td align="center">NA</td>
+<td align="center">The max length of the job to show in the index server application UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.</td>
+</tr>
+<tr>
+<td align="center">carbon.max.executor.threads.for.block.pruning</td>
+<td align="center">4</td>
+<td align="center">max executor threads used for block pruning.</td>
+</tr>
+<tr>
+<td align="center">carbon.index.server.inmemory.serialization.threshold.inKB</td>
+<td align="center">300</td>
+<td align="center">Max in memory serialization size after reaching threshold data will be written to file. Min value that the user can set is 0KB and max is 102400KB.</td>
+</tr>
+<tr>
+<td align="center">carbon.indexserver.temp.path</td>
+<td align="center">tablePath</td>
+<td align="center">The folder to write the split files if in memory datamap size for network transfers crossed the 'carbon.index.server.inmemory.serialization.threshold.inKB' limit.</td>
+</tr>
+</tbody>
+</table>
+<h5>
+<a id="spark-defaultsconfonly-for-secure-mode" class="anchor" href="#spark-defaultsconfonly-for-secure-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>spark-defaults.conf(only for secure mode)</h5>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Default Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">spark.carbon.indexserver.principal</td>
+<td align="center">NA</td>
+<td align="center">Used for authentication, whether a valid service is  trying to connect to the server or not. Set in both IndexServer and JDBCServer.</td>
+</tr>
+<tr>
+<td align="center">spark.carbon.indexserver.keytab</td>
+<td align="center">NA</td>
+<td align="center">Specify the path to the keytab file through which authentication would happen. Set in both IndexServer and JDBCServer.</td>
+</tr>
+<tr>
+<td align="center">spark.dynamicAllocation.enabled</td>
+<td align="center">true</td>
+<td align="center">Set to false, so that spark does not kill the executor, If executors are killed, cache would be lost. Applicable only for Index Server.</td>
+</tr>
+<tr>
+<td align="center">spark.yarn.principal</td>
+<td align="center">NA</td>
+<td align="center">Should be set to the same user used for JDBCServer. Required only for IndexServer.</td>
+</tr>
+<tr>
+<td align="center">spark.yarn.keytab</td>
+<td align="center">NA</td>
+<td align="center">Should be set to the same as JDBCServer.</td>
+</tr>
+</tbody>
+</table>
+<h5>
+<a id="spark-defaultsconfnon-secure-mode" class="anchor" href="#spark-defaultsconfnon-secure-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>spark-defaults.conf(non-secure mode)</h5>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Default Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">spark.dynamicAllocation.enabled</td>
+<td align="center">true</td>
+<td align="center">Set to false, so that spark does not kill the executor, If executors are killed, cache would be lost. Applicable only for Index Server.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong> Its better to create a new user for indexserver principal,
+that will authenticate the user to access the index server and no other service.</p>
+<h5>
+<a id="core-sitexml" class="anchor" href="#core-sitexml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>core-site.xml</h5>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Default Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ipc.client.rpc-timeout.ms</td>
+<td align="center">NA</td>
+<td align="center">Set the above property to some appropriate value based on your estimated query time. The best option is to set this to the same value as spark.network.timeout.</td>
+</tr>
+</tbody>
+</table>
+<h5>
+<a id="dynamic-propertiesset-command" class="anchor" href="#dynamic-propertiesset-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>dynamic-properties(set command)</h5>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Default Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">carbon.enable.index.server</td>
+<td align="center">false</td>
+<td align="center">Enable the use of index server for pruning for the current session.</td>
+</tr>
+<tr>
+<td align="center">carbon.enable.index.server.dbName.tableName</td>
+<td align="center">false</td>
+<td align="center">Enable the use of index server for the specified table in the current session.</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="starting-the-server" class="anchor" href="#starting-the-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting the Server</h2>
+<pre><code>./bin/spark-submit --master [yarn/local] --[o ptional parameters] --class org.apache.carbondata.indexserver.IndexServer [path to carbondata-spark2-&lt;version&gt;.jar]
+</code></pre>
+<p>Or</p>
+<pre><code>./sbin/start-indexserver.sh --master yarn --num-executors 2 /&lt;absolute path&gt;/carbondata-spark2-1.6.0.0100.jar
+</code></pre>
+<h2>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FAQ</h2>
+<p>Q. <strong>Index Server is throwing Large response size exception.</strong></p>
+<p>A. The exception would show the size of response it is trying to send over the
+network. Use ipc.maximum.response.length to a value bigger than the
+response size.</p>
+<p>Q. <strong>Index server is throwing Kerberos principal not set exception</strong></p>
+<p>A. Set spark.carbon.indexserver.principal to the correct principal in both IndexServer and
+JDBCServer configurations.</p>
+<p>Q. <strong>Unable to connect to index server</strong></p>
+<p>A. Check whether the carbon.properties configurations are set in JDBCServer as well as the index
+server.</p>
+<p>Q. <strong>IndexServer is throwing FileNotFoundException for index files.</strong></p>
+<p>A. Check whether the Index server and JDBCServer are connected to the
+same namenode or not. And the store should be shared by both</p>
+<p>Q. <strong>OutOfMemoryException in DirectMemoryBuffer</strong></p>
+<p>A. Increase -XX:MaxDirectMemorySize in driver.extraJavaOptions to
+accommodate the large response in driver.</p>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__indexserver').addClass('selected'); });
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

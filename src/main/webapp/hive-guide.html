@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -221,9 +230,6 @@
 <h1>
 <a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h1>
 <p>This tutorial provides a quick introduction to using current integration/hive module.</p>
-<h2>
-<a id="build-in-120-hive-integration-only-support-spark21-and-hadoop272" class="anchor" href="#build-in-120-hive-integration-only-support-spark21-and-hadoop272" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build (In 1.2.0, hive integration only support spark2.1 and hadoop2.7.2)</h2>
-<p>mvn -DskipTests -Pspark-2.1 -Phadoop-2.7.2 clean package</p>
 <h2>
 <a id="prepare-carbondata-in-spark" class="anchor" href="#prepare-carbondata-in-spark" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prepare CarbonData in Spark</h2>
 <ul>
@@ -285,18 +291,41 @@ export HIVE_AUX_JARS_PATH=hive/auxlibs/
 export HADOOP_OPTS="-Dorg.xerial.snappy.lib.path=/Library/Java/Extensions -Dorg.xerial.snappy.lib.name=libsnappyjava.jnilib -Dorg.xerial.snappy.tempdir=/Users/apple/DEMO/tmp"
 </code></pre>
 <h3>
-<a id="start-hive-client" class="anchor" href="#start-hive-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start hive client</h3>
-<pre><code>$HIVE_HOME/bin/hive
+<a id="carbon-jars-to-be-placed" class="anchor" href="#carbon-jars-to-be-placed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Carbon Jars to be placed</h3>
+<pre><code>hive/lib/ (for hive server)
+yarn/lib/ (for MapReduce)
+
+Carbon Jars to be copied to the above paths.
 </code></pre>
 <h3>
-<a id="query-data-from-hive-table" class="anchor" href="#query-data-from-hive-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query data from hive table</h3>
-<pre><code>set hive.mapred.supports.subdirectories=true;
-set mapreduce.input.fileinputformat.input.dir.recursive=true;
-
-select * from hive_carbon;
-select count(*) from hive_carbon;
-select * from hive_carbon order by id;
+<a id="start-hive-beeline-to-query" class="anchor" href="#start-hive-beeline-to-query" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start hive beeline to query</h3>
+<pre><code>$HIVE_HOME/bin/beeline
 </code></pre>
+<h3>
+<a id="query-data-from-hive" class="anchor" href="#query-data-from-hive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query data from hive</h3>
+<ul>
+<li>This is to read the carbon table through Hive. It is the integration of the carbon with Hive.</li>
+</ul>
+<pre><code>set hive.mapred.supports.subdirectories=true;
+set mapreduce.dir.recursive=true;
+These properties helps to recursively traverse through the directories to read the carbon folder structure.
+</code></pre>
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
+<pre><code> - In case if the carbon table is not set with the SERDE and the INPUTFORMAT/OUTPUTFORMAT, user can create a new hive managed table like below with the required details for the hive to read.
+create table hive_carbon_1(id int, name string, scale decimal, country string, salary double) ROW FORMAT SERDE 'org.apache.carbondata.hive.CarbonHiveSerDe' WITH SERDEPROPERTIES ('mapreduce.input.carboninputformat.databaseName'='default', 'mapreduce.input.carboninputformat.tableName'='HIVE_CARBON_EXAMPLE') STORED AS INPUTFORMAT 'org.apache.carbondata.hive.MapredCarbonInputFormat' OUTPUTFORMAT 'org.apache.carbondata.hive.MapredCarbonOutputFormat' LOCATION 'location_to_the_carbon_table';
+
+ - Query the table
+select * from hive_carbon_1;
+select count(*) from hive_carbon_1;
+select * from hive_carbon_1 order by id;
+</code></pre>
+<h3>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note</h3>
+<ul>
+<li>Partition table support is not handled</li>
+<li>Map data type is not supported</li>
+</ul>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__quickstart').addClass('selected'); });

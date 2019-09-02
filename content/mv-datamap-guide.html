@@ -228,34 +228,205 @@
                                 <div class="col-sm-12  col-md-12">
                                     <div>
 <h1>
-<a id="datamap-developer-guide" class="anchor" href="#datamap-developer-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMap Developer Guide</h1>
-<h3>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
-<p>DataMap is a data structure that can be used to accelerate certain query of the table. Different DataMap can be implemented by developers.
-Currently, there are two types of DataMap supported:</p>
+<a id="carbondata-mv-datamap" class="anchor" href="#carbondata-mv-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData MV DataMap</h1>
+<ul>
+<li><a href="#quick-example">Quick Example</a></li>
+<li><a href="#mv-datamap-introduction">MV DataMap</a></li>
+<li><a href="#loading-data">Loading Data</a></li>
+<li><a href="#querying-data">Querying Data</a></li>
+<li><a href="#compacting-mv-tables">Compaction</a></li>
+<li><a href="#data-management-with-mv-tables">Data Management</a></li>
+</ul>
+<h2>
+<a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
+<p>Start spark-sql in terminal and run the following queries,</p>
+<pre><code>CREATE TABLE maintable(a int, b string, c int) stored by 'carbondata';
+insert into maintable select 1, 'ab', 2;
+CREATE DATAMAP datamap_1 on table maintable as SELECT a, sum(b) from maintable group by a;
+SELECT a, sum(b) from maintable group by a;
+// NOTE: run explain query and check if query hits the datamap table from the plan
+EXPLAIN SELECT a, sum(b) from maintable group by a;
+</code></pre>
+<h2>
+<a id="mv-datamap-introduction" class="anchor" href="#mv-datamap-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MV DataMap Introduction</h2>
+<p>MV tables are created as DataMaps and managed as tables internally by CarbonData. User can create
+limitless MV datamaps on a table to improve query performance provided the storage requirements
+and loading time is acceptable.</p>
+<p>MV datamap can be a lazy or a non-lazy datamap. Once MV datamaps are created, CarbonData's
+CarbonAnalyzer helps to select the most efficient MV datamap based on the user query and rewrite
+the SQL to select the data from MV datamap instead of main table. Since the data size of MV
+datamap is smaller and data is pre-processed, user queries are much faster.</p>
+<p>For instance, main table called <strong>sales</strong> which is defined as</p>
+<pre><code>CREATE TABLE sales (
+  order_time timestamp,
+  user_id string,
+  sex string,
+  country string,
+  quantity int,
+  price bigint)
+STORED AS carbondata
+</code></pre>
+<p>User can create MV tables using the Create DataMap DDL</p>
+<pre><code>CREATE DATAMAP agg_sales
+ON TABLE sales
+USING "MV"
+AS
+  SELECT country, sex, sum(quantity), avg(price)
+  FROM sales
+  GROUP BY country, sex
+</code></pre>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>
+<p>Group by/Filter columns has to be provided in projection list while creating mv datamap</p>
+</li>
+<li>
+<p>If only single parent table is involved in mv datamap creation, then TableProperties of Parent table
+(if not present in a aggregate function like sum(col)) listed below will be
+inherited to datamap table</p>
 <ol>
-<li>IndexDataMap: DataMap that leverages index to accelerate filter query. Lucene DataMap and BloomFiler DataMap belong to this type of DataMaps.</li>
-<li>MVDataMap: DataMap that leverages Materialized View to accelerate olap style query, like SPJG query (select, predicate, join, groupby). Preaggregate, timeseries and mv DataMap belong to this type of DataMaps.</li>
+<li>SORT_COLUMNS</li>
+<li>SORT_SCOPE</li>
+<li>TABLE_BLOCKSIZE</li>
+<li>FLAT_FOLDER</li>
+<li>LONG_STRING_COLUMNS</li>
+<li>LOCAL_DICTIONARY_ENABLE</li>
+<li>LOCAL_DICTIONARY_THRESHOLD</li>
+<li>LOCAL_DICTIONARY_EXCLUDE</li>
+<li>DICTIONARY_INCLUDE</li>
+<li>DICTIONARY_EXCLUDE</li>
+<li>INVERTED_INDEX</li>
+<li>NO_INVERTED_INDEX</li>
+<li>COLUMN_COMPRESSOR</li>
 </ol>
+</li>
+<li>
+<p>All columns of main table at once cannot participate in mv datamap table creation</p>
+</li>
+<li>
+<p>TableProperties can be provided in DMProperties excluding LOCAL_DICTIONARY_INCLUDE,
+LOCAL_DICTIONARY_EXCLUDE, DICTIONARY_INCLUDE, DICTIONARY_EXCLUDE, INVERTED_INDEX,
+NO_INVERTED_INDEX, SORT_COLUMNS, LONG_STRING_COLUMNS, RANGE_COLUMN &amp; COLUMN_META_CACHE</p>
+</li>
+<li>
+<p>TableProperty given in DMProperties will be considered for mv creation, eventhough if same
+property is inherited from parent table, which allows user to provide different tableproperties
+for child table</p>
+</li>
+<li>
+<p>MV creation with limit or union all ctas queries is unsupported</p>
+</li>
+</ul>
+<h4>
+<a id="how-mv-tables-are-selected" class="anchor" href="#how-mv-tables-are-selected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How MV tables are selected</h4>
+<p>When a user query is submitted, during query planning phase, CarbonData will collect modular plan
+candidates and process the the ModularPlan based on registered summary data sets. Then,
+mv datamap table for this query will be selected among the candidates.</p>
+<p>For the main table <strong>sales</strong> and mv table  <strong>agg_sales</strong> created above, following queries</p>
+<pre><code>SELECT country, sex, sum(quantity), avg(price) from sales GROUP BY country, sex
+
+SELECT sex, sum(quantity) from sales GROUP BY sex
+
+SELECT avg(price), country from sales GROUP BY country
+</code></pre>
+<p>will be transformed by CarbonData's query planner to query against mv table
+<strong>agg_sales</strong> instead of the main table <strong>sales</strong></p>
+<p>However, for following queries</p>
+<pre><code>SELECT user_id, country, sex, sum(quantity), avg(price) from sales GROUP BY user_id, country, sex
+
+SELECT sex, avg(quantity) from sales GROUP BY sex
+
+SELECT country, max(price) from sales GROUP BY country
+</code></pre>
+<p>will query against main table <strong>sales</strong> only, because it does not satisfy mv table
+selection logic.</p>
+<h2>
+<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data</h2>
 <h3>
-<a id="datamap-provider" class="anchor" href="#datamap-provider" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DataMap Provider</h3>
-<p>When user issues <code>CREATE DATAMAP dm ON TABLE main USING 'provider'</code>, the corresponding DataMapProvider implementation will be created and initialized.
-Currently, the provider string can be:</p>
+<a id="loading-data-to-non-lazy-mv-datamap" class="anchor" href="#loading-data-to-non-lazy-mv-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data to Non-Lazy MV Datamap</h3>
+<p>In case of WITHOUT DEFERRED REBUILD, for existing table with loaded data, data load to MV table will
+be triggered by the CREATE DATAMAP statement when user creates the MV table.
+For incremental loads to main table, data to datamap will be loaded once the corresponding main
+table load is completed.</p>
+<h3>
+<a id="loading-data-to-lazy-mv-datamap" class="anchor" href="#loading-data-to-lazy-mv-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data to Lazy MV Datamap</h3>
+<p>In case of WITH DEFERRED REBUILD, data load to MV table will be triggered by the <a href="./datamap-management.html#manual-refresh">Manual Refresh</a>
+command. MV datamap will be in DISABLED state in below scenarios,</p>
+<ul>
+<li>when mv datamap is created</li>
+<li>when data of main table and datamap are not in sync</li>
+</ul>
+<p>User should fire REBUILD DATAMAP command to sync all segments of main table with datamap table and
+which ENABLES the datamap for query</p>
+<h3>
+<a id="loading-data-to-multiple-mvs" class="anchor" href="#loading-data-to-multiple-mvs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data to Multiple MV's</h3>
+<p>During load to main table, if anyone of the load to datamap table fails, then that corresponding
+datamap will be DISABLED and load to other datamaps mapped to main table will continue. User can
+fire REBUILD DATAMAP command to sync or else the subsequent table load will load the old failed
+loads along with current load and enable the disabled datamap.</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>In case of InsertOverwrite/Update operation on parent table, all segments of datamap table will
+be MARKED_FOR_DELETE and reload to datamap table will happen by REBUILD DATAMAP, in case of Lazy
+mv datamap/ once InsertOverwrite/Update operation on parent table is finished, in case of
+Non-Lazy mv.</li>
+<li>In case of full scan query, Data Size and Index Size of main table and child table will not the
+same, as main table and child table has different column names.</li>
+</ul>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data</h2>
+<p>As a technique for query acceleration, MV tables cannot be queried directly.
+Queries are to be made on main table. While doing query planning, internally CarbonData will check
+associated mv datamap tables with the main table, and do query plan transformation accordingly.</p>
+<p>User can verify whether a query can leverage mv datamap table or not by executing <code>EXPLAIN</code>
+command, which will show the transformed logical plan, and thus user can check whether mv datamap
+table is selected.</p>
+<h2>
+<a id="compacting-mv-datamap" class="anchor" href="#compacting-mv-datamap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting MV datamap</h2>
+<h3>
+<a id="compacting-mv-datamap-table-through-main-table-compaction" class="anchor" href="#compacting-mv-datamap-table-through-main-table-compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting MV datamap table through Main Table compaction</h3>
+<p>Running Compaction command (<code>ALTER TABLE COMPACT</code>)[COMPACTION TYPE-&gt; MINOR/MAJOR] on main table will
+automatically compact the mv datamap tables created on the main table, once compaction on main table
+is done.</p>
+<h3>
+<a id="compacting-mv-datamap-table-through-ddl-command" class="anchor" href="#compacting-mv-datamap-table-through-ddl-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting MV datamap table through DDL command</h3>
+<p>Compaction on mv datamap can be triggered by running the following DDL command(supported only for mv).</p>
+<pre><code>ALTER DATAMAP datamap_name COMPACT 'COMPACTION_TYPE'
+</code></pre>
+<h2>
+<a id="data-management-with-mv-tables" class="anchor" href="#data-management-with-mv-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management with mv tables</h2>
+<p>In current implementation, data consistency needs to be maintained for both main table and mv datamap
+tables. Once there is mv datamap table created on the main table, following command on the main
+table is not supported:</p>
 <ol>
-<li>preaggregate: A type of MVDataMap that do pre-aggregate of single table</li>
-<li>timeseries: A type of MVDataMap that do pre-aggregate based on time dimension of the table</li>
-<li>class name IndexDataMapFactory implementation: Developer can implement new type of IndexDataMap by extending IndexDataMapFactory</li>
+<li>Data management command: <code>DELETE SEGMENT</code>.</li>
+<li>Schema management command: <code>ALTER TABLE DROP COLUMN</code>, <code>ALTER TABLE CHANGE DATATYPE</code>,
+<code>ALTER TABLE RENAME</code>, <code>ALTER COLUMN RENAME</code>. Note that adding a new column is supported, and for
+dropping columns and change datatype command, CarbonData will check whether it will impact the
+mv datamap table, if not, the operation is allowed, otherwise operation will be rejected by
+throwing exception.</li>
+<li>Partition management command: <code>ALTER TABLE ADD/DROP PARTITION</code>. Note that dropping a partition
+will be allowed only if partition is participating in all datamaps associated with main table.
+Drop Partition is not allowed, if any mv datamap is associated with more than one parent table.
+Drop Partition directly on datamap table is not allowed.</li>
+<li>Complex Datatype's for mv datamap is not supported.</li>
 </ol>
-<p>When user issues <code>DROP DATAMAP dm ON TABLE main</code>, the corresponding DataMapProvider interface will be called.</p>
-<p>Click for more details about <a href="./datamap-management.html#datamap-management">DataMap Management</a> and supported <a href="./datamap-management.html#overview">DSL</a>.</p>
+<p>However, there is still way to support these operations on main table, in current CarbonData
+release, user can do as following:</p>
+<ol>
+<li>Remove the mv datamap table by <code>DROP DATAMAP</code> command</li>
+<li>Carry out the data management operation on main table</li>
+<li>Create the mv datamap table again by <code>CREATE DATAMAP</code> command
+Basically, user can manually trigger the operation by re-building the datamap.</li>
+</ol>
 <script>
 $(function() {
   // Show selected style on nav item
-  $('.b-nav__docs').addClass('selected');
+  $('.b-nav__datamap').addClass('selected');
 
-  // Display docs subnav items
-  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
-    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  if (!$('.b-nav__datamap').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display datamap subnav items
+    $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
   }
 });
 </script></div>

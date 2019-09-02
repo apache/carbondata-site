@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -342,6 +351,10 @@ OPTIONS(property_name=property_value, ...)
 <tr>
 <td><a href="#scale_factor">SCALE_FACTOR</a></td>
 <td>Control the partition size for RANGE_COLUMN feature</td>
+</tr>
+<tr>
+<td>[CARBON_OPTIONS_BINARY_DECODER]</td>
+<td>Support configurable decode for loading from csv</td>
 </tr>
 </tbody>
 </table>
@@ -550,7 +563,9 @@ OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true','BAD_RECORD_PATH'='hdfs://hacluster/t
 <h5>
 <a id="global_sort_partitions" class="anchor" href="#global_sort_partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GLOBAL_SORT_PARTITIONS:</h5>
 <p>If the SORT_SCOPE is defined as GLOBAL_SORT, then user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map task as reduce task. It is recommended that each reduce task deal with 512MB-1GB data.
-For RANGE_COLUMN, GLOBAL_SORT_PARTITIONS is used to specify the number of range partitions also.</p>
+For RANGE_COLUMN, GLOBAL_SORT_PARTITIONS is used to specify the number of range partitions also.
+GLOBAL_SORT_PARTITIONS should be specified optimally during RANGE_COLUMN LOAD because if a higher number is configured then the load time may be less but it will result in creation of more files which would degrade the query and compaction performance.
+Conversely, if less partitions are configured then the load performance may degrade due to less use of parallelism but the query and compaction will become faster. Hence the user may choose optimal number depending on the use case.</p>
 </li>
 </ul>
 <pre><code>OPTIONS('GLOBAL_SORT_PARTITIONS'='2')
@@ -578,6 +593,14 @@ For RANGE_COLUMN, GLOBAL_SORT_PARTITIONS is used to specify the number of range 
 <li>If both GLOBAL_SORT_PARTITIONS and SCALE_FACTOR are used at the same time, only GLOBAL_SORT_PARTITIONS is valid.</li>
 <li>The compaction on RANGE_COLUMN will use LOCAL_SORT by default.</li>
 </ul>
+<ul>
+<li>
+<h5>
+<a id="carbon_enable_range_compaction" class="anchor" href="#carbon_enable_range_compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CARBON_ENABLE_RANGE_COMPACTION</h5>
+</li>
+</ul>
+<p>To configure Ranges-based Compaction to be used or not for RANGE_COLUMN.
+The default value is 'true'.</p>
 
 
 <h3>

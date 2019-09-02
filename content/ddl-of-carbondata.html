@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -356,6 +365,10 @@ STORED AS carbondata
 <td>Size of blocklet to write in the file</td>
 </tr>
 <tr>
+<td><a href="#table-page-size-configuration">TABLE_PAGE_SIZE_INMB</a></td>
+<td>Size of page in MB; if page size crosses this value before 32000 rows, page will be cut to this many rows and remaining rows are processed in the subsequent pages. This helps in keeping page size to fit in cpu cache size</td>
+</tr>
+<tr>
 <td><a href="#table-compaction-configuration">MAJOR_COMPACTION_SIZE</a></td>
 <td>Size upto which the segments can be combined into one</td>
 </tr>
@@ -440,7 +453,7 @@ Suggested use cases : do dictionary encoding for low cardinality columns, it mig
 </code></pre>
 <p><strong>NOTE</strong>:</p>
 <ul>
-<li>Dictionary Include/Exclude for complex child columns is not supported.</li>
+<li>Dictionary Include/Exclude for complex child columns is not supported. Dictionary Include doesn't support binary data type.</li>
 <li>Dictionary is global. Except global dictionary, there are local dictionary and non-dictionary in CarbonData.</li>
 </ul>
 </li>
@@ -480,6 +493,7 @@ Suggested use cases : do dictionary encoding for low cardinality columns, it mig
 <li>BOOLEAN</li>
 <li>FLOAT</li>
 <li>BYTE</li>
+<li>Binary</li>
 </ul>
 </li>
 <li>
@@ -498,8 +512,8 @@ Suggested use cases : do dictionary encoding for low cardinality columns, it mig
 <tbody>
 <tr>
 <td>carbon.local.dictionary.enable</td>
-<td>false</td>
-<td>By default, Local Dictionary will be disabled for the carbondata table.</td>
+<td>true</td>
+<td>By default, Local Dictionary will be enabled for the carbondata table.</td>
 </tr>
 <tr>
 <td>carbon.local.dictionary.decoder.fallback</td>
@@ -589,14 +603,14 @@ Suggested use cases : For high cardinality columns, you can disable the inverted
 <a id="sort-columns-configuration" class="anchor" href="#sort-columns-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sort Columns Configuration</h5>
 <p>This property is for users to specify which columns belong to the MDK(Multi-Dimensions-Key) index.</p>
 <ul>
-<li>If users don't specify "SORT_COLUMN" property, by default no columns are sorted</li>
+<li>If users don't specify "SORT_COLUMNS" property, by default no columns are sorted</li>
 <li>If this property is specified but with empty argument, then the table will be loaded without sort.</li>
 <li>This supports only string, date, timestamp, short, int, long, byte and boolean data types.
 Suggested use cases : Only build MDK index for required columns,it might help to improve the data loading performance.</li>
 </ul>
 <pre><code>TBLPROPERTIES ('SORT_COLUMNS'='column1, column3')
 </code></pre>
-<p><strong>NOTE</strong>: Sort_Columns for Complex datatype columns is not supported.</p>
+<p><strong>NOTE</strong>: Sort_Columns for Complex datatype columns and binary data type is not supported.</p>
 </li>
 <li>
 <h5>
@@ -647,6 +661,21 @@ Blocklet is the minimum IO read unit, in case of point queries reduce blocklet s
 </li>
 <li>
 <h5>
+<a id="table-page-size-configuration" class="anchor" href="#table-page-size-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table page Size Configuration</h5>
+<p>This property is for setting page size in the carbondata file
+and supports a range of 1 MB to 1755 MB.
+If page size crosses this value before 32000 rows, page will be cut to that many rows.
+Helps in keeping page size to fit cpu cache size.</p>
+<p>This property can be configured if the table has string, varchar, binary or complex datatype columns.
+Because for these columns 32000 rows in one page may exceed 1755 MB and snappy compression will fail in that scenario.
+Also if page size is huge, page cannot be fit in CPU cache.
+So, configuring smaller values of this property (say 1 MB) can result in better use of CPU cache for pages.</p>
+<p>Example usage:</p>
+<pre><code>TBLPROPERTIES ('TABLE_PAGE_SIZE_INMB'='5')
+</code></pre>
+</li>
+<li>
+<h5>
 <a id="table-compaction-configuration" class="anchor" href="#table-compaction-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table Compaction Configuration</h5>
 <p>These properties are table level compaction configurations, if not specified, system level configurations in carbon.properties will be used.
 Following are 5 configurations:</p>
@@ -674,7 +703,7 @@ Following are 5 configurations:</p>
 <li>
 <h5>
 <a id="caching-minmax-value-for-required-columns" class="anchor" href="#caching-minmax-value-for-required-columns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Caching Min/Max Value for Required Columns</h5>
-<p>By default, CarbonData caches min and max values of all the columns in schema.  As the load increases, the memory required to hold the min and max values increases considerably. This feature enables you to configure min and max values only for the required columns, resulting in optimized memory usage.</p>
+<p>By default, CarbonData caches min and max values of all the columns in schema.  As the load increases, the memory required to hold the min and max values increases considerably. This feature enables you to configure min and max values only for the required columns, resulting in optimized memory usage. This feature doesn't support binary data type.</p>
 <p>Following are the valid values for COLUMN_META_CACHE:</p>
 <ul>
 <li>If you want no column min/max values to be cached in the driver.</li>
@@ -813,7 +842,8 @@ Notice that once you enable this feature, for load balance, carbondata will igno
 <h5>
 <a id="range-column" class="anchor" href="#range-column" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Range Column</h5>
 <p>This property is used to specify a column to partition the input data by range.
-Only one column can be configured. During data loading, you can use "global_sort_partitions" or "scale_factor" to avoid generating small files.</p>
+Only one column can be configured. During data loading, you can use "global_sort_partitions" or "scale_factor" to avoid generating small files.
+This feature doesn't support binary data type.</p>
 <pre><code>TBLPROPERTIES('RANGE_COLUMN'='col1')
 </code></pre>
 </li>
@@ -1048,6 +1078,28 @@ This can be achieved by using the alter table set command.</p>
 <pre><code>ALTER TABLE tablename UNSET TBLPROPERTIES('SORT_SCOPE')
 </code></pre>
 </li>
+<li>
+<h5>
+<a id="sort-columns" class="anchor" href="#sort-columns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SORT COLUMNS</h5>
+<p>Example to SET SORT COLUMNS:</p>
+<pre><code>ALTER TABLE tablename SET TBLPROPERTIES('SORT_COLUMNS'='column1')
+</code></pre>
+<p>After this operation, the new loading will use the new SORT_COLUMNS. The user can adjust
+the SORT_COLUMNS according to the query, but it will not impact the old data directly. So
+it will not impact the query performance of the old data segments which are not sorted by
+new SORT_COLUMNS.</p>
+<p>UNSET is not supported, but it can set SORT_COLUMNS to empty string instead of using UNSET.
+NOTE: When SORT_SCOPE is not NO_SORT, then setting SORT_COLUMNS to empty string is not valid.</p>
+<pre><code>ALTER TABLE tablename SET TBLPROPERTIES('SORT_COLUMNS'='')
+</code></pre>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>The future version will enhance "custom" compaction to sort the old segment one by one.</li>
+<li>The streaming table is not supported for SORT_COLUMNS modification.</li>
+<li>If the inverted index columns are removed from the new SORT_COLUMNS, they will not
+create the inverted index. But the old configuration of INVERTED_INDEX will be kept.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1124,7 +1176,7 @@ TBLPROPERTIES ('DICTIONARY_INCLUDE'='productNumber')
 PARTITIONED BY (productCategory STRING, productBatch STRING)
 STORED AS carbondata
 </code></pre>
-<p><strong>NOTE:</strong> Hive partition is not supported on complex datatype columns.</p>
+<p><strong>NOTE:</strong> Hive partition is not supported on complex data type columns.</p>
 <h4>
 <a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h4>
 <p>This command gets the Hive partition information of the table</p>

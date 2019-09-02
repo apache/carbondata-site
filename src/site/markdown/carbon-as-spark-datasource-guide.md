@@ -19,7 +19,7 @@
 
 The CarbonData fileformat is now integrated as Spark datasource for read and write operation without using CarbonSession. This is useful for users who wants to use carbondata as spark's data source. 
 
-**Note:** You can only apply the functions/features supported by spark datasource APIs, functionalities supported would be similar to Parquet. The carbon session features are not supported.
+**Note:** You can only apply the functions/features supported by spark datasource APIs, functionalities supported would be similar to Parquet. The carbon session features are not supported. The result is displayed as byte array format when select query on binary column in spark-sql.
 
 # Create Table with DDL
 
@@ -42,18 +42,20 @@ Now you can create Carbon table using Spark's datasource DDL syntax.
 
 | Property | Default Value | Description |
 |-----------|--------------|------------|
-| table_blocksize | 1024 | Size of blocks to write onto hdfs. For  more details, see [Table Block Size Configuration](./ddl-of-carbondata.md#table-block-size-configuration). |
+| table_blocksize | 1024 | Size of blocks to write onto hdfs. For more details, see [Table Block Size Configuration](./ddl-of-carbondata.md#table-block-size-configuration). |
 | table_blocklet_size | 64 | Size of blocklet to write. |
-| local_dictionary_threshold | 10000 | Cardinality upto which the local dictionary can be generated. For  more details, see [Local Dictionary Configuration](./ddl-of-carbondata.md#local-dictionary-configuration). |
-| local_dictionary_enable | false | Enable local dictionary generation. For  more details, see [Local Dictionary Configuration](./ddl-of-carbondata.md#local-dictionary-configuration). |
-| sort_columns | all dimensions are sorted | Columns to include in sort and its order of sort. For  more details, see [Sort Columns Configuration](./ddl-of-carbondata.md#sort-columns-configuration). |
-| sort_scope | local_sort | Sort scope of the load.Options include no sort, local sort, batch sort, and global sort. For  more details, see [Sort Scope Configuration](./ddl-of-carbondata.md#sort-scope-configuration). |
-| long_string_columns | null | Comma separated string/char/varchar columns which are more than 32k length. For  more details, see [String longer than 32000 characters](./ddl-of-carbondata.md#string-longer-than-32000-characters). |
+| table_page_size_inmb | 0 | Size of each page in carbon table, if page size crosses this value before 32000 rows, page will be cut to that many rows. Helps in keep page size to fit cache size |
+| local_dictionary_threshold | 10000 | Cardinality upto which the local dictionary can be generated. For more details, see [Local Dictionary Configuration](./ddl-of-carbondata.md#local-dictionary-configuration). |
+| local_dictionary_enable | false | Enable local dictionary generation. For more details, see [Local Dictionary Configuration](./ddl-of-carbondata.md#local-dictionary-configuration). |
+| sort_columns | all dimensions are sorted | Columns to include in sort and its order of sort. For more details, see [Sort Columns Configuration](./ddl-of-carbondata.md#sort-columns-configuration). |
+| sort_scope | local_sort | Sort scope of the load.Options include no sort, local sort, batch sort, and global sort. For more details, see [Sort Scope Configuration](./ddl-of-carbondata.md#sort-scope-configuration). |
+| long_string_columns | null | Comma separated string/char/varchar columns which are more than 32k length. For more details, see [String longer than 32000 characters](./ddl-of-carbondata.md#string-longer-than-32000-characters). |
 
+ **NOTE:**  please set long_string_columns for varchar column.
 ## Example 
 
 ```
- CREATE TABLE CARBON_TABLE (NAME  STRING) USING CARBON OPTIONS('table_block_size'='256')
+ CREATE TABLE CARBON_TABLE (NAME STRING) USING CARBON OPTIONS('table_block_size'='256')
 ```
 
 # Using DataFrame

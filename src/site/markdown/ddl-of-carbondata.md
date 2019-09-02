@@ -94,6 +94,7 @@ CarbonData DDL statements are documented here,which includes:
 | [SORT_SCOPE](#sort-scope-configuration)                      | Sort scope of the load.Options include no sort, local sort ,batch sort and global sort |
 | [TABLE_BLOCKSIZE](#table-block-size-configuration)           | Size of blocks to write onto hdfs                            |
 | [TABLE_BLOCKLET_SIZE](#table-blocklet-size-configuration)    | Size of blocklet to write in the file                        |
+| [TABLE_PAGE_SIZE_INMB](#table-page-size-configuration)       | Size of page in MB; if page size crosses this value before 32000 rows, page will be cut to this many rows and remaining rows are processed in the subsequent pages. This helps in keeping page size to fit in cpu cache size|
 | [MAJOR_COMPACTION_SIZE](#table-compaction-configuration)     | Size upto which the segments can be combined into one        |
 | [AUTO_LOAD_MERGE](#table-compaction-configuration)           | Whether to auto compact the segments                         |
 | [COMPACTION_LEVEL_THRESHOLD](#table-compaction-configuration) | Number of segments to compact into one segment               |
@@ -125,7 +126,7 @@ CarbonData DDL statements are documented here,which includes:
      ```
 
      **NOTE**: 
-      * Dictionary Include/Exclude for complex child columns is not supported.   
+      * Dictionary Include/Exclude for complex child columns is not supported. Dictionary Include doesn't support binary data type.  
       * Dictionary is global. Except global dictionary, there are local dictionary and non-dictionary in CarbonData.
       
    - ##### Local Dictionary Configuration
@@ -156,6 +157,7 @@ CarbonData DDL statements are documented here,which includes:
       * BOOLEAN
       * FLOAT
       * BYTE
+      * Binary
    * In case of multi-level complex dataType columns, primitive string/varchar/char columns are considered for local dictionary generation.
 
    System Level Properties for Local Dictionary: 
@@ -163,7 +165,7 @@ CarbonData DDL statements are documented here,which includes:
    
    | Properties | Default value | Description |
    | ---------- | ------------- | ----------- |
-   | carbon.local.dictionary.enable | false | By default, Local Dictionary will be disabled for the carbondata table. |
+   | carbon.local.dictionary.enable | true | By default, Local Dictionary will be enabled for the carbondata table. |
    | carbon.local.dictionary.decoder.fallback | true | Page Level data will not be maintained for the blocklet. During fallback, actual data will be retrieved from the encoded page data using local dictionary. **NOTE:** Memory footprint decreases significantly as compared to when this property is set to false |
     
    Local Dictionary can be configured using the following properties during create table command: 
@@ -223,7 +225,7 @@ CarbonData DDL statements are documented here,which includes:
    - ##### Sort Columns Configuration
 
      This property is for users to specify which columns belong to the MDK(Multi-Dimensions-Key) index.
-     * If users don't specify "SORT_COLUMN" property, by default no columns are sorted 
+     * If users don't specify "SORT_COLUMNS" property, by default no columns are sorted 
      * If this property is specified but with empty argument, then the table will be loaded without sort.
      * This supports only string, date, timestamp, short, int, long, byte and boolean data types.
      Suggested use cases : Only build MDK index for required columns,it might help to improve the data loading performance.
@@ -232,7 +234,7 @@ CarbonData DDL statements are documented here,which includes:
      TBLPROPERTIES ('SORT_COLUMNS'='column1, column3')
      ```
 
-     **NOTE**: Sort_Columns for Complex datatype columns is not supported.
+     **NOTE**: Sort_Columns for Complex datatype columns and binary data type is not supported.
 
    - ##### Sort Scope Configuration
    
@@ -283,6 +285,23 @@ CarbonData DDL statements are documented here,which includes:
      TBLPROPERTIES ('TABLE_BLOCKLET_SIZE'='8')
      ```
 
+   - ##### Table page Size Configuration
+
+     This property is for setting page size in the carbondata file 
+     and supports a range of 1 MB to 1755 MB.
+     If page size crosses this value before 32000 rows, page will be cut to that many rows. 
+     Helps in keeping page size to fit cpu cache size.
+
+     This property can be configured if the table has string, varchar, binary or complex datatype columns.
+     Because for these columns 32000 rows in one page may exceed 1755 MB and snappy compression will fail in that scenario.
+     Also if page size is huge, page cannot be fit in CPU cache. 
+     So, configuring smaller values of this property (say 1 MB) can result in better use of CPU cache for pages.
+
+     Example usage:
+     ```
+     TBLPROPERTIES ('TABLE_PAGE_SIZE_INMB'='5')
+     ```
+
    - ##### Table Compaction Configuration
    
      These properties are table level compaction configurations, if not specified, system level configurations in carbon.properties will be used.
@@ -313,7 +332,7 @@ CarbonData DDL statements are documented here,which includes:
 
    - ##### Caching Min/Max Value for Required Columns
 
-     By default, CarbonData caches min and max values of all the columns in schema.  As the load increases, the memory required to hold the min and max values increases considerably. This feature enables you to configure min and max values only for the required columns, resulting in optimized memory usage. 
+     By default, CarbonData caches min and max values of all the columns in schema.  As the load increases, the memory required to hold the min and max values increases considerably. This feature enables you to configure min and max values only for the required columns, resulting in optimized memory usage. This feature doesn't support binary data type.
 
       Following are the valid values for COLUMN_META_CACHE:
       * If you want no column min/max values to be cached in the driver.
@@ -501,6 +520,7 @@ CarbonData DDL statements are documented here,which includes:
    - ##### Range Column
      This property is used to specify a column to partition the input data by range.
      Only one column can be configured. During data loading, you can use "global_sort_partitions" or "scale_factor" to avoid generating small files.
+     This feature doesn't support binary data type.
 
      ```
      TBLPROPERTIES('RANGE_COLUMN'='col1')
@@ -780,6 +800,28 @@ Users can specify which columns to include and exclude for local dictionary gene
        ALTER TABLE tablename UNSET TBLPROPERTIES('SORT_SCOPE')
        ```
 
+     - ##### SORT COLUMNS
+       Example to SET SORT COLUMNS:
+       ```
+       ALTER TABLE tablename SET TBLPROPERTIES('SORT_COLUMNS'='column1')
+       ```
+       After this operation, the new loading will use the new SORT_COLUMNS. The user can adjust 
+       the SORT_COLUMNS according to the query, but it will not impact the old data directly. So 
+       it will not impact the query performance of the old data segments which are not sorted by 
+       new SORT_COLUMNS.  
+       
+       UNSET is not supported, but it can set SORT_COLUMNS to empty string instead of using UNSET.
+       NOTE: When SORT_SCOPE is not NO_SORT, then setting SORT_COLUMNS to empty string is not valid.
+       ```
+       ALTER TABLE tablename SET TBLPROPERTIES('SORT_COLUMNS'='')
+       ```
+
+       **NOTE:**
+        * The future version will enhance "custom" compaction to sort the old segment one by one.
+        * The streaming table is not supported for SORT_COLUMNS modification.
+        * If the inverted index columns are removed from the new SORT_COLUMNS, they will not 
+        create the inverted index. But the old configuration of INVERTED_INDEX will be kept.
+
 ### DROP TABLE
 
   This command is used to delete an existing table.
@@ -877,7 +919,7 @@ Users can specify which columns to include and exclude for local dictionary gene
   PARTITIONED BY (productCategory STRING, productBatch STRING)
   STORED AS carbondata
   ```
-   **NOTE:** Hive partition is not supported on complex datatype columns.
+   **NOTE:** Hive partition is not supported on complex data type columns.
 
 
 #### Show Partitions

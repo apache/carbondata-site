@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -421,6 +430,11 @@ These SDK writer output contains just carbondata and carbonindex files. No metad
 <td>DataTypes.STRING</td>
 </tr>
 <tr>
+<td>BINARY</td>
+<td>-</td>
+<td>DataTypes.BINARY</td>
+</tr>
+<tr>
 <td>FLOAT</td>
 <td>FLOAT</td>
 <td>DataTypes.FLOAT</td>
@@ -511,7 +525,7 @@ c. Timestamp (microsecond precision)
 The timestamp-micros logical type represents an instant on the global timeline, independent of a particular time zone or calendar, with a precision of one microsecond.
 A timestamp-micros logical type annotates an Avro long, where the long stores the number of microseconds from the unix epoch, 1 January 1970 00:00:00.000000 UTC.
 d. Decimal
-The decimal logical type represents an arbitrary-precision signed decimal number of the form unscaled � 10-scale.
+The decimal logical type represents an arbitrary-precision signed decimal number of the form <em>unscaled × 10<sup>-scale</sup></em>.
 A decimal logical type annotates Avro bytes or fixed types. The byte array must contain the two's-complement representation of the unscaled integer value in big-endian byte order. The scale is fixed, and is specified using an attribute.
 e. Time (millisecond precision)
 The time-millis logical type represents a time of day, with no reference to a particular calendar, time zone or date, with a precision of one millisecond.
@@ -655,6 +669,7 @@ public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
  *                           default value is null.
  * l. inverted_index -- comma separated string columns for which inverted index needs to be
  *                      generated
+ * m. table_page_size_inmb -- [1-1755] MB. 
  *
  * @return updated CarbonWriterBuilder
  */
@@ -850,6 +865,8 @@ while (reader.hasNext()) {
 reader.close();
 </code></pre>
 <p>Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/CarbonReaderExample.java" target=_blank>CarbonReaderExample</a> in the CarbonData repo.</p>
+<p>SDK reader also supports reading carbondata files and filling it to apache arrow vectors.
+Find example code at <a href="https://github.com/apache/carbondata/blob/master/store/sdk/src/test/java/org/apache/carbondata/sdk/file/ArrowCarbonReaderTest.java" target=_blank>ArrowCarbonReaderTest</a> in the CarbonData repo.</p>
 <h2>
 <a id="api-list-1" class="anchor" href="#api-list-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
 <h3>
@@ -909,6 +926,72 @@ public Object[] readNextBatchRow();
  * Close reader
  */
 public void close();
+</code></pre>
+<h3>
+<a id="class-orgapachecarbondatasdkfilearrowcarbonreader" class="anchor" href="#class-orgapachecarbondatasdkfilearrowcarbonreader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.ArrowCarbonReader</h3>
+<pre><code>/**
+ * Carbon reader will fill the arrow vector after reading the carbondata files.
+ * This arrow byte[] can be used to create arrow table and used for in memory analytics
+ * Note: create a reader at blocklet level, so that arrow byte[] will not exceed INT_MAX
+ *
+ * @param carbonSchema org.apache.carbondata.sdk.file.Schema
+ * @return Serialized byte array
+ * @throws Exception
+ */
+public byte[] readArrowBatch(Schema carbonSchema) throws Exception;
+</code></pre>
+<pre><code>/**
+ * Carbon reader will fill the arrow vector after reading the carbondata files.
+ * This arrow byte[] can be used to create arrow table and used for in memory analytics
+ * Note: create a reader at blocklet level, so that arrow byte[] will not exceed INT_MAX
+ * User need to close the VectorSchemaRoot after usage by calling VectorSchemaRoot.close()
+ *
+ * @param carbonSchema org.apache.carbondata.sdk.file.Schema 
+ * @return Arrow VectorSchemaRoot
+ * @throws Exception
+ */
+public VectorSchemaRoot readArrowVectors(Schema carbonSchema) throws Exception;
+</code></pre>
+<pre><code>/**
+ * Carbon reader will fill the arrow vector after reading carbondata files.
+ * Here unsafe memory address will be returned instead of byte[],
+ * so that this address can be sent across java to python or c modules and
+ * can directly read the content from this unsafe memory
+ * Note:Create a carbon reader at blocklet level using CarbonReader.buildWithSplits(split) method,
+ * so that arrow byte[] will not exceed INT_MAX.
+ *
+ * @param carbonSchema org.apache.carbondata.sdk.file.Schema
+ * @return address of the unsafe memory where arrow buffer is stored
+ * @throws Exception
+ */
+public long readArrowBatchAddress(Schema carbonSchema) throws Exception;
+</code></pre>
+<pre><code>/**
+ * Free the unsafe memory allocated , if unsafe arrow batch is used.
+ *
+ * @param address address of the unsafe memory where arrow bufferer is stored
+ */
+public void freeArrowBatchMemory(long address)
+</code></pre>
+<h3>
+<a id="class-orgapachecarbondatasdkfilearrowarrowconverter" class="anchor" href="#class-orgapachecarbondatasdkfilearrowarrowconverter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.arrow.ArrowConverter</h3>
+<pre><code>/**
+ * To get the arrow vectors directly after filling from carbondata
+ *
+ * @return Arrow VectorSchemaRoot. which contains array of arrow vectors.
+ */
+public VectorSchemaRoot getArrowVectors() throws IOException;
+</code></pre>
+<pre><code>/**
+ * Utility API to convert back the arrow byte[] to arrow ArrowRecordBatch.
+ * User need to close the ArrowRecordBatch after usage by calling ArrowRecordBatch.close()
+ *
+ * @param batchBytes input byte array
+ * @param bufferAllocator arrow buffer allocator
+ * @return ArrowRecordBatch
+ * @throws IOException
+ */
+public static ArrowRecordBatch byteArrayToArrowBatch(byte[] batchBytes, BufferAllocator bufferAllocator) throws IOException;
 </code></pre>
 <h3>
 <a id="class-orgapachecarbondatasdkfilecarbonreaderbuilder" class="anchor" href="#class-orgapachecarbondatasdkfilecarbonreaderbuilder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.CarbonReaderBuilder</h3>

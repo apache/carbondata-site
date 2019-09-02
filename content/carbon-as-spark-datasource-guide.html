@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -221,7 +230,7 @@
 <h1>
 <a id="carbondata-as-sparks-datasource" class="anchor" href="#carbondata-as-sparks-datasource" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData as Spark's Datasource</h1>
 <p>The CarbonData fileformat is now integrated as Spark datasource for read and write operation without using CarbonSession. This is useful for users who wants to use carbondata as spark's data source.</p>
-<p><strong>Note:</strong> You can only apply the functions/features supported by spark datasource APIs, functionalities supported would be similar to Parquet. The carbon session features are not supported.</p>
+<p><strong>Note:</strong> You can only apply the functions/features supported by spark datasource APIs, functionalities supported would be similar to Parquet. The carbon session features are not supported. The result is displayed as byte array format when select query on binary column in spark-sql.</p>
 <h1>
 <a id="create-table-with-ddl" class="anchor" href="#create-table-with-ddl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Table with DDL</h1>
 <p>Now you can create Carbon table using Spark's datasource DDL syntax.</p>
@@ -250,7 +259,7 @@
 <tr>
 <td>table_blocksize</td>
 <td>1024</td>
-<td>Size of blocks to write onto hdfs. For  more details, see <a href="./ddl-of-carbondata.html#table-block-size-configuration">Table Block Size Configuration</a>.</td>
+<td>Size of blocks to write onto hdfs. For more details, see <a href="./ddl-of-carbondata.html#table-block-size-configuration">Table Block Size Configuration</a>.</td>
 </tr>
 <tr>
 <td>table_blocklet_size</td>
@@ -258,35 +267,41 @@
 <td>Size of blocklet to write.</td>
 </tr>
 <tr>
+<td>table_page_size_inmb</td>
+<td>0</td>
+<td>Size of each page in carbon table, if page size crosses this value before 32000 rows, page will be cut to that many rows. Helps in keep page size to fit cache size</td>
+</tr>
+<tr>
 <td>local_dictionary_threshold</td>
 <td>10000</td>
-<td>Cardinality upto which the local dictionary can be generated. For  more details, see <a href="./ddl-of-carbondata.html#local-dictionary-configuration">Local Dictionary Configuration</a>.</td>
+<td>Cardinality upto which the local dictionary can be generated. For more details, see <a href="./ddl-of-carbondata.html#local-dictionary-configuration">Local Dictionary Configuration</a>.</td>
 </tr>
 <tr>
 <td>local_dictionary_enable</td>
 <td>false</td>
-<td>Enable local dictionary generation. For  more details, see <a href="./ddl-of-carbondata.html#local-dictionary-configuration">Local Dictionary Configuration</a>.</td>
+<td>Enable local dictionary generation. For more details, see <a href="./ddl-of-carbondata.html#local-dictionary-configuration">Local Dictionary Configuration</a>.</td>
 </tr>
 <tr>
 <td>sort_columns</td>
 <td>all dimensions are sorted</td>
-<td>Columns to include in sort and its order of sort. For  more details, see <a href="./ddl-of-carbondata.html#sort-columns-configuration">Sort Columns Configuration</a>.</td>
+<td>Columns to include in sort and its order of sort. For more details, see <a href="./ddl-of-carbondata.html#sort-columns-configuration">Sort Columns Configuration</a>.</td>
 </tr>
 <tr>
 <td>sort_scope</td>
 <td>local_sort</td>
-<td>Sort scope of the load.Options include no sort, local sort, batch sort, and global sort. For  more details, see <a href="./ddl-of-carbondata.html#sort-scope-configuration">Sort Scope Configuration</a>.</td>
+<td>Sort scope of the load.Options include no sort, local sort, batch sort, and global sort. For more details, see <a href="./ddl-of-carbondata.html#sort-scope-configuration">Sort Scope Configuration</a>.</td>
 </tr>
 <tr>
 <td>long_string_columns</td>
 <td>null</td>
-<td>Comma separated string/char/varchar columns which are more than 32k length. For  more details, see <a href="./ddl-of-carbondata.html#string-longer-than-32000-characters">String longer than 32000 characters</a>.</td>
+<td>Comma separated string/char/varchar columns which are more than 32k length. For more details, see <a href="./ddl-of-carbondata.html#string-longer-than-32000-characters">String longer than 32000 characters</a>.</td>
 </tr>
 </tbody>
 </table>
+<p><strong>NOTE:</strong>  please set long_string_columns for varchar column.</p>
 <h2>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
-<pre><code> CREATE TABLE CARBON_TABLE (NAME  STRING) USING CARBON OPTIONS('table_block_size'='256')
+<pre><code> CREATE TABLE CARBON_TABLE (NAME STRING) USING CARBON OPTIONS('table_block_size'='256')
 </code></pre>
 <h1>
 <a id="using-dataframe" class="anchor" href="#using-dataframe" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using DataFrame</h1>
