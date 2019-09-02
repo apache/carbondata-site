@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -254,24 +263,24 @@
  spark.sparkContext.setLogLevel(<span class="pl-s"><span class="pl-pds">"</span>ERROR<span class="pl-pds">"</span></span>)
 
  <span class="pl-c"><span class="pl-c">//</span> drop table if exists previously</span>
- spark.sql(s<span class="pl-s"><span class="pl-pds">"</span>DROP TABLE IF EXISTS sales<span class="pl-pds">"</span></span>)
+ spark.sql(<span class="pl-k">s</span><span class="pl-s">"</span><span class="pl-s">DROP TABLE IF EXISTS sales</span><span class="pl-s">"</span>)
  
  <span class="pl-c"><span class="pl-c">//</span> Create main table</span>
  spark.sql(
-   s<span class="pl-s"><span class="pl-pds">"""</span></span>
+   <span class="pl-k">s</span><span class="pl-s">"""</span>
 <span class="pl-s">      | CREATE TABLE sales (</span>
 <span class="pl-s">      | user_id string,</span>
 <span class="pl-s">      | country string,</span>
 <span class="pl-s">      | quantity int,</span>
 <span class="pl-s">      | price bigint)</span>
 <span class="pl-s">      | STORED AS carbondata</span>
-<span class="pl-s">    <span class="pl-pds">"""</span></span>.stripMargin)
+<span class="pl-s">    </span><span class="pl-s">"""</span>.stripMargin)
  
  <span class="pl-c"><span class="pl-c">//</span> Create pre-aggregate table on the main table</span>
  <span class="pl-c"><span class="pl-c">//</span> If main table already have data, following command </span>
  <span class="pl-c"><span class="pl-c">//</span> will trigger one immediate load to the pre-aggregate table</span>
  spark.sql(
-   s<span class="pl-s"><span class="pl-pds">"""</span></span>
+   <span class="pl-k">s</span><span class="pl-s">"""</span>
 <span class="pl-s">      | CREATE DATAMAP agg_sales</span>
 <span class="pl-s">      | ON TABLE sales</span>
 <span class="pl-s">      | USING "preaggregate"</span>
@@ -279,7 +288,7 @@
 <span class="pl-s">      | SELECT country, sum(quantity), avg(price)</span>
 <span class="pl-s">      | FROM sales</span>
 <span class="pl-s">      | GROUP BY country</span>
-<span class="pl-s">    <span class="pl-pds">"""</span></span>.stripMargin)
+<span class="pl-s">    </span><span class="pl-s">"""</span>.stripMargin)
       
   <span class="pl-k">import</span> <span class="pl-en">spark</span>.<span class="pl-en">implicits</span>.<span class="pl-en">_</span>
   <span class="pl-k">import</span> <span class="pl-en">org</span>.<span class="pl-en">apache</span>.<span class="pl-en">spark</span>.<span class="pl-en">sql</span>.<span class="pl-en">SaveMode</span>
@@ -302,10 +311,10 @@
    .save()
       
   spark.sql(
-    s<span class="pl-s"><span class="pl-pds">"""</span></span>
+    <span class="pl-k">s</span><span class="pl-s">"""</span>
 <span class="pl-s">       |SELECT country, sum(quantity), avg(price)</span>
 <span class="pl-s">       | from sales GROUP BY country</span>
-<span class="pl-s">     <span class="pl-pds">"""</span></span>.stripMargin).show
+<span class="pl-s">     </span><span class="pl-s">"""</span>.stripMargin).show
 
   spark.stop</pre></div>
 <h4>
@@ -366,6 +375,11 @@ AS
   FROM sales
   GROUP BY country, sex
 </code></pre>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Preaggregate datamap is deprecated and it is replaced by MV datamap.
+Please refer <a href="./mv-datamap-guide.html">CarbonData MV DataMap</a> for more info.</li>
+</ul>
 <h4>
 <a id="functions-supported-in-pre-aggregate-table" class="anchor" href="#functions-supported-in-pre-aggregate-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functions supported in pre-aggregate table</h4>
 <table>

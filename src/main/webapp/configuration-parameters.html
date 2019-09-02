@@ -52,6 +52,12 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
                                    target="_blank">Apache CarbonData 1.5.3</a></li>
                             <li>
@@ -180,6 +186,7 @@
                                 <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
+                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -190,6 +197,7 @@
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -205,6 +213,7 @@
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -325,6 +334,11 @@
 <td>carbon.lock.retry.timeout.sec</td>
 <td>5</td>
 <td>Specifies the interval between the retries to obtain the lock for any operation other than load. <strong>NOTE:</strong> Refer to <em><strong>carbon.lock.retries</strong></em> for understanding why CarbonData uses locks for operations.</td>
+</tr>
+<tr>
+<td>carbon.fs.custom.file.provider</td>
+<td>None</td>
+<td>To support FileTypeInterface for configuring custom CarbonFile implementation to work with custom FileSystem.</td>
 </tr>
 </tbody>
 </table>
@@ -540,6 +554,16 @@
 <td>200</td>
 <td>CarbonData will write the min max values for string/varchar types column using the byte count specified by this configuration. Max value is 1000 bytes(500 characters) and Min value is 10 bytes(5 characters). <strong>NOTE:</strong> This property is useful for reducing the store size thereby improving the query performance but can lead to query degradation if value is not configured properly.</td>
 </tr>
+<tr>
+<td>carbon.merge.index.failure.throw.exception</td>
+<td>true</td>
+<td>It is used to configure whether or not merge index failure should result in data load failure also.</td>
+</tr>
+<tr>
+<td>carbon.binary.decoder</td>
+<td>None</td>
+<td>Support configurable decode for loading. Two decoders supported: base64 and hex</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -623,6 +647,11 @@
 <td>carbon.merge.index.in.segment</td>
 <td>true</td>
 <td>Each CarbonData file has a companion CarbonIndex file which maintains the metadata about the data. These CarbonIndex files are read and loaded into driver and is used subsequently for pruning of data during queries. These CarbonIndex files are very small in size(few KB) and are many. Reading many small files from HDFS is not efficient and leads to slow IO performance. Hence these CarbonIndex files belonging to a segment can be combined into  a single file and read once there by increasing the IO throughput. This configuration enables to merge all the CarbonIndex files into a single MergeIndex file upon data loading completion.<strong>NOTE:</strong> Reading a single big file is more efficient in HDFS and IO throughput is very high. Due to this the time needed to load the index files into memory when query is received for the first time on that table is significantly reduced and there by significantly reduces the delay in serving the first query.</td>
+</tr>
+<tr>
+<td>carbon.enable.range.compaction</td>
+<td>true</td>
+<td>To configure Ranges-based Compaction to be used or not for RANGE_COLUMN. If true after compaction also the data would be present in ranges.</td>
 </tr>
 </tbody>
 </table>
@@ -742,6 +771,11 @@
 <td>carbon.push.rowfilters.for.vector</td>
 <td>false</td>
 <td>When enabled complete row filters will be handled by carbon in case of vector. If it is disabled then only page level pruning will be done by carbon and row level filtering will be done by spark for vector. And also there are scan optimizations in carbon to avoid multiple data copies when this parameter is set to false. There is no change in flow for non-vector based queries.</td>
+</tr>
+<tr>
+<td>carbon.query.prefetch.enable</td>
+<td>true</td>
+<td>By default this property is true, so prefetch is used in query to read next blocklet asynchronously in other thread while processing current blocklet in main thread. This can help to reduce CPU idle time. Setting this property false will disable this prefetch feature in query.</td>
 </tr>
 </tbody>
 </table>
