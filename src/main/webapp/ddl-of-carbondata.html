@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
                                    target="_blank">Apache CarbonData 1.6.0</a></li>
                             <li>
@@ -192,7 +195,7 @@
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
                                 <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
-                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
@@ -927,7 +930,7 @@ Our SDK module currently supports writing data in this format.</p>
     """.stripMargin)
 </code></pre>
 <p>Here writer path will have carbondata and index files.
-This can be SDK output or C++ SDK output. Refer <a href="./sdk-guide.html">SDK Guide</a> and <a href="./CSDK-guide.html">C++ SDK Guide</a>.</p>
+This can be SDK output or C++ SDK output. Refer <a href="./sdk-guide.html">SDK Guide</a> and <a href="./csdk-guide.html">C++ SDK Guide</a>.</p>
 <p><strong>Note:</strong></p>
 <ol>
 <li>Dropping of the external table should not delete the files present in the location.</li>
@@ -1094,7 +1097,7 @@ NOTE: When SORT_SCOPE is not NO_SORT, then setting SORT_COLUMNS to empty string 
 </code></pre>
 <p><strong>NOTE:</strong></p>
 <ul>
-<li>The future version will enhance "custom" compaction to sort the old segment one by one.</li>
+<li>The "custom" compaction support re-sorting the old segment one by one in version 1.6 or later.</li>
 <li>The streaming table is not supported for SORT_COLUMNS modification.</li>
 <li>If the inverted index columns are removed from the new SORT_COLUMNS, they will not
 create the inverted index. But the old configuration of INVERTED_INDEX will be kept.</li>

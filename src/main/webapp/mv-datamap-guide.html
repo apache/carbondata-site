@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
                                    target="_blank">Apache CarbonData 1.6.0</a></li>
                             <li>
@@ -192,7 +195,7 @@
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
                                 <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
-                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
@@ -270,6 +273,7 @@ STORED AS carbondata
 <pre><code>CREATE DATAMAP agg_sales
 ON TABLE sales
 USING "MV"
+DMPROPERTIES('TABLE_BLOCKSIZE'='256 MB','LOCAL_DICTIONARY_ENABLE'='false')
 AS
   SELECT country, sex, sum(quantity), avg(price)
   FROM sales
@@ -315,6 +319,9 @@ for child table</p>
 </li>
 <li>
 <p>MV creation with limit or union all ctas queries is unsupported</p>
+</li>
+<li>
+<p>MV datamap does not support Streaming</p>
 </li>
 </ul>
 <h4>
