@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
                                    target="_blank">Apache CarbonData 1.6.0</a></li>
                             <li>
@@ -192,7 +195,7 @@
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
                                 <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
-                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
@@ -264,7 +267,7 @@ EOF
 <p><a href="#installing-and-configuring-carbondata-on-presto">Installing and Configuring CarbonData on Presto</a></p>
 <h4>
 <a id="hive" class="anchor" href="#hive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hive</h4>
-<p><a href="./hive-guide.html" target=_blank>Installing and Configuring CarbonData on Hive</a></p>
+<p><a href="./hive-guide.html">Installing and Configuring CarbonData on Hive</a></p>
 <h3>
 <a id="integration-with-storage-engines" class="anchor" href="#integration-with-storage-engines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration with Storage Engines</h3>
 <h4>
@@ -272,10 +275,10 @@ EOF
 <p><a href="#installing-and-configuring-carbondata-on-standalone-spark-cluster">CarbonData supports read and write with HDFS</a></p>
 <h4>
 <a id="s3" class="anchor" href="#s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S3</h4>
-<p><a href="./s3-guide.html" target=_blank>CarbonData supports read and write with S3</a></p>
+<p><a href="./s3-guide.html">CarbonData supports read and write with S3</a></p>
 <h4>
 <a id="alluxio" class="anchor" href="#alluxio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alluxio</h4>
-<p><a href="./alluxio-guide.html" target=_blank>CarbonData supports read and write with Alluxio</a></p>
+<p><a href="./alluxio-guide.html">CarbonData supports read and write with Alluxio</a></p>
 <h2>
 <a id="installing-and-configuring-carbondata-to-run-locally-with-spark-shell" class="anchor" href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData to run locally with Spark Shell</h2>
 <p>Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit <a href="http://spark.apache.org/docs/latest/" target=_blank rel="nofollow">Apache Spark Documentation</a> for more details on Spark shell.</p>
@@ -606,7 +609,7 @@ Example
 <h2>
 <a id="installing-and-configuring-carbondata-on-presto" class="anchor" href="#installing-and-configuring-carbondata-on-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing and Configuring CarbonData on Presto</h2>
 <p><strong>NOTE:</strong> <strong>CarbonData tables cannot be created nor loaded from Presto. User need to create CarbonData Table and load data into it
-either with <a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Spark</a> or <a href="./sdk-guide.html">SDK</a> or <a href="./CSDK-guide.html">C++ SDK</a>.
+either with <a href="#installing-and-configuring-carbondata-to-run-locally-with-spark-shell">Spark</a> or <a href="./sdk-guide.html">SDK</a> or <a href="./csdk-guide.html">C++ SDK</a>.
 Once the table is created,it can be queried from Presto.</strong></p>
 <h3>
 <a id="installing-presto" class="anchor" href="#installing-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Presto</h3>

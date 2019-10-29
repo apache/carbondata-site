@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
                                    target="_blank">Apache CarbonData 1.6.0</a></li>
                             <li>
@@ -192,7 +195,7 @@
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
                                 <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
-                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
@@ -318,7 +321,7 @@ For every data load to the main table, system will immediately trigger a load to
 <code>ALTER TABLE RENAME</code>. Note that adding a new column is supported, and for dropping columns and
 change datatype command, CarbonData will check whether it will impact the pre-aggregate table, if
 not, the operation is allowed, otherwise operation will be rejected by throwing exception.</li>
-<li>Partition management command: `ALTER TABLE ADD/DROP PARTITION</li>
+<li>Partition management command: <code>ALTER TABLE ADD/DROP PARTITION</code>.</li>
 </ol>
 <p>If user do want to perform above operations on the main table, user can first drop the datamap, perform the operation, and re-create the datamap again.</p>
 <p>If user drop the main table, the datamap will be dropped immediately too.</p>

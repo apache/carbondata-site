@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
                                    target="_blank">Apache CarbonData 1.6.0</a></li>
                             <li>
@@ -192,7 +195,7 @@
                             <div class="nav__item nav__item__with__subs">
                                 <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
                                 <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
-                                <a class="nav__item nav__sub__item" href="./CSDK-guide.html">C++ SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
@@ -563,6 +566,11 @@
 <td>carbon.binary.decoder</td>
 <td>None</td>
 <td>Support configurable decode for loading. Two decoders supported: base64 and hex</td>
+</tr>
+<tr>
+<td>carbon.local.dictionary.size.threshold.inmb</td>
+<td>4</td>
+<td>size based threshold for local dictionary in MB, maximum allowed size is 16 MB.</td>
 </tr>
 </tbody>
 </table>

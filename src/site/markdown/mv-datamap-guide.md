@@ -21,7 +21,7 @@
 * [MV DataMap](#mv-datamap-introduction)
 * [Loading Data](#loading-data)
 * [Querying Data](#querying-data)
-* [Compaction](#compacting-mv-tables)
+* [Compaction](#compacting-mv-datamap)
 * [Data Management](#data-management-with-mv-tables)
 
 ## Quick example
@@ -65,6 +65,7 @@ EXPLAIN SELECT a, sum(b) from maintable group by a;
   CREATE DATAMAP agg_sales
   ON TABLE sales
   USING "MV"
+  DMPROPERTIES('TABLE_BLOCKSIZE'='256 MB','LOCAL_DICTIONARY_ENABLE'='false')
   AS
     SELECT country, sex, sum(quantity), avg(price)
     FROM sales
@@ -97,6 +98,7 @@ EXPLAIN SELECT a, sum(b) from maintable group by a;
    property is inherited from parent table, which allows user to provide different tableproperties
    for child table
  * MV creation with limit or union all ctas queries is unsupported
+ * MV datamap does not support Streaming
 
 #### How MV tables are selected
 
