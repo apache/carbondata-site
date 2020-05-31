@@ -19,9 +19,8 @@
 
 ## Background
 
-Carbon currently prunes and caches all block/blocklet datamap index information into the driver for
-normal table, for Bloom/Index datamaps the JDBC driver will launch a job to prune and cache the
-datamaps in executors.
+Carbon currently prunes and caches all block/blocklet index information into the driver for
+normal table, for Bloom/Lucene indexes the JDBC driver will launch a job to prune and cache in executors.
 
 This causes the driver to become a bottleneck in the following ways:
 1. If the cache size becomes huge(70-80% of the driver memory) then there can be excessive GC in
@@ -52,8 +51,7 @@ This mapping will be maintained for each table and will enable the index server 
 cache location for each segment.
 
 2. Cache size held by each executor: 
-    This mapping will be used to distribute the segments equally(on the basis of size) among the 
-    executors.
+This mapping will be used to distribute the segments equally(on the basis of size) among the executors.
   
 Once a request is received each segment would be iterated over and
 checked against tableToExecutorMapping to find if a executor is already
@@ -82,6 +80,15 @@ the pruned blocklets which would be further used for result fetching.
 
 **Note:** Multiple JDBC drivers can connect to the index server to use the cache.
 
+## Enabling Size based distribution for Legacy stores
+The default round robin based distribution causes unequal distribution of cache among the executors, which can cause any one of the executors to be bloated with too much cache resulting in performance degrade.
+This problem can be solved by running the `upgrade_segment` command which will fill the data size values for each segment in the tablestatus file. Any cache loaded after this can use the traditional size based distribution.
+
+#### Example
+```
+alter table table1 compact 'upgrade_segment';
+```
+
 ## Reallocation of executor
 In case executor(s) become dead/unavailable then the segments that were
 earlier being handled by those would be reassigned to some other
@@ -102,7 +109,7 @@ In case of any failure the index server would fallback to embedded mode
 which means that the JDBCServer would take care of distributed pruning.
 A similar job would be fired by the JDBCServer which would take care of
 pruning using its own executors. If for any reason the embedded mode
-also fails to prune the datamaps then the job would be passed on to
+also fails to prune the indexes then the job would be passed on to
 driver.
 
 **NOTE:** In case of embedded mode a job would be fired after pruning to clear the
@@ -116,18 +123,19 @@ meaning that no matter how small the splits are they would be written to the fil
 102400KB which will mean if the size of the splits for a executor cross this value then they would
 be written to file.
 
-The user can set the location for these file by using 'carbon.indexserver.temp.path'. By default
-table path would be used to write the files.
+The user can set the location for these files by using 'carbon.indexserver.temp.path'. By default
+the files are written in the path /tmp/indexservertmp.
 
-## Security
-The security for the index server is controlled through 'spark.carbon.indexserver.keytab' and 'spark
-.carbon.indexserver.principal'. These allow the RPC framework to login using the principal. It is
-recommended that the principal should be a super user, and the user should be exclusive for index
-server so that it does not grant access to any other service. Internally the operations would be
-executed  as a Privileged Action using the login user.
+## Prepriming
+As each query is responsible for caching the pruned indexes, thus a lot of execution time is wasted in reading the 
+files and caching the datmaps for the first query.
+To avoid this problem we have introduced Pre-Priming which allows each data manipulation command like load, insert etc 
+to fire a request to the index server to load the corresponding segments into the index server.
+When index server receives a request it checks whether the request is for pre-priming, if it is then the request is 
+processed in a new thread, and a dummy response is immediately returned to the client.
+Since pre-priming acts as an async call, it does not have any negative performance impacts. 
 
-The Index Server is a long running service therefore the 'spark.yarn.keytab' and 'spark.yarn
-.principal' should be configured.
+The user can enable prepriming by using 'carbon.indexserver.enable.prepriming' = 'true/false'. By default this is set as false.
 
 ## Configurations
 
@@ -140,6 +148,8 @@ The Index Server is a long running service therefore the 'spark.yarn.keytab' and
 | carbon.index.server.port | NA | The port on which the index server is started. |
 | carbon.disable.index.server.fallback | false | Whether to enable/disable fallback for index server. Should be used for testing purposes only. Refer: [Fallback](#fallback)|
 |carbon.index.server.max.jobname.length|NA|The max length of the job to show in the index server service UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.|
+|carbon.indexserver.enable.prepriming|false|Enable the use of prepriming in the Index Server to improve the performance of first time query.|
+
 
 
 ##### carbon.properties(IndexServer) 
@@ -149,19 +159,17 @@ The Index Server is a long running service therefore the 'spark.yarn.keytab' and
 | carbon.index.server.ip |    NA   |   Specify the IP/HOST on which the server would be started. Better to specify the private IP. | 
 | carbon.index.server.port | NA | The port on which the index server has to be started. |
 |carbon.index.server.max.worker.threads| 500 | Number of RPC handlers to open for accepting the requests from JDBC driver. Max accepted value is Integer.Max. Refer: [Hive configuration](https://github.com/apache/hive/blob/master/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java#L3441) |
-|carbon.max.executor.lru.cache.size|  NA | Maximum memory **(in MB)** upto which the executor process can cache the data (DataMaps and reverse dictionary values). Only integer values greater than 0 are accepted. **NOTE:** Mandatory for the user to set. |
-|carbon.index.server.max.jobname.length|NA|The max length of the job to show in the index server application UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.|
+|carbon.max.executor.lru.cache.size|  NA | Maximum memory **(in MB)** upto which the executor process can cache the data (Indexes and reverse dictionary values). Only integer values greater than 0 are accepted. **NOTE:** Mandatory for the user to set. |
+|carbon.index.server.max.jobname.length|50|The max length of the job to show in the index server application UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.|
 |carbon.max.executor.threads.for.block.pruning|4| max executor threads used for block pruning. |
 |carbon.index.server.inmemory.serialization.threshold.inKB|300|Max in memory serialization size after reaching threshold data will be written to file. Min value that the user can set is 0KB and max is 102400KB. |
-|carbon.indexserver.temp.path|tablePath| The folder to write the split files if in memory datamap size for network transfers crossed the 'carbon.index.server.inmemory.serialization.threshold.inKB' limit.|
+|carbon.indexserver.temp.path|/tmp/indexservertmp folder| The folder to write the split files if in memory index cache size for network transfers crossed the 'carbon.index.server.inmemory.serialization.threshold.inKB' limit.|
 
 
 ##### spark-defaults.conf(only for secure mode)
 
 | Name     |      Default Value    |  Description |
 |:----------:|:-------------:|:------:       |
-| spark.carbon.indexserver.principal |  NA | Used for authentication, whether a valid service is  trying to connect to the server or not. Set in both IndexServer and JDBCServer.     |
-| spark.carbon.indexserver.keytab |    NA   |   Specify the path to the keytab file through which authentication would happen. Set in both IndexServer and JDBCServer. |
 | spark.dynamicAllocation.enabled | true | Set to false, so that spark does not kill the executor, If executors are killed, cache would be lost. Applicable only for Index Server. |
 | spark.yarn.principal | NA | Should be set to the same user used for JDBCServer. Required only for IndexServer.   |
 |spark.yarn.keytab| NA | Should be set to the same as JDBCServer.   |
@@ -180,6 +188,12 @@ that will authenticate the user to access the index server and no other service.
 | Name     |      Default Value    |  Description |
 |:----------:|:-------------:|:------:       |
 | ipc.client.rpc-timeout.ms |  NA | Set the above property to some appropriate value based on your estimated query time. The best option is to set this to the same value as spark.network.timeout. |
+| hadoop.security.authorization |  false | Property to enable the hadoop security which is required only on the server side. |
+| hadoop.proxyuser.<indexserver_user>.users |  NA | Property to set Proxy User list for which IndexServer permission were to be given ,check https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html|
+| hadoop.proxyuser.<indexserver_user>.hosts |  NA | Property to set hosts list for which IndexServer permission were to be given ,check https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html|
+| hadoop.proxyuser.<indexserver_user>.groups |  NA | Property to set groups list for which IndexServer permission to be given ,check https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html|
+| security.indexserver.protocol.acl |  * | Property to set List of User to be Authorized for Other than proxy Spark Application |
+
 
 ##### dynamic-properties(set command)
 
@@ -191,11 +205,11 @@ that will authenticate the user to access the index server and no other service.
   
 ## Starting the Server
 ``` 
-./bin/spark-submit --master [yarn/local] --[optional parameters] --class org.apache.carbondata.indexserver.IndexServer [path to carbondata-spark2-<version>.jar]
+./bin/spark-submit --master [yarn/local] --[optional parameters] --class org.apache.carbondata.indexserver.IndexServer [path to carbondata-spark-<version>.jar]
 ```
 Or 
 ``` 
-./sbin/start-indexserver.sh --master yarn --num-executors 2 /<absolute path>/carbondata-spark2-1.6.0.0100.jar
+./sbin/start-indexserver.sh --master yarn --num-executors 2 /<absolute path>/carbondata-spark-<version>.jar
 ```
 
 ## FAQ
@@ -205,11 +219,6 @@ Q. **Index Server is throwing Large response size exception.**
 A. The exception would show the size of response it is trying to send over the
 network. Use ipc.maximum.response.length to a value bigger than the
 response size.
-
-Q. **Index server is throwing Kerberos principal not set exception**
-
-A. Set spark.carbon.indexserver.principal to the correct principal in both IndexServer and
-JDBCServer configurations.
 
 Q. **Unable to connect to index server**
 

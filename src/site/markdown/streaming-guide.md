@@ -37,11 +37,11 @@
     - [CLOSE STREAM](#close-stream)
 
 ## Quick example
-Download and unzip spark-2.2.0-bin-hadoop2.7.tgz, and export $SPARK_HOME
+Download and unzip spark-2.4.5-bin-hadoop2.7.tgz, and export $SPARK_HOME
 
-Package carbon jar, and copy assembly/target/scala-2.11/carbondata_2.11-1.3.0-SNAPSHOT-shade-hadoop2.7.2.jar to $SPARK_HOME/jars
+Package carbon jar, and copy assembly/target/scala-2.11/carbondata_2.11-2.0.0-SNAPSHOT-shade-hadoop2.7.2.jar to $SPARK_HOME/jars
 ```shell
-mvn clean package -DskipTests -Pspark-2.2
+mvn clean package -DskipTests -Pspark-2.4
 ```
 
 Start a socket data server in a terminal
@@ -273,8 +273,8 @@ ALTER TABLE streaming_table COMPACT 'close_streaming'
 ## Constraint
 1. reject set streaming property from true to false.
 2. reject UPDATE/DELETE command on the streaming table.
-3. reject create pre-aggregation DataMap on the streaming table.
-4. reject add the streaming property on the table with pre-aggregation DataMap.
+3. reject create MV on the streaming table.
+4. reject add the streaming property on the table with MV.
 5. if the table has dictionary columns, it will not support concurrent data loading.
 6. block delete "streaming" segment while the streaming ingestion is running.
 7. block drop the streaming table while the streaming ingestion is running.

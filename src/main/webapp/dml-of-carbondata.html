@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -236,6 +245,7 @@
 <ul>
 <li><a href="#load-data">LOAD DATA</a></li>
 <li><a href="#insert-data-into-carbondata-table">INSERT DATA</a></li>
+<li><a href="#insert-data-into-carbondata-table-from-stage-input-files">INSERT DATA STAGE</a></li>
 <li><a href="#load-data-using-static-partition">Load Data Using Static Partition</a></li>
 <li><a href="#load-data-using-dynamic-partition">Load Data Using Dynamic Partition</a></li>
 <li><a href="#update-and-delete">UPDATE AND DELETE</a></li>
@@ -270,6 +280,10 @@ OPTIONS(property_name=property_value, ...)
 <tr>
 <td><a href="#quotechar">QUOTECHAR</a></td>
 <td>Character used to quote the data in the input csv file</td>
+</tr>
+<tr>
+<td><a href="#line_separator">LINE_SEPARATOR</a></td>
+<td>Characters used to specify the line separator in the input csv file. If not provided, csv parser will detect it automatically.</td>
 </tr>
 <tr>
 <td><a href="#commentchar">COMMENTCHAR</a></td>
@@ -308,12 +322,8 @@ OPTIONS(property_name=property_value, ...)
 <td>Ending delimiter for complex type data in input csv file</td>
 </tr>
 <tr>
-<td><a href="#all_dictionary_path">ALL_DICTIONARY_PATH</a></td>
-<td>Path to read the dictionary data from all columns</td>
-</tr>
-<tr>
-<td><a href="#columndict">COLUMNDICT</a></td>
-<td>Path to read the dictionary data from for particular column</td>
+<td><a href="#complex_delimiter_level_3">COMPLEX_DELIMITER_LEVEL_3</a></td>
+<td>Ending delimiter for nested complex type data in input csv file of level 3.</td>
 </tr>
 <tr>
 <td><a href="#dateformattimestampformat">DATEFORMAT</a></td>
@@ -326,10 +336,6 @@ OPTIONS(property_name=property_value, ...)
 <tr>
 <td><a href="#sort-column-bounds">SORT_COLUMN_BOUNDS</a></td>
 <td>How to partition the sort columns to make the evenly distributed</td>
-</tr>
-<tr>
-<td><a href="#single_pass">SINGLE_PASS</a></td>
-<td>When to enable single pass data loading</td>
 </tr>
 <tr>
 <td><a href="#bad-records-handling">BAD_RECORDS_LOGGER_ENABLE</a></td>
@@ -355,10 +361,6 @@ OPTIONS(property_name=property_value, ...)
 <td><a href="#scale_factor">SCALE_FACTOR</a></td>
 <td>Control the partition size for RANGE_COLUMN feature</td>
 </tr>
-<tr>
-<td>[CARBON_OPTIONS_BINARY_DECODER]</td>
-<td>Support configurable decode for loading from csv</td>
-</tr>
 </tbody>
 </table>
 <ul>
@@ -377,6 +379,13 @@ OPTIONS(property_name=property_value, ...)
 <a id="quotechar" class="anchor" href="#quotechar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QUOTECHAR:</h5>
 <p>Quote Characters can be provided in the load command.</p>
 <pre><code>OPTIONS('QUOTECHAR'='"')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="line_separator" class="anchor" href="#line_separator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LINE_SEPARATOR:</h5>
+<p>Line separator Characters can be provided in the load command.</p>
+<pre><code>OPTIONS('LINE_SEPARATOR'='\n')
 </code></pre>
 </li>
 <li>
@@ -408,19 +417,19 @@ true: CSV file is with file header.</p>
 <a id="sort_scope" class="anchor" href="#sort_scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SORT_SCOPE:</h5>
 <p>Sort Scope to be used for the current load. This overrides the Sort Scope of Table.
 Requirement: Sort Columns must be set while creating table. If Sort Columns is null, Sort Scope is always NO_SORT.</p>
-<pre><code>OPTIONS('SORT_SCOPE'='BATCH_SORT')
+<pre><code>OPTIONS('SORT_SCOPE'='GLOBAL_SORT')
 </code></pre>
 <p>Priority order for choosing Sort Scope is:</p>
-<ol>
+<ul>
 <li>Load Data Command</li>
-<li>CARBON.TABLE.LOAD.SORT.SCOPE..<table> session property
-</table>
-</li>
+<li>
+<code>CARBON.TABLE.LOAD.SORT.SCOPE.&lt;db&gt;.&lt;table&gt;</code> session property.</li>
 <li>Table level Sort Scope</li>
-<li>CARBON.OPTIONS.SORT.SCOPE session property</li>
+<li>
+<code>CARBON.OPTIONS.SORT.SCOPE</code> session property</li>
 <li>Default Value: NO_SORT</li>
-
-
+</ul>
+</li>
 <li>
 <h5>
 <a id="multiline" class="anchor" href="#multiline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MULTILINE:</h5>
@@ -466,26 +475,11 @@ Used in case of nested Complex Map type. (eg., 'a\003b\002b\003c\001aa\003bb\002
 </li>
 <li>
 <h5>
-<a id="all_dictionary_path" class="anchor" href="#all_dictionary_path" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ALL_DICTIONARY_PATH:</h5>
-<p>All dictionary files path.</p>
-<pre><code>OPTIONS('ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary')
-</code></pre>
-</li>
-<li>
-<h5>
-<a id="columndict" class="anchor" href="#columndict" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COLUMNDICT:</h5>
-<p>Dictionary file path for specified column.</p>
-<pre><code>OPTIONS('COLUMNDICT'='column1:dictionaryFilePath1,column2:dictionaryFilePath2')
-</code></pre>
-<p><strong>NOTE:</strong> ALL_DICTIONARY_PATH and COLUMNDICT can't be used together.</p>
-</li>
-<li>
-<h5>
 <a id="dateformattimestampformat" class="anchor" href="#dateformattimestampformat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DATEFORMAT/TIMESTAMPFORMAT:</h5>
 <p>Date and Timestamp format for specified column.</p>
 <pre><code>OPTIONS('DATEFORMAT' = 'yyyy-MM-dd','TIMESTAMPFORMAT'='yyyy-MM-dd HH:mm:ss')
 </code></pre>
-<p><strong>NOTE:</strong> Date formats are specified by date pattern strings. The date pattern letters in CarbonData are same as in JAVA. Refer to <a href="http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html" target=_blank rel="nofollow">SimpleDateFormat</a>.</p>
+<p><strong>NOTE:</strong> Date formats are specified by date pattern strings. The date pattern in CarbonData is the same as in JAVA. Refer to <a href="http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html" target=_blank rel="nofollow">SimpleDateFormat</a>.</p>
 </li>
 <li>
 <h5>
@@ -499,39 +493,10 @@ Used in case of nested Complex Map type. (eg., 'a\003b\002b\003c\001aa\003bb\002
 <ul>
 <li>SORT_COLUMN_BOUNDS will be used only when the SORT_SCOPE is 'local_sort'.</li>
 <li>Carbondata will use these bounds as ranges to process data concurrently during the final sort procedure. The records will be sorted and written out inside each partition. Since the partition is sorted, all records will be sorted.</li>
-<li>Since the actual order and literal order of the dictionary column are not necessarily the same, we do not recommend you to use this feature if the first sort column is 'dictionary_include'.</li>
 <li>The option works better if your CPU usage during loading is low. If your current system CPU usage is high, better not to use this option. Besides, it depends on the user to specify the bounds. If user does not know the exactly bounds to make the data distributed evenly among the bounds, loading performance will still be better than before or at least the same as before.</li>
-<li>Users can find more information about this option in the description of PR1953.</li>
+<li>Users can find more information about this option in the description of <a href="https://github.com/apache/carbondata/pull/1953" target=_blank>PR1953</a>.</li>
 </ul>
 </li>
-<li>
-<h5>
-<a id="single_pass" class="anchor" href="#single_pass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SINGLE_PASS:</h5>
-<p>Single Pass Loading enables single job to finish data loading with dictionary generation on the fly. It enhances performance in the scenarios where the subsequent data loading after initial load involves fewer incremental updates on the dictionary.</p>
-</li>
-
-<p>This option specifies whether to use single pass for loading data or not. By default this option is set to FALSE.</p>
-<pre><code> OPTIONS('SINGLE_PASS'='TRUE')
-</code></pre>
-<p><strong>NOTE:</strong></p>
-</ol>
-<ul>
-<li>If this option is set to TRUE then data loading will take less time.</li>
-<li>If this option is set to some invalid value other than TRUE or FALSE then it uses the default value.</li>
-</ul>
-<p>Example:</p>
-<pre><code>LOAD DATA inpath '/opt/rawdata/data.csv' INTO table carbontable
-options('DELIMITER'=',', 'QUOTECHAR'='"','COMMENTCHAR'='#',
-'HEADER'='false',
-'FILEHEADER'='empno,empname,designation,doj,workgroupcategory,
-workgroupcategoryname,deptno,deptname,projectcode,
-projectjoindate,projectenddate,attendance,utilization,salary',
-'MULTILINE'='true','ESCAPECHAR'='\','COMPLEX_DELIMITER_LEVEL_1'='\\\001',
-'COMPLEX_DELIMITER_LEVEL_2'='\\\002',
-'ALL_DICTIONARY_PATH'='/opt/alldictionary/data.dictionary',
-'SINGLE_PASS'='TRUE')
-</code></pre>
-<ul>
 <li>
 <h5>
 <a id="bad-records-handling" class="anchor" href="#bad-records-handling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BAD RECORDS HANDLING:</h5>
@@ -542,35 +507,31 @@ projectjoindate,projectenddate,attendance,utilization,salary',
 </ul>
 <pre><code>OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true', 'BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon', 'BAD_RECORDS_ACTION'='REDIRECT', 'IS_EMPTY_DATA_BAD_RECORD'='false')
 </code></pre>
-</li>
-</ul>
 <p><strong>NOTE:</strong></p>
 <ul>
-<li>BAD_RECORDS_ACTION property can have four type of actions for bad records FORCE, REDIRECT, IGNORE and FAIL.</li>
+<li>BAD_RECORDS_ACTION property can have four types of actions for bad records FORCE, REDIRECT, IGNORE, and FAIL.</li>
 <li>FAIL option is its Default value. If the FAIL option is used, then data loading fails if any bad records are found.</li>
-<li>If the REDIRECT option is used, CarbonData will add all bad records in to a separate CSV file. However, this file must not be used for subsequent data loading because the content may not exactly match the source record. You are advised to cleanse the original source record for further data ingestion. This option is used to remind you which records are bad records.</li>
+<li>If the REDIRECT option is used, CarbonData will add all bad records into a separate CSV file. However, this file must not be used for subsequent data loading because the content may not exactly match the source record. You are advised to cleanse the source record for further data ingestion. This option is used to remind you which records are bad.</li>
 <li>If the FORCE option is used, then it auto-converts the data by storing the bad records as NULL before Loading data.</li>
 <li>If the IGNORE option is used, then bad records are neither loaded nor written to the separate CSV file.</li>
 <li>In loaded data, if all records are bad records, the BAD_RECORDS_ACTION is invalid and the load operation fails.</li>
-<li>The default maximum number of characters per column is 32000. If there are more than 32000 characters in a column, please refer to <em>String longer than 32000 characters</em> section.</li>
+<li>The default maximum number of characters per column is 32000. If there are more than 32000 characters in a column, please refer to <a href="https://github.com/apache/carbondata/blob/master/docs/ddl-of-carbondata.html#string-longer-than-32000-characters">String longer than 32000 characters</a> section.</li>
 <li>Since Bad Records Path can be specified in create, load and carbon properties.
-Therefore, value specified in load will have the highest priority, and value specified in carbon properties will have the least priority.</li>
+Therefore, the value specified in load will have the highest priority, and value specified in carbon properties will have the least priority.</li>
 </ul>
 <p>Example:</p>
 <pre><code>LOAD DATA INPATH 'filepath.csv' INTO TABLE tablename
 OPTIONS('BAD_RECORDS_LOGGER_ENABLE'='true','BAD_RECORD_PATH'='hdfs://hacluster/tmp/carbon',
 'BAD_RECORDS_ACTION'='REDIRECT','IS_EMPTY_DATA_BAD_RECORD'='false')
 </code></pre>
-<ul>
+</li>
 <li>
 <h5>
 <a id="global_sort_partitions" class="anchor" href="#global_sort_partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GLOBAL_SORT_PARTITIONS:</h5>
-<p>If the SORT_SCOPE is defined as GLOBAL_SORT, then user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map task as reduce task. It is recommended that each reduce task deal with 512MB-1GB data.
+<p>If the SORT_SCOPE is defined as GLOBAL_SORT, then the user can specify the number of partitions to use while shuffling data for sort using GLOBAL_SORT_PARTITIONS. If it is not configured, or configured less than 1, then it uses the number of map tasks as reduce tasks. It is recommended that each reduce task deals with 512MB-1GB data.
 For RANGE_COLUMN, GLOBAL_SORT_PARTITIONS is used to specify the number of range partitions also.
-GLOBAL_SORT_PARTITIONS should be specified optimally during RANGE_COLUMN LOAD because if a higher number is configured then the load time may be less but it will result in creation of more files which would degrade the query and compaction performance.
-Conversely, if less partitions are configured then the load performance may degrade due to less use of parallelism but the query and compaction will become faster. Hence the user may choose optimal number depending on the use case.</p>
-</li>
-</ul>
+GLOBAL_SORT_PARTITIONS should be specified optimally during RANGE_COLUMN LOAD because if a higher number is configured then the load time may be less but it will result in the creation of more files which would degrade the query and compaction performance.
+Conversely, if fewer partitions are configured then the load performance may degrade due to less use of parallelism but the query and compaction will become faster. Hence the user may choose an optimal number depending on the use case.</p>
 <pre><code>OPTIONS('GLOBAL_SORT_PARTITIONS'='2')
 </code></pre>
 <p><strong>NOTE:</strong></p>
@@ -578,12 +539,10 @@ Conversely, if less partitions are configured then the load performance may degr
 <li>GLOBAL_SORT_PARTITIONS should be Integer type, the range is [1,Integer.MaxValue].</li>
 <li>It is only used when the SORT_SCOPE is GLOBAL_SORT.</li>
 </ul>
-<ul>
+</li>
 <li>
 <h5>
 <a id="scale_factor" class="anchor" href="#scale_factor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SCALE_FACTOR</h5>
-</li>
-</ul>
 <p>For RANGE_COLUMN, SCALE_FACTOR is used to control the number of range partitions as following.</p>
 <pre><code>  splitSize = max(blocklet_size, (block_size - blocklet_size)) * scale_factor
   numPartitions = total size of input data / splitSize
@@ -596,25 +555,19 @@ Conversely, if less partitions are configured then the load performance may degr
 <li>If both GLOBAL_SORT_PARTITIONS and SCALE_FACTOR are used at the same time, only GLOBAL_SORT_PARTITIONS is valid.</li>
 <li>The compaction on RANGE_COLUMN will use LOCAL_SORT by default.</li>
 </ul>
-<ul>
-<li>
-<h5>
-<a id="carbon_enable_range_compaction" class="anchor" href="#carbon_enable_range_compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CARBON_ENABLE_RANGE_COMPACTION</h5>
 </li>
 </ul>
-<p>To configure Ranges-based Compaction to be used or not for RANGE_COLUMN.
-The default value is 'true'.</p>
-
-
-<h3>
-<a id="insert-data-into-carbondata-table" class="anchor" href="#insert-data-into-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO CARBONDATA TABLE</h3>
+</li>
+</ul>
+<h2>
+<a id="insert-data-into-carbondata-table" class="anchor" href="#insert-data-into-carbondata-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO CARBONDATA TABLE</h2>
 <p>This command inserts data into a CarbonData table, it is defined as a combination of two queries Insert and Select query respectively.
 It inserts records from a source table into a target CarbonData table, the source table can be a Hive table, Parquet table or a CarbonData table itself.
 It comes with the functionality to aggregate the records of a table by performing Select query on source table and load its corresponding resultant records into a CarbonData table.</p>
 <pre><code>INSERT INTO TABLE &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
 [ WHERE { &lt;filter_condition&gt; } ]
 </code></pre>
-<p>You can also omit the <code>table</code> keyword and write your query as:</p>
+<p>User can also omit the <code>table</code> keyword and write the query as:</p>
 <pre><code>INSERT INTO &lt;CARBONDATA TABLE&gt; SELECT * FROM sourceTableName 
 [ WHERE { &lt;filter_condition&gt; } ]
 </code></pre>
@@ -636,8 +589,66 @@ It comes with the functionality to aggregate the records of a table by performin
 </code></pre>
 <pre><code>INSERT OVERWRITE TABLE table1 SELECT * FROM TABLE2
 </code></pre>
-<h3>
-<a id="load-data-using-static-partition" class="anchor" href="#load-data-using-static-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Static Partition</h3>
+<h2>
+<a id="insert-data-into-carbondata-table-from-stage-input-files" class="anchor" href="#insert-data-into-carbondata-table-from-stage-input-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INSERT DATA INTO CARBONDATA TABLE From Stage Input Files</h2>
+<p>Stage input files are data files written by external application (such as Flink). These files
+are committed but not loaded into the table.</p>
+<p>User can use this command to insert them into the table, thus making them visible for a query.</p>
+<pre><code>INSERT INTO &lt;CARBONDATA TABLE&gt; STAGE OPTIONS(property_name=property_value, ...)
+</code></pre>
+<p><strong>Supported Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#batch_file_count">BATCH_FILE_COUNT</a></td>
+<td>The number of stage files per processing</td>
+</tr>
+<tr>
+<td><a href="#batch_file_order">BATCH_FILE_ORDER</a></td>
+<td>The order type of stage files in per processing</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>User can use the following options to load data:</p>
+<ul>
+<li>
+<h5>
+<a id="batch_file_count" class="anchor" href="#batch_file_count" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BATCH_FILE_COUNT:</h5>
+<p>The number of stage files per processing.</p>
+<pre><code>OPTIONS('batch_file_count'='5')
+</code></pre>
+</li>
+<li>
+<h5>
+<a id="batch_file_order" class="anchor" href="#batch_file_order" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BATCH_FILE_ORDER:</h5>
+<p>The order type of stage files in per processing, choices: ASC, DESC.
+The default is ASC.
+Stage files will order by the last modified time with the specified order type.</p>
+<pre><code>OPTIONS('batch_file_order'='DESC')
+</code></pre>
+<p>Examples:</p>
+<pre><code>INSERT INTO table1 STAGE
+
+INSERT INTO table1 STAGE OPTIONS('batch_file_count' = '5')
+Note: This command uses the default file order, will insert the earliest stage files into the table.
+
+INSERT INTO table1 STAGE OPTIONS('batch_file_count' = '5', 'batch_file_order'='DESC')
+Note: This command will insert the latest stage files into the table.
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2>
+<a id="load-data-using-static-partition" class="anchor" href="#load-data-using-static-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Static Partition</h2>
 <p>This command allows you to load data using static partition.</p>
 <pre><code>LOAD DATA INPATH 'folder_path'
 INTO TABLE [db_name.]table_name PARTITION (partition_spec) 
@@ -654,8 +665,8 @@ INSERT INTO TABLE locationTable
 PARTITION (country = 'US', state = 'AL')
 SELECT &lt;columns list excluding partition columns&gt; FROM another_user
 </code></pre>
-<h3>
-<a id="load-data-using-dynamic-partition" class="anchor" href="#load-data-using-dynamic-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Dynamic Partition</h3>
+<h2>
+<a id="load-data-using-dynamic-partition" class="anchor" href="#load-data-using-dynamic-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Load Data Using Dynamic Partition</h2>
 <p>This command allows you to load data using dynamic partition. If partition spec is not specified, then the partition is considered as dynamic.</p>
 <p>Example:</p>
 <pre><code>LOAD DATA INPATH '${env:HOME}/staticinput.csv'
@@ -705,6 +716,45 @@ SET (column_name1, column_name2) =(select sourceColumn1, sourceColumn2 from sour
 </code></pre>
 <pre><code>DELETE FROM carbontable WHERE column1 IN (SELECT column11 FROM sourceTable2 WHERE column1 = 'USA')
 </code></pre>
+<h3>
+<a id="delete-stage" class="anchor" href="#delete-stage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE STAGE</h3>
+<p>This command allows us to delete the data files (stage data) which is already loaded into the table.</p>
+<pre><code>DELETE FROM TABLE [db_name.]table_name STAGE OPTIONS(property_name=property_value, ...)
+</code></pre>
+<p><strong>Supported Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#retain_hour">retain_hour</a></td>
+<td>Data file retain time in hours</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>You can use the following options to delete data:</p>
+<ul>
+<li>
+<h5>
+<a id="retain_hour" class="anchor" href="#retain_hour" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>retain_hour:</h5>
+<p>Data file retain time in second, the command just delete overdue files only.</p>
+<pre><code>OPTIONS('retain_hour'='1')
+</code></pre>
+</li>
+</ul>
+<p>Examples:</p>
+<pre><code>DELETE FROM TABLE carbontable STAGE
+</code></pre>
+<pre><code>DELETE FROM TABLE carbontable STAGE OPTIONS ('retain_hour'='1')
+</code></pre>
+</li>
+</ul>
 <h2>
 <a id="compaction" class="anchor" href="#compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>COMPACTION</h2>
 <p>Compaction improves the query performance significantly.</p>
@@ -714,7 +764,7 @@ SET (column_name1, column_name2) =(select sourceColumn1, sourceColumn2 from sour
 <ul>
 <li><strong>Minor Compaction</strong></li>
 </ul>
-<p>In Minor compaction, user can specify the number of loads to be merged.
+<p>In Minor compaction, the user can specify the number of loads to be merged.
 Minor compaction triggers for every data load if the parameter carbon.enable.auto.load.merge is set to true.
 If any segments are available to be merged, then compaction will run parallel with data load, there are 2 levels in minor compaction:</p>
 <ul>
@@ -746,11 +796,7 @@ Custom compaction is usually done during the off-peak time.</p>
 <p>Clean the segments which are compacted:</p>
 <pre><code>CLEAN FILES FOR TABLE carbon_table
 </code></pre>
-
-</li>
-</ul>
-</li>
-</ul><script>
+<script>
 $(function() {
   // Show selected style on nav item
   $('.b-nav__docs').addClass('selected');

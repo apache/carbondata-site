@@ -69,27 +69,19 @@ CarbonData has rich set of features to support various use cases in Big Data ana
 
   CarbonData can read any carbondata file and automatically infer schema from the file and provide a relational table view to perform sql queries using Spark or any other applicaion.
 
-### DataMaps
-
-- ##### Pre-Aggregate
-
-  CarbonData has concept of datamaps to assist in pruning of data while querying so that performance is faster.Pre Aggregate tables are kind of datamaps which can improve the query performance by order of magnitude.CarbonData will automatically pre-aggregate the incremental data and re-write the query to automatically fetch from the most appropriate pre-aggregate table to serve the query faster.
-
-- ##### Time Series
-
-  CarbonData has built in understanding of time order(Year, month,day,hour, minute,second). Time series is a pre-aggregate table which can automatically roll-up the data to the desired level during incremental load and serve the query from the most appropriate pre-aggregate table.
+### Index
 
 - ##### Bloom filter
 
-  CarbonData supports bloom filter as a datamap in order to quickly and efficiently prune the data for scanning and acheive faster query performance.
+  CarbonData supports bloom filter index in order to quickly and efficiently prune the data for scanning and acheive faster query performance.
 
 - ##### Lucene
 
-  Lucene is popular for indexing text data which are long.CarbonData provides a lucene datamap so that text columns can be indexed using lucene and use the index result for efficient pruning of data to be retrieved during query.
+  Lucene is popular for indexing text data which are long.CarbonData supports lucene index so that text columns can be indexed using lucene and use the index result for efficient pruning of data to be retrieved during query.
 
 - ##### MV (Materialized Views)
 
-  MVs are kind of pre-aggregate tables which can support efficent query re-write and processing.CarbonData provides MV which can rewrite query to fetch from any table(including non-carbondata tables). Typical usecase is to store the aggregated data of a non-carbondata fact table into carbondata and use mv to rewrite the query to fetch from carbondata.
+  MVs are kind of pre-aggregate and pre-join tables which can support efficient query re-write and processing.CarbonData provides MV which can rewrite query to fetch from any table(including non-carbondata tables). Typical usecase is to store the aggregated data of a non-carbondata fact table into carbondata and use mv to rewrite the query to fetch from carbondata.
 
 ### Streaming
 

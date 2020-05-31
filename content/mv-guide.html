@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="carbondata-materialized-view" class="anchor" href="#carbondata-materialized-view" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Materialized View</h1>
+<ul>
+<li><a href="#quick-example">Quick Example</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#loading-data">Loading Data</a></li>
+<li><a href="#querying-data">Querying Data</a></li>
+<li><a href="#compacting">Compaction</a></li>
+<li><a href="#data-management">Data Management</a></li>
+<li><a href="#time-series-support">Time Series Support</a></li>
+<li><a href="#time-series-rollup-support">Time Series RollUp Support</a></li>
+</ul>
+<h2>
+<a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
+<p>Start spark-sql in terminal and run the following queries,</p>
+<pre><code>  CREATE TABLE maintable(a int, b string, c int) stored as carbondata;
+  INSERT INTO maintable SELECT 1, 'ab', 2;
+  CREATE MATERIALIZED VIEW view1 AS SELECT a, sum(b) FROM maintable GROUP BY a;
+  SELECT a, sum(b) FROM maintable GROUP BY a;
+  // NOTE: run explain query and check if query hits the mv table from the plan
+  EXPLAIN SELECT a, sum(b) FROM maintable GROUP BY a;
+</code></pre>
+<h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<p>Materialized views are created as tables from queries. Users can create limitless materialized views
+to improve query performance provided the storage requirements and loading time is acceptable.</p>
+<p>Materialized view can be refreshed on commit or on manual. Once materialized views are created,
+CarbonData's <code>MVRewriteRule</code> helps to select the most efficient materialized view based on
+the user query and rewrite the SQL to select the data from materialized view instead of
+fact tables. Since the data size of materialized view is smaller and data is pre-processed,
+user queries are much faster.</p>
+<p>For instance, fact table called <strong>sales</strong> which is defined as.</p>
+<pre><code>  CREATE TABLE sales (
+    order_time timestamp,
+    user_id string,
+    sex string,
+    country string,
+    quantity int,
+    price bigint)
+  STORED AS carbondata
+</code></pre>
+<p>Users can create a materialized view using the CREATE MATERIALIZED VIEW statement.</p>
+<pre><code>  CREATE MATERIALIZED VIEW agg_sales
+  PROPERTIES('TABLE_BLOCKSIZE'='256 MB','LOCAL_DICTIONARY_ENABLE'='false')
+  AS
+    SELECT country, sex, sum(quantity), avg(price)
+    FROM sales
+    GROUP BY country, sex
+</code></pre>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Group by and Order by columns has to be provided in the projection list while creating a materialized view.</li>
+<li>If only single fact table is involved in materialized view creation, then TableProperties of
+fact table (if not present in a aggregate function like sum(col)) listed below will be
+inherited to materialized view.
+<ol>
+<li>SORT_COLUMNS</li>
+<li>SORT_SCOPE</li>
+<li>TABLE_BLOCKSIZE</li>
+<li>FLAT_FOLDER</li>
+<li>LONG_STRING_COLUMNS</li>
+<li>LOCAL_DICTIONARY_ENABLE</li>
+<li>LOCAL_DICTIONARY_THRESHOLD</li>
+<li>LOCAL_DICTIONARY_EXCLUDE</li>
+<li>INVERTED_INDEX</li>
+<li>NO_INVERTED_INDEX</li>
+<li>COLUMN_COMPRESSOR</li>
+</ol>
+</li>
+<li>Creating materialized view with select query containing only project of all columns of fact
+table is unsupported.
+<strong>Example:</strong>
+If table 'x' contains columns 'a,b,c', then creating MV with below queries is not supported.
+1. <code>SELECT a,b,c FROM x</code>
+2. <code>SELECT * FROM x</code>
+</li>
+<li>TableProperties can be provided in Properties excluding LOCAL_DICTIONARY_INCLUDE,
+LOCAL_DICTIONARY_EXCLUDE, INVERTED_INDEX, NO_INVERTED_INDEX, SORT_COLUMNS, LONG_STRING_COLUMNS,
+RANGE_COLUMN &amp; COLUMN_META_CACHE.</li>
+<li>TableProperty given in Properties will be considered for materialized view creation, even though
+if same property is inherited from fact table, which allows user to provide different table
+properties for materialized view.</li>
+<li>Materialized view creation with limit or union all CTAS queries is unsupported.</li>
+<li>Materialized view does not support streaming.</li>
+</ul>
+<h4>
+<a id="how-materialized-views-are-selected" class="anchor" href="#how-materialized-views-are-selected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How materialized views are selected</h4>
+<p>When a user query is submitted, during the query planning phase, CarbonData will collect modular plan
+candidates and process the ModularPlan based on registered summary data sets. Then,
+a materialized view for this query will be selected among the candidates.</p>
+<p>For the fact table <strong>sales</strong> and materialized view <strong>agg_sales</strong> created above, following queries</p>
+<pre><code>  SELECT country, sex, sum(quantity), avg(price) FROM sales GROUP BY country, sex
+  SELECT sex, sum(quantity) FROM sales GROUP BY sex
+  SELECT avg(price), country FROM sales GROUP BY country
+</code></pre>
+<p>will be transformed by CarbonData's query planner to query against materialized view <strong>agg_sales</strong>
+instead of the fact table <strong>sales</strong>.</p>
+<p>However, for following queries</p>
+<pre><code>  SELECT user_id, country, sex, sum(quantity), avg(price) FROM sales GROUP BY user_id, country, sex
+  SELECT sex, avg(quantity) FROM sales GROUP BY sex
+  SELECT country, max(price) FROM sales GROUP BY country
+</code></pre>
+<p>will query against fact table <strong>sales</strong> only, because it does not satisfy materialized view
+selection logic.</p>
+<h2>
+<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data</h2>
+<h3>
+<a id="loading-data-on-commit" class="anchor" href="#loading-data-on-commit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data on commit</h3>
+<p>In case of WITHOUT DEFERRED REFRESH, for existing table with loaded data, data load to materialized
+view will be triggered by the CREATE MATERIALIZED VIEW statement when user creates the materialized
+view.</p>
+<p>For incremental loads to the fact table, data to materialized view will be loaded once the
+corresponding fact table load is completed.</p>
+<h3>
+<a id="loading-data-on-manual" class="anchor" href="#loading-data-on-manual" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data on manual</h3>
+<p>In case of WITH DEFERRED REFRESH, data load to materialized view will be triggered by the refresh
+command. Materialized view will be in DISABLED state in below scenarios.</p>
+<ul>
+<li>when a materialized view is created.</li>
+<li>when data of fact table and materialized view are not in sync.</li>
+</ul>
+<p>User should fire REFRESH MATERIALIZED VIEW command to sync all segments of fact table with
+materialized view, which ENABLES the materialized view for query.</p>
+<p>Command example:</p>
+<pre><code>  REFRESH MATERIALIZED VIEW agg_sales
+</code></pre>
+<h3>
+<a id="loading-data-to-multiple-materialized-views" class="anchor" href="#loading-data-to-multiple-materialized-views" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data to multiple materialized views</h3>
+<p>During load to fact table, if anyone of the load to materialized view fails, then that
+corresponding materialized view will be DISABLED and load to other materialized views mapped
+to the fact table will continue.</p>
+<p>User can fire REFRESH MATERIALIZED VIEW command to sync or else the subsequent table load
+will load the old failed loads along with current load and enable the disabled materialized view.</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>In case of InsertOverwrite/Update operation on fact table, all segments of materialized view
+will be MARKED_FOR_DELETE and reload to mv table will happen by REFRESH MATERIALIZED VIEW,
+in case of materialized view which refresh on manual and once the InsertOverwrite/Update
+operation on fact table is finished, in case of materialized view which refresh on commit.</li>
+<li>In case of full scan query, Data Size and Index Size of fact table and materialized view
+will not be the same, as fact table and materialized view have different column names.</li>
+</ul>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data</h2>
+<p>Queries are to be made on the fact table. While doing query planning, internally CarbonData will check
+for the materialized views which are associated with the fact table, and do query plan
+transformation accordingly.</p>
+<p>Users can verify whether a query can leverage materialized view or not by executing the <code>EXPLAIN</code> command,
+which will show the transformed logical plan, and thus the user can check whether a materialized view
+is selected.</p>
+<h2>
+<a id="compacting" class="anchor" href="#compacting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting</h2>
+<p>Running Compaction command (<code>ALTER TABLE COMPACT</code>)[COMPACTION TYPE-&gt; MINOR/MAJOR] on fact table
+will automatically compact the materialized view created on the fact table, once compaction
+on fact table is done.</p>
+<h2>
+<a id="data-management" class="anchor" href="#data-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management</h2>
+<p>In current implementation, data consistency needs to be maintained for both fact table and
+materialized views.</p>
+<p>Once there is materialized view created on the fact table, following command on the fact
+table is not supported:</p>
+<ol>
+<li>Data management command: <code>DELETE SEGMENT</code>.</li>
+<li>Schema management command: <code>ALTER TABLE DROP COLUMN</code>, <code>ALTER TABLE CHANGE DATATYPE</code>,
+<code>ALTER TABLE RENAME</code>, <code>ALTER COLUMN RENAME</code>. Note that adding a new column is supported, and for
+dropping columns and change datatype command, CarbonData will check whether it will impact the
+materialized view, if not, the operation is allowed, otherwise operation will be rejected by
+throwing exception.</li>
+<li>Partition management command: <code>ALTER TABLE ADD/DROP PARTITION</code>. Note that dropping a partition
+will be allowed only if the partition column of fact table is participating in all of the table's materialized views.
+Drop Partition is not allowed, if any materialized view is associated with more than one
+fact table. Drop Partition directly on materialized view is not allowed.</li>
+<li>Complex Datatype's for materialized view is not supported.</li>
+</ol>
+<p>However, there is still way to support these operations on fact table, in current CarbonData
+release, user can do as following:</p>
+<ol>
+<li>Remove the materialized view by <code>DROP MATERIALIZED VIEW</code> command.</li>
+<li>Carry out the data management operation on fact table.</li>
+<li>Create the materialized view again by <code>CREATE MATERIALIZED VIEW</code> command.</li>
+</ol>
+<p>Basically, user can manually trigger the operation by re-building the materialized view.</p>
+<h2>
+<a id="time-series-support" class="anchor" href="#time-series-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time Series Support</h2>
+<p>Time series data are simply measurements or events that are tracked, monitored, down sampled, and
+aggregated over time. Materialized views with automatic refresh mode supports TimeSeries queries.</p>
+<p>CarbonData provides built-in time-series udf with the below definition.</p>
+<pre><code>  timeseries(event_time_column, 'granularity')
+</code></pre>
+<p>Event time columns provided in time series udf should be of TimeStamp/Date type.</p>
+<p>Below table describes the time hierarchy and levels that can be provided in a time-series udf,
+so that it supports automatic roll-up in time dimension for query.</p>
+<table>
+<thead>
+<tr>
+<th>Granularity</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>year</td>
+<td>Data will be aggregated over year</td>
+</tr>
+<tr>
+<td>month</td>
+<td>Data will be aggregated over month</td>
+</tr>
+<tr>
+<td>week</td>
+<td>Data will be aggregated over week</td>
+</tr>
+<tr>
+<td>day</td>
+<td>Data will be aggregated over day</td>
+</tr>
+<tr>
+<td>hour</td>
+<td>Data will be aggregated over hour</td>
+</tr>
+<tr>
+<td>thirty_minute</td>
+<td>Data will be aggregated over every thirty minutes</td>
+</tr>
+<tr>
+<td>fifteen_minute</td>
+<td>Data will be aggregated over every fifteen minutes</td>
+</tr>
+<tr>
+<td>ten_minute</td>
+<td>Data will be aggregated over every ten minutes</td>
+</tr>
+<tr>
+<td>five_minute</td>
+<td>Data will be aggregated over every five minutes</td>
+</tr>
+<tr>
+<td>minute</td>
+<td>Data will be aggregated over every one minute</td>
+</tr>
+<tr>
+<td>second</td>
+<td>Data will be aggregated over every second</td>
+</tr>
+</tbody>
+</table>
+<p>Time series udf having column as Date type support's only year, month, day and week granularities.</p>
+<p>Below is the sample data loaded to the fact table <strong>sales</strong>.</p>
+<pre><code>  order_time,          user_id, sex,    country, quantity, price
+  2016-02-23 09:01:30, c001,    male,   xxx,     100,      2
+  2016-02-23 09:01:50, c002,    male,   yyy,     200,      5
+  2016-02-23 09:03:30, c003,    female, xxx,     400,      1
+  2016-02-23 09:03:50, c004,    male,   yyy,     300,      5
+  2016-02-23 09:07:50, c005,    female, xxx,     500,      5
+</code></pre>
+<p>Users can create materialized views with time series queries like the below example:</p>
+<pre><code>  CREATE MATERIALIZED VIEW agg_sales AS
+  SELECT timeseries(order_time, 'minute'),avg(price)
+  FROM sales
+  GROUP BY timeseries(order_time, 'minute')
+</code></pre>
+<p>And execute the below query to check time series data. In this example, a materialized view of
+the aggregated table on the price column will be created, which will be aggregated every one minute.</p>
+<pre><code>  SELECT timeseries(order_time,'minute'), avg(price)
+  FROM sales
+  GROUP BY timeseries(order_time,'minute')
+</code></pre>
+<p>Find below the result of the above query aggregated over a minute.</p>
+<pre><code>  +---------------------------------------+----------------+
+  |UDF:timeseries(order_time, minute)     |avg(price)      |
+  +---------------------------------------+----------------+
+  |2016-02-23 09:01:00                    |3.5             |
+  |2016-02-23 09:07:00                    |5.0             |
+  |2016-02-23 09:03:00                    |3.0             |
+  +---------------------------------------+----------------+
+</code></pre>
+<p>The data loading, querying, compaction command and its behavior is the same as materialized views.</p>
+<h4>
+<a id="how-data-is-aggregated-over-time" class="anchor" href="#how-data-is-aggregated-over-time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How data is aggregated over time?</h4>
+<p>On each load to materialized view, data will be aggregated based on the specified time interval of
+granularity provided during creation and stored on each segment.</p>
+<p><strong>NOTE</strong>:</p>
+<ol>
+<li>Retention policies for time series is not supported yet.</li>
+</ol>
+<h2>
+<a id="time-series-rollup-support" class="anchor" href="#time-series-rollup-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time Series RollUp Support</h2>
+<p>Time series queries can be rolled up from an existing materialized view.</p>
+<h3>
+<a id="query-rollup" class="anchor" href="#query-rollup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query RollUp</h3>
+<p>Consider an example where the query is on hour level granularity, but the materialized view
+with hour level granularity is not present but materialized view with minute level granularity is
+present, then we can get the data from minute level and aggregate the hour level data and
+give output. This is called query rollup.</p>
+<p>Consider if user create's below time series materialized view,</p>
+<pre><code>  CREATE MATERIALIZED VIEW agg_sales
+  AS
+  SELECT timeseries(order_time,'minute'),avg(price)
+  FROM sales
+  GROUP BY timeseries(order_time,'minute')
+</code></pre>
+<p>and fires the below query with hour level granularity.</p>
+<pre><code>  SELECT timeseries(order_time,'hour'),avg(price)
+  FROM sales
+  GROUP BY timeseries(order_time,'hour')
+</code></pre>
+<p>Then, the above query can be rolled up from materialized view 'agg_sales', by adding hour
+level time series aggregation on minute level aggregation. Users can fire the <code>EXPLAIN</code> command
+to check if a query is rolled up from an existing materialized view.</p>
+<p><strong>NOTE</strong>:
+1. Queries cannot be rolled up, if the filter contains a time series function.
+2. Roll up is not yet supported for queries having join clause or order by functions.</p>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__docs').addClass('selected');
+
+  // Display docs subnav items
+  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
+    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

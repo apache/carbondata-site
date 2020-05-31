@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="carbondata-lucene-index-alpha-feature" class="anchor" href="#carbondata-lucene-index-alpha-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Lucene Index (Alpha Feature)</h1>
+<ul>
+<li><a href="#index-management">Index Management</a></li>
+<li><a href="#lucene-index-introduction">Lucene Index</a></li>
+<li><a href="#loading-data">Loading Data</a></li>
+<li><a href="#querying-data">Querying Data</a></li>
+<li><a href="#data-management-with-lucene-index">Data Management</a></li>
+</ul>
+<h4>
+<a id="index-management" class="anchor" href="#index-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Index Management</h4>
+<p>Lucene Index can be created using following DDL</p>
+<pre><code>CREATE INDEX [IF NOT EXISTS] index_name
+ON TABLE main_table (index_columns)
+AS 'lucene'
+[PROPERTIES ('key'='value')]
+</code></pre>
+<p>index_columns is the list of string columns on which lucene creates indexes.</p>
+<p>Index can be dropped using following DDL:</p>
+<pre><code>DROP INDEX [IF EXISTS] index_name
+ON [TABLE] main_table
+</code></pre>
+<p>To show all Indexes created, use:</p>
+<pre><code>SHOW INDEXES
+ON [TABLE] main_table
+</code></pre>
+<p>It will show all Indexes created on the main table.</p>
+<blockquote>
+<p>NOTE: Keywords given inside <code>[]</code> is optional.</p>
+</blockquote>
+<h2>
+<a id="lucene-index-introduction" class="anchor" href="#lucene-index-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Lucene Index Introduction</h2>
+<p>Lucene is a high performance, full featured text search engine. Lucene is integrated to carbon as
+an index and managed along with main tables by CarbonData. User can create lucene index
+to improve query performance on string columns which has content of more length. So, user can
+search tokenized word or pattern of it using lucene query on text content.</p>
+<p>For instance, main table called <strong>index_test</strong> which is defined as:</p>
+<pre><code>CREATE TABLE index_test (
+  name string,
+  age int,
+  city string,
+  country string)
+STORED AS carbondata
+</code></pre>
+<p>User can create Lucene index using the Create Index DDL:</p>
+<pre><code>CREATE INDEX dm
+ON TABLE index_test (name,country)
+AS 'lucene'
+</code></pre>
+<p><strong>Properties</strong></p>
+<ol>
+<li>FLUSH_CACHE: size of the cache to maintain in Lucene writer, if specified then it tries to
+aggregate the unique data till the cache limit and flush to Lucene. It is best suitable for low
+cardinality dimensions.</li>
+<li>SPLIT_BLOCKLET: when made as true then store the data in blocklet wise in lucene , it means new
+folder will be created for each blocklet, thus, it eliminates storing blockletid in lucene and
+also it makes lucene small chunks of data.</li>
+</ol>
+<h2>
+<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data</h2>
+<p>When loading data to main table, lucene index files will be generated for all the
+index_columns(String Columns) given in CREATE statement which contains information about the data
+location of index_columns. These index files will be written inside a folder named with index name
+inside each segment folder.</p>
+<p>A system level configuration <code>carbon.lucene.compression.mode</code> can be added for best compression of
+lucene index files. The default value is speed, where the index writing speed will be more. If the
+value is compression, the index file size will be compressed.</p>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data</h2>
+<p>As a technique for query acceleration, Lucene indexes cannot be queried directly.
+Queries are to be made on the main table. When a query with TEXT_MATCH('name:c10') or
+TEXT_MATCH_WITH_LIMIT('name:n10',10)[the second parameter represents the number of result to be
+returned, if user does not specify this value, all results will be returned without any limit] is
+fired, two jobs will be launched. The first job writes the temporary files in folder created at table level
+which contains lucene's search results and these files will be read in second job to give faster
+results. These temporary files will be cleared once the query finishes.</p>
+<p>User can verify whether a query can leverage Lucene index or not by executing the <code>EXPLAIN</code>
+command, which will show the transformed logical plan, and thus user can check whether TEXT_MATCH()
+filter is applied on query or not.</p>
+<p><strong>Note:</strong></p>
+<ol>
+<li>
+<p>The filter columns in TEXT_MATCH or TEXT_MATCH_WITH_LIMIT must be always in lowercase and
+filter conditions like 'AND','OR' must be in upper case.</p>
+<p>Ex:</p>
+<pre><code>select * from index_test where TEXT_MATCH('name:*10 AND name:*n*')
+</code></pre>
+</li>
+<li>
+<p>Query supports only one TEXT_MATCH udf for filter condition and not multiple udfs.</p>
+<p>The following query is supported:</p>
+<pre><code>select * from index_test where TEXT_MATCH('name:*10 AND name:*n*')
+</code></pre>
+<p>The following query is not supported:</p>
+<pre><code>select * from index_test where TEXT_MATCH('name:*10) AND TEXT_MATCH(name:*n*')
+</code></pre>
+</li>
+</ol>
+<p>Below <code>like</code> queries can be converted to text_match queries as following:</p>
+<pre><code>select * from index_test where name='n10'
+
+select * from index_test where name like 'n1%'
+
+select * from index_test where name like '%10'
+
+select * from index_test where name like '%n%'
+
+select * from index_test where name like '%10' and name not like '%n%'
+</code></pre>
+<p>Lucene TEXT_MATCH Queries:</p>
+<pre><code>select * from index_test where TEXT_MATCH('name:n10')
+
+select * from index_test where TEXT_MATCH('name:n1*')
+
+select * from index_test where TEXT_MATCH('name:*10')
+
+select * from index_test where TEXT_MATCH('name:*n*')
+
+select * from index_test where TEXT_MATCH('name:*10 -name:*n*')
+</code></pre>
+<p><strong>Note:</strong> For lucene queries and syntax, refer to <a href="http://www.lucenetutorial.com/lucene-query-syntax.html" target=_blank rel="nofollow">lucene-syntax</a></p>
+<h2>
+<a id="data-management-with-lucene-index" class="anchor" href="#data-management-with-lucene-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Management with lucene index</h2>
+<p>Once there is a lucene index created on the main table, following command on the main
+table is not supported:</p>
+<ol>
+<li>Data management command: <code>UPDATE/DELETE</code>.</li>
+<li>Schema management command: <code>ALTER TABLE DROP COLUMN</code>, <code>ALTER TABLE CHANGE DATATYPE</code>,
+<code>ALTER TABLE RENAME</code>.</li>
+</ol>
+<p><strong>Note</strong>: Adding a new column is supported, and for dropping columns and change datatype
+command, CarbonData will check whether it will impact the lucene index, if not, the operation
+is allowed, otherwise operation will be rejected by throwing exception.</p>
+<ol start="3">
+<li>Partition management command: <code>ALTER TABLE ADD/DROP PARTITION</code>.</li>
+</ol>
+<p>However, there is still way to support these operations on main table, in current CarbonData
+release, user can do as following:</p>
+<ol>
+<li>Remove the lucene index by <code>DROP INDEX</code> command.</li>
+<li>Carry out the data management operation on main table.</li>
+<li>Create the lucene index again by <code>CREATE INDEX</code> command.
+Basically, user can manually trigger the operation by refreshing the index.</li>
+</ol>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__datamap').addClass('selected');
+  
+  if (!$('.b-nav__datamap').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display datamap subnav items
+    $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

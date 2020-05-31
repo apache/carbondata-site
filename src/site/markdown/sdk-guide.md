@@ -24,8 +24,8 @@ CarbonData provides SDK to facilitate
 
 # SDK Writer
 
-In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader. 
-If user want to use SDK, except carbondata-store-sdk-x.x.x-SNAPSHOT.jar, 
+In the carbon jars package, there exist a carbondata-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader. 
+If user want to use SDK, except carbondata-sdk-x.x.x-SNAPSHOT.jar, 
 it needs carbondata-core-x.x.x-SNAPSHOT.jar, carbondata-common-x.x.x-SNAPSHOT.jar, 
 carbondata-format-x.x.x-SNAPSHOT.jar, carbondata-hadoop-x.x.x-SNAPSHOT.jar and carbondata-processing-x.x.x-SNAPSHOT.jar.
 What's more, user also can use carbondata-sdk.jar directly.
@@ -46,7 +46,7 @@ import org.apache.carbondata.core.metadata.datatype.DataTypes;
 import org.apache.carbondata.core.util.CarbonProperties;
 import org.apache.carbondata.sdk.file.CarbonWriter;
 import org.apache.carbondata.sdk.file.CarbonWriterBuilder;
-import org.apache.carbondata.sdk.file.Field;
+import org.apache.carbondata.core.metadata.datatype.Field;
 import org.apache.carbondata.sdk.file.Schema;
 
 public class TestSdk {
@@ -92,7 +92,7 @@ import org.apache.carbondata.common.exceptions.sql.InvalidLoadOptionException;
 import org.apache.carbondata.core.metadata.datatype.DataTypes;
 import org.apache.carbondata.sdk.file.AvroCarbonWriter;
 import org.apache.carbondata.sdk.file.CarbonWriter;
-import org.apache.carbondata.sdk.file.Field;
+import org.apache.carbondata.core.metadata.datatype.Field;
 
 import org.apache.avro.generic.GenericData;
 import org.apache.commons.lang.CharEncoding;
@@ -150,7 +150,7 @@ import org.apache.carbondata.core.metadata.datatype.DataTypes;
 import org.apache.carbondata.core.util.CarbonProperties;
 import org.apache.carbondata.sdk.file.CarbonWriter;
 import org.apache.carbondata.sdk.file.CarbonWriterBuilder;
-import org.apache.carbondata.sdk.file.Field;
+import org.apache.carbondata.core.metadata.datatype.Field;
 import org.apache.carbondata.sdk.file.Schema;
  
 public class TestSdkJson {
@@ -246,7 +246,7 @@ Instead of creating table and query it, you can also query that file directly wi
 ```
 SELECT * FROM carbonfile.`$Path`
 ```
-Find example code at [DirectSQLExample](https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/DirectSQLExample.scala) in the CarbonData repo.
+Find example code at [DirectSQLExample](https://github.com/apache/carbondata/blob/master/examples/spark/src/main/scala/org/apache/carbondata/examples/DirectSQLExample.scala) in the CarbonData repo.
 ## API List
 
 ### Class org.apache.carbondata.sdk.file.CarbonWriterBuilder
@@ -316,8 +316,7 @@ public CarbonWriterBuilder localDictionaryThreshold(int localDictionaryThreshold
  * Sets the list of columns that needs to be in sorted order
  *
  * @param sortColumns is a string array of columns that needs to be sorted.
- *                    If it is null or by default all dimensions are selected for sorting
- *                    If it is empty array, no columns are sorted
+ *                    If it is null or empty array, no columns are selected for sorting.
  * @return updated CarbonWriterBuilder
  */
 public CarbonWriterBuilder sortBy(String[] sortColumns);
@@ -378,7 +377,7 @@ public CarbonWriterBuilder withLoadOptions(Map<String, String> options);
  * c. local_dictionary_threshold -- positive value, default is 10000
  * d. local_dictionary_enable -- true / false. Default is false
  * e. sort_columns -- comma separated column. "c1,c2". Default no columns are sorted.
- * j. sort_scope -- "local_sort", "no_sort", "batch_sort". default value is "no_sort"
+ * j. sort_scope -- "local_sort", "no_sort". default value is "no_sort"
  * k. long_string_columns -- comma separated string columns which are more than 32k length. 
  *                           default value is null.
  * l. inverted_index -- comma separated string columns for which inverted index needs to be
@@ -528,7 +527,7 @@ public abstract void write(Object object) throws IOException;
 public abstract void close() throws IOException;
 ```
 
-### Class org.apache.carbondata.sdk.file.Field
+### Class org.apache.carbondata.core.metadata.datatype.Field
 ```
 /**
  * Field Constructor
@@ -612,10 +611,10 @@ while (reader.hasNext()) {
 reader.close();
 ```
 
-Find example code at [CarbonReaderExample](https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/CarbonReaderExample.java) in the CarbonData repo.
+Find example code at [CarbonReaderExample](https://github.com/apache/carbondata/blob/master/examples/spark/src/main/java/org/apache/carbondata/examples/sdk/CarbonReaderExample.java) in the CarbonData repo.
 
 SDK reader also supports reading carbondata files and filling it to apache arrow vectors.
-Find example code at [ArrowCarbonReaderTest](https://github.com/apache/carbondata/blob/master/store/sdk/src/test/java/org/apache/carbondata/sdk/file/ArrowCarbonReaderTest.java) in the CarbonData repo.
+Find example code at [ArrowCarbonReaderTest](https://github.com/apache/carbondata/blob/master/sdk/sdk/src/test/java/org/apache/carbondata/sdk/file/ArrowCarbonReaderTest.java) in the CarbonData repo.
 
 
 ## API List
@@ -987,7 +986,7 @@ public static Schema parseJson(String json);
 public Schema asOriginOrder();
 ```
 
-### Class org.apache.carbondata.sdk.file.Field
+### Class org.apache.carbondata.core.metadata.datatype.Field
 ```
 /**
  * Field Constructor
@@ -1007,7 +1006,7 @@ public Field(String name, String type);
 public Field(ColumnSchema columnSchema);
 ```
 
-Find S3 example code at [SDKS3Example](https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/SDKS3Example.java) in the CarbonData repo.
+Find S3 example code at [SDKS3Example](https://github.com/apache/carbondata/blob/master/examples/spark/src/main/java/org/apache/carbondata/examples/sdk/SDKS3Example.java) in the CarbonData repo.
 
 
 # Common API List for CarbonReader and CarbonWriter

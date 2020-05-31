@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -241,10 +250,10 @@
 <li><a href="#what-is-carbon-lock-type">What is Carbon Lock Type?</a></li>
 <li><a href="#how-to-resolve-abstract-method-error">How to resolve Abstract Method Error?</a></li>
 <li><a href="#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios">How Carbon will behave when execute insert operation in abnormal scenarios?</a></li>
-<li><a href="#why-aggregate-query-is-not-fetching-data-from-aggregate-table">Why aggregate query is not fetching data from aggregate table?</a></li>
 <li><a href="#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side">Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</a></li>
 <li><a href="#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output">Why different time zone result for select query output when query SDK writer output?</a></li>
 <li><a href="#how-to-check-lru-cache-memory-footprint">How to check LRU cache memory footprint?</a></li>
+<li><a href="#How-to-deal-with-the-trailing-task-in-query">How to deal with the trailing task in query?</a></li>
 </ul>
 <h1>
 <a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TroubleShooting</h1>
@@ -259,8 +268,7 @@
 <li><a href="#failed-to-load-data-on-the-cluster">Failed to load data on the cluster</a></li>
 <li><a href="#failed-to-insert-data-on-the-cluster">Failed to insert data on the cluster</a></li>
 <li><a href="#failed-to-execute-concurrent-operations-on-table-by-multiple-workers">Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers</a></li>
-<li><a href="#failed-to-create-a-table-with-a-single-numeric-column">Failed to create a table with a single numeric column</a></li>
-<li><a href="#failed-to-create-datamap-and-drop-datamap-is-also-not-working">Failed to create datamap and drop datamap is also not working</a></li>
+<li><a href="#failed-to-create-index-and-drop-index-is-also-not-working">Failed to create_index and drop index is also not working</a></li>
 </ul>
 <h2></h2>
 <h2>
@@ -353,39 +361,6 @@ id  city    name
 <p><strong>Scenario 3</strong> :</p>
 <p>When the column type in carbon table is different from the column specified in select statement. The insert operation will still success, but you may get NULL in result, because NULL will be substitute value when conversion type failed.</p>
 <h2>
-<a id="why-aggregate-query-is-not-fetching-data-from-aggregate-table" class="anchor" href="#why-aggregate-query-is-not-fetching-data-from-aggregate-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why aggregate query is not fetching data from aggregate table?</h2>
-<p>Following are the aggregate queries that won't fetch data from aggregate table:</p>
-<ul>
-<li>
-<strong>Scenario 1</strong> :
-When SubQuery predicate is present in the query.</li>
-</ul>
-<p>Example:</p>
-<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
-create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
-select ctry from pop1 where ctry in (select cntry from gdp21 group by cntry);
-</code></pre>
-<ul>
-<li>
-<strong>Scenario 2</strong> :
-When aggregate function along with 'in' filter.</li>
-</ul>
-<p>Example:</p>
-<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
-create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
-select cntry, sum(gdp) from gdp21 where cntry in (select ctry from pop1) group by cntry;
-</code></pre>
-<ul>
-<li>
-<strong>Scenario 3</strong> :
-When aggregate function having 'join' with equal filter.</li>
-</ul>
-<p>Example:</p>
-<pre><code>create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
-create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
-select cntry,sum(gdp) from gdp21,pop1 where cntry=ctry group by cntry;
-</code></pre>
-<h2>
 <a id="why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side" class="anchor" href="#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?</h2>
 <p>Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as "FAIL" will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.</p>
 <h2>
@@ -410,6 +385,20 @@ TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"))
 </code></pre>
 <p><strong>Note:</strong> If  <code>Removed entry from InMemory LRU cache</code> are frequently observed in logs, you may have to increase the configured LRU size.</p>
 <p>To observe the LRU cache from heap dump, check the heap used by CarbonLRUCache class.</p>
+<h2>
+<a id="how-to-deal-with-the-trailing-task-in-query" class="anchor" href="#how-to-deal-with-the-trailing-task-in-query" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to deal with the trailing task in query?</h2>
+<p>When tuning query performance, user may found that a few tasks slow down the overall query progress.  To improve performance in such case, user can set spark.locality.wait and spark.speculation=true to enable speculation in spark, which will launch multiple task and get the result the one of the task which is finished first. Besides, user can also consider following configurations to further improve performance in this case.</p>
+<p><strong>Example:</strong></p>
+<pre><code>spark.locality.wait = 500
+spark.speculation = true
+spark.speculation.quantile = 0.75
+spark.speculation.multiplier = 5
+spark.blacklist.enabled = false
+</code></pre>
+<p><strong>Note:</strong></p>
+<p>spark.locality control data locality the value of 500 is used to shorten the waiting time of spark.</p>
+<p>spark.speculation is a group of configuration, that can monitor trailing tasks and start new tasks when conditions are met.</p>
+<p>spark.blacklist.enabled, avoid reduction of available executors due to blacklist mechanism.</p>
 <h2>
 <a id="getting-tablestatuslock-issues-when-loading-data" class="anchor" href="#getting-tablestatuslock-issues-when-loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting tablestatus.lock issues When loading data</h2>
 <p><strong>Symptom</strong></p>
@@ -458,7 +447,7 @@ $OverrideCatalog$$overrides_$e
 <p>Use the following command :</p>
 </li>
 </ol>
-<pre><code>mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package
+<pre><code>mvn -Pspark-2.4 -Dspark.version={yourSparkVersion} clean package
 </code></pre>
 <p>Note : Refrain from using "mvn clean package" without specifying the profile.</p>
 <h2>
@@ -539,7 +528,7 @@ For example, you can use scp to copy this file to all the nodes.</p>
 <p>Follow the steps to ensure the following configuration files are consistent across all the nodes:</p>
 <ol>
 <li>
-<p>Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
+<p>Copy the core-site.xml, hive-site.xml, yarn-site, carbon.properties files from the master node to all the other nodes in the cluster.
 For example, you can use scp to copy this file to all the nodes.</p>
 <p>Note : Set the path to hdfs ddl in carbon.properties in the master node.</p>
 </li>
@@ -567,7 +556,7 @@ For example, you can use scp to copy this file to all the nodes.</p>
 <p>Follow the steps to ensure the following configuration files are consistent across all the nodes:</p>
 <ol>
 <li>
-<p>Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
+<p>Copy the core-site.xml, hive-site.xml, yarn-site, carbon.properties files from the master node to all the other nodes in the cluster.
 For example, you can use scp to copy this file to all the nodes.</p>
 <p>Note : Set the path to hdfs ddl in carbon.properties in the master node.</p>
 </li>
@@ -586,17 +575,7 @@ For example, you can use scp to copy this file to all the nodes.</p>
 <p><strong>Procedure</strong></p>
 <p>Worker must wait for the query execution to complete and the table to release the lock for another query execution to succeed.</p>
 <h2>
-<a id="failed-to-create-a-table-with-a-single-numeric-column" class="anchor" href="#failed-to-create-a-table-with-a-single-numeric-column" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to create a table with a single numeric column</h2>
-<p><strong>Symptom</strong></p>
-<p>Execution fails with the following exception :</p>
-<pre><code>Table creation fails.
-</code></pre>
-<p><strong>Possible Cause</strong></p>
-<p>Behaviour not supported.</p>
-<p><strong>Procedure</strong></p>
-<p>A single column that can be considered as dimension is mandatory for table creation.</p>
-<h2>
-<a id="failed-to-create-datamap-and-drop-datamap-is-also-not-working" class="anchor" href="#failed-to-create-datamap-and-drop-datamap-is-also-not-working" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to create datamap and drop datamap is also not working</h2>
+<a id="failed-to-create-index-and-drop-index-is-also-not-working" class="anchor" href="#failed-to-create-index-and-drop-index-is-also-not-working" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Failed to create index and drop index is also not working</h2>
 <p><strong>Symptom</strong></p>
 <p>Execution fails with the following exception :</p>
 <pre><code>HDFS Quota Exceeded
@@ -604,8 +583,7 @@ For example, you can use scp to copy this file to all the nodes.</p>
 <p><strong>Possible Cause</strong></p>
 <p>HDFS Quota is set, and it is not letting carbondata write or modify any files.</p>
 <p><strong>Procedure</strong></p>
-<p>Drop that particular datamap using Drop Table command using table name as
-parentTableName_datamapName so as to clear the stale folders.</p>
+<p>Drop that particular index using Drop Index command so as to clear the stale folders.</p>
 <script>
 // Show selected style on nav item
 $(function() { $('.b-nav__faq').addClass('selected'); });

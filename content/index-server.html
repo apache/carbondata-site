@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -234,9 +243,8 @@
 <a id="distributed-index-server" class="anchor" href="#distributed-index-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Distributed Index Server</h1>
 <h2>
 <a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h2>
-<p>Carbon currently prunes and caches all block/blocklet datamap index information into the driver for
-normal table, for Bloom/Index datamaps the JDBC driver will launch a job to prune and cache the
-datamaps in executors.</p>
+<p>Carbon currently prunes and caches all block/blocklet index information into the driver for
+normal table, for Bloom/Lucene indexes the JDBC driver will launch a job to prune and cache in executors.</p>
 <p>This causes the driver to become a bottleneck in the following ways:</p>
 <ol>
 <li>If the cache size becomes huge(70-80% of the driver memory) then there can be excessive GC in
@@ -268,8 +276,7 @@ cache location for each segment.</p>
 </li>
 <li>
 <p>Cache size held by each executor:
-This mapping will be used to distribute the segments equally(on the basis of size) among the
-executors.</p>
+This mapping will be used to distribute the segments equally(on the basis of size) among the executors.</p>
 </li>
 </ol>
 <p>Once a request is received each segment would be iterated over and
@@ -294,6 +301,14 @@ each executor which would be updated to the executorToCacheMapping and
 the pruned blocklets which would be further used for result fetching.</p>
 <p><strong>Note:</strong> Multiple JDBC drivers can connect to the index server to use the cache.</p>
 <h2>
+<a id="enabling-size-based-distribution-for-legacy-stores" class="anchor" href="#enabling-size-based-distribution-for-legacy-stores" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enabling Size based distribution for Legacy stores</h2>
+<p>The default round robin based distribution causes unequal distribution of cache among the executors, which can cause any one of the executors to be bloated with too much cache resulting in performance degrade.
+This problem can be solved by running the <code>upgrade_segment</code> command which will fill the data size values for each segment in the tablestatus file. Any cache loaded after this can use the traditional size based distribution.</p>
+<h4>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h4>
+<pre><code>alter table table1 compact 'upgrade_segment';
+</code></pre>
+<h2>
 <a id="reallocation-of-executor" class="anchor" href="#reallocation-of-executor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reallocation of executor</h2>
 <p>In case executor(s) become dead/unavailable then the segments that were
 earlier being handled by those would be reassigned to some other
@@ -312,7 +327,7 @@ dynamic configuration to clear the cache of the desired location.</p>
 which means that the JDBCServer would take care of distributed pruning.
 A similar job would be fired by the JDBCServer which would take care of
 pruning using its own executors. If for any reason the embedded mode
-also fails to prune the datamaps then the job would be passed on to
+also fails to prune the indexes then the job would be passed on to
 driver.</p>
 <p><strong>NOTE:</strong> In case of embedded mode a job would be fired after pruning to clear the
 cache as data cached in JDBCServer executors would be of no use.</p>
@@ -324,17 +339,18 @@ read this file and create the splits. This can be controlled using the property 
 meaning that no matter how small the splits are they would be written to the file. Maximum is
 102400KB which will mean if the size of the splits for a executor cross this value then they would
 be written to file.</p>
-<p>The user can set the location for these file by using 'carbon.indexserver.temp.path'. By default
-table path would be used to write the files.</p>
+<p>The user can set the location for these files by using 'carbon.indexserver.temp.path'. By default
+the files are written in the path /tmp/indexservertmp.</p>
 <h2>
-<a id="security" class="anchor" href="#security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security</h2>
-<p>The security for the index server is controlled through 'spark.carbon.indexserver.keytab' and 'spark
-.carbon.indexserver.principal'. These allow the RPC framework to login using the principal. It is
-recommended that the principal should be a super user, and the user should be exclusive for index
-server so that it does not grant access to any other service. Internally the operations would be
-executed  as a Privileged Action using the login user.</p>
-<p>The Index Server is a long running service therefore the 'spark.yarn.keytab' and 'spark.yarn
-.principal' should be configured.</p>
+<a id="prepriming" class="anchor" href="#prepriming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prepriming</h2>
+<p>As each query is responsible for caching the pruned indexes, thus a lot of execution time is wasted in reading the
+files and caching the datmaps for the first query.
+To avoid this problem we have introduced Pre-Priming which allows each data manipulation command like load, insert etc
+to fire a request to the index server to load the corresponding segments into the index server.
+When index server receives a request it checks whether the request is for pre-priming, if it is then the request is
+processed in a new thread, and a dummy response is immediately returned to the client.
+Since pre-priming acts as an async call, it does not have any negative performance impacts.</p>
+<p>The user can enable prepriming by using 'carbon.indexserver.enable.prepriming' = 'true/false'. By default this is set as false.</p>
 <h2>
 <a id="configurations" class="anchor" href="#configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configurations</h2>
 <h5>
@@ -374,6 +390,11 @@ executed  as a Privileged Action using the login user.</p>
 <td align="center">NA</td>
 <td align="center">The max length of the job to show in the index server service UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.</td>
 </tr>
+<tr>
+<td align="center">carbon.indexserver.enable.prepriming</td>
+<td align="center">false</td>
+<td align="center">Enable the use of prepriming in the Index Server to improve the performance of first time query.</td>
+</tr>
 </tbody>
 </table>
 <h5>
@@ -406,11 +427,11 @@ executed  as a Privileged Action using the login user.</p>
 <tr>
 <td align="center">carbon.max.executor.lru.cache.size</td>
 <td align="center">NA</td>
-<td align="center">Maximum memory <strong>(in MB)</strong> upto which the executor process can cache the data (DataMaps and reverse dictionary values). Only integer values greater than 0 are accepted. <strong>NOTE:</strong> Mandatory for the user to set.</td>
+<td align="center">Maximum memory <strong>(in MB)</strong> upto which the executor process can cache the data (Indexes and reverse dictionary values). Only integer values greater than 0 are accepted. <strong>NOTE:</strong> Mandatory for the user to set.</td>
 </tr>
 <tr>
 <td align="center">carbon.index.server.max.jobname.length</td>
-<td align="center">NA</td>
+<td align="center">50</td>
 <td align="center">The max length of the job to show in the index server application UI. For bigger queries this may impact performance as the whole string would be sent from JDBCServer to IndexServer.</td>
 </tr>
 <tr>
@@ -425,8 +446,8 @@ executed  as a Privileged Action using the login user.</p>
 </tr>
 <tr>
 <td align="center">carbon.indexserver.temp.path</td>
-<td align="center">tablePath</td>
-<td align="center">The folder to write the split files if in memory datamap size for network transfers crossed the 'carbon.index.server.inmemory.serialization.threshold.inKB' limit.</td>
+<td align="center">/tmp/indexservertmp folder</td>
+<td align="center">The folder to write the split files if in memory index cache size for network transfers crossed the 'carbon.index.server.inmemory.serialization.threshold.inKB' limit.</td>
 </tr>
 </tbody>
 </table>
@@ -441,16 +462,6 @@ executed  as a Privileged Action using the login user.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td align="center">spark.carbon.indexserver.principal</td>
-<td align="center">NA</td>
-<td align="center">Used for authentication, whether a valid service is  trying to connect to the server or not. Set in both IndexServer and JDBCServer.</td>
-</tr>
-<tr>
-<td align="center">spark.carbon.indexserver.keytab</td>
-<td align="center">NA</td>
-<td align="center">Specify the path to the keytab file through which authentication would happen. Set in both IndexServer and JDBCServer.</td>
-</tr>
 <tr>
 <td align="center">spark.dynamicAllocation.enabled</td>
 <td align="center">true</td>
@@ -504,6 +515,34 @@ that will authenticate the user to access the index server and no other service.
 <td align="center">NA</td>
 <td align="center">Set the above property to some appropriate value based on your estimated query time. The best option is to set this to the same value as spark.network.timeout.</td>
 </tr>
+<tr>
+<td align="center">hadoop.security.authorization</td>
+<td align="center">false</td>
+<td align="center">Property to enable the hadoop security which is required only on the server side.</td>
+</tr>
+<tr>
+<td align="center">hadoop.proxyuser.&lt;indexserver_user&gt;.users</td>
+<td align="center">NA</td>
+<td align="center">Property to set Proxy User list for which IndexServer permission were to be given ,check <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html" target=_blank rel="nofollow">https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html</a>
+</td>
+</tr>
+<tr>
+<td align="center">hadoop.proxyuser.&lt;indexserver_user&gt;.hosts</td>
+<td align="center">NA</td>
+<td align="center">Property to set hosts list for which IndexServer permission were to be given ,check <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html" target=_blank rel="nofollow">https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html</a>
+</td>
+</tr>
+<tr>
+<td align="center">hadoop.proxyuser.&lt;indexserver_user&gt;.groups</td>
+<td align="center">NA</td>
+<td align="center">Property to set groups list for which IndexServer permission to be given ,check <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html" target=_blank rel="nofollow">https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Superusers.html</a>
+</td>
+</tr>
+<tr>
+<td align="center">security.indexserver.protocol.acl</td>
+<td align="center">*</td>
+<td align="center">Property to set List of User to be Authorized for Other than proxy Spark Application</td>
+</tr>
 </tbody>
 </table>
 <h5>
@@ -531,10 +570,10 @@ that will authenticate the user to access the index server and no other service.
 </table>
 <h2>
 <a id="starting-the-server" class="anchor" href="#starting-the-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting the Server</h2>
-<pre><code>./bin/spark-submit --master [yarn/local] --[optional parameters] --class org.apache.carbondata.indexserver.IndexServer [path to carbondata-spark2-&lt;version&gt;.jar]
+<pre><code>./bin/spark-submit --master [yarn/local] --[optional parameters] --class org.apache.carbondata.indexserver.IndexServer [path to carbondata-spark-&lt;version&gt;.jar]
 </code></pre>
 <p>Or</p>
-<pre><code>./sbin/start-indexserver.sh --master yarn --num-executors 2 /&lt;absolute path&gt;/carbondata-spark2-1.6.0.0100.jar
+<pre><code>./sbin/start-indexserver.sh --master yarn --num-executors 2 /&lt;absolute path&gt;/carbondata-spark-&lt;version&gt;.jar
 </code></pre>
 <h2>
 <a id="faq" class="anchor" href="#faq" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FAQ</h2>
@@ -542,9 +581,6 @@ that will authenticate the user to access the index server and no other service.
 <p>A. The exception would show the size of response it is trying to send over the
 network. Use ipc.maximum.response.length to a value bigger than the
 response size.</p>
-<p>Q. <strong>Index server is throwing Kerberos principal not set exception</strong></p>
-<p>A. Set spark.carbon.indexserver.principal to the correct principal in both IndexServer and
-JDBCServer configurations.</p>
 <p>Q. <strong>Unable to connect to index server</strong></p>
 <p>A. Check whether the carbon.properties configurations are set in JDBCServer as well as the index
 server.</p>
