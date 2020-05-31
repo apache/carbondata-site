@@ -16,10 +16,10 @@
 -->
 
 # Quick Start
-This tutorial provides a quick introduction to using CarbonData. To follow along with this guide, first download a packaged release of CarbonData from the [CarbonData website](https://dist.apache.org/repos/dist/release/carbondata/).Alternatively it can be created following [Building CarbonData](https://github.com/apache/carbondata/tree/master/build) steps.
+This tutorial provides a quick introduction to use CarbonData. To follow along with this guide, download a packaged release of CarbonData from the [CarbonData website](https://dist.apache.org/repos/dist/release/carbondata/). Alternatively, it can be created following [Building CarbonData](https://github.com/apache/carbondata/tree/master/build) steps.
 
 ##  Prerequisites
-* CarbonData supports Spark versions upto 2.2.1.Please download Spark package from [Spark website](https://spark.apache.org/downloads.html)
+* CarbonData supports Spark versions up to 2.4. Please download Spark package from [Spark website](https://spark.apache.org/downloads.html)
 
 * Create a sample.csv file using the following commands. The CSV file is required for loading data into CarbonData
 
@@ -36,9 +36,10 @@ This tutorial provides a quick introduction to using CarbonData. To follow along
 ## Integration
 
 ### Integration with Execution Engines
-CarbonData can be integrated with Spark,Presto and Hive execution engines. The below documentation guides on Installing and Configuring with these execution engines.
+CarbonData can be integrated with Spark, Presto, Flink and Hive execution engines. The below documentation guides on Installing and Configuring with these execution engines.
 
 #### Spark
+[Installing and Configuring CarbonData to run locally with Spark SQL CLI](#installing-and-configuring-carbondata-to-run-locally-with-spark-sql-cli)
 
 [Installing and Configuring CarbonData to run locally with Spark Shell](#installing-and-configuring-carbondata-to-run-locally-with-spark-shell)
 
@@ -65,18 +66,72 @@ CarbonData can be integrated with Spark,Presto and Hive execution engines. The b
 #### Alluxio
 [CarbonData supports read and write with Alluxio](./alluxio-guide.md)
 
+## Installing and Configuring CarbonData to run locally with Spark SQL CLI
+
+This will work with spark 2.3+ versions. In Spark SQL CLI, it uses CarbonExtensions to customize the SparkSession with CarbonData's parser, analyzer, optimizer and physical planning strategy rules in Spark.
+To enable CarbonExtensions, we need to add the following configuration.
+
+|Key|Value|
+|---|---|
+|spark.sql.extensions|org.apache.spark.sql.CarbonExtensions| 
+
+Start Spark SQL CLI by running the following command in the Spark directory:
+
+```
+./bin/spark-sql --conf spark.sql.extensions=org.apache.spark.sql.CarbonExtensions --jars <carbondata assembly jar path>
+```
+###### Creating a Table
+
+```
+CREATE TABLE IF NOT EXISTS test_table (
+  id string,
+  name string,
+  city string,
+  age Int)
+STORED AS carbondata;
+```
+**NOTE**: CarbonExtensions only support "STORED AS carbondata" and "USING carbondata"
+
+###### Loading Data to a Table
+
+```
+LOAD DATA INPATH '/local-path/sample.csv' INTO TABLE test_table;
+
+LOAD DATA INPATH 'hdfs://hdfs-path/sample.csv' INTO TABLE test_table;
+```
+
+```
+insert into table test_table select '1', 'name1', 'city1', 1;
+```
+
+**NOTE**: Please provide the real file path of `sample.csv` for the above script. 
+If you get "tablestatus.lock" issue, please refer to [FAQ](faq.md)
+
+###### Query Data from a Table
+
+```
+SELECT * FROM test_table;
+```
+
+```
+SELECT city, avg(age), sum(age)
+FROM test_table
+GROUP BY city;
+```
+
 ## Installing and Configuring CarbonData to run locally with Spark Shell
 
-Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit [Apache Spark Documentation](http://spark.apache.org/docs/latest/) for more details on Spark shell.
+Apache Spark Shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively. Please visit [Apache Spark Documentation](http://spark.apache.org/docs/latest/) for more details on the Spark shell.
 
 #### Basics
 
+###### Option 1: Using CarbonSession (deprecated since 2.0)
 Start Spark shell by running the following command in the Spark directory:
 
 ```
 ./bin/spark-shell --jars <carbondata assembly jar path>
 ```
-**NOTE**: Path where packaged release of CarbonData was downloaded or assembly jar will be available after [building CarbonData](https://github.com/apache/carbondata/blob/master/build/README.md) and can be copied from `./assembly/target/scala-2.1x/carbondata_xxx.jar`
+**NOTE**: Path where packaged release of CarbonData was downloaded or assembly jar will be available after [building CarbonData](https://github.com/apache/carbondata/blob/master/build/README.md) and can be copied from `./assembly/target/scala-2.1x/apache-carbondata_xxx.jar`
 
 In this shell, SparkSession is readily available as `spark` and Spark context is readily available as `sc`.
 
@@ -99,6 +154,27 @@ val carbon = SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession(
    `SparkSession.builder().config(sc.getConf).getOrCreateCarbonSession("<carbon_store_path>", "<local metastore path>")`.
  - Data storage location can be specified by `<carbon_store_path>`, like `/carbon/data/store`, `hdfs://localhost:9000/carbon/data/store` or `s3a://carbon/data/store`.
 
+###### Option 2: Using SparkSession with CarbonExtensions
+
+Start Spark shell by running the following command in the Spark directory:
+
+```
+./bin/spark-shell --conf spark.sql.extensions=org.apache.spark.sql.CarbonExtensions --jars <carbondata assembly jar path>
+```
+**NOTE** 
+ - In this flow, we can use the built-in SparkSession `spark` instead of `carbon`.
+   We also can create a new SparkSession instead of the built-in SparkSession `spark` if need. 
+   It need to add "org.apache.spark.sql.CarbonExtensions" into spark configuration "spark.sql.extensions". 
+   ```
+   SparkSession newSpark = SparkSession
+     .builder()
+     .config(sc.getConf)
+     .enableHiveSupport
+     .config("spark.sql.extensions","org.apache.spark.sql.CarbonExtensions")
+     .getOrCreate()
+   ```
+ - Data storage location can be specified by "spark.sql.warehouse.dir".
+
 #### Executing Queries
 
 ###### Creating a Table
@@ -114,6 +190,17 @@ carbon.sql(
               | STORED AS carbondata
            """.stripMargin)
 ```
+**NOTE**: 
+The following table list all supported syntax:
+
+|create table |SparkSession with CarbonExtensions | CarbonSession|
+|---|---|---|
+| STORED AS carbondata|yes|yes|
+| USING carbondata|yes|yes|
+| STORED BY 'carbondata'|no|yes|
+| STORED BY 'org.apache.carbondata.format'|no|yes|
+
+We suggest to use CarbonExtensions instead of CarbonSession.
 
 ###### Loading Data to a Table
 
@@ -149,9 +236,9 @@ carbon.sql(
 
 ### Procedure
 
-1. [Build the CarbonData](https://github.com/apache/carbondata/blob/master/build/README.md) project and get the assembly jar from `./assembly/target/scala-2.1x/carbondata_xxx.jar`. 
+1. [Build the CarbonData](https://github.com/apache/carbondata/blob/master/build/README.md) project and get the assembly jar from `./assembly/target/scala-2.1x/apache-carbondata_xxx.jar`. 
 
-2. Copy `./assembly/target/scala-2.1x/carbondata_xxx.jar` to `$SPARK_HOME/carbonlib` folder.
+2. Copy `./assembly/target/scala-2.1x/apache-carbondata_xxx.jar` to `$SPARK_HOME/carbonlib` folder.
 
    **NOTE**: Create the carbonlib folder if it does not exist inside `$SPARK_HOME` path.
 
@@ -168,13 +255,7 @@ carbon.sql(
 | spark.driver.extraJavaOptions   | `-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties` | A string of extra JVM options to pass to the driver. For instance, GC settings or other logging. |
 | spark.executor.extraJavaOptions | `-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties` | A string of extra JVM options to pass to executors. For instance, GC settings or other logging. **NOTE**: You can enter multiple values separated by space. |
 
-7. Add the following properties in `$SPARK_HOME/conf/carbon.properties` file:
-
-| Property             | Required | Description                                                  | Example                              | Remark                        |
-| -------------------- | -------- | ------------------------------------------------------------ | ------------------------------------ | ----------------------------- |
-| carbon.storelocation | NO       | Location where data CarbonData will create the store and write the data in its own format. If not specified then it takes spark.sql.warehouse.dir path. | hdfs://HOSTNAME:PORT/Opt/CarbonStore | Propose to set HDFS directory |
-
-8. Verify the installation. For example:
+7. Verify the installation. For example:
 
 ```
 ./bin/spark-shell \
@@ -183,7 +264,9 @@ carbon.sql(
 --executor-memory 2G
 ```
 
-**NOTE**: Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.
+**NOTE**: 
+ - property "carbon.storelocation" is deprecated in carbondata 2.0 version. Only the users who used this property in previous versions can still use it in carbon 2.0 version.
+ - Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.
 
 ## Installing and Configuring CarbonData on Spark on YARN Cluster
 
@@ -199,7 +282,7 @@ carbon.sql(
 
    The following steps are only for Driver Nodes. (Driver nodes are the one which starts the spark context.)
 
-1. [Build the CarbonData](https://github.com/apache/carbondata/blob/master/build/README.md) project and get the assembly jar from `./assembly/target/scala-2.1x/carbondata_xxx.jar` and copy to `$SPARK_HOME/carbonlib` folder.
+1. [Build the CarbonData](https://github.com/apache/carbondata/blob/master/build/README.md) project and get the assembly jar from `./assembly/target/scala-2.1x/apache-carbondata_xxx.jar` and copy to `$SPARK_HOME/carbonlib` folder.
 
    **NOTE**: Create the carbonlib folder if it does not exists inside `$SPARK_HOME` path.
 
@@ -225,13 +308,7 @@ mv carbondata.tar.gz carbonlib/
 | spark.driver.extraClassPath     | Extra classpath entries to prepend to the classpath of the driver. **NOTE**: If SPARK_CLASSPATH is defined in spark-env.sh, then comment it and append the value in below parameter spark.driver.extraClassPath. | `$SPARK_HOME/carbonlib/*`                                    |
 | spark.driver.extraJavaOptions   | A string of extra JVM options to pass to the driver. For instance, GC settings or other logging. | `-Dcarbon.properties.filepath = $SPARK_HOME/conf/carbon.properties` |
 
-5. Add the following properties in `$SPARK_HOME/conf/carbon.properties`:
-
-| Property             | Required | Description                                                  | Example                              | Default Value                 |
-| -------------------- | -------- | ------------------------------------------------------------ | ------------------------------------ | ----------------------------- |
-| carbon.storelocation | NO       | Location where CarbonData will create the store and write the data in its own format. If not specified then it takes spark.sql.warehouse.dir path. | hdfs://HOSTNAME:PORT/Opt/CarbonStore | Propose to set HDFS directory |
-
-6. Verify the installation.
+5. Verify the installation.
 
 ```
 ./bin/spark-shell \
@@ -242,6 +319,7 @@ mv carbondata.tar.gz carbonlib/
 ```
 
 **NOTE**:
+ - property "carbon.storelocation" is deprecated in carbondata 2.0 version. Only the users who used this property in previous versions can still use it in carbon 2.0 version.
  - Make sure you have permissions for CarbonData JARs and files through which driver and executor will start.
  - If use Spark + Hive 1.1.X, it needs to add carbondata assembly jar and carbondata-hive jar into parameter 'spark.sql.hive.metastore.jars' in spark-default.conf file.
 
@@ -258,13 +336,27 @@ b. Run the following command to start the CarbonData thrift server.
 ```
 ./bin/spark-submit \
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer \
-$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR <carbon_store_path>
+$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR
 ```
 
 | Parameter           | Description                                                  | Example                                                    |
 | ------------------- | ------------------------------------------------------------ | ---------------------------------------------------------- |
-| CARBON_ASSEMBLY_JAR | CarbonData assembly jar name present in the `$SPARK_HOME/carbonlib/` folder. | carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar       |
-| carbon_store_path   | This is a parameter to the CarbonThriftServer class. This a HDFS path where CarbonData files will be kept. Strongly Recommended to put same as carbon.storelocation parameter of carbon.properties. If not specified then it takes spark.sql.warehouse.dir path. | `hdfs://<host_name>:port/user/hive/warehouse/carbon.store` |
+| CARBON_ASSEMBLY_JAR | CarbonData assembly jar name present in the `$SPARK_HOME/carbonlib/` folder. | apache-carbondata-xx.jar       |
+
+c. Run the following command to work with S3 storage.
+
+```
+./bin/spark-submit \
+--class org.apache.carbondata.spark.thriftserver.CarbonThriftServer \
+$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR <access_key> <secret_key> <endpoint>
+```
+
+| Parameter           | Description                                                  | Example                                                    |
+| ------------------- | ------------------------------------------------------------ | ---------------------------------------------------------- |
+| CARBON_ASSEMBLY_JAR | CarbonData assembly jar name present in the `$SPARK_HOME/carbonlib/` folder. | apache-carbondata-xx.jar       |
+| access_key   | Access key for S3 storage |
+| secret_key   | Secret key for S3 storage |
+| endpoint   | Endpoint for connecting to S3 storage |
 
 **NOTE**: From Spark 1.6, by default the Thrift server runs in multi-session mode. Which means each JDBC/ODBC connection owns a copy of their own SQL configuration and temporary function registry. Cached tables are still shared though. If you prefer to run the Thrift server in single-session mode and share all SQL configuration and temporary function registry, please set option `spark.sql.hive.thriftServer.singleSession` to `true`. You may either add this option to `spark-defaults.conf`, or pass it to `spark-submit.sh` via `--conf`:
 
@@ -272,7 +364,7 @@ $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR <carbon_store_path>
 ./bin/spark-submit \
 --conf spark.sql.hive.thriftServer.singleSession=true \
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer \
-$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR <carbon_store_path>
+$SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR
 ```
 
 **But** in single-session mode, if one user changes the database from one connection, the database of the other connections will be changed too.
@@ -284,8 +376,7 @@ $SPARK_HOME/carbonlib/$CARBON_ASSEMBLY_JAR <carbon_store_path>
 ```
 ./bin/spark-submit \
 --class org.apache.carbondata.spark.thriftserver.CarbonThriftServer \
-$SPARK_HOME/carbonlib/carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar \
-hdfs://<host_name>:port/user/hive/warehouse/carbon.store
+$SPARK_HOME/carbonlib/apache-carbondata-xxx.jar
 ```
 
 - Start with Fixed executors and resources.
@@ -297,8 +388,7 @@ hdfs://<host_name>:port/user/hive/warehouse/carbon.store
 --driver-memory 20G \
 --executor-memory 250G \
 --executor-cores 32 \
-$SPARK_HOME/carbonlib/carbondata_2.xx-x.x.x-SNAPSHOT-shade-hadoop2.7.2.jar \
-hdfs://<host_name>:port/user/hive/warehouse/carbon.store
+$SPARK_HOME/carbonlib/apache-carbondata-xxx.jar
 ```
 
 ### Connecting to CarbonData Thrift Server Using Beeline.
@@ -316,150 +406,18 @@ Example
 
 ## Installing and Configuring CarbonData on Presto
 
-**NOTE:** **CarbonData tables cannot be created nor loaded from Presto. User need to create CarbonData Table and load data into it
+**NOTE:** **CarbonData tables cannot be created nor loaded from Presto. User needs to create CarbonData Table and load data into it
 either with [Spark](#installing-and-configuring-carbondata-to-run-locally-with-spark-shell) or [SDK](./sdk-guide.md) or [C++ SDK](./csdk-guide.md).
-Once the table is created,it can be queried from Presto.**
+Once the table is created, it can be queried from Presto.**
 
+Please refer the presto guide linked below.
 
-### Installing Presto
+prestodb guide  - [prestodb](./prestodb-guide.md)
 
-1. Download the 0.210 version of Presto using:
-`wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.210/presto-server-0.210.tar.gz`
+prestosql guide - [prestosql](./prestosql-guide.md)
 
-2. Extract Presto tar file: `tar zxvf presto-server-0.210.tar.gz`.
-
-3. Download the Presto CLI for the coordinator and name it presto.
-
-```
-wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.210/presto-cli-0.210-executable.jar
-
-mv presto-cli-0.210-executable.jar presto
-
-chmod +x presto
-```
-
-### Create Configuration Files
-
-1. Create `etc` folder in presto-server-0.210 directory.
-2. Create `config.properties`, `jvm.config`, `log.properties`, and `node.properties` files.
-3. Install uuid to generate a node.id.
-
-  ```
-  sudo apt-get install uuid
-
-  uuid
-  ```
-
-
-##### Contents of your node.properties file
-
-```
-node.environment=production
-node.id=<generated uuid>
-node.data-dir=/home/ubuntu/data
-```
-
-##### Contents of your jvm.config file
-
-```
--server
--Xmx16G
--XX:+UseG1GC
--XX:G1HeapRegionSize=32M
--XX:+UseGCOverheadLimit
--XX:+ExplicitGCInvokesConcurrent
--XX:+HeapDumpOnOutOfMemoryError
--XX:OnOutOfMemoryError=kill -9 %p
-```
-
-##### Contents of your log.properties file
-
-```
-com.facebook.presto=INFO
-```
-
- The default minimum level is `INFO`. There are four levels: `DEBUG`, `INFO`, `WARN` and `ERROR`.
-
-### Coordinator Configurations
-
-##### Contents of your config.properties
-
-```
-coordinator=true
-node-scheduler.include-coordinator=false
-http-server.http.port=8086
-query.max-memory=5GB
-query.max-total-memory-per-node=5GB
-query.max-memory-per-node=3GB
-memory.heap-headroom-per-node=1GB
-discovery-server.enabled=true
-discovery.uri=http://localhost:8086
-task.max-worker-threads=4
-optimizer.dictionary-aggregation=true
-optimizer.optimize-hash-generation = false
-```
-The options `node-scheduler.include-coordinator=false` and `coordinator=true` indicate that the node is the coordinator and tells the coordinator not to do any of the computation work itself and to use the workers.
-
-**Note**: It is recommended to set `query.max-memory-per-node` to half of the JVM config max memory, though the workload is highly concurrent, lower value for `query.max-memory-per-node` is to be used.
-
-Also relation between below two configuration-properties should be like:
-If, `query.max-memory-per-node=30GB`
-Then, `query.max-memory=<30GB * number of nodes>`.
-
-### Worker Configurations
-
-##### Contents of your config.properties
-
-```
-coordinator=false
-http-server.http.port=8086
-query.max-memory=5GB
-query.max-memory-per-node=2GB
-discovery.uri=<coordinator_ip>:8086
-```
-
-**Note**: `jvm.config` and `node.properties` files are same for all the nodes (worker + coordinator). All the nodes should have different `node.id`.(generated by uuid command).
-
-### Catalog Configurations
-
-1. Create a folder named `catalog` in etc directory of presto on all the nodes of the cluster including the coordinator.
-
-##### Configuring Carbondata in Presto
-1. Create a file named `carbondata.properties` in the `catalog` folder and set the required properties on all the nodes.
-
-### Add Plugins
-
-1. Create a directory named `carbondata` in plugin directory of presto.
-2. Copy `carbondata` jars to `plugin/carbondata` directory on all nodes.
-
-### Start Presto Server on all nodes
-
-```
-./presto-server-0.210/bin/launcher start
-```
-To run it as a background process.
-
-```
-./presto-server-0.210/bin/launcher run
-```
-To run it in foreground.
-
-### Start Presto CLI
-
-```
-./presto
-```
-To connect to carbondata catalog use the following command:
-
-```
-./presto --server <coordinator_ip>:8086 --catalog carbondata --schema <schema_name>
-```
-Execute the following command to ensure the workers are connected.
-
-```
-select * from system.runtime.nodes;
-```
-Now you can use the Presto CLI on the coordinator to query data sources in the catalog using the Presto workers.
+Once installed the presto with carbonData as per the above guide,
+you can use the Presto CLI on the coordinator to query data sources in the catalog using the Presto workers.
 
 List the schemas(databases) available
 
@@ -485,6 +443,4 @@ Query from the available tables
 select * from carbon_table;
 ```
 
-**Note :** Create Tables and data loads should be done before executing queries as we can not create carbon table from this interface.
-
-```
+**Note:** Create Tables and data loads should be done before executing queries as we can not create carbon table from this interface.

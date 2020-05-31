@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -266,9 +275,9 @@
 </ul>
 <h2>
 <a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
-<p>Download and unzip spark-2.2.0-bin-hadoop2.7.tgz, and export $SPARK_HOME</p>
-<p>Package carbon jar, and copy assembly/target/scala-2.11/carbondata_2.11-1.3.0-SNAPSHOT-shade-hadoop2.7.2.jar to $SPARK_HOME/jars</p>
-<div class="highlight highlight-source-shell"><pre>mvn clean package -DskipTests -Pspark-2.2</pre></div>
+<p>Download and unzip spark-2.4.5-bin-hadoop2.7.tgz, and export $SPARK_HOME</p>
+<p>Package carbon jar, and copy assembly/target/scala-2.11/carbondata_2.11-2.0.0-SNAPSHOT-shade-hadoop2.7.2.jar to $SPARK_HOME/jars</p>
+<div class="highlight highlight-source-shell"><pre>mvn clean package -DskipTests -Pspark-2.4</pre></div>
 <p>Start a socket data server in a terminal</p>
 <div class="highlight highlight-source-shell"><pre>nc -lk 9099</pre></div>
 <p>type some CSV rows as following</p>
@@ -334,7 +343,7 @@
 
  <span class="pl-c"><span class="pl-c">//</span> start new thread to show data</span>
  <span class="pl-k">new</span> <span class="pl-en">Thread</span>() {
-   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">run</span>()<span class="pl-k">:</span> <span class="pl-k">Unit</span> <span class="pl-k">=</span> {
+   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">run</span>()<span class="pl-k">:</span> <span class="pl-en">Unit</span> <span class="pl-k">=</span> {
      <span class="pl-k">do</span> {
        spark.sql(<span class="pl-s"><span class="pl-pds">"</span>select * from carbon_table<span class="pl-pds">"</span></span>).show(<span class="pl-c1">false</span>)
        <span class="pl-en">Thread</span>.sleep(<span class="pl-c1">10000</span>)
@@ -467,8 +476,8 @@ TBLPROPERTIES(<span class="pl-s"><span class="pl-pds">'</span>streaming<span cla
 <p>Currently CarbonData support two parsers, as following:</p>
 <p><strong>1. org.apache.carbondata.streaming.parser.CSVStreamParserImp</strong>: This parser gets a line data(String type) from the first index of InternalRow and converts this String to Object[].</p>
 <p><strong>2. org.apache.carbondata.streaming.parser.RowStreamParserImp</strong>: This is the default stream parser, it will auto convert InternalRow to Object[] according to schema of this <code>DataSet</code>, for example:</p>
-<div class="highlight highlight-source-scala"><pre> <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">FileElement</span>(<span class="pl-v">school</span>: <span class="pl-en">Array</span>[<span class="pl-k">String</span>], <span class="pl-v">age</span>: <span class="pl-k">Int</span>)
- <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">StreamData</span>(<span class="pl-v">id</span>: <span class="pl-k">Int</span>, <span class="pl-v">name</span>: <span class="pl-k">String</span>, <span class="pl-v">city</span>: <span class="pl-k">String</span>, <span class="pl-v">salary</span>: <span class="pl-k">Float</span>, <span class="pl-v">file</span>: <span class="pl-en">FileElement</span>)
+<div class="highlight highlight-source-scala"><pre> <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">FileElement</span>(<span class="pl-v">school</span>: <span class="pl-en">Array</span>[<span class="pl-en">String</span>], <span class="pl-v">age</span>: <span class="pl-en">Int</span>)
+ <span class="pl-k">case</span> <span class="pl-k">class</span> <span class="pl-en">StreamData</span>(<span class="pl-v">id</span>: <span class="pl-en">Int</span>, <span class="pl-v">name</span>: <span class="pl-en">String</span>, <span class="pl-v">city</span>: <span class="pl-en">String</span>, <span class="pl-v">salary</span>: <span class="pl-en">Float</span>, <span class="pl-v">file</span>: <span class="pl-en">FileElement</span>)
  ...
 
  <span class="pl-k">var</span> <span class="pl-smi">qry</span><span class="pl-k">:</span> <span class="pl-en">StreamingQuery</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>
@@ -477,7 +486,7 @@ TBLPROPERTIES(<span class="pl-s"><span class="pl-pds">'</span>streaming<span cla
    .option(<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>)
    .option(<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>, <span class="pl-c1">9099</span>)
    .load()
-   .as[<span class="pl-k">String</span>]
+   .as[<span class="pl-en">String</span>]
    .map(_.split(<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>))
    .map { fields <span class="pl-k">=&gt;</span> {
      <span class="pl-k">val</span> <span class="pl-smi">tmp</span> <span class="pl-k">=</span> fields(<span class="pl-c1">4</span>).split(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\</span>$<span class="pl-pds">"</span></span>)
@@ -506,7 +515,7 @@ TBLPROPERTIES(<span class="pl-s"><span class="pl-pds">'</span>streaming<span cla
  
  <span class="pl-k">class</span> <span class="pl-en">XXXStreamParserImp</span> <span class="pl-k">extends</span> <span class="pl-e">CarbonStreamParser</span> {
  
-   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">initialize</span>(<span class="pl-v">configuration</span>: <span class="pl-en">Configuration</span>, <span class="pl-v">structType</span>: <span class="pl-en">StructType</span>)<span class="pl-k">:</span> <span class="pl-k">Unit</span> <span class="pl-k">=</span> {
+   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">initialize</span>(<span class="pl-v">configuration</span>: <span class="pl-en">Configuration</span>, <span class="pl-v">structType</span>: <span class="pl-en">StructType</span>)<span class="pl-k">:</span> <span class="pl-en">Unit</span> <span class="pl-k">=</span> {
      <span class="pl-c"><span class="pl-c">//</span> user can get the properties from "configuration"</span>
    }
    
@@ -514,7 +523,7 @@ TBLPROPERTIES(<span class="pl-s"><span class="pl-pds">'</span>streaming<span cla
      <span class="pl-c"><span class="pl-c">//</span> convert InternalRow to Object[](Array[Object] in Scala) </span>
    }
    
-   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">close</span>()<span class="pl-k">:</span> <span class="pl-k">Unit</span> <span class="pl-k">=</span> {
+   <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">close</span>()<span class="pl-k">:</span> <span class="pl-en">Unit</span> <span class="pl-k">=</span> {
    }
  }
    </pre></div>
@@ -529,8 +538,8 @@ TBLPROPERTIES(<span class="pl-s"><span class="pl-pds">'</span>streaming<span cla
 <ol>
 <li>reject set streaming property from true to false.</li>
 <li>reject UPDATE/DELETE command on the streaming table.</li>
-<li>reject create pre-aggregation DataMap on the streaming table.</li>
-<li>reject add the streaming property on the table with pre-aggregation DataMap.</li>
+<li>reject create MV on the streaming table.</li>
+<li>reject add the streaming property on the table with MV.</li>
 <li>if the table has dictionary columns, it will not support concurrent data loading.</li>
 <li>block delete "streaming" segment while the streaming ingestion is running.</li>
 <li>block drop the streaming table while the streaming ingestion is running.</li>

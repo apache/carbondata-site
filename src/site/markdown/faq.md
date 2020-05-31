@@ -25,10 +25,10 @@
 * [What is Carbon Lock Type?](#what-is-carbon-lock-type)
 * [How to resolve Abstract Method Error?](#how-to-resolve-abstract-method-error)
 * [How Carbon will behave when execute insert operation in abnormal scenarios?](#how-carbon-will-behave-when-execute-insert-operation-in-abnormal-scenarios)
-* [Why aggregate query is not fetching data from aggregate table?](#why-aggregate-query-is-not-fetching-data-from-aggregate-table)
 * [Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?](#why-all-executors-are-showing-success-in-spark-ui-even-after-dataload-command-failed-at-driver-side)
 * [Why different time zone result for select query output when query SDK writer output?](#why-different-time-zone-result-for-select-query-output-when-query-sdk-writer-output)
 * [How to check LRU cache memory footprint?](#how-to-check-lru-cache-memory-footprint)
+* [How to deal with the trailing task in query?](#How-to-deal-with-the-trailing-task-in-query)
 
 # TroubleShooting
 
@@ -42,8 +42,7 @@
 - [Failed to load data on the cluster](#failed-to-load-data-on-the-cluster)
 - [Failed to insert data on the cluster](#failed-to-insert-data-on-the-cluster)
 - [Failed to execute Concurrent Operations(Load,Insert,Update) on table by multiple workers](#failed-to-execute-concurrent-operations-on-table-by-multiple-workers)
-- [Failed to create a table with a single numeric column](#failed-to-create-a-table-with-a-single-numeric-column)
-- [Failed to create datamap and drop datamap is also not working](#failed-to-create-datamap-and-drop-datamap-is-also-not-working)
+- [Failed to create_index and drop index is also not working](#failed-to-create-index-and-drop-index-is-also-not-working)
 
 ## 
 
@@ -161,42 +160,6 @@ INSERT INTO TABLE carbon_table SELECT id, city FROM source_table;
 
 When the column type in carbon table is different from the column specified in select statement. The insert operation will still success, but you may get NULL in result, because NULL will be substitute value when conversion type failed.
 
-## Why aggregate query is not fetching data from aggregate table?
-Following are the aggregate queries that won't fetch data from aggregate table:
-
-- **Scenario 1** :
-When SubQuery predicate is present in the query.
-
-Example:
-
-```
-create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
-create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
-select ctry from pop1 where ctry in (select cntry from gdp21 group by cntry);
-```
-
-- **Scenario 2** : 
-When aggregate function along with 'in' filter.
-
-Example:
-
-```
-create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
-create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
-select cntry, sum(gdp) from gdp21 where cntry in (select ctry from pop1) group by cntry;
-```
-
-- **Scenario 3** : 
-When aggregate function having 'join' with equal filter.
-
-Example:
-
-```
-create table gdp21(cntry smallint, gdp double, y_year date) stored as carbondata;
-create datamap ag1 on table gdp21 using 'preaggregate' as select cntry, sum(gdp) from gdp21 group by cntry;
-select cntry,sum(gdp) from gdp21,pop1 where cntry=ctry group by cntry;
-```
-
 ## Why all executors are showing success in Spark UI even after Dataload command failed at Driver side?
 Spark executor shows task as failed after the maximum number of retry attempts, but loading the data having bad records and BAD_RECORDS_ACTION (carbon.bad.records.action) is set as "FAIL" will attempt only once but will send the signal to driver as failed instead of throwing the exception to retry, as there is no point to retry if bad record found and BAD_RECORDS_ACTION is set to fail. Hence the Spark executor displays this one attempt as successful but the command has actually failed to execute. Task attempts or executor logs can be checked to observe the failure reason.
 
@@ -227,6 +190,29 @@ This property will enable the DEBUG log for the CarbonLRUCache and UnsafeMemoryM
 **Note:** If  `Removed entry from InMemory LRU cache` are frequently observed in logs, you may have to increase the configured LRU size.
 
 To observe the LRU cache from heap dump, check the heap used by CarbonLRUCache class.
+
+## How to deal with the trailing task in query?
+
+When tuning query performance, user may found that a few tasks slow down the overall query progress.  To improve performance in such case, user can set spark.locality.wait and spark.speculation=true to enable speculation in spark, which will launch multiple task and get the result the one of the task which is finished first. Besides, user can also consider following configurations to further improve performance in this case.
+
+**Example:**
+
+```
+spark.locality.wait = 500
+spark.speculation = true
+spark.speculation.quantile = 0.75
+spark.speculation.multiplier = 5
+spark.blacklist.enabled = false
+```
+
+**Note:** 
+
+spark.locality control data locality the value of 500 is used to shorten the waiting time of spark. 
+
+spark.speculation is a group of configuration, that can monitor trailing tasks and start new tasks when conditions are met.
+
+spark.blacklist.enabled, avoid reduction of available executors due to blacklist mechanism.
+
 ## Getting tablestatus.lock issues When loading data
 
   **Symptom**
@@ -292,7 +278,7 @@ java.io.FileNotFoundException: hdfs:/localhost:9000/carbon/store/default/hdfstab
   2. Use the following command :
 
   ```
-  mvn -Pspark-2.1 -Dspark.version {yourSparkVersion} clean package
+  mvn -Pspark-2.4 -Dspark.version={yourSparkVersion} clean package
   ```
   
 Note : Refrain from using "mvn clean package" without specifying the profile.
@@ -401,7 +387,7 @@ Note : Refrain from using "mvn clean package" without specifying the profile.
 
    Follow the steps to ensure the following configuration files are consistent across all the nodes:
 
-   1. Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
+   1. Copy the core-site.xml, hive-site.xml, yarn-site, carbon.properties files from the master node to all the other nodes in the cluster.
       For example, you can use scp to copy this file to all the nodes.
 
       Note : Set the path to hdfs ddl in carbon.properties in the master node.
@@ -432,7 +418,7 @@ Note : Refrain from using "mvn clean package" without specifying the profile.
 
    Follow the steps to ensure the following configuration files are consistent across all the nodes:
 
-   1. Copy the core-site.xml, hive-site.xml, yarn-site,carbon.properties files from the master node to all the other nodes in the cluster.
+   1. Copy the core-site.xml, hive-site.xml, yarn-site, carbon.properties files from the master node to all the other nodes in the cluster.
       For example, you can use scp to copy this file to all the nodes.
 
       Note : Set the path to hdfs ddl in carbon.properties in the master node.
@@ -457,25 +443,7 @@ Note : Refrain from using "mvn clean package" without specifying the profile.
 
   Worker must wait for the query execution to complete and the table to release the lock for another query execution to succeed.
 
-## Failed to create a table with a single numeric column
-
-  **Symptom**
-
-  Execution fails with the following exception :
-
-  ```
-  Table creation fails.
-  ```
-
-  **Possible Cause**
-
-  Behaviour not supported.
-
-  **Procedure**
-
-  A single column that can be considered as dimension is mandatory for table creation.
-
-## Failed to create datamap and drop datamap is also not working
+## Failed to create index and drop index is also not working
   
   **Symptom**
 
@@ -491,5 +459,4 @@ Note : Refrain from using "mvn clean package" without specifying the profile.
 
   **Procedure**
 
-  Drop that particular datamap using Drop Table command using table name as
-  parentTableName_datamapName so as to clear the stale folders.
+  Drop that particular index using Drop Index command so as to clear the stale folders.

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="prestosql-guide" class="anchor" href="#prestosql-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prestosql guide</h1>
+<p>This tutorial provides a quick introduction to using current integration/presto module.</p>
+<p><a href="#presto-multinode-cluster-setup-for-carbondata">Presto Multinode Cluster Setup for Carbondata</a></p>
+<p><a href="#presto-single-node-setup-for-carbondata">Presto Single Node Setup for Carbondata</a></p>
+<h2>
+<a id="presto-multinode-cluster-setup-for-carbondata" class="anchor" href="#presto-multinode-cluster-setup-for-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Presto Multinode Cluster Setup for Carbondata</h2>
+<h3>
+<a id="installing-presto" class="anchor" href="#installing-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Presto</h3>
+<p>To know about which version of presto is supported by this version of carbon, visit
+<a href="https://github.com/apache/carbondata/blob/master/pom.xml" target=_blank>https://github.com/apache/carbondata/blob/master/pom.xml</a>
+and look for <code>&lt;presto.version&gt;</code> inside <code>prestosql</code> profile.</p>
+<p><em>Example:</em>
+<code>&lt;presto.version&gt;316&lt;/presto.version&gt;</code>
+This means current version of carbon supports presto 316 version.</p>
+<p><em>Note:</em>
+Currently carbondata supports only one version of presto, cannot handle multiple versions at same time. If user wish to use older version of presto, then need to use older version of carbon (other old branches, say branch-1.5 and check the supported presto version in it's pom.xml file in integration/presto/)</p>
+<ol>
+<li>Download that version of Presto (say 316) using below command:</li>
+</ol>
+<pre><code>wget https://repo1.maven.org/maven2/io/prestosql/presto-server/316/presto-server-316.tar.gz
+</code></pre>
+<ol start="2">
+<li>
+<p>Extract Presto tar file: <code>tar zxvf presto-server-316.tar.gz</code>.</p>
+</li>
+<li>
+<p>Download the Presto CLI of the same presto server version (say 316) for the coordinator and name it presto.</p>
+</li>
+</ol>
+<pre><code>  wget https://repo1.maven.org/maven2/io/prestosql/presto-cli/316/presto-cli-316-executable.jar
+
+  mv presto-cli-316-executable.jar presto
+
+  chmod +x presto
+</code></pre>
+<h3>
+<a id="create-configuration-files" class="anchor" href="#create-configuration-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Configuration Files</h3>
+<ol>
+<li>
+<p>Create <code>etc</code> folder in presto-server-316 directory.</p>
+</li>
+<li>
+<p>Create <code>config.properties</code>, <code>jvm.config</code>, <code>log.properties</code>, and <code>node.properties</code> files.</p>
+</li>
+<li>
+<p>Install uuid to generate a node.id.</p>
+<pre><code>sudo apt-get install uuid
+
+uuid
+</code></pre>
+</li>
+</ol>
+<h5>
+<a id="contents-of-your-nodeproperties-file" class="anchor" href="#contents-of-your-nodeproperties-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your node.properties file</h5>
+<pre><code>node.environment=production
+node.id=&lt;generated uuid&gt;
+node.data-dir=/home/ubuntu/data
+</code></pre>
+<h5>
+<a id="contents-of-your-jvmconfig-file" class="anchor" href="#contents-of-your-jvmconfig-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your jvm.config file</h5>
+<pre><code>-server
+-Xmx16G
+-XX:+UseG1GC
+-XX:G1HeapRegionSize=32M
+-XX:+UseGCOverheadLimit
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:OnOutOfMemoryError=kill -9 %p
+</code></pre>
+<h5>
+<a id="contents-of-your-logproperties-file" class="anchor" href="#contents-of-your-logproperties-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your log.properties file</h5>
+<pre><code>io.prestosql=INFO
+</code></pre>
+<p>The default minimum level is <code>INFO</code>. There are four levels: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code> and <code>ERROR</code>.</p>
+<h2>
+<a id="coordinator-configurations" class="anchor" href="#coordinator-configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coordinator Configurations</h2>
+<h5>
+<a id="contents-of-your-configproperties" class="anchor" href="#contents-of-your-configproperties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your config.properties</h5>
+<pre><code>coordinator=true
+node-scheduler.include-coordinator=false
+http-server.http.port=8086
+query.max-memory=5GB
+query.max-total-memory-per-node=5GB
+query.max-memory-per-node=3GB
+memory.heap-headroom-per-node=1GB
+discovery-server.enabled=true
+discovery.uri=&lt;coordinator_ip&gt;:8086
+</code></pre>
+<p>The options <code>node-scheduler.include-coordinator=false</code> and <code>coordinator=true</code> indicate that the node is the coordinator and tells the coordinator not to do any of the computation work itself and to use the workers.</p>
+<p><strong>Note</strong>: We recommend setting <code>query.max-memory-per-node</code> to half of the JVM config max memory, though if your workload is highly concurrent, you may want to use a lower value for <code>query.max-memory-per-node</code>.</p>
+<p>Also relation between below two configuration-properties should be like:
+If, <code>query.max-memory-per-node=30GB</code>
+Then, <code>query.max-memory=&lt;30GB * number of nodes&gt;</code>.</p>
+<h3>
+<a id="worker-configurations" class="anchor" href="#worker-configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Worker Configurations</h3>
+<h5>
+<a id="contents-of-your-configproperties-1" class="anchor" href="#contents-of-your-configproperties-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents of your config.properties</h5>
+<pre><code>coordinator=false
+http-server.http.port=8086
+query.max-memory=5GB
+query.max-memory-per-node=2GB
+discovery.uri=&lt;coordinator_ip&gt;:8086
+</code></pre>
+<p><strong>Note</strong>: <code>jvm.config</code> and <code>node.properties</code> files are same for all the nodes (worker + coordinator). All the nodes should have different <code>node.id</code>.</p>
+<h3>
+<a id="catalog-configurations" class="anchor" href="#catalog-configurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Catalog Configurations</h3>
+<ol>
+<li>Create a folder named <code>catalog</code> in etc directory of presto on all the nodes of the cluster including the coordinator.</li>
+</ol>
+<h5>
+<a id="configuring-carbondata-in-presto" class="anchor" href="#configuring-carbondata-in-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring Carbondata in Presto</h5>
+<ol>
+<li>Create a file named <code>carbondata.properties</code> in the <code>catalog</code> folder and set the required properties on all the nodes.</li>
+<li>As carbondata connector extends hive connector all the configurations(including S3) is same as hive connector.
+Just replace the connector name in hive configuration and copy same to carbondata.properties
+<code>connector.name = carbondata</code>
+</li>
+</ol>
+<h3>
+<a id="add-plugins" class="anchor" href="#add-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add Plugins</h3>
+<ol>
+<li>Create a directory named <code>carbondata</code> in plugin directory of presto.</li>
+<li>Copy all the jars from ../integration/presto/target/carbondata-presto-X.Y.Z-SNAPSHOT to <code>plugin/carbondata</code> directory on all nodes.</li>
+</ol>
+<h3>
+<a id="start-presto-server-on-all-nodes" class="anchor" href="#start-presto-server-on-all-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Presto Server on all nodes</h3>
+<pre><code>./presto-server-316/bin/launcher start
+</code></pre>
+<p>To run it as a background process.</p>
+<pre><code>./presto-server-316/bin/launcher run
+</code></pre>
+<p>To run it in foreground.</p>
+<h3>
+<a id="start-presto-cli" class="anchor" href="#start-presto-cli" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Presto CLI</h3>
+<p>To connect to carbondata catalog use the following command:</p>
+<pre><code>./presto --server &lt;coordinator_ip&gt;:8086 --catalog carbondata --schema &lt;schema_name&gt;
+</code></pre>
+<p>Execute the following command to ensure the workers are connected.</p>
+<pre><code>select * from system.runtime.nodes;
+</code></pre>
+<p>Now you can use the Presto CLI on the coordinator to query data sources in the catalog using the Presto workers.</p>
+<h2>
+<a id="presto-single-node-setup-for-carbondata" class="anchor" href="#presto-single-node-setup-for-carbondata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Presto Single Node Setup for Carbondata</h2>
+<h3>
+<a id="config-presto-server" class="anchor" href="#config-presto-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Config presto server</h3>
+<ul>
+<li>Download presto server (316 is suggested and supported) : <a href="https://repo1.maven.org/maven2/io/prestosql/presto-server/" target=_blank rel="nofollow">https://repo1.maven.org/maven2/io/prestosql/presto-server/</a>
+</li>
+<li>Finish presto configuration following <a href="https://prestosql.io/docs/current/installation/deployment.html" target=_blank rel="nofollow">https://prestosql.io/docs/current/installation/deployment.html</a>.
+A configuration example:</li>
+</ul>
+<p><strong>config.properties</strong></p>
+<pre><code>coordinator=true
+node-scheduler.include-coordinator=true
+http-server.http.port=8086
+query.max-memory=5GB
+query.max-total-memory-per-node=5GB
+query.max-memory-per-node=3GB
+memory.heap-headroom-per-node=1GB
+discovery-server.enabled=true
+discovery.uri=http://localhost:8086
+task.max-worker-threads=4
+optimizer.dictionary-aggregation=true
+optimizer.optimize-hash-generation = false  
+</code></pre>
+<p><strong>jvm.config</strong></p>
+<pre><code>-server
+-Xmx4G
+-XX:+UseG1GC
+-XX:G1HeapRegionSize=32M
+-XX:+UseGCOverheadLimit
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:OnOutOfMemoryError=kill -9 %p
+-XX:+TraceClassLoading
+-Dcarbon.properties.filepath=&lt;path&gt;/carbon.properties
+
+</code></pre>
+<p><code>carbon.properties.filepath</code> property is used to set the carbon.properties file path and it is recommended to set otherwise some features may not work. Please check the above example.</p>
+<p><strong>log.properties</strong></p>
+<pre><code>io.prestosql=DEBUG
+io.prestosql.server.PluginManager=DEBUG
+</code></pre>
+<p><strong>node.properties</strong></p>
+<pre><code>node.environment=carbondata
+node.id=ffffffff-ffff-ffff-ffff-ffffffffffff
+node.data-dir=/Users/apple/DEMO/presto_test/data
+</code></pre>
+<ul>
+<li>
+<p>Config carbondata-connector for presto</p>
+<p>Firstly: Compile carbondata, including carbondata-presto integration module</p>
+<pre><code>$ git clone https://github.com/apache/carbondata
+$ cd carbondata
+$ mvn -DskipTests -P{spark-version} -P{prestodb/prestosql} -Dspark.version={spark-version-number} -Dhadoop.version={hadoop-version-number} clean package
+</code></pre>
+<p>Replace the spark and hadoop version with the version used in your cluster.
+For example, use prestosql profile and<br>
+if you are using Spark 2.4.5, you would like to compile using:</p>
+<pre><code>mvn -DskipTests -Pspark-2.4 -Pprestosql -Dspark.version=2.4.5 -Dhadoop.version=2.7.2 clean package
+</code></pre>
+<p>Secondly: Create a folder named 'carbondata' under $PRESTO_HOME$/plugin and
+copy all jars from carbondata/integration/presto/target/carbondata-presto-x.x.x-SNAPSHOT
+to $PRESTO_HOME$/plugin/carbondata</p>
+<p><strong>NOTE:</strong>  Copying assemble jar alone will not work, need to copy all jars from integration/presto/target/carbondata-presto-x.x.x-SNAPSHOT</p>
+<p>Thirdly: Create a carbondata.properties file under $PRESTO_HOME$/etc/catalog/ containing the following contents:</p>
+<pre><code>connector.name=carbondata
+hive.metastore.uri=thrift://&lt;host&gt;:&lt;port&gt;
+</code></pre>
+<p>Carbondata becomes one of the supported format of presto hive plugin, so the configurations and setup is similar to hive connector of presto.
+Please refer <a href="https://prestosql.io/docs/current/connector/hive.html" target=_blank rel="nofollow">https://prestosql.io/docs/current/connector/hive.html</a> for more details.</p>
+<p><strong>Note</strong>: Since carbon can work only with hive metastore, it is necessary that spark also connects to same metastore db for creating tables and updating tables.
+All the operations done on spark will be reflected in presto immediately.
+It is mandatory to create Carbon tables from spark using CarbonData 1.5.2 or greater version since input/output formats are updated in carbon table properly from this version.</p>
+</li>
+</ul>
+<h4>
+<a id="connecting-to-carbondata-store-on-s3" class="anchor" href="#connecting-to-carbondata-store-on-s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting to carbondata store on s3</h4>
+<ul>
+<li>
+<p>In case you want to query carbonstore on S3 using S3A api put following additional properties inside $PRESTO_HOME$/etc/catalog/carbondata.properties</p>
+<pre><code> Required properties
+
+ hive.s3.aws-access-key={value}
+ hive.s3.aws-secret-key={value}
+ 
+ Optional properties
+ 
+ hive.s3.endpoint={value}
+</code></pre>
+<p>Please refer <a href="https://prestosql.io/docs/current/connector/hive.html" target=_blank rel="nofollow">https://prestosql.io/docs/current/connector/hive.html</a> for more details on S3 integration.</p>
+</li>
+</ul>
+<h3>
+<a id="generate-carbondata-file" class="anchor" href="#generate-carbondata-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generate CarbonData file</h3>
+<p>Please refer to quick start: <a href="https://github.com/apache/carbondata/blob/master/docs/quick-start-guide.html" target=_blank>https://github.com/apache/carbondata/blob/master/docs/quick-start-guide.html</a>.
+Load data statement in Spark can be used to create carbondata tables. And then you can easily find the created
+carbondata files.</p>
+<h3>
+<a id="query-carbondata-in-cli-of-presto" class="anchor" href="#query-carbondata-in-cli-of-presto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query carbondata in CLI of presto</h3>
+<ul>
+<li>
+<p>Download presto cli client of version 316 : <a href="https://repo1.maven.org/maven2/io/prestosql/presto-cli/" target=_blank rel="nofollow">https://repo1.maven.org/maven2/io/prestosql/presto-cli/</a></p>
+</li>
+<li>
+<p>Start CLI:</p>
+<pre><code>$ ./presto --server localhost:8086 --catalog carbondata --schema default
+</code></pre>
+<p>Replace the hostname, port and schema name with your own.</p>
+</li>
+</ul>
+<h3>
+<a id="supported-features-of-presto-carbon" class="anchor" href="#supported-features-of-presto-carbon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supported features of presto carbon</h3>
+<p>Presto carbon only supports reading the carbon table which is written by spark carbon or carbon SDK.
+During reading, it supports the non-distributed index like block index and bloom index.
+It doesn't support Materialized View as it needs query plan to be changed and presto does not allow it.
+Also, Presto carbon supports streaming segment read from streaming table created by spark.</p>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__quickstart').addClass('selected'); });
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

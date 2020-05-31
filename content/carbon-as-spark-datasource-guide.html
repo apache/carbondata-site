@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -304,7 +313,7 @@
 <p><strong>NOTE:</strong>  please set long_string_columns for varchar column.</p>
 <h2>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
-<pre><code> CREATE TABLE CARBON_TABLE (NAME STRING) USING CARBON OPTIONS('table_block_size'='256')
+<pre><code> CREATE TABLE CARBON_TABLE (NAME STRING) USING CARBON OPTIONS('table_blocksize'='256')
 </code></pre>
 <h1>
 <a id="using-dataframe" class="anchor" href="#using-dataframe" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using DataFrame</h1>

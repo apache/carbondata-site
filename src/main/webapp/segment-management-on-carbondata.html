@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -243,15 +252,91 @@ concept which helps to maintain consistency of data and easy transaction managem
 <h3>
 <a id="show-segment" class="anchor" href="#show-segment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW SEGMENT</h3>
 <p>This command is used to list the segments of CarbonData table.</p>
-<pre><code>SHOW [HISTORY] SEGMENTS FOR TABLE [db_name.]table_name LIMIT number_of_segments
+<pre><code>SHOW [HISTORY] SEGMENTS
+[FOR TABLE | ON] [db_name.]table_name
+[AS (select query from table_name_segments)]
 </code></pre>
+<p>By default, SHOW SEGMENT command will return following fields:</p>
+<ul>
+<li>
+<p>Segment ID</p>
+</li>
+<li>
+<p>Segment Status</p>
+</li>
+<li>
+<p>Load Start Time</p>
+</li>
+<li>
+<p>Load Time Taken</p>
+</li>
+<li>
+<p>Partition</p>
+</li>
+<li>
+<p>Data Size</p>
+</li>
+<li>
+<p>Index Size</p>
 <p>Example:
 Show visible segments</p>
-<pre><code>SHOW SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
+<pre><code>SHOW SEGMENTS ON CarbonDatabase.CarbonTable
 </code></pre>
 <p>Show all segments, include invisible segments</p>
-<pre><code>SHOW HISTORY SEGMENTS FOR TABLE CarbonDatabase.CarbonTable LIMIT 4
+<pre><code>SHOW HISTORY SEGMENTS ON CarbonDatabase.CarbonTable
 </code></pre>
+<p>When more detail of the segment is required, user can issue SHOW SEGMENT by query.</p>
+<p>The query should be against table name with '_segments' appended and select from following fields:</p>
+</li>
+<li>
+<p>id: String, the id of the segment</p>
+</li>
+<li>
+<p>status: String, status of the segment</p>
+</li>
+<li>
+<p>loadStartTime: String, loading start time</p>
+</li>
+<li>
+<p>loadEndTime: String, loading end time</p>
+</li>
+<li>
+<p>timeTakenMs: Long, time spent in loading of the segment in milliseconds</p>
+</li>
+<li>
+<p>partitions: String array, partition key and values</p>
+</li>
+<li>
+<p>dataSize: Long, data size in bytes</p>
+</li>
+<li>
+<p>indexSize: Long, index size in bytes</p>
+</li>
+<li>
+<p>mergedToId: String, the target segment that this segment has been compacted</p>
+</li>
+<li>
+<p>format: String, data format of the segment</p>
+</li>
+<li>
+<p>path: String, in case of external segment this will be the path of the segment, otherwise it is null</p>
+</li>
+<li>
+<p>segmentFileName: String, name of the segment file</p>
+<p>Example:</p>
+<pre><code>SHOW SEGMENTS ON CarbonTable AS 
+SELECT * FROM CarbonTable_segments
+
+SHOW SEGMENTS ON CarbonTable AS
+SELECT id, dataSize FROM CarbonTable_segments 
+WHERE status='Success' 
+ORDER BY dataSize
+
+SHOW SEGMENTS ON CarbonTable AS
+SELECT avg(timeTakenMs) FROM CarbonTable_segments  
+</code></pre>
+</li>
+</ul>
 <h3>
 <a id="delete-segment-by-id" class="anchor" href="#delete-segment-by-id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE SEGMENT BY ID</h3>
 <p>This command is used to delete segment by using the segment ID. Each segment has a unique segment ID associated with it.
@@ -286,30 +371,30 @@ The segment created before the particular date will be removed from the specific
 </code></pre>
 <p><strong>NOTE:</strong>
 carbon.input.segments: Specifies the segment IDs to be queried. This property allows you to query specified segments of the specified table. The CarbonScan will read data from specified segments only.</p>
-<p>If user wants to query with segments reading in multi threading mode, then CarbonSession. threadSet can be used instead of SET query.</p>
+<p>If user wants to query with segments reading in multi-threading mode, then CarbonSession.threadSet can be used instead of SET query.</p>
 <pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","&lt;list of segment IDs&gt;");
 </code></pre>
 <p>Reset the segment IDs</p>
 <pre><code>SET carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt; = *;
 </code></pre>
-<p>If user wants to query with segments reading in multi threading mode, then CarbonSession. threadSet can be used instead of SET query.</p>
+<p>If user wants to query with segments reading in multi-threading mode, then CarbonSession.threadSet can be used instead of SET query.</p>
 <pre><code>CarbonSession.threadSet ("carbon.input.segments.&lt;database_name&gt;.&lt;table_name&gt;","*");
 </code></pre>
 <p><strong>Examples:</strong></p>
 <ul>
-<li>Example to show the list of segment IDs,segment status, and other required details and then specify the list of segments to be read.</li>
+<li>Example to show the list of segment IDs, segment status, and other required details and then specify the list of segments to be read.</li>
 </ul>
 <pre><code>SHOW SEGMENTS FOR carbontable1;
 
 SET carbon.input.segments.db.carbontable1 = 1,3,9;
 </code></pre>
 <ul>
-<li>Example to query with segments reading in multi threading mode:</li>
+<li>Example to query with segments reading in multi-threading mode:</li>
 </ul>
 <pre><code>CarbonSession.threadSet ("carbon.input.segments.db.carbontable_Multi_Thread","1,3");
 </code></pre>
 <ul>
-<li>Example for threadset in multithread environment (following shows how it is used in Scala code):</li>
+<li>Example for threadset in multi-thread environment (following shows how it is used in Scala code):</li>
 </ul>
 <pre><code>def main(args: Array[String]) {
 Future {          

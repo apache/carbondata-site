@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="carbondata-secondary-index" class="anchor" href="#carbondata-secondary-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData Secondary Index</h1>
+<ul>
+<li><a href="#quick-example">Quick Example</a></li>
+<li><a href="#Secondary-Index-Introduction">Secondary Index Table</a></li>
+<li><a href="#loading-data">Loading Data</a></li>
+<li><a href="#querying-data">Querying Data</a></li>
+<li><a href="#compacting-SI-table">Compaction</a></li>
+<li><a href="#DDLs-on-Secondary-Index">DDLs on Secondary Index</a></li>
+</ul>
+<h2>
+<a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick example</h2>
+<p>Start spark-sql in terminal and run the following queries,</p>
+<pre><code>CREATE TABLE maintable(a int, b string, c string) stored as carbondata;
+insert into maintable select 1, 'ab', 'cd';
+CREATE index index1 on table maintable(c) AS 'carbondata';
+SELECT a from maintable where c = 'cd';
+// NOTE: run explain query and check if query hits the SI table from the plan
+EXPLAIN SELECT a from maintable where c = 'cd';
+</code></pre>
+<h2>
+<a id="secondary-index-introduction" class="anchor" href="#secondary-index-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Secondary Index Introduction</h2>
+<p>Secondary index tables are created as indexes and managed as child tables internally by
+Carbondata. Users can create a secondary index based on the column position in the main table(Recommended
+for right columns) and the queries should have filter on that column to improve the filter query
+performance.</p>
+<p>Data refresh to the secondary index is always automatic. Once SI table is created, Carbondata's
+CarbonOptimizer with the help of <code>CarbonSITransformationRule</code>, transforms the query plan to hit the
+SI table based on the filter condition or set of filter conditions present in the query.
+So the first level of pruning will be done on the SI table as it stores blocklets and main table/parent
+table pruning will be based on the SI output, which helps in giving the faster query results with
+better pruning.</p>
+<p>Secondary Index table can be created with the below syntax</p>
+<pre><code>CREATE INDEX [IF NOT EXISTS] index_name
+ON TABLE maintable(index_column)
+AS
+'carbondata'
+[PROPERTIES('table_blocksize'='1')]
+</code></pre>
+<blockquote>
+<p>NOTE: Keywords given inside <code>[]</code> is optional.</p>
+</blockquote>
+<p>For instance, main table called <strong>sales</strong> which is defined as</p>
+<pre><code>CREATE TABLE sales (
+  order_time timestamp,
+  user_id string,
+  sex string,
+  country string,
+  quantity int,
+  price bigint)
+STORED AS carbondata
+</code></pre>
+<p>User can create SI table using the Create Index DDL</p>
+<pre><code>CREATE INDEX index_sales
+ON TABLE sales(user_id)
+AS
+'carbondata'
+PROPERTIES('table_blocksize'='1')
+</code></pre>
+<h4>
+<a id="how-si-tables-are-selected" class="anchor" href="#how-si-tables-are-selected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How SI tables are selected</h4>
+<p>When a user executes a filter query, during the query planning phase, CarbonData with the help of
+<code>CarbonSITransformationRule</code>, checks if there are any index tables present on the filter column of
+query. If there are any, then the filter query plan will be transformed in such a way that execution will
+first hit the corresponding SI table and give input to the main table for further pruning.</p>
+<p>For the main table <strong>sales</strong> and SI table  <strong>index_sales</strong> created above, following queries</p>
+<pre><code>SELECT country, sex from sales where user_id = 'xxx'
+
+SELECT country, sex from sales where user_id = 'xxx' and country = 'INDIA'
+</code></pre>
+<p>will be transformed by CarbonData's <code>CarbonSITransformationRule</code> to query against SI table
+<strong>index_sales</strong> first which will be input to the main table <strong>sales</strong></p>
+<h2>
+<a id="loading-data" class="anchor" href="#loading-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data</h2>
+<h3>
+<a id="loading-data-to-secondary-index-tables" class="anchor" href="#loading-data-to-secondary-index-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Loading data to Secondary Index table(s).</h3>
+<p><em>case1:</em> When the SI table is created and the main table does not have any data. In this case every
+consecutive load to the main table, will load data to the SI table once the main table data load is finished.</p>
+<p><em>case2:</em> When the SI table is created and the main table already contains some data, then SI creation will
+also load data to the SI table with the same number of segments as the main table. Thereafter, consecutive load to
+the main table will also load data to the SI table.</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>In case of data load failure to the SI table, then we make the SI table disable by setting a hive serde
+property. The subsequent main table load will load the old failed loads along with current load and
+makes the SI table enable and available for query.</li>
+</ul>
+<h2>
+<a id="querying-data" class="anchor" href="#querying-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Querying data</h2>
+<p>Direct query can be made on SI tables to check the data present in position reference columns.
+When a filter query is fired, and if the filter column is a secondary index column, then plan is
+transformed accordingly to hit the SI table first to make better pruning with the main table and in turn
+helps for faster query results.</p>
+<p>Users can verify whether a query can leverage the SI table or not by executing the <code>EXPLAIN</code>
+command, which will show the transformed logical plan, and thus users can check whether the SI table
+is selected.</p>
+<h2>
+<a id="compacting-si-table" class="anchor" href="#compacting-si-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting SI table</h2>
+<h3>
+<a id="compacting-si-table-table-through-main-table-compaction" class="anchor" href="#compacting-si-table-table-through-main-table-compaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting SI table table through Main Table compaction</h3>
+<p>Running Compaction command (<code>ALTER TABLE COMPACT</code>)[COMPACTION TYPE-&gt; MINOR/MAJOR] on main table will
+automatically delete all the old segments of SI and creates a new segment with same name as main
+table compacted segment and loads data to it.</p>
+<h3>
+<a id="compacting-si-tables-individual-segments-through-refresh-index-command" class="anchor" href="#compacting-si-tables-individual-segments-through-refresh-index-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compacting SI table's individual segment(s) through REFRESH INDEX command</h3>
+<p>Where there are so many small files present in the SI table, then we can use the REFRESH INDEX command to
+compact the files within an SI segment to avoid many small files.</p>
+<pre><code>REFRESH INDEX sales_index ON TABLE sales
+</code></pre>
+<p>This command merges data files in each segment of the SI table.</p>
+<pre><code>REFRESH INDEX sales_index ON TABLE sales WHERE SEGMENT.ID IN(1)
+</code></pre>
+<p>This command merges data files within a specified segment of the SI table.</p>
+<h2>
+<a id="how-to-skip-secondary-index" class="anchor" href="#how-to-skip-secondary-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to skip Secondary Index?</h2>
+<p>When Secondary indexes are created on a table(s), data fetching happens from secondary
+indexes created on the main tables for better performance. But sometimes, data fetching from the
+secondary index might degrade query performance in cases where the data is sparse and most of the
+blocklets need to be scanned. So to avoid such secondary indexes, we use NI as a function on filters
+within WHERE clause.</p>
+<pre><code>SELECT country, sex from sales where NI(user_id = 'xxx')
+</code></pre>
+<p>The above query ignores column <code>user_id</code> from the secondary index and fetches data from the main table.</p>
+<h2>
+<a id="ddls-on-secondary-index" class="anchor" href="#ddls-on-secondary-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DDLs on Secondary Index</h2>
+<h3>
+<a id="show-index-command" class="anchor" href="#show-index-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show index Command</h3>
+<p>This command is used to get information about all the secondary indexes on a table.</p>
+<p>Syntax</p>
+<pre><code>SHOW INDEXES ON [TABLE] [db_name.]table_name
+</code></pre>
+<h3>
+<a id="drop-index-command" class="anchor" href="#drop-index-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop index Command</h3>
+<p>This command is used to drop an existing secondary index on a table</p>
+<p>Syntax</p>
+<pre><code>DROP INDEX [IF EXISTS] index_name ON [TABLE] [db_name.]table_name
+</code></pre>
+<h3>
+<a id="register-index-command" class="anchor" href="#register-index-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Register index Command</h3>
+<p>This command registers the secondary index with the main table in case of compatibility scenarios
+where we have old stores.</p>
+<p>Syntax</p>
+<pre><code>REGISTER INDEX TABLE index_name ON [TABLE] [db_name.]table_name
+</code></pre>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__datamap').addClass('selected');
+  
+  if (!$('.b-nav__datamap').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display datamap subnav items
+    $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>

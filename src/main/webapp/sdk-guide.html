@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -239,8 +248,8 @@
 </ol>
 <h1>
 <a id="sdk-writer" class="anchor" href="#sdk-writer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SDK Writer</h1>
-<p>In the carbon jars package, there exist a carbondata-store-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.
-If user want to use SDK, except carbondata-store-sdk-x.x.x-SNAPSHOT.jar,
+<p>In the carbon jars package, there exist a carbondata-sdk-x.x.x-SNAPSHOT.jar, including SDK writer and reader.
+If user want to use SDK, except carbondata-sdk-x.x.x-SNAPSHOT.jar,
 it needs carbondata-core-x.x.x-SNAPSHOT.jar, carbondata-common-x.x.x-SNAPSHOT.jar,
 carbondata-format-x.x.x-SNAPSHOT.jar, carbondata-hadoop-x.x.x-SNAPSHOT.jar and carbondata-processing-x.x.x-SNAPSHOT.jar.
 What's more, user also can use carbondata-sdk.jar directly.</p>
@@ -258,7 +267,7 @@ These SDK writer output contains just carbondata and carbonindex files. No metad
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.util.CarbonProperties</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriter</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriterBuilder</span>;
-<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Field</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.metadata.datatype.Field</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Schema</span>;
 
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestSdk</span> {
@@ -302,7 +311,7 @@ These SDK writer output contains just carbondata and carbonindex files. No metad
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.metadata.datatype.DataTypes</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.AvroCarbonWriter</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriter</span>;
-<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Field</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.metadata.datatype.Field</span>;
 
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.avro.generic.GenericData</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.commons.lang.CharEncoding</span>;
@@ -358,7 +367,7 @@ These SDK writer output contains just carbondata and carbonindex files. No metad
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.util.CarbonProperties</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriter</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.CarbonWriterBuilder</span>;
-<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Field</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.core.metadata.datatype.Field</span>;
 <span class="pl-k">import</span> <span class="pl-smi">org.apache.carbondata.sdk.file.Schema</span>;
  
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestSdkJson</span> {
@@ -554,7 +563,7 @@ or directly use DataTypes.VARCHAR if it is carbon schema.</p>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
 <pre><code>SELECT * FROM carbonfile.`$Path`
 </code></pre>
-<p>Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/scala/org/apache/carbondata/examples/DirectSQLExample.scala" target=_blank>DirectSQLExample</a> in the CarbonData repo.</p>
+<p>Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark/src/main/scala/org/apache/carbondata/examples/DirectSQLExample.scala" target=_blank>DirectSQLExample</a> in the CarbonData repo.</p>
 <h2>
 <a id="api-list" class="anchor" href="#api-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
 <h3>
@@ -611,8 +620,7 @@ public CarbonWriterBuilder localDictionaryThreshold(int localDictionaryThreshold
  * Sets the list of columns that needs to be in sorted order
  *
  * @param sortColumns is a string array of columns that needs to be sorted.
- *                    If it is null or by default all dimensions are selected for sorting
- *                    If it is empty array, no columns are sorted
+ *                    If it is null or empty array, no columns are selected for sorting.
  * @return updated CarbonWriterBuilder
  */
 public CarbonWriterBuilder sortBy(String[] sortColumns);
@@ -667,7 +675,7 @@ public CarbonWriterBuilder withLoadOptions(Map&lt;String, String&gt; options);
  * c. local_dictionary_threshold -- positive value, default is 10000
  * d. local_dictionary_enable -- true / false. Default is false
  * e. sort_columns -- comma separated column. "c1,c2". Default no columns are sorted.
- * j. sort_scope -- "local_sort", "no_sort", "batch_sort". default value is "no_sort"
+ * j. sort_scope -- "local_sort", "no_sort". default value is "no_sort"
  * k. long_string_columns -- comma separated string columns which are more than 32k length. 
  *                           default value is null.
  * l. inverted_index -- comma separated string columns for which inverted index needs to be
@@ -791,7 +799,7 @@ public abstract void write(Object object) throws IOException;
 public abstract void close() throws IOException;
 </code></pre>
 <h3>
-<a id="class-orgapachecarbondatasdkfilefield" class="anchor" href="#class-orgapachecarbondatasdkfilefield" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.Field</h3>
+<a id="class-orgapachecarbondatacoremetadatadatatypefield" class="anchor" href="#class-orgapachecarbondatacoremetadatadatatypefield" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.core.metadata.datatype.Field</h3>
 <pre><code>/**
  * Field Constructor
  *
@@ -867,9 +875,9 @@ while (reader.hasNext()) {
 // 3. Close this reader
 reader.close();
 </code></pre>
-<p>Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/CarbonReaderExample.java" target=_blank>CarbonReaderExample</a> in the CarbonData repo.</p>
+<p>Find example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark/src/main/java/org/apache/carbondata/examples/sdk/CarbonReaderExample.java" target=_blank>CarbonReaderExample</a> in the CarbonData repo.</p>
 <p>SDK reader also supports reading carbondata files and filling it to apache arrow vectors.
-Find example code at <a href="https://github.com/apache/carbondata/blob/master/store/sdk/src/test/java/org/apache/carbondata/sdk/file/ArrowCarbonReaderTest.java" target=_blank>ArrowCarbonReaderTest</a> in the CarbonData repo.</p>
+Find example code at <a href="https://github.com/apache/carbondata/blob/master/sdk/sdk/src/test/java/org/apache/carbondata/sdk/file/ArrowCarbonReaderTest.java" target=_blank>ArrowCarbonReaderTest</a> in the CarbonData repo.</p>
 <h2>
 <a id="api-list-1" class="anchor" href="#api-list-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API List</h2>
 <h3>
@@ -1183,7 +1191,7 @@ public static Schema parseJson(String json);
 public Schema asOriginOrder();
 </code></pre>
 <h3>
-<a id="class-orgapachecarbondatasdkfilefield-1" class="anchor" href="#class-orgapachecarbondatasdkfilefield-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.sdk.file.Field</h3>
+<a id="class-orgapachecarbondatacoremetadatadatatypefield-1" class="anchor" href="#class-orgapachecarbondatacoremetadatadatatypefield-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class org.apache.carbondata.core.metadata.datatype.Field</h3>
 <pre><code>/**
  * Field Constructor
  *
@@ -1199,7 +1207,7 @@ public Field(String name, String type);
  */
 public Field(ColumnSchema columnSchema);
 </code></pre>
-<p>Find S3 example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark2/src/main/java/org/apache/carbondata/examples/sdk/SDKS3Example.java" target=_blank>SDKS3Example</a> in the CarbonData repo.</p>
+<p>Find S3 example code at <a href="https://github.com/apache/carbondata/blob/master/examples/spark/src/main/java/org/apache/carbondata/examples/sdk/SDKS3Example.java" target=_blank>SDKS3Example</a> in the CarbonData repo.</p>
 <h1>
 <a id="common-api-list-for-carbonreader-and-carbonwriter" class="anchor" href="#common-api-list-for-carbonreader-and-carbonwriter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common API List for CarbonReader and CarbonWriter</h1>
 <h3>

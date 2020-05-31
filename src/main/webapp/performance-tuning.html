@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
                                    target="_blank">Apache CarbonData 1.6.1</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
                                    target="_blank">Apache CarbonData 1.5.0</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.4.1/"
-                                   target="_blank">Apache CarbonData 1.4.1</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,12 +184,11 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./datamap-management.html">DataMaps</a>
-                                <a class="nav__item nav__sub__item" href="./bloomfilter-datamap-guide.html">Bloom Filter</a>
-                                <a class="nav__item nav__sub__item" href="./lucene-datamap-guide.html">Lucene</a>
-                                <a class="nav__item nav__sub__item" href="./preaggregate-datamap-guide.html">Pre-Aggregate</a>
-                                <a class="nav__item nav__sub__item" href="./timeseries-datamap-guide.html">Time Series</a>
-                                <a class="nav__item nav__sub__item" href="./mv-datamap-guide.html">MV</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -199,8 +198,13 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
                             <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
                             <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
                             <a class="b-nav__security nav__item" href="./security.html">Security</a>
@@ -215,8 +219,13 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
                         <div class="b-nav__faq navindicator__item"></div>
                         <div class="b-nav__contri navindicator__item"></div>
                         <div class="b-nav__security navindicator__item"></div>
@@ -317,7 +326,7 @@ The create table command can be modified as suggested below :</p>
   BEGIN_TIME bigint,
   HOST String,
   Dime_1 String,
-  counter_1, Decimal
+  counter_1 Decimal,
   ...
   
   )STORED AS carbondata
@@ -338,7 +347,7 @@ The create table command can be modified as suggested below :</p>
     BEGIN_TIME bigint,
     HOST String,
     Dime_1 String,
-    counter_1, Decimal
+    counter_1 Decimal,
     ...
     
     )STORED AS carbondata
@@ -382,7 +391,10 @@ Incremental values are efficient in using min/max index. The create table comman
 </code></pre>
 <p><strong>NOTE:</strong></p>
 <ul>
-<li>BloomFilter can be created to enhance performance for queries with precise equal/in conditions. You can find more information about it in BloomFilter datamap <a href="./bloomfilter-datamap-guide.html">document</a>.</li>
+<li>BloomFilter can be created to enhance performance for queries with precise equal/in conditions. You can find more information about it in BloomFilter index <a href="./index/bloomfilter-index-guide.html">document</a>.</li>
+<li>Lucene index can be created on string columns which has content of more length to enhance the query performance. You can find more information about it in Lucene index <a href="./index/lucene-index-guide.html">document</a>.</li>
+<li>Secondary index can be created based on the column position in main table(Recommended for right columns) and the queries should have filter on that column to improve the filter query performance. You can find more information about it in secondary index <a href="./index/secondary-index-guide.html">document</a>.</li>
+<li>Materialized view can be created to improve query performance provided the storage requirements and loading time is acceptable. You can find more information about it in materialized view <a href="./mv-guide.html">document</a>.</li>
 </ul>
 <h2>
 <a id="configuration-for-optimizing-data-loading-performance-for-massive-data" class="anchor" href="#configuration-for-optimizing-data-loading-performance-for-massive-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration for Optimizing Data Loading performance for Massive Data</h2>
@@ -406,12 +418,12 @@ You can configure CarbonData by tuning following properties in carbon.properties
 </tr>
 <tr>
 <td>carbon.sort.size</td>
-<td>Default: 100000. The value should be &gt;= 100.</td>
+<td>Default: 100000. The value should be &gt;= 1000.</td>
 <td>Threshold to write local file in sort step when loading data</td>
 </tr>
 <tr>
 <td>carbon.sort.file.write.buffer.size</td>
-<td>Default:  16384.</td>
+<td>Default:  16384. The value should be &gt;= 10240 and &lt;= 10485760.</td>
 <td>CarbonData sorts and writes data to intermediate files to limit the memory usage. This configuration determines the buffer size to be used for reading and writing such files.</td>
 </tr>
 <tr>
@@ -426,7 +438,7 @@ You can configure CarbonData by tuning following properties in carbon.properties
 </tr>
 </tbody>
 </table>
-<p>For example, if there are 10 million records, and i have only 16 cores, 64GB memory, will be loaded to CarbonData table.
+<p>For example, if there are 10 million records, and I have only 16 cores, 64 GB memory will be loaded to CarbonData table.
 Using the default configuration  always fail in sort step. Modify carbon.properties as suggested below:</p>
 <pre><code>carbon.merge.sort.reader.thread=1
 carbon.sort.size=5000
@@ -510,13 +522,6 @@ scenarios. After the completion of POC, some of the configurations impacting the
 <td>Data loading</td>
 <td>Whether to enable size based block allocation strategy for data loading.</td>
 <td>When loading, carbondata will use file size based block allocation strategy for task distribution. It will make sure that all the executors process the same size of data -- It's useful if the size of your input data files varies widely, say 1MB to 1GB.</td>
-</tr>
-<tr>
-<td>carbon.load.min.size.enabled</td>
-<td>spark/carbonlib/carbon.properties</td>
-<td>Data loading</td>
-<td>Whether to enable node minumun input data size allocation strategy for data loading.</td>
-<td>When loading, carbondata will use node minumun input data size allocation strategy for task distribution. It will make sure the nodes load the minimum amount of data -- It's useful if the size of your input data files very small, say 1MB to 256MB,Avoid generating a large number of small files.</td>
 </tr>
 </tbody>
 </table>

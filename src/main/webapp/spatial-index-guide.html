@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
+                                   target="_blank">Apache CarbonData 1.5.0</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./datamap-developer-guide.html">Datamaps</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__mv navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h1>
+<a id="what-is-spatial-index" class="anchor" href="#what-is-spatial-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is spatial index</h1>
+<p><a href="https://gistbok.ucgis.org/topic-keywords/indexing" target=_blank rel="nofollow">A spatial index</a> is a data structure that allows for accessing a spatial object efficiently. It is a common technique used by spatial databases.  Without indexing, any search for a feature would require a "sequential scan" of every record in the database, resulting in much longer processing time. In a spatial index construction process, the minimum bounding rectangle serves as an object approximation. Various types of spatial indices across commercial and open-source databases yield measurable performance differences. Spatial indexing techniques are playing a central role in time-critical applications and the manipulation of spatial big data.</p>
+<h1>
+<a id="how-does-carbondata-implement-spatial-index" class="anchor" href="#how-does-carbondata-implement-spatial-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How does CarbonData implement spatial index</h1>
+<p>There are many open source implementations for spatial indexing and to process spatial queries. CarbonData implements a different way of spatial index. Its core idea is to use the raster data. Raster is made up of matrix of cells organized into rows and columns(called a grid). Each cell represents a coordinate. The index for the coordinate is generated using longitude and latitude, like the <a href="https://en.wikipedia.org/wiki/Z-order_curve" rel="nofollow">Z order curve</a>.</p>
+<p>CarbonData rasterize the user data during data load into segments. A set of latitude and longitude represents a grid range. The size of the grid can be configured. Hence, the coordinates loaded are often discrete and not continuous.</p>
+<p>Below figure shows the relationship between the grid and the points residing in it. Black point represents the center point of the grid, and the red points are the coordinates at the arbitrary positions inside the grid. The red points can be replaced by the center point of the grid to indicate that the points lies within the grid. During data load, CarbonData generates an index for the coordinate according to row and column of the grid(in the raster) where that coordinate lies. These indices are the same as Z order. For the detailed conversion algorithm, please refer to the design documents of spatial index.</p>
+<p><a href="../docs/images/spatial-index-1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/spatial-index-1.png?raw=true" alt="File Directory Structure" style="max-width:100%;"></a></p>
+<p>Carbon supports Polygon User Defined Function(UDF) as filter condition in the query to return all the data points lying within it. Polygon UDF takes multiple points(i.e., pair of longitude and latitude) separated by a comma. Longitude and latitude in the pair are separated by a space. The first and last points in the polygon must be same to form a closed loop. CarbonData builds a quad tree using this polygon and spatial region information passed while creating a table. The nodes in the quad tree are composed of indices generated by the row and column information projected in the polygon area. When the grid center point lies within the polygon area, the grid is considered as selected. In the following figure, user selects a quadrilateral shaped polygon. The grid at the center of the region is chosen to build a quad tree. Once tree is build, all the leafs are scanned to get the list of range of indices(with each range consisting of minimum index and maximum index in the range). All the indices starting from minimum to maximum in each range forms the result.
+The main reasons for faster query response are as follows :</p>
+<ul>
+<li>Data is sorted based on the index values.</li>
+<li>Polygon UDF filter is pushed down from engine to the carbon layer such that CarbonData scans only matched blocklets avoiding full scan.</li>
+</ul>
+<p><a href="../docs/images/spatial-index-2.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/spatial-index-2.png?raw=true" alt="File Directory Structure" style="max-width:100%;"></a></p>
+<h1>
+<a id="installation-and-deployment" class="anchor" href="#installation-and-deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation and Deployment</h1>
+<p>Geo is a separate module in the Project. It can be included or excluded from the project build based on the requirement.</p>
+<h2>
+<a id="basic-command" class="anchor" href="#basic-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Command</h2>
+<h3>
+<a id="create-table" class="anchor" href="#create-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Table</h3>
+<p>Create table with spatial index table properties</p>
+<pre><code>create table source_index(id BIGINT, latitude long, longitude long) stored by 'carbondata' TBLPROPERTIES (
+'SPATIAL_INDEX'='mygeohash',
+'SPATIAL_INDEX.mygeohash.type'='geohash',
+'SPATIAL_INDEX.mygeohash.sourcecolumns'='longitude, latitude',
+'SPATIAL_INDEX.mygeohash.originLatitude'='19.832277',
+'SPATIAL_INDEX.mygeohash.gridSize'='50',
+'SPATIAL_INDEX.mygeohash.minLongitude'='1.811865',
+'SPATIAL_INDEX.mygeohash.maxLongitude'='2.782233',
+'SPATIAL_INDEX.mygeohash.minLatitude'='19.832277',
+'SPATIAL_INDEX.mygeohash.maxLatitude'='20.225281',
+'SPATIAL_INDEX.mygeohash.conversionRatio'='1000000');
+</code></pre>
+<p>Note: <code>mygeohash</code> in the above example represent the index name.</p>
+<h4>
+<a id="list-of-spatial-index-table-properties" class="anchor" href="#list-of-spatial-index-table-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List of spatial index table properties</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPATIAL_INDEX</td>
+<td>Used to configure Spatial Index name. This name is appended to <code>SPATIAL_INDEX</code> in the subsequent sub-property configurations. <code>xxx</code> in the below sub-properties refer to index name.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.type</td>
+<td>Type of algorithm for processing spatial data. Currently, supports only 'geohash'.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.sourcecolumns</td>
+<td>longitude and latitude column names as in the table. These columns are used to generate index value for each row.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.gridSize</td>
+<td>Grid size of raster data in metres. Currently, spatial index supports raster data.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.minLongitude</td>
+<td>Minimum longitude of the gridded rectangular area.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.maxLongitude</td>
+<td>Maximum longitude of the gridded rectangular area.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.minLatitude</td>
+<td>Minimum latitude of the gridded rectangular area.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.maxLatitude</td>
+<td>Maximum latitude of the gridded rectangular area.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.conversionRatio</td>
+<td>Conversion factor. It allows user to translate longitude and latitude to long. For example, if the data to load is longitude = 13.123456, latitude = 101.12356. User can configure conversion ratio sub-property value as 1000000, and change data to load as longitude = 13123456 and latitude = 10112356. Operations on long is much faster compared to floating-point numbers.</td>
+</tr>
+<tr>
+<td>SPATIAL_INDEX.xxx.class</td>
+<td>Optional user custom implementation class. Value is fully qualified class name.</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="select-query" class="anchor" href="#select-query" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Select Query</h3>
+<p>Query with Polygon UDF predicate</p>
+<pre><code>select * from source_index where IN_POLYGON('16.321011 4.123503,16.137676 5.947911,16.560993 5.935276,16.321011 4.123503')
+</code></pre>
+<h2>
+<a id="reference" class="anchor" href="#reference" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reference</h2>
+<pre><code>[1] https://issues.apache.org/jira/browse/CARBONDATA-3548
+[2] https://gistbok.ucgis.org/topic-keywords/indexing
+[3] https://en.wikipedia.org/wiki/Z-order_curve
+</code></pre>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__quickstart').addClass('selected'); });
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
