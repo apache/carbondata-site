@@ -1,4 +1,4 @@
 <script>
 // Show selected style on nav item
-$(function() { $('.b-nav__quickstart').addClass('selected'); });
+$(function() { $('.b-nav__scd').addClass('selected'); });
 </script>

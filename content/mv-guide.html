@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.1/"
+                                   target="_blank">Apache CarbonData 2.0.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
                                    target="_blank">Apache CarbonData 2.0.0</a></li>
                             <li>
@@ -72,9 +75,6 @@
                             <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
                                    target="_blank">Apache CarbonData 1.5.1</a></li>
-                            <li>
-                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.0/"
-                                   target="_blank">Apache CarbonData 1.5.0</a></li>
                             <li>
                                 <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
                                    target="_blank">Release Archive</a></li>
@@ -184,11 +184,12 @@
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
-                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">DataMaps</a>
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">Index Managament</a>
                                 <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
                                 <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
                                 <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Pre-Aggregate</a>
                                 <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                                <a class="nav__item nav__sub__item" href="../mv-guide.html">Spatial Index</a>
                             </div>
 
                             <div class="nav__item nav__item__with__subs">
@@ -198,7 +199,6 @@
                             </div>
 
                             <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
-                            <a class="b-nav__mv nav__item" href="./mv-guide.html">MV</a>
                             <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
                             <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
                             <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
@@ -219,7 +219,6 @@
                         <div class="b-nav__datamap navindicator__item"></div>
                         <div class="b-nav__api navindicator__item"></div>
                         <div class="b-nav__perf navindicator__item"></div>
-                        <div class="b-nav__mv navindicator__item"></div>
                         <div class="b-nav__s3 navindicator__item"></div>
                         <div class="b-nav__indexserver navindicator__item"></div>
                         <div class="b-nav__prestodb navindicator__item"></div>
@@ -554,11 +553,11 @@ to check if a query is rolled up from an existing materialized view.</p>
 <script>
 $(function() {
   // Show selected style on nav item
-  $('.b-nav__docs').addClass('selected');
+  $('.b-nav__datamap').addClass('selected');
 
-  // Display docs subnav items
-  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
-    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  if (!$('.b-nav__datamap').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display datamap subnav items
+    $('.b-nav__datamap').parent().toggleClass('nav__item__with__subs--expanded');
   }
 });
 </script></div>
