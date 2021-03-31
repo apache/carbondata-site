@@ -52,6 +52,9 @@
                            aria-expanded="false"> Download <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.1.1/"
+                                   target="_blank">Apache CarbonData 2.1.1</a></li>
+                            <li>
                                 <a href="https://dist.apache.org/repos/dist/release/carbondata/2.1.0/"
                                    target="_blank">Apache CarbonData 2.1.0</a></li>
                             <li>
@@ -599,13 +602,8 @@
 <tr>
 <td>carbon.horizontal.compaction.enable</td>
 <td>true</td>
-<td>CarbonData supports DELETE/UPDATE functionality by creating delta data files for existing carbondata files. These delta files would grow as more number of DELETE/UPDATE operations are performed. Compaction of these delta files are termed as horizontal compaction. This configuration is used to turn ON/OFF horizontal compaction. After every DELETE and UPDATE statement, horizontal compaction may occur in case the delta (DELETE/ UPDATE) files becomes more than specified threshold. <strong>NOTE:</strong> Having many delta files will reduce the query performance as scan has to happen on all these files before the final state of data can be decided. Hence it is advisable to keep horizontal compaction enabled and configure reasonable values to <em><strong>carbon.horizontal.UPDATE.compaction.threshold</strong></em> and <em><strong>carbon.horizontal.DELETE.compaction.threshold</strong></em>
+<td>CarbonData supports DELETE/UPDATE functionality by creating delta data files for existing carbondata files. These delta files would grow as more number of DELETE/UPDATE operations are performed. Compaction of these delta files are termed as horizontal compaction. This configuration is used to turn ON/OFF horizontal compaction. After every DELETE and UPDATE statement, horizontal compaction may occur in case the delta (DELETE/ UPDATE) files becomes more than specified threshold. <strong>NOTE:</strong> Having many delta files will reduce the query performance as scan has to happen on all these files before the final state of data can be decided. Hence it is advisable to keep horizontal compaction enabled and configure reasonable values to <em><strong>carbon.horizontal.DELETE.compaction.threshold</strong></em>
 </td>
-</tr>
-<tr>
-<td>carbon.horizontal.update.compaction.threshold</td>
-<td>1</td>
-<td>This configuration specifies the threshold limit on number of UPDATE delta files within a segment. In case the number of delta files goes beyond the threshold, the UPDATE delta files within the segment becomes eligible for horizontal compaction and are compacted into single UPDATE delta file. Values range between 1 to 10000.</td>
 </tr>
 <tr>
 <td>carbon.horizontal.delete.compaction.threshold</td>
