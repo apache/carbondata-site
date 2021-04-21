@@ -246,3 +246,92 @@
                             <div class="row">
                                 <div class="col-sm-12  col-md-12">
                                     <div>
+<h2>
+<a id="clean-files" class="anchor" href="#clean-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CLEAN FILES</h2>
+<p>Clean files command is used to remove the Compacted, Marked For Delete ,In Progress which are stale and partial(Segments which are missing from the table status file but their data is present)
+segments from the store.</p>
+<p>Clean Files Command</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME
+</code></pre>
+<p>The above clean files command will clean Marked For Delete and Compacted segments depending on <code>max.query.execution.time</code> (default 1 hr) and <code> carbon.trash.retention.days</code> (default 7 days). It will also delete the timestamp subdirectories from the trash folder after expiration day(default 7 day, can be configured)</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Clean files operation not supported on non transactional tables.</li>
+<li>Clean files operation not supported on tables with concurrent insert overwrite operation.</li>
+</ul>
+<h3>
+<a id="trash-folder" class="anchor" href="#trash-folder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TRASH FOLDER</h3>
+<p>Carbondata supports a Trash Folder which is used as a redundant folder where all stale(segments whose entry is not in tablestatus file) carbondata segments are moved to during clean files operation.
+This trash folder is mantained inside the table path and is a hidden folder(.Trash). The segments that are moved to the trash folder are mantained under a timestamp
+subfolder(each clean files operation is represented by a timestamp). This helps the user to list down segments in the trash folder by timestamp.  By default all the timestamp sub-directory have an expiration
+time of 7 days(since the timestamp it was created) and it can be configured by the user using the following carbon property. The supported values are between 0 and 365(both included.)</p>
+<pre><code>carbon.trash.retention.days = "Number of days"
+</code></pre>
+<p>Once the timestamp subdirectory is expired as per the configured expiration day value, that subdirectory is deleted from the trash folder in the subsequent clean files command.</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>In trash folder, the retention time is "carbon.trash.retention.days"</li>
+<li>Outside trash folder(Segment Directories in table path), the retention time is Max("carbon.trash.retention.days", "max.query.execution.time")</li>
+</ul>
+<h3>
+<a id="force-option" class="anchor" href="#force-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FORCE OPTION</h3>
+<p>The force option with clean files command deletes all the files and folders from the trash folder and delete the Marked for Delete and Compacted segments immediately. Since Clean Files operation with force option will delete data that can never be recovered, the force option by default is disabled. Clean files with force option is only allowed when the carbon property <code>carbon.clean.file.force.allowed</code> is set to true. The default value of this property is false.</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('force'='true')
+</code></pre>
+<h3>
+<a id="stale_inprogress-option" class="anchor" href="#stale_inprogress-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STALE_INPROGRESS OPTION</h3>
+<p>The stale_inprogress option deletes the stale Insert In Progress segments after the expiration of the property    <code>carbon.trash.retention.days</code></p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true')
+</code></pre>
+<p>The stale_inprogress option with force option will delete Marked for delete, Compacted and stale Insert In progress immediately. It will also empty  the trash folder immediately.</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true', 'force'='true')
+</code></pre>
+<h3>
+<a id="dry-run-option" class="anchor" href="#dry-run-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DRY RUN OPTION</h3>
+<p>Clean files also support a dry run option which will let the user know how much space will we freed
+during the actual clean files operation. The dry run operation will not delete any data but will just give
+size based statistics on the data which will be cleaned in clean files. Dry run operation will return two columns where the first will
+show how much space will be freed by that clean files operation and the second column will show the
+remaining stale data(data which can be deleted but has not yet expired as per the <code>max.query.execution.time</code> and <code> carbon.trash.retention.days</code> values
+).  By default the value of <code>dryrun</code> option is <code>false</code>.</p>
+<p>Dry Run Operation is supported with four types of commands:</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('dryrun'='true')
+</code></pre>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('force'='true', 'dryrun'='true')
+</code></pre>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true','dryrun'='true')
+</code></pre>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true', 'force'='true','dryrun'='true')
+</code></pre>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Since the dry run operation will calculate size and will access File level API's, the operation can
+be a costly and a time consuming operation in case of tables with large number of segments.</li>
+<li>When dry run is true, the statistics option will not matter.</li>
+</ul>
+<h3>
+<a id="show-statistics" class="anchor" href="#show-statistics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW STATISTICS</h3>
+<p>Clean files operation tells how much size is freed during that operation to the user.  By default, the clean files operation
+will show the size freed statistics. Since calculating and showing statistics can be a costly operation and reduce the performance of the
+clean files operation, the user can disable that option by using <code>statistics = false</code> in the clean files options.</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('statistics'='false')
+</code></pre>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__cleanfiles').addClass('selected'); });
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
