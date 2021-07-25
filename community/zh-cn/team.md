@@ -6,54 +6,47 @@ CarbonData 团队由成员和贡献者组成。 成员可以直接访问 CarbonD
 
 ### PMC
 
-| Public Name       | Apache ID    | GitHub ID      |
+| Name       | Apache ID    | Organization      |
 | ----------------- | ------------ | -------------- |
-| Furkan Kamaci     | kamaci       | kamaci         |
-| Gang Li           | lgcareer     | lgcareer       |
-| Guo Jiwei         | technoboy    | Technoboy-     |
-| Guo William       | guowei       | William-GuoWei |
-| Jun Gao           | gaojun2048   | gaojun2048     |
-| Kevin Ratnasekera | djkevincr    | djkevincr      |
-| Leon Bao          | leonbao      | lenboo,leonbao |
-| Liang Chen        | chenliang613 | chenliang613   |
-| Lidong Dai        | lidongdai    | dailidong      |
-| Qiao Zhanwei      | journey      | qiaozhanwei    |
-| Shao Feng Shi     | shaofengshi  | shaofengshi    |
-| Sheng Wu          | wusheng      | wu-sheng       |
-| Wu Baoqi          | baoqiwu      | Baoqi          |
-| Xiaochun Liu      | liuxiaochun  | khadgarmage    |
-| ZijJian Gong      | millionfor   | millionfor     |
+|Liang Chen|chenliang613|Huawei|
+|Jean-Baptiste Onofré|jbonofre|Talend|
+|Henry Saputra|hsaputra|eBay|
+|Uma Maheswara Rao G|umamahesh|Intel|
+|Jenny MA|jihongma|Alibaba|
+|Jacky Li|jackylk|Huawei|
+|Vimal Das Kammath|vimaldas|Google|
+|Jarray Qiu|jarray888|CHINA CITIC BANK|
+|Ravindra Pesala|ravipesala|Development Bank of Singapore|
+|Qiang Cai|qiangcai|Huawei|
+|Kumar Vishal|kumarvishal09|Development Bank of Singapore|
+|Chuanyin Xu|xuchuanyin|Individual contributor|
+|Zhichao Zhang|zhangzc|Quantil|
+|Kunal Kapoor|kunalkapoor|Huawei|
+|Ajantha Bhat U|ajantha|Huawei|
+|Akash R Nilugal|akashrn5|Huawei|
 
 
 ### Committer
 
-| Public Name   | Apache ID    | GitHub ID        |
-| ------------- | ------------ | ---------------- |
-| BoYi Zhang    | zhangboyi    | BoYiZhang        |
-| Caibiao Xiang | break60      | break60          |
-| Calvin Kirs   | kirs         | CalvinKirs       |
-| Chong Zhuang  | kerwin       | zhuangchong      |
-| Cong Huang    | chongchongzi | chongchongzi     |
-| Hemin Wen     | wenhemin     | wen-hemin        |
-| Kai Zhu       | zhukai       | nauu             |
-| Kejia Chen    | jave         | Jave-Chen        |
-| Li Huang      | eights       | Eights-Li        |
-| Lin Li        | lilin        | samz406          |
-| Shang Lou     | clay4megtr   | clay4444         |
-| Shaojie Wu    | gabrywu      | gabrywu          |
-| Shiwen Cheng  | chengshiwen  | chengshiwen      |
-| Wenhe Li      | liwenhe      | liwenhe1993      |
-| Xingchun Chen | chenxingchun | xingchun-chen    |
-| Yichao Yang   | yangyichao   | yangyichao-mango |
-| Zongyao Zhang | lfyee        | lfyee            |
+| Name       | Apache ID    | Organization      |
+| ----------------- | ------------ | -------------- |
+|Venkata Ramana G|gvramana|Flipkart|
+|Xiaoqiao He|hexiaoqiao|MEITUAN|
+|Manish Gupta|manishgupta88|Informatica|
+|Lu Cao|lionelcao|SAIC MOTOR|
+|Raghunandan S|raghunandan|Huawei|
+|Bo xu|xubo245|Huawei|
+|Manhua Jiang|manhua|Individual contributor|
+|Zhi Liu|liuzhi|Tencent|
+|Tao Li|litao|Huawei|
+|Indhumathi Muthu Murugesh|indhumuthumurugesh|Huawei|
 
 ## 贡献者
 
 CarbonData 有数百个贡献者，您可以在我们存储库的贡献列表中找到他们。
 
-- [CarbonData main repository](https://github.com/apache/CarbonData/graphs/contributors)
-- [CarbonData website](https://github.com/apache/CarbonData-website/graphs/contributors)
-- [CarbonData maven plugin](https://github.com/apache/CarbonData-maven-plugin/graphs/contributors)
+- [CarbonData main repository](https://github.com/apache/carbondata/graphs/contributors)
+- [CarbonData website](https://github.com/apache/carbondata-site/graphs/contributors)
 
 ## 成为一个提交者
 

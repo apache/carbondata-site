@@ -152,7 +152,7 @@ export default {
           name: 'Twitter',
           img1: '/img/twittergray.png',
           img2: '/img/twitterblue.png',
-          link: 'https://twitter.com/dolphinschedule',
+          link: 'https://twitter.com/carbondata',
         },
         {
           name: 'Stack Overflow',

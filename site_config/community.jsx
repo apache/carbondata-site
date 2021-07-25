@@ -78,7 +78,7 @@ export default {
           },
           {
             title: 'License须知',
-            link: '/zh-cn/community/development/DS-License.html_xx',
+            link: '/zh-cn/community/development/XXX.html_xx',
           },
           {
             title: '文档须知',
