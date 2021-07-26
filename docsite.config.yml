@@ -1,0 +1,23 @@
+pages:
+ # key is the dirname of pages in src/pages
+ home:
+  # 首页配置
+
+  zh-cn:
+   title: 'Apache CarbonData | 首页'
+   keywords: 'CarbonData，调度系统'
+   description: '页面内容简介'
+  # home config
+ community:
+  # 社区页配置
+  zh-cn:
+   title: 'Apache CarbonData | 社区'
+   keywords: 'CarbonData, CarbonData新闻，CarbonData动态'
+   description: '页面内容简介'
+  # community page config
+ blog:
+  # 博客列表页配置
+  zh-cn:
+   title: 'Apache CarbonData | 博客'
+   keywords: '博客，CarbonData博客'
+   description: '页面内容简介'
