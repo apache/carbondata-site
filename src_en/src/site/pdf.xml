@@ -1,0 +1,42 @@
+<document xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/DOCUMENT/1.0.1 http://maven.apache.org/xsd/document-1.0.1.xsd"
+          outputName="CarbonData Documentation">
+
+  <meta>
+    <title>CarbonData Documentation</title>
+    <author>The Apache CarbonData Community</author>
+  </meta>
+
+  <toc name="Table of Contents">
+        <item name="Quick Start" ref='quick-start-guide.md'/>
+        <item name="CarbonData File Structure" ref='file-structure-of-carbondata.md'/>
+        <item name="Data Types" ref='supported-data-types-in-carbondata.md'/>
+        <item name="Data Management on CarbonData" ref='data-management-on-carbondata.md'/>
+        <item name="Installation" ref='installation-guide.md'/>
+        <item name="Configuring CarbonData" ref='configuration-parameters.md'/>
+        <item name="Streaming Guide" ref='streaming-guide.md'/>
+        <item name="SDK Guide" ref='sdk-guide.md'/>
+        <item name="S3 Guide (Alpha Feature)" ref='s3-guide.md'/>
+        <item name="DataMap Developer Guide" ref='datamap-developer-guide.md'/>
+        <item name="CarbonData DataMap Management" ref='datamap-management.md'/>
+        <item name="CarbonData BloomFilter DataMap (Alpha Feature)" ref='bloomfilter-datamap-guide.md'/>
+        <item name="CarbonData Lucene DataMap (Alpha Feature)" ref='lucene-datamap-guide.md'/>
+        <item name="CarbonData Pre-aggregate DataMap" ref='preaggregate-datamap-guide.md'/>
+        <item name="CarbonData Timeseries DataMap" ref='timeseries-datamap-guide.md'/>
+        <item name="FAQs" ref='faq.md'/>
+        <item name="Troubleshooting" ref='troubleshooting.md'/>
+        <item name="Useful Tips" ref='useful-tips-on-carbondata.md'/>
+
+  </toc>
+
+  <cover>
+    <companyLogo>../../src/site/projectLogo/ApacheLogo.png</companyLogo>
+    <projectLogo>../../src/site/projectLogo/CarbonDataLogo.png</projectLogo>
+    <coverTitle>Apache CarbonData</coverTitle>
+    <coverSubTitle>Ver 1.4.1 </coverSubTitle>
+    <coverType>Documentation</coverType>
+    <projectName>Apache CarbonData</projectName>
+    <companyName>The Apache Software Foundation</companyName>
+  </cover>
+</document>
