@@ -1,0 +1,11 @@
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__api').addClass('selected');
+
+  if (!$('.b-nav__api').parent().hasClass('nav__item__with__subs--expanded')) {
+    // Display api subnav items
+    $('.b-nav__api').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script>

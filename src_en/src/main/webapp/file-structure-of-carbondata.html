@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.1.1/"
+                                   target="_blank">Apache CarbonData 2.1.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.1.0/"
+                                   target="_blank">Apache CarbonData 2.1.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.1/"
+                                   target="_blank">Apache CarbonData 2.0.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/zh-cn/" id="switch_zh">中文</a>
+                    </li>
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./index-developer-guide.html">Indexes</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">Index Managament</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Secondary Index</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                                <a class="nav__item nav__sub__item" href="../mv-guide.html">MV</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__cleanfiles nav__item" href="./clean-files.html">CLEAN FILES</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__cleanfiles navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+
+<h1>
+<a id="carbondata-table-structure" class="anchor" href="#carbondata-table-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData table structure</h1>
+<p>CarbonData files contain groups of data called blocklets, along with all required information like schema, offsets and indices etc, in a file header and footer, co-located in HDFS.</p>
+<p>The file footer can be read once to build the indices in memory, which can be utilized for optimizing the scans and processing for all subsequent queries.</p>
+<p>This document describes the what a CarbonData table looks like in a HDFS directory, files written and content of each file.</p>
+<ul>
+<li>
+<p><a href="#file-directory-structure">File Directory Structure</a></p>
+</li>
+<li>
+<p><a href="#file-content-details">File Content details</a></p>
+<ul>
+<li><a href="#schema-file-format">Schema file format</a></li>
+<li>
+<a href="#carbondata-file-format">CarbonData file format</a>
+<ul>
+<li>
+<a href="#blocklet-format">Blocklet format</a>
+<ul>
+<li><a href="#v1">V1</a></li>
+<li><a href="#v2">V2</a></li>
+<li><a href="#v3">V3</a></li>
+</ul>
+</li>
+<li><a href="#footer-format">Footer format</a></li>
+</ul>
+</li>
+<li><a href="#carbonindex-file-format">carbonindex file format</a></li>
+<li><a href="#dictionary-file-format">Dictionary file format</a></li>
+<li><a href="#tablestatus-file-format">tablestatus file format</a></li>
+</ul>
+</li>
+</ul>
+<h2>
+<a id="file-directory-structure" class="anchor" href="#file-directory-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>File Directory Structure</h2>
+<p>The CarbonData files are stored in the location specified by the <em><strong>spark.sql.warehouse.dir</strong></em> configuration (configured in carbon.properties; if not configured, the default is ../carbon.store).</p>
+<p>The file directory structure is as below:</p>
+<p><a href="../docs/images/2-1_1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-1_1.png?raw=true" alt="File Directory Structure" style="max-width:100%;"></a></p>
+<ol>
+<li>ModifiedTime.htmlt records the timestamp of the metadata with the modification time attribute of the file. When the drop table and create table are used, the modification time of the file is updated. This is common to all databases and hence is kept in parallel to databases</li>
+<li>The <strong>default</strong> is the database name and contains the user tables.default is used when user doesn't specify any database name;else user configured database name will be the directory name. user_table is the table name.</li>
+<li>Metadata directory stores schema files, tablestatus and dictionary files (including .dict, .dictmeta and .sortindex). There are three types of metadata data information files.</li>
+<li>data and index files are stored under directory named <strong>Fact</strong>. The Fact directory has a Part0 partition directory, where 0 is the partition number.</li>
+<li>There is a Segment_0 directory under the Part0 directory, where 0 is the segment number.</li>
+<li>There are two types of files, carbondata and carbonindex, in the Segment_0 directory.</li>
+</ol>
+<h2>
+<a id="file-content-details" class="anchor" href="#file-content-details" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>File Content details</h2>
+<p>When the table is created, the user_table directory is generated, and a schema file is generated in the Metadata directory for recording the table structure.</p>
+<p>When loading data in batches, each batch loading generates a new segment directory. The scheduling tries to control a task processing data loading task on each node. Each task will generate multiple carbondata files and one carbonindex file.</p>
+<p>The following sections use the Java object generated by the thrift file describing the carbondata file format to explain the contents of each file one by one (you can also directly read the format defined in the <a href="https://github.com/apache/carbondata/tree/master/format/src/main/thrift" target=_blank>thrift file</a>)</p>
+<h3>
+<a id="schema-file-format" class="anchor" href="#schema-file-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Schema file format</h3>
+<p>The contents of the schema file is as shown below</p>
+<p><a href="../docs/images/2-2_1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-2_1.png?raw=true" alt="Schema file format" style="max-width:100%;"></a></p>
+<ol>
+<li>TableSchema class
+The TableSchema class does not store the table name, it is infered from the directory name(user_table).
+tableProperties is used to record table-related properties, such as: table_blocksize.</li>
+<li>ColumnSchema class
+Encoders are used to record the encoding used in column storage.
+columnProperties is used to record column related properties.</li>
+<li>BucketingInfo class
+When creating a bucket table, you can specify the number of buckets in the table and the column to splitbuckets.</li>
+<li>DataType class
+Describes the data types supported by CarbonData.</li>
+<li>Encoding class
+Several encodings that may be used in CarbonData files.</li>
+</ol>
+<h3>
+<a id="carbondata-file-format" class="anchor" href="#carbondata-file-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CarbonData file format</h3>
+<h4>
+<a id="file-header" class="anchor" href="#file-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>File Header</h4>
+<p>It contains CarbonData file version number, list of column schema and schema updation timestamp.</p>
+<p><a href="../docs/images/carbon_data_file_structure_new.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/carbon_data_file_structure_new.png?raw=true" alt="File Header" style="max-width:100%;"></a></p>
+<p>The carbondata file consists of multiple blocklets and footer parts. The blocklet is the dataset inside the carbondata file (the latest V3 format, the default configuration is 64MB), each blocklet contains a ColumnChunk for each column, and a ColumnChunk may contain one or more Column Pages.</p>
+<p>The carbondata file currently supports V1, V2 and V3 versions. The main difference is the change of the blocklet part, which is introduced one by one.</p>
+<h4>
+<a id="blocklet-format" class="anchor" href="#blocklet-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Blocklet format</h4>
+<h5>
+<a id="v1" class="anchor" href="#v1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>V1</h5>
+<p>Blocket consists of all column data pages, RLE pages, and rowID pages. Since the pages in the blocklet are grouped according to the page type, the three pieces of data of each column are distributed and stored in the blocklet, and the offset and length information of all the pages need to be recorded in the footer part.</p>
+<p><a href="../docs/images/2-3_1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-3_1.png?raw=true" alt="V1" style="max-width:100%;"></a></p>
+<h5>
+<a id="v2" class="anchor" href="#v2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>V2</h5>
+<p>The blocklet consists of ColumnChunk for all columns. The ColumnChunk for a column consists of a ColumnPage, which includes the data chunk header, data page, RLE page, and rowID page. Since ColumnChunk aggregates the three types of Page data of the column together, it can read the column data using fewer readers. Since the header part records the length information of all the pages, the footer part only needs to record the offset and length of the ColumnChunk, and also reduces the amount of footer data.</p>
+<p><a href="../docs/images/2-3_2.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-3_2.png?raw=true" alt="V2" style="max-width:100%;"></a></p>
+<h5>
+<a id="v3" class="anchor" href="#v3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>V3</h5>
+<p>The blocklet is also composed of ColumnChunks of all columns. What is changed is that a ColumnChunk consists of one or more Column Pages, and Column Page adds a new BlockletMinMaxIndex.</p>
+<p>Compared with V2: The blocklet data volume of V2 format defaults to 120,000 lines, and the blocklet data volume of V3 format defaults to 64MB. For the same size data file, the information of the footer part index metadata may be further reduced; meanwhile, the V3 format adds a new page. Level data filtering, and the amount of data per page is only 32,000 lines by default, which is much less than the 120,000 lines of V2 format. The accuracy of data filtering hits further, and more data can be filtered out before decompressing data.</p>
+<p><a href="../docs/images/2-3_3.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-3_3.png?raw=true" alt="V3" style="max-width:100%;"></a></p>
+<h4>
+<a id="footer-format" class="anchor" href="#footer-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Footer format</h4>
+<p>Footer records each carbondata, all blocklet data distribution information and statistical related metadata information (minmax, startkey/endkey) inside the file.</p>
+<p><a href="../docs/images/2-3_4.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-3_4.png?raw=true" alt="Footer format" style="max-width:100%;"></a></p>
+<ol>
+<li>BlockletInfo3 is used to record the offset and length of all ColumnChunk3.</li>
+<li>SegmentInfo is used to record the number of columns and the cardinality of each column.</li>
+<li>BlockletIndex includes BlockletMinMaxIndex and BlockletBTreeIndex.</li>
+</ol>
+<p>BlockletBTreeIndex is used to record the startkey/endkey of all blocklets in the block. When querying, the startkey/endkey of the query is generated by filtering conditions combined with.htmlkey. With BlocketBtreeIndex, the range of blocklets satisfying the conditions in each block can be delineated.</p>
+<p>BlockletMinMaxIndex is used to record the min/max value of all columns in the blocklet. By using the min/max check on the filter condition, you can skip the block/blocklet that does not satisfy the condition.</p>
+<h3>
+<a id="carbonindex-file-format" class="anchor" href="#carbonindex-file-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>carbonindex file format</h3>
+<p>Extract the BlockletIndex part of the footer part to generate the carbonindex file. Load data in batches, schedule as much as possible to control a node to start a task, each task generates multiple carbondata files and a carbonindex file. The carbonindex file records the index information of all the blocklets in all the carbondata files generated by the task.</p>
+<p>As shown in the figure, the index information corresponding to a block is recorded by a BlockIndex object, including carbondata filename, footer offset and BlockletIndex. The BlockIndex data volume is less than the footer. The file is directly used to build the index on the driver side when querying, without having to skip the footer part of the data volume of multiple data files.</p>
+<p><a href="../docs/images/2-4_1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-4_1.png?raw=true" alt="carbonindex file format" style="max-width:100%;"></a></p>
+<h3>
+<a id="dictionary-file-format" class="anchor" href="#dictionary-file-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dictionary file format</h3>
+<p>For each dictionary encoded column, a dictionary file is used to store the dictionary metadata for that column.</p>
+<ol>
+<li>dict file records the distinct value list of a column</li>
+</ol>
+<p>For the first time dataloading, the file is generated using a distinct value list of a column. The value in the file is unordered; the subsequent append is used. In the second step of dataloading (Data Convert Step), the dictionary code column will replace the true value of the data with the dictionary key.</p>
+<p><a href="../docs/images/2-5_1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-5_1.png?raw=true" alt="Dictionary file format" style="max-width:100%;"></a></p>
+<ol start="2">
+<li>dictmeta records the metadata description of the new distinct value of each dataloading</li>
+</ol>
+<p>The dictionary cache uses this information to incrementally flush the cache.</p>
+<p><a href="../docs/images/2-5_2.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-5_2.png?raw=true" alt="Dictionary Chunk" style="max-width:100%;"></a></p>
+<ol start="3">
+<li>sortindex records the result set of the key code of the dictionary code sorted by value.</li>
+</ol>
+<p>In dataLoading, if there is a new dictionary value, the sortindex file will be regenerated using all the dictionary codes.</p>
+<p>Filtering queries based on dictionary code columns need to convert the value filter filter to the key filter condition. Using the sortindex file, you can quickly construct an ordered value sequence to quickly find the key value corresponding to the value, thus speeding up the conversion process.</p>
+<p><a href="../docs/images/2-5_3.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-5_3.png?raw=true" alt="sortindex file format" style="max-width:100%;"></a></p>
+<h3>
+<a id="tablestatus-file-format" class="anchor" href="#tablestatus-file-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>tablestatus file format</h3>
+<p>Tablestatus records the segment-related information (in gson format) for each load and merge, including load time, load status, segment name, whether it was deleted, and the segment name incorporated. Regenerate the tablestatusfile after each load or merge.</p>
+<p><a href="../docs/images/2-6_1.png?raw=true" target="_blank" rel="noopener noreferrer"><img src="https://github.com/apache/carbondata/blob/master/docs/images/2-6_1.png?raw=true" alt="tablestatus file format" style="max-width:100%;"></a></p>
+<script>
+$(function() {
+  // Show selected style on nav item
+  $('.b-nav__docs').addClass('selected');
+
+  // Display docs subnav items
+  if (!$('.b-nav__docs').parent().hasClass('nav__item__with__subs--expanded')) {
+    $('.b-nav__docs').parent().toggleClass('nav__item__with__subs--expanded');
+  }
+});
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
