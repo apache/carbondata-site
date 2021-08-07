@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CarbonData</title>
+    <style>
+
+    </style>
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.scom/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-custom cd-navbar-wrapper">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                        class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="images/CarbonDataLogo.png" alt="CarbonData logo" title="CarbocnData logo"/>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse cd_navcontnt" id="navbar">
+                <ul class="nav navbar-nav navbar-right navlist-custom">
+                    <li><a href="index.html" class="hidden-xs"><i class="fa fa-home" aria-hidden="true"></i> </a>
+                    </li>
+                    <li><a href="index.html" class="hidden-lg hidden-md hidden-sm">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"> Download <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.1.1/"
+                                   target="_blank">Apache CarbonData 2.1.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.1.0/"
+                                   target="_blank">Apache CarbonData 2.1.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.1/"
+                                   target="_blank">Apache CarbonData 2.0.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/2.0.0/"
+                                   target="_blank">Apache CarbonData 2.0.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.1/"
+                                   target="_blank">Apache CarbonData 1.6.1</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.6.0/"
+                                   target="_blank">Apache CarbonData 1.6.0</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.4/"
+                                   target="_blank">Apache CarbonData 1.5.4</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.3/"
+                                   target="_blank">Apache CarbonData 1.5.3</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.2/"
+                                   target="_blank">Apache CarbonData 1.5.2</a></li>
+                            <li>
+                                <a href="https://dist.apache.org/repos/dist/release/carbondata/1.5.1/"
+                                   target="_blank">Apache CarbonData 1.5.1</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/Releases"
+                                   target="_blank">Release Archive</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="documentation.html" class="active">Documentation</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Community <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/how-to-contribute-to-apache-carbondata.md"
+                                   target="_blank">Contributing to CarbonData</a></li>
+                            <li>
+                                <a href="https://github.com/apache/carbondata/blob/master/docs/release-guide.md"
+                                   target="_blank">Release Guide</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/display/CARBONDATA/PMC+and+Committers+member+list"
+                                   target="_blank">Project PMC and Committers</a></li>
+                            <li>
+                                <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=66850609"
+                                   target="_blank">CarbonData Meetups</a></li>
+                            <li><a href="security.html">Apache CarbonData Security</a></li>
+                            <li><a href="https://issues.apache.org/jira/browse/CARBONDATA" target="_blank">Apache
+                                Jira</a></li>
+                            <li><a href="videogallery.html">CarbonData Videos </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="apache_link hidden-xs dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="http://www.apache.org/" class="hidden-lg hidden-md hidden-sm dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apache</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/" target="_blank">Apache Homepage</a></li>
+                            <li><a href="http://www.apache.org/licenses/" target="_blank">License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html"
+                                   target="_blank">Sponsorship</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html" target="_blank">Thanks</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/zh-cn/" id="switch_zh">中文</a>
+                    </li>
+                    <li>
+                        <a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div id="search-box">
+                <form method="get" action="http://www.google.com/search" target="_blank">
+                    <div class="search-block">
+                        <table border="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td style="width:80%">
+                                    <input type="text" name="q" size=" 5" maxlength="255" value=""
+                                           class="search-input"  placeholder="Search...."    required/>
+                                </td>
+                                <td style="width:20%">
+                                    <input type="submit" value="Search"/></td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:75%" colspan="2">
+                                    <input type="checkbox" name="sitesearch" value="carbondata.apache.org" checked/>
+                                    <span style=" position: relative; top: -3px;"> Only search for CarbonData</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header> <!-- end Header part -->
+
+<div class="fixed-padding"></div> <!--  top padding with fixde header  -->
+
+<section><!-- Dashboard nav -->
+    <div class="container-fluid q">
+        <div class="col-sm-12  col-md-12 maindashboard">
+            <div class="verticalnavbar">
+                <nav class="b-sticky-nav">
+                    <div class="nav-scroller">
+                        <div class="nav__inner">
+                            <a class="b-nav__intro nav__item" href="./introduction.html">introduction</a>
+                            <a class="b-nav__quickstart nav__item" href="./quick-start-guide.html">quick start</a>
+                            <a class="b-nav__uses nav__item" href="./usecases.html">use cases</a>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__docs nav__item nav__sub__anchor" href="./language-manual.html">Language Reference</a>
+                                <a class="nav__item nav__sub__item" href="./ddl-of-carbondata.html">DDL</a>
+                                <a class="nav__item nav__sub__item" href="./dml-of-carbondata.html">DML</a>
+                                <a class="nav__item nav__sub__item" href="./streaming-guide.html">Streaming</a>
+                                <a class="nav__item nav__sub__item" href="./configuration-parameters.html">Configuration</a>
+                                <a class="nav__item nav__sub__item" href="./index-developer-guide.html">Indexes</a>
+                                <a class="nav__item nav__sub__item" href="./supported-data-types-in-carbondata.html">Data Types</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__datamap nav__item nav__sub__anchor" href="./index-management.html">Index Managament</a>
+                                <a class="nav__item nav__sub__item" href="./bloomfilter-index-guide.html">Bloom Filter</a>
+                                <a class="nav__item nav__sub__item" href="./lucene-index-guide.html">Lucene</a>
+                                <a class="nav__item nav__sub__item" href="./secondary-index-guide.html">Secondary Index</a>
+                                <a class="nav__item nav__sub__item" href="../spatial-index-guide.html">Spatial Index</a>
+                                <a class="nav__item nav__sub__item" href="../mv-guide.html">MV</a>
+                            </div>
+
+                            <div class="nav__item nav__item__with__subs">
+                                <a class="b-nav__api nav__item nav__sub__anchor" href="./sdk-guide.html">API</a>
+                                <a class="nav__item nav__sub__item" href="./sdk-guide.html">Java SDK</a>
+                                <a class="nav__item nav__sub__item" href="./csdk-guide.html">C++ SDK</a>
+                            </div>
+
+                            <a class="b-nav__perf nav__item" href="./performance-tuning.html">Performance Tuning</a>
+                            <a class="b-nav__s3 nav__item" href="./s3-guide.html">S3 Storage</a>
+                            <a class="b-nav__indexserver nav__item" href="./index-server.html">Index Server</a>
+                            <a class="b-nav__prestodb nav__item" href="./prestodb-guide.html">PrestoDB Integration</a>
+                            <a class="b-nav__prestosql nav__item" href="./prestosql-guide.html">PrestoSQL Integration</a>
+                            <a class="b-nav__flink nav__item" href="./flink-integration-guide.html">Flink Integration</a>
+                            <a class="b-nav__scd nav__item" href="./scd-and-cdc-guide.html">SCD & CDC</a>
+                            <a class="b-nav__cleanfiles nav__item" href="./clean-files.html">CLEAN FILES</a>
+                            <a class="b-nav__faq nav__item" href="./faq.html">FAQ</a>
+                            <a class="b-nav__contri nav__item" href="./how-to-contribute-to-apache-carbondata.html">Contribute</a>
+                            <a class="b-nav__security nav__item" href="./security.html">Security</a>
+                            <a class="b-nav__release nav__item" href="./release-guide.html">Release Guide</a>
+                        </div>
+                    </div>
+                    <div class="navindicator">
+                        <div class="b-nav__intro navindicator__item"></div>
+                        <div class="b-nav__quickstart navindicator__item"></div>
+                        <div class="b-nav__uses navindicator__item"></div>
+                        <div class="b-nav__docs navindicator__item"></div>
+                        <div class="b-nav__datamap navindicator__item"></div>
+                        <div class="b-nav__api navindicator__item"></div>
+                        <div class="b-nav__perf navindicator__item"></div>
+                        <div class="b-nav__s3 navindicator__item"></div>
+                        <div class="b-nav__indexserver navindicator__item"></div>
+                        <div class="b-nav__prestodb navindicator__item"></div>
+                        <div class="b-nav__prestosql navindicator__item"></div>
+                        <div class="b-nav__flink navindicator__item"></div>
+                        <div class="b-nav__scd navindicator__item"></div>
+                        <div class="b-nav__cleanfiles navindicator__item"></div>
+                        <div class="b-nav__faq navindicator__item"></div>
+                        <div class="b-nav__contri navindicator__item"></div>
+                        <div class="b-nav__security navindicator__item"></div>
+                    </div>
+                </nav>
+            </div>
+            <div class="mdcontent">
+                <section>
+                    <div style="padding:10px 15px;">
+                        <div id="viewpage" name="viewpage">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-12">
+                                    <div>
+<h2>
+<a id="clean-files" class="anchor" href="#clean-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CLEAN FILES</h2>
+<p>Clean files command is used to remove the Compacted, Marked For Delete ,In Progress which are stale and partial(Segments which are missing from the table status file but their data is present)
+segments from the store.</p>
+<p>Clean Files Command</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME
+</code></pre>
+<p>The above clean files command will clean Marked For Delete and Compacted segments depending on <code>max.query.execution.time</code> (default 1 hr) and <code> carbon.trash.retention.days</code> (default 7 days). It will also delete the timestamp subdirectories from the trash folder after expiration day(default 7 day, can be configured)</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Clean files operation not supported on non transactional tables.</li>
+<li>Clean files operation not supported on tables with concurrent insert overwrite operation.</li>
+</ul>
+<h3>
+<a id="trash-folder" class="anchor" href="#trash-folder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TRASH FOLDER</h3>
+<p>Carbondata supports a Trash Folder which is used as a redundant folder where all stale(segments whose entry is not in tablestatus file) carbondata segments are moved to during clean files operation.
+This trash folder is mantained inside the table path and is a hidden folder(.Trash). The segments that are moved to the trash folder are mantained under a timestamp
+subfolder(each clean files operation is represented by a timestamp). This helps the user to list down segments in the trash folder by timestamp.  By default all the timestamp sub-directory have an expiration
+time of 7 days(since the timestamp it was created) and it can be configured by the user using the following carbon property. The supported values are between 0 and 365(both included.)</p>
+<pre><code>carbon.trash.retention.days = "Number of days"
+</code></pre>
+<p>Once the timestamp subdirectory is expired as per the configured expiration day value, that subdirectory is deleted from the trash folder in the subsequent clean files command.</p>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>In trash folder, the retention time is "carbon.trash.retention.days"</li>
+<li>Outside trash folder(Segment Directories in table path), the retention time is Max("carbon.trash.retention.days", "max.query.execution.time")</li>
+</ul>
+<h3>
+<a id="force-option" class="anchor" href="#force-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FORCE OPTION</h3>
+<p>The force option with clean files command deletes all the files and folders from the trash folder and delete the Marked for Delete and Compacted segments immediately. Since Clean Files operation with force option will delete data that can never be recovered, the force option by default is disabled. Clean files with force option is only allowed when the carbon property <code>carbon.clean.file.force.allowed</code> is set to true. The default value of this property is false.</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('force'='true')
+</code></pre>
+<h3>
+<a id="stale_inprogress-option" class="anchor" href="#stale_inprogress-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STALE_INPROGRESS OPTION</h3>
+<p>The stale_inprogress option deletes the stale Insert In Progress segments after the expiration of the property    <code>carbon.trash.retention.days</code></p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true')
+</code></pre>
+<p>The stale_inprogress option with force option will delete Marked for delete, Compacted and stale Insert In progress immediately. It will also empty  the trash folder immediately.</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true', 'force'='true')
+</code></pre>
+<h3>
+<a id="dry-run-option" class="anchor" href="#dry-run-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DRY RUN OPTION</h3>
+<p>Clean files also support a dry run option which will let the user know how much space will we freed
+during the actual clean files operation. The dry run operation will not delete any data but will just give
+size based statistics on the data which will be cleaned in clean files. Dry run operation will return two columns where the first will
+show how much space will be freed by that clean files operation and the second column will show the
+remaining stale data(data which can be deleted but has not yet expired as per the <code>max.query.execution.time</code> and <code> carbon.trash.retention.days</code> values
+).  By default the value of <code>dryrun</code> option is <code>false</code>.</p>
+<p>Dry Run Operation is supported with four types of commands:</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('dryrun'='true')
+</code></pre>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('force'='true', 'dryrun'='true')
+</code></pre>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true','dryrun'='true')
+</code></pre>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('stale_inprogress'='true', 'force'='true','dryrun'='true')
+</code></pre>
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li>Since the dry run operation will calculate size and will access File level API's, the operation can
+be a costly and a time consuming operation in case of tables with large number of segments.</li>
+<li>When dry run is true, the statistics option will not matter.</li>
+</ul>
+<h3>
+<a id="show-statistics" class="anchor" href="#show-statistics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SHOW STATISTICS</h3>
+<p>Clean files operation tells how much size is freed during that operation to the user.  By default, the clean files operation
+will show the size freed statistics. Since calculating and showing statistics can be a costly operation and reduce the performance of the
+clean files operation, the user can disable that option by using <code>statistics = false</code> in the clean files options.</p>
+<pre><code>CLEAN FILES FOR TABLE TABLE_NAME options('statistics'='false')
+</code></pre>
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__cleanfiles').addClass('selected'); });
+</script></div>
+</div>
+</div>
+</div>
+<div class="doc-footer">
+    <a href="#top" class="scroll-top">Top</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section><!-- End systemblock part -->
+<script src="js/custom.js"></script>
+</body>
+</html>
