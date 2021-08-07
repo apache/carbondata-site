@@ -358,7 +358,7 @@ GROUP BY city;
 <p>Start Spark shell by running the following command in the Spark directory:</p>
 <pre><code>./bin/spark-shell --jars &lt;carbondata assembly jar path&gt;
 </code></pre>
-<p><strong>NOTE</strong>: Path where packaged release of CarbonData was downloaded or assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.html" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code></p>
+<p><strong>NOTE</strong>: Path where packaged release of CarbonData was downloaded or assembly jar will be available after <a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>building CarbonData</a> and can be copied from <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code></p>
 <p>In this shell, SparkSession is readily available as <code>spark</code> and Spark context is readily available as <code>sc</code>.</p>
 <p>In order to create a CarbonSession we will have to configure it explicitly in the following manner :</p>
 <ul>
@@ -476,7 +476,7 @@ carbon.sql(
 <a id="procedure" class="anchor" href="#procedure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Procedure</h3>
 <ol>
 <li>
-<p><a href="https://github.com/apache/carbondata/blob/master/build/README.html" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code>.</p>
+<p><a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code>.</p>
 </li>
 <li>
 <p>Copy <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code> to <code>$SPARK_HOME/carbonlib</code> folder.</p>
@@ -544,7 +544,7 @@ carbon.sql(
 <p>The following steps are only for Driver Nodes. (Driver nodes are the one which starts the spark context.)</p>
 <ol>
 <li>
-<p><a href="https://github.com/apache/carbondata/blob/master/build/README.html" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
+<p><a href="https://github.com/apache/carbondata/blob/master/build/README.md" target=_blank>Build the CarbonData</a> project and get the assembly jar from <code>./assembly/target/scala-2.1x/apache-carbondata_xxx.jar</code> and copy to <code>$SPARK_HOME/carbonlib</code> folder.</p>
 <p><strong>NOTE</strong>: Create the carbonlib folder if it does not exists inside <code>$SPARK_HOME</code> path.</p>
 </li>
 <li>
