@@ -25,7 +25,7 @@ releaseMap.set("2.3.0", ["3.1.1", "2.4.5", "2.3.4"])
 releaseMap.set("2.2.0", ["3.1.1", "2.4.5", "2.3.4"])
 releaseMap.set("2.1.1", ["2.4.5", "2.3.4"])
 releaseMap.set("2.0.1", ["2.4.5", "2.3.4"])
-releaseMap.set("1.6.0", ["2.4.5", "2.3.4"])
+releaseMap.set("1.6.0", ["2.1.0", "2.2.1", "2.3.2"])
 
 var selectedRelease = "2.3.0"
 var selectedPackage = ""
