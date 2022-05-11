@@ -272,15 +272,12 @@
 <p><a href="#partition">PARTITION</a></p>
 <ul>
 <li>
-<a href="#standard-partition">STANDARD PARTITION(HIVE)</a>
-<ul>
-<li><a href="#insert-overwrite">INSERT OVERWRITE PARTITION</a></li>
-</ul>
 </li>
+<li><a href="#create-partition-table">CREATE PARTITIONS</a></li>
 <li><a href="#show-partitions">SHOW PARTITIONS</a></li>
-<li><a href="#add-a-new-partition">ADD PARTITION</a></li>
-<li><a href="#split-a-partition">SPLIT PARTITION</a></li>
-<li><a href="#drop-a-partition">DROP PARTITION</a></li>
+<li><a href="#add-partition">ADD PARTITION</a></li>
+<li><a href="#drop-partition">DROP PARTITION</a></li>
+<li><a href="#insert-overwrite">INSERT OVERWRITE PARTITION</a></li>
 </ul>
 </li>
 <li>
@@ -1118,8 +1115,6 @@ STORED AS carbondata
 </code></pre>
 <h2>
 <a id="partition" class="anchor" href="#partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PARTITION</h2>
-<h3>
-<a id="standard-partition" class="anchor" href="#standard-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STANDARD PARTITION</h3>
 <p>The partition is similar as spark and hive partition, user can use any column to build partition:</p>
 <h4>
 <a id="create-partition-table" class="anchor" href="#create-partition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Partition Table</h4>
@@ -1143,14 +1138,20 @@ PARTITIONED BY (productCategory STRING, productBatch STRING)
 STORED AS carbondata
 </code></pre>
 <p><strong>NOTE:</strong> Hive partition is not supported on complex data type columns.</p>
+</code></pre>
 <h4>
 <a id="show-partitions" class="anchor" href="#show-partitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h4>
 <p>This command gets the Hive partition information of the table</p>
 <pre><code>SHOW PARTITIONS [db_name.]table_name
 </code></pre>
 <h4>
+<a id="add-partition" class="anchor" href="#add-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add partition</h4>
+<p>This command adds the specified Hive partition</p>
+<pre><code>ALTER TABLE [db_name].table_name ADD PARTITION('new_partition')
+</code></pre>
+<h4>
 <a id="drop-partition" class="anchor" href="#drop-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop Partition</h4>
-<p>This command drops the specified Hive partition only.</p>
+<p>This command drops the specified Hive partition.</p>
 <pre><code>ALTER TABLE table_name DROP [IF EXISTS] PARTITION (part_spec, ...)
 </code></pre>
 <p>Example:</p>
@@ -1169,42 +1170,6 @@ PARTITION (country = 'US')
 SELECT * FROM another_user au 
 WHERE au.country = 'US';
 </code></pre>
-<h3>
-<a id="show-partitions-1" class="anchor" href="#show-partitions-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Partitions</h3>
-<p>The following command is executed to get the partition information of the table</p>
-<pre><code>SHOW PARTITIONS [db_name.]table_name
-</code></pre>
-<h3>
-<a id="add-a-new-partition" class="anchor" href="#add-a-new-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a new partition</h3>
-<pre><code>ALTER TABLE [db_name].table_name ADD PARTITION('new_partition')
-</code></pre>
-<h3>
-<a id="split-a-partition" class="anchor" href="#split-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Split a partition</h3>
-<pre><code>ALTER TABLE [db_name].table_name SPLIT PARTITION(partition_id) INTO('new_partition1', 'new_partition2'...)
-</code></pre>
-<h3>
-<a id="drop-a-partition" class="anchor" href="#drop-a-partition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop a partition</h3>
-<p>Only drop partition definition, but keep data</p>
-<pre><code>ALTER TABLE [db_name].table_name DROP PARTITION(partition_id)
-</code></pre>
-<p>Drop both partition definition and data</p>
-<pre><code>ALTER TABLE [db_name].table_name DROP PARTITION(partition_id) WITH DATA
-</code></pre>
-<p><strong>NOTE:</strong></p>
-<ul>
-<li>Hash partition table is not supported for ADD, SPLIT and DROP commands.</li>
-<li>Partition Id: in CarbonData like the hive, folders are not used to divide partitions instead partition id is used to replace the task id. It could make use of the characteristic and meanwhile reduce some metadata.</li>
-</ul>
-<pre><code>SegmentDir/0_batchno0-0-1502703086921.carbonindex
-          ^
-SegmentDir/part-0-0_batchno0-0-1502703086921.carbondata
-                   ^
-</code></pre>
-<p>Here are some useful tips to improve query performance of carbonData partition table:</p>
-<ul>
-<li>The partitioned column can be excluded from SORT_COLUMNS, this will let other columns to do the efficient sorting.</li>
-<li>When writing SQL on a partition table, try to use filters on the partition column.</li>
-</ul>
 <h2>
 <a id="bucketing" class="anchor" href="#bucketing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BUCKETING</h2>
 <p>Bucketing feature can be used to distribute/organize the table/partition data into multiple files such
